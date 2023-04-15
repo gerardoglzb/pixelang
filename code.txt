@@ -1,0 +1,16 @@
+program test;
+
+var x, y, z: int; a: float;
+
+{
+    x = 1;
+    y = 2;
+    z = x + y;
+    a = 3.5;
+
+    if (x > 3) {
+        print("Hi", z);
+    } else {
+        print("Bye", a);
+    };
+}
