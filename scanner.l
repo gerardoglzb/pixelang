@@ -26,25 +26,25 @@ int lineas = 1;
 "function"                      { return FUNCTION; }
 "return"                        { return RETURN; }
 
-"+"                             { return SUMA; }
-"-"                             { return RESTA; }
+"+"                             { return ADDITION; }
+"-"                             { return SUBSTRACTION; }
 "*"                             { return MULTI; }
 "/"                             { return DIV; }
-"<"                             { return MENOR_QUE; }
-">"                             { return MAYOR_QUE; }
-"<>"                            { return NO_IGUAL; }
-"="                             { return IGUAL; }
+"<"                             { return LESS_THAN; }
+">"                             { return MORE_THAN; }
+"<>"                            { return NOT_EQUAL; }
+"="                             { return EQUAL; }
 "+="                            { return PLUS; }
 "-="                            { return MINUS; }
-"("                             { return PAR_IZQ; }
-")"                             { return PAR_DER; }
-"{"                             { return LLAVE_IZQ; }
-"}"                             { return LLAVE_DER; }
-"["                             { return CORCH_IZQ; }
-"]"                             { return CORCH_DER; }
-":"                             { return DOS_PUNTOS; }
-";"                             { return PUNTO_COMA; }
-","                             { return COMA; }
+"("                             { return LEFT_PAR; }
+")"                             { return RIGHT_PAR; }
+"{"                             { return LEFT_CURLY; }
+"}"                             { return RIGHT_CURLY; }
+"["                             { return LEFT_BRACK; }
+"]"                             { return RIGHT_BRACK; }
+":"                             { return COLON; }
+";"                             { return SEMICOLON; }
+","                             { return COMMA; }
 
 [\n]                            { lineas++; }
 [ \t\r]                         { ; }

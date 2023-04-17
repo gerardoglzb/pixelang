@@ -40,31 +40,31 @@
 %token FUNCTION
 %token RETURN
 
-%token SUMA
-%token RESTA
+%token ADDITION
+%token SUBSTRACTION
 %token MULTI
 %token DIV
-%token MENOR_QUE
-%token MAYOR_QUE
-%token NO_IGUAL
-%token IGUAL
+%token LESS_THAN
+%token MORE_THAN
+%token NOT_EQUAL
+%token EQUAL
 %token PLUS
 %token MINUS
 
-%token PAR_IZQ
-%token PAR_DER
-%token LLAVE_IZQ
-%token LLAVE_DER
-%token CORCH_IZQ
-%token CORCH_DER
-%token DOS_PUNTOS
-%token PUNTO_COMA
-%token COMA
+%token LEFT_PAR
+%token RIGHT_PAR
+%token LEFT_CURLY
+%token RIGHT_CURLY
+%token LEFT_BRACK
+%token RIGHT_BRACK
+%token COLON
+%token SEMICOLON
+%token COMMA
 
 %%
 
 program : 
-    PROGRAM ID PUNTO_COMA program_1 block {printf("Valid syntax.\n");} ;
+    PROGRAM ID SEMICOLON program_1 block {printf("Valid syntax.\n");} ;
 program_1 :
     vars
     | ;
@@ -72,14 +72,14 @@ program_1 :
 vars :
     VAR vars_1;
 vars_1 :
-    vars_2 DOS_PUNTOS type PUNTO_COMA vars3;
+    vars_2 COLON type SEMICOLON vars3;
 vars_2 :
     ID vars_4;
 vars3 :
     vars_1
     | ;
 vars_4 :
-    COMA vars_2
+    COMMA vars_2
     | ;
 
 type : 
@@ -87,7 +87,7 @@ type :
     | FLOAT;
 
 block :
-    LLAVE_IZQ block_1 LLAVE_DER;
+    LEFT_CURLY block_1 RIGHT_CURLY;
 block_1 :
     statement block_1
     | ;
@@ -102,27 +102,27 @@ statement :
     | returns;
 
 assignment :
-    ID IGUAL expression PUNTO_COMA;
+    ID EQUAL expression SEMICOLON;
 
 expression :
     exp expression_1;
 expression_1 :
-    MAYOR_QUE exp
-    | MENOR_QUE exp
-    | NO_IGUAL exp
+    MORE_THAN exp
+    | LESS_THAN exp
+    | NOT_EQUAL exp
     | ;
 
 printing :
-    PRINT PAR_IZQ printing_1 PAR_DER PUNTO_COMA;
+    PRINT LEFT_PAR printing_1 RIGHT_PAR SEMICOLON;
 printing_1 :
     expression printing_2
     | CTE_STRING printing_2;
 printing_2 :
-    COMA printing_1
+    COMMA printing_1
     | ;
 
 condition :
-    IF PAR_IZQ expression PAR_DER block condition_1 PUNTO_COMA;
+    IF LEFT_PAR expression RIGHT_PAR block condition_1 SEMICOLON;
 condition_1 :
     ELSE block
     | ;
@@ -130,8 +130,8 @@ condition_1 :
 exp :
     term exp_1;
 exp_1 :
-    SUMA exp
-    | RESTA exp
+    ADDITION exp
+    | SUBSTRACTION exp
     | ;
 
 term :
@@ -144,11 +144,11 @@ term_1 :
 factor :
     factor_1;
 factor_1 :
-    PAR_IZQ expression PAR_DER
+    LEFT_PAR expression RIGHT_PAR
     | factor_2 var_cte;
 factor_2 :
-    SUMA
-    | RESTA
+    ADDITION
+    | SUBSTRACTION
     | ;
 
 var_cte :
@@ -157,10 +157,10 @@ var_cte :
     | CTE_FLOAT;
 
 for_each :
-    FOREACH PAR_IZQ ID IN ID PAR_DER;
+    FOREACH LEFT_PAR ID IN ID RIGHT_PAR;
 
 for_loop :
-    FOR PAR_IZQ for_loop_2 MENOR_QUE for_loop_2 PAR_DER;
+    FOR LEFT_PAR for_loop_2 LESS_THAN for_loop_2 RIGHT_PAR;
 for_loop_2 :
     CTE_INT
     | ID;
@@ -172,28 +172,28 @@ cycle_2 :
     | for_each;
 
 params :
-    ID DOS_PUNTOS params_2 params_3;
+    ID COLON params_2 params_3;
 params_2 :
     type
-    | CORCH_IZQ type CORCH_DER;
+    | LEFT_CURLY type RIGHT_CURLY;
 params_3 :
-    COMA params
+    COMMA params
     | ;
 
 function :
-    FUNCTION ID PAR_IZQ function_2 PAR_DER block PUNTO_COMA;
+    FUNCTION ID LEFT_PAR function_2 RIGHT_PAR block SEMICOLON;
 function_2 :
     params
     | ;
 
 increment :
-    ID increment_2 exp PUNTO_COMA;
+    ID increment_2 exp SEMICOLON;
 increment_2 :
     PLUS
     | MINUS;
 
 returns :
-    RETURN returns_1 PUNTO_COMA;
+    RETURN returns_1 SEMICOLON;
 returns_1 :
     exp
     | ;

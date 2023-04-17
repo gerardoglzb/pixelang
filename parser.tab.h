@@ -57,25 +57,25 @@
      END = 273,
      FUNCTION = 274,
      RETURN = 275,
-     SUMA = 276,
-     RESTA = 277,
+     ADDITION = 276,
+     SUBSTRACTION = 277,
      MULTI = 278,
      DIV = 279,
-     MENOR_QUE = 280,
-     MAYOR_QUE = 281,
-     NO_IGUAL = 282,
-     IGUAL = 283,
+     LESS_THAN = 280,
+     MORE_THAN = 281,
+     NOT_EQUAL = 282,
+     EQUAL = 283,
      PLUS = 284,
      MINUS = 285,
-     PAR_IZQ = 286,
-     PAR_DER = 287,
-     LLAVE_IZQ = 288,
-     LLAVE_DER = 289,
-     CORCH_IZQ = 290,
-     CORCH_DER = 291,
-     DOS_PUNTOS = 292,
-     PUNTO_COMA = 293,
-     COMA = 294
+     LEFT_PAR = 286,
+     RIGHT_PAR = 287,
+     LEFT_CURLY = 288,
+     RIGHT_CURLY = 289,
+     LEFT_BRACK = 290,
+     RIGHT_BRACK = 291,
+     COLON = 292,
+     SEMICOLON = 293,
+     COMMA = 294
    };
 #endif
 /* Tokens.  */
@@ -97,25 +97,25 @@
 #define END 273
 #define FUNCTION 274
 #define RETURN 275
-#define SUMA 276
-#define RESTA 277
+#define ADDITION 276
+#define SUBSTRACTION 277
 #define MULTI 278
 #define DIV 279
-#define MENOR_QUE 280
-#define MAYOR_QUE 281
-#define NO_IGUAL 282
-#define IGUAL 283
+#define LESS_THAN 280
+#define MORE_THAN 281
+#define NOT_EQUAL 282
+#define EQUAL 283
 #define PLUS 284
 #define MINUS 285
-#define PAR_IZQ 286
-#define PAR_DER 287
-#define LLAVE_IZQ 288
-#define LLAVE_DER 289
-#define CORCH_IZQ 290
-#define CORCH_DER 291
-#define DOS_PUNTOS 292
-#define PUNTO_COMA 293
-#define COMA 294
+#define LEFT_PAR 286
+#define RIGHT_PAR 287
+#define LEFT_CURLY 288
+#define RIGHT_CURLY 289
+#define LEFT_BRACK 290
+#define RIGHT_BRACK 291
+#define COLON 292
+#define SEMICOLON 293
+#define COMMA 294
 
 
 

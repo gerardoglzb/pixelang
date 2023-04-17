@@ -875,12 +875,12 @@ YY_RULE_SETUP
 case 15:
 YY_RULE_SETUP
 #line 29 "scanner.l"
-{ return SUMA; }
+{ return ADDITION; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 30 "scanner.l"
-{ return RESTA; }
+{ return SUBSTRACTION; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
@@ -895,22 +895,22 @@ YY_RULE_SETUP
 case 19:
 YY_RULE_SETUP
 #line 33 "scanner.l"
-{ return MENOR_QUE; }
+{ return LESS_THAN; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 34 "scanner.l"
-{ return MAYOR_QUE; }
+{ return MORE_THAN; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 35 "scanner.l"
-{ return NO_IGUAL; }
+{ return NOT_EQUAL; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 36 "scanner.l"
-{ return IGUAL; }
+{ return EQUAL; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
@@ -925,47 +925,47 @@ YY_RULE_SETUP
 case 25:
 YY_RULE_SETUP
 #line 39 "scanner.l"
-{ return PAR_IZQ; }
+{ return LEFT_PAR; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 40 "scanner.l"
-{ return PAR_DER; }
+{ return RIGHT_PAR; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 41 "scanner.l"
-{ return LLAVE_IZQ; }
+{ return LEFT_CURLY; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 42 "scanner.l"
-{ return LLAVE_DER; }
+{ return RIGHT_CURLY; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 43 "scanner.l"
-{ return CORCH_IZQ; }
+{ return LEFT_BRACK; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 44 "scanner.l"
-{ return CORCH_DER; }
+{ return RIGHT_BRACK; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 45 "scanner.l"
-{ return DOS_PUNTOS; }
+{ return COLON; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 46 "scanner.l"
-{ return PUNTO_COMA; }
+{ return SEMICOLON; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 47 "scanner.l"
-{ return COMA; }
+{ return COMMA; }
 	YY_BREAK
 case 34:
 /* rule 34 can match eol */
