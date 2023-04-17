@@ -18,7 +18,7 @@
     float fval;
 }
 
-%start programa
+%start program
 
 %token <ival> CTE_INT
 %token <fval> CTE_FLOAT
@@ -32,6 +32,13 @@
 %token IF
 %token ELSE
 %token PRINT
+%token FOREACH
+%token IN
+%token FOR
+%token DO
+%token END
+%token FUNCTION
+%token RETURN
 
 %token SUMA
 %token RESTA
@@ -41,27 +48,31 @@
 %token MAYOR_QUE
 %token NO_IGUAL
 %token IGUAL
+%token PLUS
+%token MINUS
 
 %token PAR_IZQ
 %token PAR_DER
 %token LLAVE_IZQ
 %token LLAVE_DER
+%token CORCH_IZQ
+%token CORCH_DER
 %token DOS_PUNTOS
 %token PUNTO_COMA
 %token COMA
 
 %%
 
-programa : 
-    PROGRAM ID PUNTO_COMA programa_1 bloque {printf("Valid syntax.\n");} ;
-programa_1 : 
+program : 
+    PROGRAM ID PUNTO_COMA program_1 block {printf("Valid syntax.\n");} ;
+program_1 :
     vars
     | ;
 
-vars : 
+vars :
     VAR vars_1;
-vars_1 : 
-    vars_2 DOS_PUNTOS tipo PUNTO_COMA vars3;
+vars_1 :
+    vars_2 DOS_PUNTOS type PUNTO_COMA vars3;
 vars_2 :
     ID vars_4;
 vars3 :
@@ -71,65 +82,69 @@ vars_4 :
     COMA vars_2
     | ;
 
-tipo : 
+type : 
     INT 
     | FLOAT;
 
-bloque :
-    LLAVE_IZQ bloque_1 LLAVE_DER;
-bloque_1 :
-    estatuto bloque_1
+block :
+    LLAVE_IZQ block_1 LLAVE_DER;
+block_1 :
+    statement block_1
     | ;
 
-estatuto :
-    asignacion
-    | condicion
-    | escritura;
+statement :
+    assignment
+    | condition
+    | printing
+    | function
+    | cycle
+    | increment
+    | returns;
 
-asignacion :
-    ID IGUAL expresion PUNTO_COMA;
+assignment :
+    ID IGUAL expression PUNTO_COMA;
 
-expresion :
-    exp expresion_1;
-expresion_1 :
+expression :
+    exp expression_1;
+expression_1 :
     MAYOR_QUE exp
     | MENOR_QUE exp
     | NO_IGUAL exp
     | ;
 
-escritura :
-    PRINT PAR_IZQ escritura_1 PAR_DER PUNTO_COMA;
-escritura_1 :
-    expresion escritura_2
-    | CTE_STRING escritura_2;
-escritura_2 :
-    COMA escritura_1
+printing :
+    PRINT PAR_IZQ printing_1 PAR_DER PUNTO_COMA;
+printing_1 :
+    expression printing_2
+    | CTE_STRING printing_2;
+printing_2 :
+    COMA printing_1
     | ;
 
-condicion :
-    IF PAR_IZQ expresion PAR_DER bloque condicion_1 PUNTO_COMA;
-condicion_1 :
-    ELSE bloque
+condition :
+    IF PAR_IZQ expression PAR_DER block condition_1 PUNTO_COMA;
+condition_1 :
+    ELSE block
     | ;
 
 exp :
-    termino exp_1;
+    term exp_1;
 exp_1 :
     SUMA exp
     | RESTA exp
     | ;
 
-termino :
-    factor termino_1;
-termino_1 :
-    MULTI termino
-    | DIV termino
+term :
+    factor term_1;
+term_1 :
+    MULTI term
+    | DIV term
     | ;
 
 factor :
     factor_1;
 factor_1 :
-    PAR_IZQ expresion PAR_DER
+    PAR_IZQ expression PAR_DER
     | factor_2 var_cte;
 factor_2 :
     SUMA
@@ -140,6 +155,48 @@ var_cte :
     ID
     | CTE_INT
     | CTE_FLOAT;
+
+for_each :
+    FOREACH PAR_IZQ ID IN ID PAR_DER;
+
+for_loop :
+    FOR PAR_IZQ for_loop_2 MENOR_QUE for_loop_2 PAR_DER;
+for_loop_2 :
+    CTE_INT
+    | ID;
+
+cycle :
+    cycle_2 DO statement END;
+cycle_2 :
+    for_loop
+    | for_each;
+
+params :
+    ID DOS_PUNTOS params_2 params_3;
+params_2 :
+    type
+    | CORCH_IZQ type CORCH_DER;
+params_3 :
+    COMA params
+    | ;
+
+function :
+    FUNCTION ID PAR_IZQ function_2 PAR_DER block PUNTO_COMA;
+function_2 :
+    params
+    | ;
+
+increment :
+    ID increment_2 exp PUNTO_COMA;
+increment_2 :
+    PLUS
+    | MINUS;
+
+returns :
+    RETURN returns_1 PUNTO_COMA;
+returns_1 :
+    exp
+    | ;
 
 %%
 

@@ -7,10 +7,16 @@ var x, y, z: int; a: float;
     y = 2;
     z = x + y;
     a = 3.5;
+    #hey
 
     if (x > 3) {
         print("Hi", z);
     } else {
         print("Bye", a);
+    };
+
+    function myfun() {
+        print("Hi", z);
+        return 4;
     };
 }
