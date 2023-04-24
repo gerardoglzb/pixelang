@@ -30,7 +30,6 @@
 %token VAR
 %token INT
 %token FLOAT
-%token CHAR
 %token IF
 %token ELSE
 %token PRINT
@@ -89,11 +88,11 @@ functions :
     | ;
 
 function :
-    FUNCTION ID LEFT_PAR params RIGHT_PAR COLON type function_2
-    | FUNCTION ID LEFT_PAR params RIGHT_PAR COLON VOID function_2 ;
+    FUNCTION ID LEFT_PAR params RIGHT_PAR COLON function_2 LEFT_CURLY vars statements returns RIGHT_CURLY ;
 
 function_2 :
-    LEFT_CURLY vars statements returns RIGHT_CURLY ;
+    type
+    | VOID ;
 
 returns :
     RETURN LEFT_PAR expression RIGHT_PAR SEMICOLON
@@ -104,8 +103,7 @@ block :
 
 type :
     INT
-    | FLOAT
-    | CHAR ;
+    | FLOAT ;
 
 params :
     ID COLON type LEFT_BRACK RIGHT_BRACK COMMA params
