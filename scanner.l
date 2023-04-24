@@ -1,12 +1,16 @@
 %{
 
 #include <iostream>
+#include "table.hh"
+#include <unordered_map>
 using namespace std;
 
 #include "parser.tab.h"
 #define YY_DECL extern "C" int yylex()
 
 int lineas = 1;
+
+unordered_map<string, Symbol> symbol_table;
 
 %}
 %%
@@ -50,7 +54,17 @@ int lineas = 1;
 
 [\n]                            { lineas++; }
 [ \t\r]                         { ; }
-[a-zA-Z](_?([a-zA-Z]|[0-9]))*   { yylval.sval = strdup(yytext); return ID; }
+[a-zA-Z](_?([a-zA-Z]|[0-9]))*   {
+                                    if (symbol_table.find(yytext) == symbol_table.end()) {
+                                        Symbol newSymbol;
+                                        newSymbol.name = yytext;
+                                        newSymbol.val = 0;
+                                        symbol_table[yytext] = newSymbol;
+                                    }
+
+                                    yylval.sval = strdup(yytext);
+                                    return ID;
+                                }
 [0-9]+                          { yylval.ival = atoi(yytext); return CTE_INT; }
 [0-9]+\.[0-9]+                  { yylval.fval = atof(yytext); return CTE_FLOAT; }
 \"(\\.|[^\\"])*\"               { yylval.sval = strdup(yytext); return CTE_STRING; }

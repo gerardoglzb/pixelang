@@ -1,5 +1,7 @@
 %{
     #include <iostream>
+    #include <unordered_map>
+    #include "table.hh"
     using namespace std;
 
     extern "C" FILE *yyin;
@@ -8,6 +10,7 @@
     extern "C" int yyparse();
 
     extern "C" int lineas;
+    extern "C" unordered_map<string, Symbol> symbol_table;
      
     void yyerror(const char *s);
 %}
@@ -66,7 +69,7 @@
 %%
 
 program : 
-    PROGRAM ID SEMICOLON vars functions main {printf("Valid syntax.\n");} ;
+    PROGRAM ID SEMICOLON vars functions main { printf("Valid syntax.\n"); } ;
 
 main :
     MAIN LEFT_PAR RIGHT_PAR LEFT_CURLY statements RIGHT_CURLY ;
@@ -185,12 +188,10 @@ statement :
     | ;
 
 assignment :
-    ID assignment_2
-    | ID LEFT_BRACK index RIGHT_BRACK assignment_2 ;
-
-assignment_2 :
-    EQUAL call
-    | EQUAL expression SEMICOLON ;
+    ID EQUAL call
+    | ID LEFT_BRACK index RIGHT_BRACK EQUAL call
+    | ID EQUAL expression SEMICOLON { symbol_table[$1].val = 3; } ;
+    | ID LEFT_BRACK index RIGHT_BRACK EQUAL expression SEMICOLON ;
 
 call :
     ID LEFT_PAR call2 RIGHT_PAR SEMICOLON ;
@@ -211,7 +212,7 @@ printing_2 :
 
 printing_3 :
     expression
-    | CTE_STRING ;
+    | CTE_STRING { cout << $1 << endl; };
 
 decision :
     IF LEFT_PAR expression RIGHT_PAR block ELSE block
