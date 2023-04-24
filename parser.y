@@ -26,19 +26,21 @@
 %token <sval> ID
 
 %token PROGRAM
+%token MAIN
 %token VAR
 %token INT
 %token FLOAT
+%token CHAR
 %token IF
 %token ELSE
 %token PRINT
-%token FOREACH
-%token IN
 %token FOR
 %token DO
-%token END
+%token WHILE
+%token TO
 %token FUNCTION
 %token RETURN
+%token VOID
 
 %token ADDITION
 %token SUBSTRACTION
@@ -48,8 +50,9 @@
 %token MORE_THAN
 %token NOT_EQUAL
 %token EQUAL
-%token PLUS
-%token MINUS
+%token EQUAL_TO
+%token AND
+%token OR
 
 %token LEFT_PAR
 %token RIGHT_PAR
@@ -64,139 +67,167 @@
 %%
 
 program : 
-    PROGRAM ID SEMICOLON program_1 block {printf("Valid syntax.\n");} ;
-program_1 :
-    vars
-    | ;
+    PROGRAM ID SEMICOLON vars functions main {printf("Valid syntax.\n");} ;
+
+main :
+    MAIN LEFT_PAR RIGHT_PAR LEFT_CURLY statements RIGHT_CURLY ;
 
 vars :
-    VAR vars_1;
-vars_1 :
-    vars_2 COLON type SEMICOLON vars3;
-vars_2 :
-    ID vars_4;
-vars3 :
-    vars_1
-    | ;
-vars_4 :
-    COMMA vars_2
+    VAR var vars
     | ;
 
-type : 
-    INT 
-    | FLOAT;
+var :
+    var_2 COLON type SEMICOLON
+    | var_2 COLON type LEFT_BRACK CTE_INT RIGHT_BRACK SEMICOLON ;
+
+var_2 :
+    ID
+    | ID COMMA var_2 ;
+
+functions :
+    function functions
+    | ;
+
+function :
+    FUNCTION ID LEFT_PAR params RIGHT_PAR COLON type function_2
+    | FUNCTION ID LEFT_PAR params RIGHT_PAR COLON VOID function_2 ;
+
+function_2 :
+    LEFT_CURLY vars statements returns RIGHT_CURLY ;
+
+returns :
+    RETURN LEFT_PAR expression RIGHT_PAR SEMICOLON
+    | RETURN SEMICOLON ;
 
 block :
-    LEFT_CURLY block_1 RIGHT_CURLY;
-block_1 :
-    statement block_1
+    LEFT_CURLY vars statements RIGHT_CURLY ;
+
+type :
+    INT
+    | FLOAT
+    | CHAR ;
+
+params :
+    ID COLON type LEFT_BRACK RIGHT_BRACK COMMA params
+    | ID COLON type COMMA params
+    | ID COLON type LEFT_BRACK RIGHT_BRACK
+    | ID COLON type
     | ;
-
-statement :
-    assignment
-    | condition
-    | printing
-    | function
-    | cycle
-    | increment
-    | returns;
-
-assignment :
-    ID EQUAL expression SEMICOLON;
 
 expression :
-    exp expression_1;
-expression_1 :
-    MORE_THAN exp
-    | LESS_THAN exp
-    | NOT_EQUAL exp
+    comp expression2 comp 
+    | comp ;
+
+expression2 : 
+    AND
+    | OR
     | ;
 
-printing :
-    PRINT LEFT_PAR printing_1 RIGHT_PAR SEMICOLON;
-printing_1 :
-    expression printing_2
-    | CTE_STRING printing_2;
-printing_2 :
-    COMMA printing_1
-    | ;
+comp :
+    exp comp2 exp 
+    | exp ;
 
-condition :
-    IF LEFT_PAR expression RIGHT_PAR block condition_1 SEMICOLON;
-condition_1 :
-    ELSE block
-    | ;
+comp2 :
+    MORE_THAN
+    | LESS_THAN
+    | EQUAL_TO
+    | NOT_EQUAL ;
 
 exp :
-    term exp_1;
-exp_1 :
+    term exp2 ;
+
+exp2 :
     ADDITION exp
     | SUBSTRACTION exp
     | ;
 
 term :
-    factor term_1;
-term_1 :
+    factor term2 ;
+
+term2 :
     MULTI term
     | DIV term
     | ;
 
 factor :
-    factor_1;
-factor_1 :
     LEFT_PAR expression RIGHT_PAR
-    | factor_2 var_cte;
-factor_2 :
-    ADDITION
-    | SUBSTRACTION
+    | ADDITION var_cte
+    | SUBSTRACTION var_cte 
+    | var_cte
+    | ID factor2 ;
+
+factor2 : 
+    LEFT_PAR factor3 RIGHT_PAR
+    | LEFT_BRACK index RIGHT_BRACK
     | ;
+
+factor3 :
+    exp COMMA factor3
+    | exp ;
+
+index :
+    expression
+    | CTE_INT
 
 var_cte :
     ID
-    | CTE_INT
-    | CTE_FLOAT;
+    | CTE_FLOAT
+    | CTE_INT ;
 
-for_each :
-    FOREACH LEFT_PAR ID IN ID RIGHT_PAR;
-
-for_loop :
-    FOR LEFT_PAR for_loop_2 LESS_THAN for_loop_2 RIGHT_PAR;
-for_loop_2 :
-    CTE_INT
-    | ID;
-
-cycle :
-    cycle_2 DO statement END;
-cycle_2 :
-    for_loop
-    | for_each;
-
-params :
-    ID COLON params_2 params_3;
-params_2 :
-    type
-    | LEFT_CURLY type RIGHT_CURLY;
-params_3 :
-    COMMA params
+statements :
+    statement statements
     | ;
 
-function :
-    FUNCTION ID LEFT_PAR function_2 RIGHT_PAR block SEMICOLON;
-function_2 :
-    params
+statement :
+    assignment
+    | call
+    | printing
+    | decision
+    | repetition 
     | ;
 
-increment :
-    ID increment_2 exp SEMICOLON;
-increment_2 :
-    PLUS
-    | MINUS;
+assignment :
+    ID assignment_2
+    | ID LEFT_BRACK index RIGHT_BRACK assignment_2 ;
 
-returns :
-    RETURN returns_1 SEMICOLON;
-returns_1 :
-    exp
+assignment_2 :
+    EQUAL call
+    | EQUAL expression SEMICOLON ;
+
+call :
+    ID LEFT_PAR call2 RIGHT_PAR SEMICOLON ;
+
+call2 :
+    ID
+    | ID COMMA call2 
+    | expression 
+    | expression COMMA call2 
     | ;
+
+printing :
+    PRINT LEFT_PAR printing_2 RIGHT_PAR SEMICOLON ;
+
+printing_2 :
+    printing_3 COMMA printing_2
+    | printing_3 ;
+
+printing_3 :
+    expression
+    | CTE_STRING ;
+
+decision :
+    IF LEFT_PAR expression RIGHT_PAR block ELSE block
+    | IF LEFT_PAR expression RIGHT_PAR block ;
+
+repetition :
+    rep_cond
+    | rep_no_cond ;
+
+rep_cond :
+    WHILE LEFT_PAR expression RIGHT_PAR DO block ;
+
+rep_no_cond :
+    FOR LEFT_PAR ID EQUAL expression TO expression RIGHT_PAR block ;
 
 %%
 

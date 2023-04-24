@@ -12,19 +12,20 @@ int lineas = 1;
 %%
 
 "program"                       { return PROGRAM; }
+"main"                          { return MAIN; }
 "var"                           { return VAR; }
 "int"                           { return INT; }
 "float"                         { return FLOAT; }
 "if"                            { return IF; }
 "else"                          { return ELSE; }
 "print"                         { return PRINT; }
-"for_each"                      { return FOREACH; } 
-"in"                            { return IN; }
-"for"                           { return FOR; }
+"while"                         { return WHILE; }
 "do"                            { return DO; }
-"end"                           { return END; }
+"for"                           { return FOR; }
+"to"                            { return TO; }
 "function"                      { return FUNCTION; }
 "return"                        { return RETURN; }
+"void"                          { return VOID; }
 
 "+"                             { return ADDITION; }
 "-"                             { return SUBSTRACTION; }
@@ -32,10 +33,11 @@ int lineas = 1;
 "/"                             { return DIV; }
 "<"                             { return LESS_THAN; }
 ">"                             { return MORE_THAN; }
-"<>"                            { return NOT_EQUAL; }
+"!="                            { return NOT_EQUAL; }
+"=="                            { return EQUAL_TO; }
+"&&"                            { return AND; }
+"||"                            { return OR; }
 "="                             { return EQUAL; }
-"+="                            { return PLUS; }
-"-="                            { return MINUS; }
 "("                             { return LEFT_PAR; }
 ")"                             { return RIGHT_PAR; }
 "{"                             { return LEFT_CURLY; }
