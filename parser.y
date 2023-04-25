@@ -1,6 +1,7 @@
 %{
     #include <iostream>
     #include <unordered_map>
+    #include <stack>
     #include "table.hh"
     using namespace std;
 
@@ -11,6 +12,7 @@
 
     extern "C" int lineas;
     extern "C" unordered_map<string, VariableTable> functionDirectory;
+    extern "C" stack<string> currentFunction;
      
     void yyerror(const char *s);
 %}
@@ -19,6 +21,8 @@
     char *sval;
     int ival;
     float fval;
+    struct IDNode *nodeID;
+    char chType;
 }
 
 %start program
@@ -65,32 +69,58 @@
 %token SEMICOLON
 %token COMMA
 
+%type <nodeID> id_list
+%type <chType> type
+
 %%
 
 program : 
-    PROGRAM program_1 SEMICOLON vars functions block 
-        {
-            printf("Valid syntax.\n");
-        } ;
+    PROGRAM program_1 SEMICOLON vars functions block {
+        printf("Valid syntax.\n");
+    } ;
 
 program_1 :
-    ID
-        {
+    ID {
             VariableTable table;
+            table.parent = NULL;
             functionDirectory[$1] = table;
-        } ;
+            currentFunction.push($1);
+    } ;
 
 vars :
-    VAR var vars
+    VAR var SEMICOLON vars
     | ;
 
 var :
-    var_2 COLON type SEMICOLON
-    | var_2 COLON type LEFT_BRACK CTE_INT RIGHT_BRACK SEMICOLON ;
+    id_list COLON type {
+        IDNode *variable = $1;
+        cout << "Declarando ";
+        do {
+            VariableEntry entry;
+            entry.name = variable->name;
+            entry.type = $3;
+            functionDirectory[currentFunction.top()].table[variable->name] = entry;
+            variable = variable->next;
+            cout << entry.name << ", ";
+        }
+        while (variable);
+        cout << "." << endl;
+    }
+    | id_list COLON type LEFT_BRACK CTE_INT RIGHT_BRACK ;
 
-var_2 :
-    ID
-    | ID COMMA var_2 ;
+id_list :
+    ID {
+        IDNode *node = new IDNode();
+        node->name = $1;
+        node->next = NULL;
+        $$ = node;
+    }
+    | ID COMMA id_list {
+        IDNode *node = new IDNode();
+        node->name = $1;
+        node->next = $3;
+        $$ = node;
+    };
 
 functions :
     function functions
@@ -112,7 +142,7 @@ block :
 
 type :
     INT
-    | FLOAT ;
+    | FLOAT;
 
 params :
     ID COLON type LEFT_BRACK RIGHT_BRACK COMMA params

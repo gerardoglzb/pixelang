@@ -3,6 +3,7 @@
 #include <iostream>
 #include "table.hh"
 #include <unordered_map>
+#include <stack>
 using namespace std;
 
 #include "parser.tab.h"
@@ -12,13 +13,15 @@ int lineas = 1;
 
 unordered_map<string, VariableTable*> functionDirectory;
 
+stack<string> currentFunction;
+
 %}
 %%
 
 "program"                       { return PROGRAM; }
 "var"                           { return VAR; }
-"int"                           { return INT; }
-"float"                         { return FLOAT; }
+"int"                           { yylval.chType = 'i'; return INT; }
+"float"                         { yylval.chType = 'f'; return FLOAT; }
 "if"                            { return IF; }
 "else"                          { return ELSE; }
 "print"                         { return PRINT; }

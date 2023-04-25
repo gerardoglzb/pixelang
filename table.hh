@@ -1,9 +1,18 @@
 #include <iostream>
+#include <unordered_map>
 using namespace std;
 
-struct VariableTable {
+struct VariableEntry {
     string name;
     string type;
-    string kind;
-    VariableTable *scope;
+};
+
+struct VariableTable {
+    unordered_map<string, VariableEntry> table;
+    VariableTable *parent;
+};
+
+struct IDNode {
+    string name;
+    IDNode *next;
 };

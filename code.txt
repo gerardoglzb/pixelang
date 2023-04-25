@@ -1,40 +1,7 @@
 program test;
 
-var x, y, z: int;
-var a, b: float;
-var arr : int[3];
-
-function myfun(a : int, b : float) : float {
-    var x, y : int;
-    return(5.0);
-}
-
-function myfun2() : void {
-    print("hello");
-    return;
-}
+var x, y, z : int;
 
 {
-    x = 1;
-    y = 2;
-    z = x + y;
-    a = 3.5;
-    arr[0] = 3;
-    b = myfun(x, 0);
 
-    if (x > 3) {
-        print("Hi");
-    } else {
-        print("Bye", "MM");
-    }
-
-    while (x == 3) do {
-        print(x);
-    }
-
-    for (i = 3 to 5) {
-        myfun2();
-        i = i + 1;
-        arr[i] = b;
-    }
 }
