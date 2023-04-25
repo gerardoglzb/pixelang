@@ -72,7 +72,7 @@ program :
     PROGRAM ID SEMICOLON vars functions main { printf("Valid syntax.\n"); } ;
 
 main :
-    MAIN LEFT_PAR RIGHT_PAR LEFT_CURLY statements RIGHT_CURLY ;
+    MAIN LEFT_PAR RIGHT_PAR block ;
 
 vars :
     VAR var vars
@@ -102,7 +102,7 @@ returns :
     | RETURN SEMICOLON ;
 
 block :
-    LEFT_CURLY vars statements RIGHT_CURLY ;
+    LEFT_CURLY statements RIGHT_CURLY ;
 
 type :
     INT

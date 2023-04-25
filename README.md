@@ -1,11 +1,10 @@
 # pixelang
 
-El avance revisa el léxico y sintáxis de los elementos básicos del lenguaje. No incluye las funciones ni los arrays todavía. No me dio tiempo de hacer que funcionaran correctamente, pero lo que sí está si funciona.
+El avance revisa el léxico y sintáxis de los elementos del lenguaje tal y como están en mi propuesta, incluyendo arreglos y funciones.
+También tiene la tabla de variables que se crea al momento de que se van declarando las variables y las inicializa a 0.
+El print sirve para constantes y la asignación modifica el valor a un número constante que puse, aún no funciona correctamente.
+Aún no hay tabla de funciones ni cubo semántico.
 
-Commits:
-* La base para el compilador, que es básicamente lo mismo que el LittleDuck.
-* Agregué un .gitignore
-* Hice las demás modificaciones relevantes que vienen incluidas (como loops).
-* Cambié unos nombres.
-
-También incluyo la propuesta que ya he mandado, pero me falta agregarlo las funciones/arrays que mencioné.
+Commits relevantes:
+* Agregué y modifiqué partes de la sintáxis, como lo de arreglos.
+* Hice la tabla de variables.
