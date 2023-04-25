@@ -44,40 +44,39 @@
      CTE_STRING = 260,
      ID = 261,
      PROGRAM = 262,
-     MAIN = 263,
-     VAR = 264,
-     INT = 265,
-     FLOAT = 266,
-     IF = 267,
-     ELSE = 268,
-     PRINT = 269,
-     FOR = 270,
-     DO = 271,
-     WHILE = 272,
-     TO = 273,
-     FUNCTION = 274,
-     RETURN = 275,
-     VOID = 276,
-     ADDITION = 277,
-     SUBSTRACTION = 278,
-     MULTI = 279,
-     DIV = 280,
-     LESS_THAN = 281,
-     MORE_THAN = 282,
-     NOT_EQUAL = 283,
-     EQUAL = 284,
-     EQUAL_TO = 285,
-     AND = 286,
-     OR = 287,
-     LEFT_PAR = 288,
-     RIGHT_PAR = 289,
-     LEFT_CURLY = 290,
-     RIGHT_CURLY = 291,
-     LEFT_BRACK = 292,
-     RIGHT_BRACK = 293,
-     COLON = 294,
-     SEMICOLON = 295,
-     COMMA = 296
+     VAR = 263,
+     INT = 264,
+     FLOAT = 265,
+     IF = 266,
+     ELSE = 267,
+     PRINT = 268,
+     FOR = 269,
+     DO = 270,
+     WHILE = 271,
+     TO = 272,
+     FUNCTION = 273,
+     RETURN = 274,
+     VOID = 275,
+     ADDITION = 276,
+     SUBSTRACTION = 277,
+     MULTI = 278,
+     DIV = 279,
+     LESS_THAN = 280,
+     MORE_THAN = 281,
+     NOT_EQUAL = 282,
+     EQUAL = 283,
+     EQUAL_TO = 284,
+     AND = 285,
+     OR = 286,
+     LEFT_PAR = 287,
+     RIGHT_PAR = 288,
+     LEFT_CURLY = 289,
+     RIGHT_CURLY = 290,
+     LEFT_BRACK = 291,
+     RIGHT_BRACK = 292,
+     COLON = 293,
+     SEMICOLON = 294,
+     COMMA = 295
    };
 #endif
 /* Tokens.  */
@@ -86,40 +85,39 @@
 #define CTE_STRING 260
 #define ID 261
 #define PROGRAM 262
-#define MAIN 263
-#define VAR 264
-#define INT 265
-#define FLOAT 266
-#define IF 267
-#define ELSE 268
-#define PRINT 269
-#define FOR 270
-#define DO 271
-#define WHILE 272
-#define TO 273
-#define FUNCTION 274
-#define RETURN 275
-#define VOID 276
-#define ADDITION 277
-#define SUBSTRACTION 278
-#define MULTI 279
-#define DIV 280
-#define LESS_THAN 281
-#define MORE_THAN 282
-#define NOT_EQUAL 283
-#define EQUAL 284
-#define EQUAL_TO 285
-#define AND 286
-#define OR 287
-#define LEFT_PAR 288
-#define RIGHT_PAR 289
-#define LEFT_CURLY 290
-#define RIGHT_CURLY 291
-#define LEFT_BRACK 292
-#define RIGHT_BRACK 293
-#define COLON 294
-#define SEMICOLON 295
-#define COMMA 296
+#define VAR 263
+#define INT 264
+#define FLOAT 265
+#define IF 266
+#define ELSE 267
+#define PRINT 268
+#define FOR 269
+#define DO 270
+#define WHILE 271
+#define TO 272
+#define FUNCTION 273
+#define RETURN 274
+#define VOID 275
+#define ADDITION 276
+#define SUBSTRACTION 277
+#define MULTI 278
+#define DIV 279
+#define LESS_THAN 280
+#define MORE_THAN 281
+#define NOT_EQUAL 282
+#define EQUAL 283
+#define EQUAL_TO 284
+#define AND 285
+#define OR 286
+#define LEFT_PAR 287
+#define RIGHT_PAR 288
+#define LEFT_CURLY 289
+#define RIGHT_CURLY 290
+#define LEFT_BRACK 291
+#define RIGHT_BRACK 292
+#define COLON 293
+#define SEMICOLON 294
+#define COMMA 295
 
 
 
@@ -133,7 +131,7 @@ typedef union YYSTYPE
     float fval;
 }
 /* Line 1529 of yacc.c.  */
-#line 137 "parser.tab.h"
+#line 135 "parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

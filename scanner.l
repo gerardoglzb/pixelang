@@ -10,13 +10,12 @@ using namespace std;
 
 int lineas = 1;
 
-unordered_map<string, Symbol> symbol_table;
+unordered_map<string, VariableTable*> functionDirectory;
 
 %}
 %%
 
 "program"                       { return PROGRAM; }
-"main"                          { return MAIN; }
 "var"                           { return VAR; }
 "int"                           { return INT; }
 "float"                         { return FLOAT; }
@@ -54,16 +53,9 @@ unordered_map<string, Symbol> symbol_table;
 
 [\n]                            { lineas++; }
 [ \t\r]                         { ; }
-[a-zA-Z](_?([a-zA-Z]|[0-9]))*   {
-                                    if (symbol_table.find(yytext) == symbol_table.end()) {
-                                        Symbol newSymbol;
-                                        newSymbol.name = yytext;
-                                        newSymbol.val = 0;
-                                        symbol_table[yytext] = newSymbol;
-                                    }
-
+[a-zA-Z](_?([a-zA-Z]|[0-9]))*   { 
                                     yylval.sval = strdup(yytext);
-                                    return ID;
+                                    return ID; 
                                 }
 [0-9]+                          { yylval.ival = atoi(yytext); return CTE_INT; }
 [0-9]+\.[0-9]+                  { yylval.fval = atof(yytext); return CTE_FLOAT; }

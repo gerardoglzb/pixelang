@@ -10,7 +10,7 @@
     extern "C" int yyparse();
 
     extern "C" int lineas;
-    extern "C" unordered_map<string, Symbol> symbol_table;
+    extern "C" unordered_map<string, VariableTable> functionDirectory;
      
     void yyerror(const char *s);
 %}
@@ -29,7 +29,6 @@
 %token <sval> ID
 
 %token PROGRAM
-%token MAIN
 %token VAR
 %token INT
 %token FLOAT
@@ -69,10 +68,17 @@
 %%
 
 program : 
-    PROGRAM ID SEMICOLON vars functions main { printf("Valid syntax.\n"); } ;
+    PROGRAM program_1 SEMICOLON vars functions block 
+        {
+            printf("Valid syntax.\n");
+        } ;
 
-main :
-    MAIN LEFT_PAR RIGHT_PAR block ;
+program_1 :
+    ID
+        {
+            VariableTable table;
+            functionDirectory[$1] = table;
+        } ;
 
 vars :
     VAR var vars
@@ -190,7 +196,7 @@ statement :
 assignment :
     ID EQUAL call
     | ID LEFT_BRACK index RIGHT_BRACK EQUAL call
-    | ID EQUAL expression SEMICOLON { symbol_table[$1].val = 3; } ;
+    | ID EQUAL expression SEMICOLON ;
     | ID LEFT_BRACK index RIGHT_BRACK EQUAL expression SEMICOLON ;
 
 call :
@@ -212,7 +218,7 @@ printing_2 :
 
 printing_3 :
     expression
-    | CTE_STRING { cout << $1 << endl; };
+    | CTE_STRING ;
 
 decision :
     IF LEFT_PAR expression RIGHT_PAR block ELSE block

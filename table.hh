@@ -1,7 +1,9 @@
 #include <iostream>
 using namespace std;
 
-struct Symbol {
+struct VariableTable {
     string name;
-    int val;
+    string type;
+    string kind;
+    VariableTable *scope;
 };

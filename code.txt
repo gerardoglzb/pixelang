@@ -14,7 +14,7 @@ function myfun2() : void {
     return;
 }
 
-main() {
+{
     x = 1;
     y = 2;
     z = x + y;
@@ -23,18 +23,16 @@ main() {
     b = myfun(x, 0);
 
     if (x > 3) {
-        var j, x : int;
+        print("Hi");
     } else {
         print("Bye", "MM");
     }
 
     while (x == 3) do {
-        var a : float;
         print(x);
     }
 
     for (i = 3 to 5) {
-        var a : float;
         myfun2();
         i = i + 1;
         arr[i] = b;
