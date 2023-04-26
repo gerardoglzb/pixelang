@@ -1,7 +1,7 @@
 all:
 	bison -d parser.y
 	flex scanner.l
-	g++ parser.tab.c lex.yy.c -o Code
+	g++ -std=c++11 compiler.cpp parser.tab.c lex.yy.c -o Code
 	./Code
 
 clean:

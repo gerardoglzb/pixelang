@@ -1,8 +1,6 @@
 %{
     #include <iostream>
-    #include <unordered_map>
-    #include <stack>
-    #include "table.hh"
+    #include "compiler.h"
     using namespace std;
 
     extern "C" FILE *yyin;
@@ -11,8 +9,7 @@
     extern "C" int yyparse();
 
     extern "C" int lineas;
-    extern "C" unordered_map<string, VariableTable> functionDirectory;
-    extern "C" stack<string> currentFunction;
+    extern "C" FunctionDirectory functionDirectory;
      
     void yyerror(const char *s);
 %}
@@ -69,22 +66,20 @@
 %token SEMICOLON
 %token COMMA
 
-%type <nodeID> id_list
+%type <nodeID> var_list
+%type <sval> func_name
 %type <chType> type
 
 %%
 
 program : 
-    PROGRAM program_1 SEMICOLON vars functions block {
+    PROGRAM program_name SEMICOLON vars functions block {
         printf("Valid syntax.\n");
     } ;
 
-program_1 :
+program_name :
     ID {
-            VariableTable table;
-            table.parent = NULL;
-            functionDirectory[$1] = table;
-            currentFunction.push($1);
+        declareFunction($1, 'p', &functionDirectory, lineas);
     } ;
 
 vars :
@@ -92,30 +87,19 @@ vars :
     | ;
 
 var :
-    id_list COLON type {
-        IDNode *variable = $1;
-        cout << "Declarando ";
-        do {
-            VariableEntry entry;
-            entry.name = variable->name;
-            entry.type = $3;
-            functionDirectory[currentFunction.top()].table[variable->name] = entry;
-            variable = variable->next;
-            cout << entry.name << ", ";
-        }
-        while (variable);
-        cout << "." << endl;
+    var_list COLON type {
+        declareVariables($1, $3, &functionDirectory, lineas);
     }
-    | id_list COLON type LEFT_BRACK CTE_INT RIGHT_BRACK ;
+    | var_list COLON type LEFT_BRACK CTE_INT RIGHT_BRACK ;
 
-id_list :
+var_list :
     ID {
         IDNode *node = new IDNode();
         node->name = $1;
         node->next = NULL;
         $$ = node;
     }
-    | ID COMMA id_list {
+    | ID COMMA var_list {
         IDNode *node = new IDNode();
         node->name = $1;
         node->next = $3;
@@ -127,11 +111,23 @@ functions :
     | ;
 
 function :
-    FUNCTION ID LEFT_PAR params RIGHT_PAR COLON function_2 LEFT_CURLY vars statements returns RIGHT_CURLY ;
+    FUNCTION func_name LEFT_PAR params RIGHT_PAR COLON function_type LEFT_CURLY vars statements returns RIGHT_CURLY {
+        functionDirectory.removeTable($2);
+        functionDirectory.currentFunctions->pop();
+    };
 
-function_2 :
-    type
-    | VOID ;
+func_name :
+    ID {
+        declareFunction($1, 't', &functionDirectory, lineas);
+    };
+
+function_type :
+    type {
+        functionDirectory.currentFunction()->type = $1;
+    }
+    | VOID {
+        functionDirectory.currentFunction()->type = 'v';
+    } ;
 
 returns :
     RETURN LEFT_PAR expression RIGHT_PAR SEMICOLON
@@ -146,9 +142,11 @@ type :
 
 params :
     ID COLON type LEFT_BRACK RIGHT_BRACK COMMA params
-    | ID COLON type COMMA params
     | ID COLON type LEFT_BRACK RIGHT_BRACK
-    | ID COLON type
+    | ID COLON type COMMA params
+    | ID COLON type {
+        declareVariable($1, $3, functionDirectory.currentFunction()->table, lineas);
+    }
     | ;
 
 expression :

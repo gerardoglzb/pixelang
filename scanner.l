@@ -1,9 +1,7 @@
 %{
 
 #include <iostream>
-#include "table.hh"
-#include <unordered_map>
-#include <stack>
+#include "compiler.h"
 using namespace std;
 
 #include "parser.tab.h"
@@ -11,9 +9,7 @@ using namespace std;
 
 int lineas = 1;
 
-unordered_map<string, VariableTable*> functionDirectory;
-
-stack<string> currentFunction;
+FunctionDirectory functionDirectory;
 
 %}
 %%

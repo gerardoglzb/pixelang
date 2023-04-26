@@ -60,6 +60,8 @@
         "unordered_map": "c",
         "variant": "c",
         "vector": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "stack": "cpp",
+        "deque": "cpp"
     }
 }
