@@ -130,7 +130,7 @@ typedef union YYSTYPE
     int ival;
     float fval;
     struct IDNode *nodeID;
-    char chType;
+    char chType; // 'f' float, 'i' int, 'a' array, 'p' program, 'f' function, 't' temporal, 'g' arr float, 'j' arr int
 }
 /* Line 1529 of yacc.c.  */
 #line 137 "parser.tab.h"

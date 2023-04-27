@@ -19,7 +19,7 @@
     int ival;
     float fval;
     struct IDNode *nodeID;
-    char chType;
+    char chType; // 'f' float, 'i' int, 'a' array, 'p' program, 'f' function, 't' temporal, 'g' arr float, 'j' arr int
 }
 
 %start program
@@ -79,32 +79,40 @@ program :
 
 program_name :
     ID {
+        cout << "HM" << endl;
         declareFunction($1, 'p', &functionDirectory, lineas);
     } ;
 
 vars :
-    VAR var SEMICOLON vars
+    vario var SEMICOLON vars
     | ;
+
+vario : 
+    VAR {
+        cout << "VARr" << endl;
+    };
 
 var :
     var_list COLON type {
+        cout << "Varrr" << endl;
         declareVariables($1, $3, &functionDirectory, lineas);
     }
-    | var_list COLON type LEFT_BRACK CTE_INT RIGHT_BRACK ;
+    | ID COLON type LEFT_BRACK CTE_INT RIGHT_BRACK {
+        cout << "VarNOAHOrr" << endl;
+        declareArray($1, $3, $5, functionDirectory.currentFunction()->table, lineas);
+    } ;
 
 var_list :
     ID {
-        IDNode *node = new IDNode();
-        node->name = $1;
-        node->next = NULL;
+        cout << "self" << endl;
+        IDNode *node = new IDNode($1);
         $$ = node;
     }
     | ID COMMA var_list {
-        IDNode *node = new IDNode();
-        node->name = $1;
-        node->next = $3;
+        cout << "NA" << endl;
+        IDNode *node = new IDNode($1, $3);
         $$ = node;
-    };
+    } ;
 
 functions :
     function functions
@@ -137,7 +145,9 @@ block :
     LEFT_CURLY statements RIGHT_CURLY ;
 
 type :
-    INT
+    INT {
+        cout << "HHHAHHAHA " << endl;
+    }
     | FLOAT;
 
 params :
@@ -145,6 +155,7 @@ params :
     | ID COLON type LEFT_BRACK RIGHT_BRACK
     | ID COLON type COMMA params
     | ID COLON type {
+        cout << "hey there" << endl;
         declareVariable($1, $3, functionDirectory.currentFunction()->table, lineas);
     }
     | ;

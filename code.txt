@@ -1,5 +1,7 @@
 program test;
 
+var a: int;
+
 {
 
 }

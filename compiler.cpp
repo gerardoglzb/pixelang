@@ -1,16 +1,36 @@
 #include <utility>
 #include "compiler.h"
 
-void declareVariable(string name, char type, VariableTable *table, int lineas) {
-    VariableEntry entry;
-    entry.name = name;
-    entry.type = type;
+VariableEntry *declareVariable(string name, char type, VariableTable *table, int lineas) {
+    VariableEntry *entry = new VariableEntry(name, type);
     if (table->has(name)) {
-        cout << "Error: Redefinition of var " << entry.name << " on line "  << lineas << ".\n";
+        cout << "Error: Redefinition of var " << entry->name << " on line "  << lineas << ".\n";
         exit(-1);
     } else {
-        table->insert(&entry);
-        cout << entry.name << "(" << entry.type << ") " << endl;
+        table->insert(entry);
+        cout << entry->name << "(" << entry->type << ") " << endl;
+    }
+    return entry;
+}
+
+void declareArray(string name, char type, int size, VariableTable *table, int lineas) {
+    if (size <= 0) {
+        cout << "Error: Array " << name << " on line "  << lineas << " cannot be of size 0.\n";
+        exit(-1);
+    }
+    VariableEntry *entry = declareVariable(name, (type == 'i') ? 'j' : 'g', table, lineas);
+    ArrItem *curr = entry->array;
+    for (int i = 0; i < size; i++) {
+        ArrItem *item = new ArrItem();
+        if (type == 'i') {
+            int temp = 0;
+            item->val = &temp;
+        } else {
+            float temp = 0.0;
+            item->val = &temp;
+        }
+        curr->next = item;
+        curr = curr->next;
     }
 }
 
@@ -34,17 +54,14 @@ void declareFunction(string name, char type, FunctionDirectory *funcDir, int lin
         table->parent = funcDir->find(funcDir->global)->table;
     }
 
-    FunctionEntry entry;
-    entry.name = name;
-    entry.type = type;
-    entry.table = table;
+    FunctionEntry *entry = new FunctionEntry(name, type, table);
 
     if (funcDir->has(name)) {
-        cout << "Error: Redefinition of function " << entry.name << " on line "  << lineas << ".\n";
+        cout << "Error: Redefinition of function " << entry->name << " on line "  << lineas << ".\n";
         exit(-1);
     } else {
-        funcDir->insert(&entry);
+        funcDir->insert(entry);
         funcDir->currentFunctions->push(name);
-        cout << entry.name << "(" << entry.type << ") " << endl;
+        cout << entry->name << "(" << entry->type << ") " << endl;
     }
 }
