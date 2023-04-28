@@ -8,7 +8,7 @@ VariableEntry *declareVariable(string name, int type, VariableTable *table, int 
         exit(-1);
     } else {
         table->insert(entry);
-        cout << entry->name << "(" << entry->type << ") " << endl;
+        cout << entry->name << "(" << entry->type << ") ";
     }
     return entry;
 }
@@ -41,6 +41,7 @@ void declareArrays(IDNode* variable, int type, int size, VariableTable *table, i
         variable = variable->next;
     }
     while (variable);
+    cout << endl;
 }
 
 void declareVariables(IDNode *variable, int type, VariableTable *table, int lineas) {
@@ -50,9 +51,11 @@ void declareVariables(IDNode *variable, int type, VariableTable *table, int line
         variable = variable->next;
     }
     while (variable);
+    cout << endl;
 }
 
 void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas) {
+    cout << "Declarando ";
     VariableTable *table = new VariableTable();
     if (type == 6) {
         funcDir->global = name;
@@ -69,8 +72,9 @@ void declareFunction(string name, int type, FunctionDirectory *funcDir, int line
     } else {
         funcDir->insert(entry);
         funcDir->currentFunctions->push(name);
-        cout << entry->name << "(" << entry->type << ") " << endl;
+        cout << entry->name << "(" << entry->type << ") ";
     }
+    cout << endl;
 }
 
 // 0 equal, 1 add, 2 sub, 3 multi, 4 div

@@ -45,7 +45,6 @@ struct VariableTable {
 
     VariableEntry *find(string name) {
         VariableEntry *entry = head;
-        cout << entry->name << endl;
         while (entry) {
         if (entry->name == name) {
             return entry;
@@ -160,8 +159,9 @@ struct FunctionDirectory {
             if (entry->name == name) {
                 break;
             }
-            entry->removeTable();
+            entry = entry->next;
         }
+        entry->removeTable();
     }
 
     void insert(FunctionEntry *newEntry) {

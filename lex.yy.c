@@ -827,7 +827,7 @@ YY_RULE_SETUP
 case 4:
 YY_RULE_SETUP
 #line 20 "scanner.l"
-{ yylval.chType = 2; return FLOAT; }
+{ yylval.chType = 1; return FLOAT; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
@@ -877,7 +877,7 @@ YY_RULE_SETUP
 case 14:
 YY_RULE_SETUP
 #line 30 "scanner.l"
-{ return VOID; }
+{ yylval.chType = 3; return VOID; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP

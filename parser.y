@@ -67,7 +67,7 @@
 %token COMMA
 
 %type <nodeID> var_list
-%type <chType> type
+%type <chType> type function_type
 
 %%
 
@@ -110,7 +110,7 @@ function :
     } LEFT_PAR params RIGHT_PAR COLON function_type LEFT_CURLY vars statements returns RIGHT_CURLY {
         functionDirectory.removeTable($2);
         functionDirectory.currentFunctions->pop();
-    };
+    } ;
 
 function_type :
     type {
@@ -209,8 +209,7 @@ statement :
     | call
     | printing
     | decision
-    | repetition 
-    | ;
+    | repetition ;
 
 assignment :
     ID EQUAL call
@@ -222,10 +221,11 @@ call :
     ID LEFT_PAR call2 RIGHT_PAR SEMICOLON ;
 
 call2 :
-    ID
-    | ID COMMA call2 
-    | expression 
-    | expression COMMA call2 
+    expression call3
+    | ;
+
+call3 :
+    COMMA expression call3
     | ;
 
 printing :

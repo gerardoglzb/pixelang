@@ -17,7 +17,7 @@ FunctionDirectory functionDirectory;
 "program"                       { return PROGRAM; }
 "var"                           { return VAR; }
 "int"                           { yylval.chType = 0; return INT; }
-"float"                         { yylval.chType = 2; return FLOAT; }
+"float"                         { yylval.chType = 1; return FLOAT; }
 "if"                            { return IF; }
 "else"                          { return ELSE; }
 "print"                         { return PRINT; }
@@ -27,7 +27,7 @@ FunctionDirectory functionDirectory;
 "to"                            { return TO; }
 "function"                      { return FUNCTION; }
 "return"                        { return RETURN; }
-"void"                          { return VOID; }
+"void"                          { yylval.chType = 3; return VOID; }
 
 "+"                             { return ADDITION; }
 "-"                             { return SUBSTRACTION; }
