@@ -95,11 +95,11 @@ vario :
 var :
     var_list COLON type {
         cout << "Varrr" << endl;
-        declareVariables($1, $3, &functionDirectory, lineas);
+        declareVariables($1, $3, functionDirectory.currentFunction()->table, lineas);
     }
-    | ID COLON type LEFT_BRACK CTE_INT RIGHT_BRACK {
+    | var_list COLON type LEFT_BRACK CTE_INT RIGHT_BRACK {
         cout << "VarNOAHOrr" << endl;
-        declareArray($1, $3, $5, functionDirectory.currentFunction()->table, lineas);
+        declareArrays($1, $3, $5, functionDirectory.currentFunction()->table, lineas);
     } ;
 
 var_list :

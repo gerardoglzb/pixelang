@@ -22,20 +22,20 @@ struct VariableEntry {
     string name;
     string type;
     VariableEntry *next;
-    ArrItem *array;
+    ArrItem *arrHead;
 
     VariableEntry() {
         this->name = "";
         this->type = 't';
         this->next = nullptr;
-        array = nullptr;
+        this->arrHead = new ArrItem();
     };
 
     VariableEntry(string name, char type) {
         this->name = name;
         this->type = type;
         this->next = nullptr;
-        array = nullptr;
+        this->arrHead = new ArrItem();
     };
 };
 
@@ -198,6 +198,8 @@ VariableEntry *declareVariable(string name, char type, VariableTable *table, int
 
 void declareArray(string name, char type, int size, VariableTable *table, int lineas);
 
-void declareVariables(IDNode *variable, char type, FunctionDirectory *funcDir, int lineas);
+void declareArrays(IDNode* variable, char type, int size, VariableTable *table, int lineas);
+
+void declareVariables(IDNode *variable, char type, VariableTable *table, int lineas);
 
 void declareFunction(string name, char type, FunctionDirectory *funcDir, int lineas);

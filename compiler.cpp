@@ -19,7 +19,7 @@ void declareArray(string name, char type, int size, VariableTable *table, int li
         exit(-1);
     }
     VariableEntry *entry = declareVariable(name, (type == 'i') ? 'j' : 'g', table, lineas);
-    ArrItem *curr = entry->array;
+    ArrItem *curr = entry->arrHead;
     for (int i = 0; i < size; i++) {
         ArrItem *item = new ArrItem();
         if (type == 'i') {
@@ -34,9 +34,16 @@ void declareArray(string name, char type, int size, VariableTable *table, int li
     }
 }
 
-void declareVariables(IDNode *variable, char type, FunctionDirectory *funcDir, int lineas) {
-    FunctionEntry *entry = funcDir->find(funcDir->currentFunctions->top());
-    VariableTable *table = entry->table;
+void declareArrays(IDNode* variable, char type, int size, VariableTable *table, int lineas) {
+    cout << "Declarando ";
+    do {
+        declareArray(variable->name, type, size, table, lineas);
+        variable = variable->next;
+    }
+    while (variable);
+}
+
+void declareVariables(IDNode *variable, char type, VariableTable *table, int lineas) {
     cout << "Declarando ";
     do {
         declareVariable(variable->name, type, table, lineas);
