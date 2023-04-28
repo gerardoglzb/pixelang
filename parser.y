@@ -67,49 +67,35 @@
 %token COMMA
 
 %type <nodeID> var_list
-%type <sval> func_name
 %type <chType> type
 
 %%
 
 program : 
-    PROGRAM program_name SEMICOLON vars functions block {
+    PROGRAM ID {
+        declareFunction($2, 4, &functionDirectory, lineas);
+    } SEMICOLON vars functions block {
         printf("Valid syntax.\n");
     } ;
 
-program_name :
-    ID {
-        cout << "HM" << endl;
-        declareFunction($1, 4, &functionDirectory, lineas);
-    } ;
-
 vars :
-    vario var SEMICOLON vars
+    VAR var SEMICOLON vars
     | ;
-
-vario : 
-    VAR {
-        cout << "VARr" << endl;
-    };
 
 var :
     var_list COLON type {
-        cout << "Varrr" << endl;
         declareVariables($1, $3, functionDirectory.currentFunction()->table, lineas);
     }
     | var_list COLON type LEFT_BRACK CTE_INT RIGHT_BRACK {
-        cout << "VarNOAHOrr" << endl;
         declareArrays($1, $3, $5, functionDirectory.currentFunction()->table, lineas);
     } ;
 
 var_list :
     ID {
-        cout << "self" << endl;
         IDNode *node = new IDNode($1);
         $$ = node;
     }
     | ID COMMA var_list {
-        cout << "NA" << endl;
         IDNode *node = new IDNode($1, $3);
         $$ = node;
     } ;
@@ -119,14 +105,11 @@ functions :
     | ;
 
 function :
-    FUNCTION func_name LEFT_PAR params RIGHT_PAR COLON function_type LEFT_CURLY vars statements returns RIGHT_CURLY {
+    FUNCTION ID {
+        declareFunction($2, 7, &functionDirectory, lineas);
+    } LEFT_PAR params RIGHT_PAR COLON function_type LEFT_CURLY vars statements returns RIGHT_CURLY {
         functionDirectory.removeTable($2);
         functionDirectory.currentFunctions->pop();
-    };
-
-func_name :
-    ID {
-        declareFunction($1, 7, &functionDirectory, lineas);
     };
 
 function_type :
@@ -145,17 +128,14 @@ block :
     LEFT_CURLY statements RIGHT_CURLY ;
 
 type :
-    INT {
-        cout << "HHHAHHAHA " << endl;
-    }
+    INT
     | FLOAT;
 
 params :
-    ID COLON type LEFT_BRACK RIGHT_BRACK COMMA params
-    | ID COLON type LEFT_BRACK RIGHT_BRACK
-    | ID COLON type COMMA params
+    ID COLON type COMMA params {
+        declareVariable($1, $3, functionDirectory.currentFunction()->table, lineas);
+    }
     | ID COLON type {
-        cout << "hey there" << endl;
         declareVariable($1, $3, functionDirectory.currentFunction()->table, lineas);
     }
     | ;

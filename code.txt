@@ -1,7 +1,14 @@
 program test;
 
-var a : int[1];
+var a : float[3];
+var x, z : int;
+
+function fun() : int {
+    var x : int;
+    x = 3;
+    returns(x);
+}
 
 {
-
+    a = -3;
 }

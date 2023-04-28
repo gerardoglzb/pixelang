@@ -20,13 +20,13 @@ struct ArrItem {
 
 struct VariableEntry {
     string name;
-    string type;
+    int type;
     VariableEntry *next;
     ArrItem *arrHead;
 
     VariableEntry() {
         this->name = "";
-        this->type = 't';
+        this->type = 7;
         this->next = nullptr;
         this->arrHead = new ArrItem();
     };
@@ -112,7 +112,7 @@ struct FunctionEntry {
     FunctionEntry() {
         this->name = "";
         this->table = new VariableTable();
-        this->type = 't';
+        this->type = 7;
         this->next = nullptr;
     };
 

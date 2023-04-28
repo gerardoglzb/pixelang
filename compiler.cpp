@@ -78,44 +78,24 @@ void declareFunction(string name, int type, FunctionDirectory *funcDir, int line
 int semanticCube(int oper, int type1, int type2) {
     int cube[5][2][2] = {
         {
-            {
-                1, -1,
-            },
-            {
-                1, 1,
-            },
+            {1, -1,},
+            {1, 1,},
         },
         {
-            {
-                0, 1,
-            },
-            {
-                1, 1,
-            },
+            {0, 1,},
+            {1, 1,},
         },
         {
-            {
-                0, 1,
-            },
-            {
-                1, 1,
-            },
+            {0, 1,},
+            {1, 1,},
         },
         {
-            {
-                0, 1,
-            },
-            {
-                1, 1,
-            },
+            {0, 1,},
+            {1, 1,},
         },
         {
-            {
-                1, 1,
-            },
-            {
-                1, 1,
-            },
+            {1, 1,},
+            {1, 1,},
         },
     };
 
