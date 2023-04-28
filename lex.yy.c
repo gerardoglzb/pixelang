@@ -822,12 +822,12 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 19 "scanner.l"
-{ yylval.chType = 'i'; return INT; }
+{ yylval.chType = 0; return INT; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 20 "scanner.l"
-{ yylval.chType = 'f'; return FLOAT; }
+{ yylval.chType = 2; return FLOAT; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP

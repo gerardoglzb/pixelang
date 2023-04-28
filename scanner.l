@@ -16,8 +16,8 @@ FunctionDirectory functionDirectory;
 
 "program"                       { return PROGRAM; }
 "var"                           { return VAR; }
-"int"                           { yylval.chType = 'i'; return INT; }
-"float"                         { yylval.chType = 'f'; return FLOAT; }
+"int"                           { yylval.chType = 0; return INT; }
+"float"                         { yylval.chType = 2; return FLOAT; }
 "if"                            { return IF; }
 "else"                          { return ELSE; }
 "print"                         { return PRINT; }

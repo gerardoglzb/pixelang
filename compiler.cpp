@@ -1,7 +1,7 @@
 #include <utility>
 #include "compiler.h"
 
-VariableEntry *declareVariable(string name, char type, VariableTable *table, int lineas) {
+VariableEntry *declareVariable(string name, int type, VariableTable *table, int lineas) {
     VariableEntry *entry = new VariableEntry(name, type);
     if (table->has(name)) {
         cout << "Error: Redefinition of var " << entry->name << " on line "  << lineas << ".\n";
@@ -13,16 +13,16 @@ VariableEntry *declareVariable(string name, char type, VariableTable *table, int
     return entry;
 }
 
-void declareArray(string name, char type, int size, VariableTable *table, int lineas) {
+void declareArray(string name, int type, int size, VariableTable *table, int lineas) {
     if (size <= 0) {
         cout << "Error: Array " << name << " on line "  << lineas << " cannot be of size 0.\n";
         exit(-1);
     }
-    VariableEntry *entry = declareVariable(name, (type == 'i') ? 'j' : 'g', table, lineas);
+    VariableEntry *entry = declareVariable(name, (type == 1) ? 2 : 4, table, lineas);
     ArrItem *curr = entry->arrHead;
     for (int i = 0; i < size; i++) {
         ArrItem *item = new ArrItem();
-        if (type == 'i') {
+        if (type == 1) {
             int temp = 0;
             item->val = &temp;
         } else {
@@ -34,7 +34,7 @@ void declareArray(string name, char type, int size, VariableTable *table, int li
     }
 }
 
-void declareArrays(IDNode* variable, char type, int size, VariableTable *table, int lineas) {
+void declareArrays(IDNode* variable, int type, int size, VariableTable *table, int lineas) {
     cout << "Declarando ";
     do {
         declareArray(variable->name, type, size, table, lineas);
@@ -43,7 +43,7 @@ void declareArrays(IDNode* variable, char type, int size, VariableTable *table, 
     while (variable);
 }
 
-void declareVariables(IDNode *variable, char type, VariableTable *table, int lineas) {
+void declareVariables(IDNode *variable, int type, VariableTable *table, int lineas) {
     cout << "Declarando ";
     do {
         declareVariable(variable->name, type, table, lineas);
@@ -52,9 +52,9 @@ void declareVariables(IDNode *variable, char type, VariableTable *table, int lin
     while (variable);
 }
 
-void declareFunction(string name, char type, FunctionDirectory *funcDir, int lineas) {
+void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas) {
     VariableTable *table = new VariableTable();
-    if (type == 'p') {
+    if (type == 6) {
         funcDir->global = name;
         table->parent = NULL;
     } else {

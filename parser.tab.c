@@ -193,7 +193,7 @@ typedef union YYSTYPE
     int ival;
     float fval;
     struct IDNode *nodeID;
-    char chType; // 'f' float, 'i' int, 'a' array, 'p' program, 'f' function, 't' temporal, 'g' arr float, 'j' arr int
+    int chType; // 0 temporal, 1 int, 2 int arr, 3 float, 4 float arr, 5 void, 6 prog
 }
 /* Line 193 of yacc.c.  */
 #line 200 "parser.tab.c"
@@ -1568,7 +1568,7 @@ yyreduce:
 #line 81 "parser.y"
     {
         cout << "HM" << endl;
-        declareFunction((yyvsp[(1) - (1)].sval), 'p', &functionDirectory, lineas);
+        declareFunction((yyvsp[(1) - (1)].sval), 6, &functionDirectory, lineas);
     ;}
     break;
 
@@ -1624,7 +1624,7 @@ yyreduce:
   case 14:
 #line 128 "parser.y"
     {
-        declareFunction((yyvsp[(1) - (1)].sval), 't', &functionDirectory, lineas);
+        declareFunction((yyvsp[(1) - (1)].sval), 0, &functionDirectory, lineas);
     ;}
     break;
 
@@ -1638,7 +1638,7 @@ yyreduce:
   case 16:
 #line 136 "parser.y"
     {
-        functionDirectory.currentFunction()->type = 'v';
+        functionDirectory.currentFunction()->type = 5;
     ;}
     break;
 

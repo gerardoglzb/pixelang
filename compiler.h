@@ -31,7 +31,7 @@ struct VariableEntry {
         this->arrHead = new ArrItem();
     };
 
-    VariableEntry(string name, char type) {
+    VariableEntry(string name, int type) {
         this->name = name;
         this->type = type;
         this->next = nullptr;
@@ -101,7 +101,7 @@ struct IDNode {
 struct FunctionEntry {
     string name;
     VariableTable *table;
-    char type;
+    int type;
     FunctionEntry *next;
 
     void removeTable() {
@@ -116,7 +116,7 @@ struct FunctionEntry {
         this->next = nullptr;
     };
 
-    FunctionEntry(string name, char type, VariableTable *table) {
+    FunctionEntry(string name, int type, VariableTable *table) {
         this->name = name;
         this->table = table;
         this->type = type;
@@ -194,12 +194,12 @@ struct FunctionDirectory {
 
 };
 
-VariableEntry *declareVariable(string name, char type, VariableTable *table, int lineas);
+VariableEntry *declareVariable(string name, int type, VariableTable *table, int lineas);
 
-void declareArray(string name, char type, int size, VariableTable *table, int lineas);
+void declareArray(string name, int type, int size, VariableTable *table, int lineas);
 
-void declareArrays(IDNode* variable, char type, int size, VariableTable *table, int lineas);
+void declareArrays(IDNode* variable, int type, int size, VariableTable *table, int lineas);
 
-void declareVariables(IDNode *variable, char type, VariableTable *table, int lineas);
+void declareVariables(IDNode *variable, int type, VariableTable *table, int lineas);
 
-void declareFunction(string name, char type, FunctionDirectory *funcDir, int lineas);
+void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas);
