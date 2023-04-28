@@ -19,7 +19,7 @@
     int ival;
     float fval;
     struct IDNode *nodeID;
-    int chType; // 0 temporal, 1 int, 2 int arr, 3 float, 4 float arr, 5 void, 6 prog
+    int chType; // 0 int, 1 float, 2 string, 3 void, 4 prog, 5 int arr, 6 float arr, 7 temp, -1 err
 }
 
 %start program
@@ -80,7 +80,7 @@ program :
 program_name :
     ID {
         cout << "HM" << endl;
-        declareFunction($1, 6, &functionDirectory, lineas);
+        declareFunction($1, 4, &functionDirectory, lineas);
     } ;
 
 vars :
@@ -126,7 +126,7 @@ function :
 
 func_name :
     ID {
-        declareFunction($1, 0, &functionDirectory, lineas);
+        declareFunction($1, 7, &functionDirectory, lineas);
     };
 
 function_type :

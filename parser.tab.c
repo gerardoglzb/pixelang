@@ -193,7 +193,7 @@ typedef union YYSTYPE
     int ival;
     float fval;
     struct IDNode *nodeID;
-    int chType; // 0 temporal, 1 int, 2 int arr, 3 float, 4 float arr, 5 void, 6 prog
+    int chType; // 0 int, 1 float, 2 string, 3 void, 4 prog, 5 int arr, 6 float arr, 7 temp, -1 err
 }
 /* Line 193 of yacc.c.  */
 #line 200 "parser.tab.c"
@@ -1568,7 +1568,7 @@ yyreduce:
 #line 81 "parser.y"
     {
         cout << "HM" << endl;
-        declareFunction((yyvsp[(1) - (1)].sval), 6, &functionDirectory, lineas);
+        declareFunction((yyvsp[(1) - (1)].sval), 4, &functionDirectory, lineas);
     ;}
     break;
 
@@ -1624,7 +1624,7 @@ yyreduce:
   case 14:
 #line 128 "parser.y"
     {
-        declareFunction((yyvsp[(1) - (1)].sval), 0, &functionDirectory, lineas);
+        declareFunction((yyvsp[(1) - (1)].sval), 7, &functionDirectory, lineas);
     ;}
     break;
 

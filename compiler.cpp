@@ -18,11 +18,11 @@ void declareArray(string name, int type, int size, VariableTable *table, int lin
         cout << "Error: Array " << name << " on line "  << lineas << " cannot be of size 0.\n";
         exit(-1);
     }
-    VariableEntry *entry = declareVariable(name, (type == 1) ? 2 : 4, table, lineas);
+    VariableEntry *entry = declareVariable(name, (type == 0) ? 5 : 6, table, lineas);
     ArrItem *curr = entry->arrHead;
     for (int i = 0; i < size; i++) {
         ArrItem *item = new ArrItem();
-        if (type == 1) {
+        if (type == 0) {
             int temp = 0;
             item->val = &temp;
         } else {
@@ -71,4 +71,57 @@ void declareFunction(string name, int type, FunctionDirectory *funcDir, int line
         funcDir->currentFunctions->push(name);
         cout << entry->name << "(" << entry->type << ") " << endl;
     }
+}
+
+// 0 equal, 1 add, 2 sub, 3 multi, 4 div
+// 0 int, 1 float, -1 err
+int semanticCube(int oper, int type1, int type2) {
+    int cube[5][2][2] = {
+        {
+            {
+                1, -1,
+            },
+            {
+                1, 1,
+            },
+        },
+        {
+            {
+                0, 1,
+            },
+            {
+                1, 1,
+            },
+        },
+        {
+            {
+                0, 1,
+            },
+            {
+                1, 1,
+            },
+        },
+        {
+            {
+                0, 1,
+            },
+            {
+                1, 1,
+            },
+        },
+        {
+            {
+                1, 1,
+            },
+            {
+                1, 1,
+            },
+        },
+    };
+
+    if (oper > 4 || type1 > 1 || type2 > 1) {
+        cout << "Error in semantic cube." << endl;
+    }
+
+    return cube[oper][type1][type2];
 }

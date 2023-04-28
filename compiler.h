@@ -203,3 +203,5 @@ void declareArrays(IDNode* variable, int type, int size, VariableTable *table, i
 void declareVariables(IDNode *variable, int type, VariableTable *table, int lineas);
 
 void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas);
+
+int semanticCube(int oper, int type1, int type2);
