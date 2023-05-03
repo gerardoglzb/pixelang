@@ -205,3 +205,12 @@ void declareVariables(IDNode *variable, int type, VariableTable *table, int line
 void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas);
 
 int semanticCube(int oper, int type1, int type2);
+
+void pushOperator(int oper);
+
+void pushOperator(float oper);
+
+template<typename T>
+void pushOperatorOfType(T oper, int type) {
+    pushOperator(oper);
+}

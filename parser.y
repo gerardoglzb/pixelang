@@ -178,27 +178,30 @@ term2 :
 factor :
     LEFT_PAR expression RIGHT_PAR
     | ADDITION var_cte
-    | SUBSTRACTION var_cte 
-    | var_cte
-    | ID factor2 ;
-
-factor2 : 
-    LEFT_PAR factor3 RIGHT_PAR
-    | LEFT_BRACK index RIGHT_BRACK
-    | ;
-
-factor3 :
-    exp COMMA factor3
-    | exp ;
+    | SUBSTRACTION var_cte
+    | var_cte ;
 
 index :
     expression
     | CTE_INT
 
 var_cte :
-    ID
-    | CTE_FLOAT
-    | CTE_INT ;
+    ID array_or_func
+    | CTE_FLOAT {
+        pushOperatorOfType<float>($1, 1);
+    }
+    | CTE_INT {
+        pushOperatorOfType<int>($1, 0);
+    } ;
+
+array_or_func :
+    LEFT_PAR arguments RIGHT_PAR
+    | LEFT_BRACK index RIGHT_BRACK
+    | ;
+
+arguments :
+    exp COMMA arguments
+    | exp ;
 
 statements :
     statement statements

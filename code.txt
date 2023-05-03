@@ -5,12 +5,12 @@ var x, z : int;
 
 function fun() : int {
     var a : int;
-    a = 3;
+    a = 3.2;
     return(a);
 }
 
 function fun2() : int {
-    b = 3;
+    b = +3 - -5;
     return(b);
 }
 

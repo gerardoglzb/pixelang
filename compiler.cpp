@@ -1,6 +1,17 @@
 #include <utility>
 #include "compiler.h"
 
+static stack<string> operators;
+static stack<int> types;
+
+void pushOperator(int oper) {
+    cout << "pushing " << oper << endl;
+}
+
+void pushOperator(float oper) {
+    cout << "pushing " << oper << endl;
+}
+
 VariableEntry *declareVariable(string name, int type, VariableTable *table, int lineas) {
     VariableEntry *entry = new VariableEntry(name, type);
     if (table->has(name)) {
