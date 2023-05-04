@@ -1,6 +1,11 @@
 #include <utility>
 #include "compiler.h"
 
+void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
+    Quadruple quad = Quadruple(oper, leftOperand, rightOperand, result);
+    quads.push(quad);
+}
+
 void doOperation(FunctionEntry *function) {
     if (operands.size() > 1 && !operators.empty()) {
         int rightOperand = operands.top(); operands.pop();
@@ -11,8 +16,8 @@ void doOperation(FunctionEntry *function) {
 
         int resultType = semanticCube(oper, leftType, rightType);
         if (resultType > -1) {
-            // generate quad
             int result = function->declareTemp(resultType);
+            generateQuad(oper, leftOperand, rightOperand, result);
         } else {
             cout << "Type mismatch." << endl;;
             exit(-1);
@@ -20,6 +25,22 @@ void doOperation(FunctionEntry *function) {
     } else {
         cout << "Whoops. error for the time being. " << endl;
         // TODO: si puede haber 1 operando si es IGUAL o algo así. puede estar vacío si es GOTO y así, etc.
+    }
+}
+
+void checkIfShouldDoOperation(vector<int> myOperators, FunctionEntry *function) {
+    if (operators.size() == 0) {
+        return;
+    }
+    bool shouldDoOperation = false;
+    for (int oper : myOperators) {
+        if (operators.top() == oper) {
+            shouldDoOperation = true;
+            break;
+        }
+    }
+    if (shouldDoOperation) {
+        doOperation(function);
     }
 }
 

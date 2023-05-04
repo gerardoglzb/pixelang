@@ -141,41 +141,57 @@ params :
     | ;
 
 expression :
-    comp expression2 comp 
+    comp {
+        checkIfShouldDoOperation(vector<int>({9, 10}), functionDirectory.currentFunction());
+    } expression2 comp 
     | comp ;
 
 expression2 : 
-    AND
-    | OR
+    AND {
+        operators.push(9);
+    }
+    | OR {
+        operators.push(10);
+    }
     | ;
 
 comp :
-    exp comp2 exp 
+    exp {
+        checkIfShouldDoOperation(vector<int>({5, 6, 7, 8}), functionDirectory.currentFunction());
+    } comp2 exp 
     | exp ;
 
 comp2 :
-    MORE_THAN
-    | LESS_THAN
-    | EQUAL_TO
-    | NOT_EQUAL ;
+    MORE_THAN {
+        operators.push(5);
+    }
+    | LESS_THAN {
+        operators.push(6);
+    }
+    | EQUAL_TO {
+        operators.push(7);
+    }
+    | NOT_EQUAL {
+        operators.push(8);
+    } ;
 
 exp :
     term {
-        if (operators.size() > 0 && (operators.top() == 1 || operators.top() == 2)) {
-            doOperation(functionDirectory.currentFunction());
-        }
+        checkIfShouldDoOperation(vector<int>(1, 2), functionDirectory.currentFunction());
     } exp2 ;
 
 exp2 :
-    ADDITION exp
-    | SUBSTRACTION exp
+    ADDITION {
+        operators.push(1);
+    } exp
+    | SUBSTRACTION {
+        operators.push(2);
+    } exp
     | ;
 
 term :
     factor {
-        if (operators.size() > 0 && (operators.top() == 3 || operators.top() == 4)) {
-            doOperation(functionDirectory.currentFunction());
-        }
+        checkIfShouldDoOperation(vector<int>(3, 4), functionDirectory.currentFunction());
     } term2 ;
 
 term2 :

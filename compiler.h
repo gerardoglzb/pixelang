@@ -1,11 +1,28 @@
 #include <iostream>
 #include <unordered_map>
 #include <stack>
+#include <queue>
 using namespace std;
 
-static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div
+static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div, 5 greater, 6 less, 7 equal to, 8 not equal, 9 and, 10 or
 static stack<int> types;
 static stack<int> operands;
+
+struct Quadruple {
+    int oper;
+    int leftOperand;
+    int rightOperand;
+    int result;
+
+    Quadruple(int oper, int leftOperand, int rightOperand, int result) {
+        this->oper = oper;
+        this->leftOperand = leftOperand;
+        this->rightOperand = rightOperand;
+        this->result = result;
+    }
+};
+
+static queue<Quadruple> quads;
 
 template<typename T>
 struct MemoryFrame {
@@ -330,6 +347,8 @@ void pushOperandByID(string name, FunctionEntry *entry);
 void pushOperator(string oper);
 
 void doOperation(FunctionEntry *function);
+
+void checkIfShouldDoOperation(vector<int> myOperators, FunctionEntry *function);
 
 template<typename T>
 int storeVariableCte(T value, int type, FunctionEntry *entry) {
