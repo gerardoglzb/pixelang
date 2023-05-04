@@ -1,7 +1,6 @@
 #include <iostream>
 #include <unordered_map>
 #include <stack>
-#include <vector>
 using namespace std;
 
 static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div
@@ -11,18 +10,11 @@ static stack<int> operands;
 template<typename T>
 struct MemoryFrame {
     size_t size;
-    vector<T> frame;
     int index;
 
     MemoryFrame(size_t size) {
         this->size = size;
-        this->frame = vector<T>(size);
         this->index = 0;
-    }
-
-    int addValue(T value) {
-        frame[index] = value;
-        return index++;
     }
 
     int addValue() {
@@ -50,20 +42,6 @@ struct Memory {
         }
         if (type == 2) {
             return memoryFloat->addValue();
-        }
-        return -1;
-    }
-
-    template <typename T>
-    int addValue(T value, int type) {
-        if (type == 0) {
-            return memoryInt->addValue(value);
-        }
-        if (type == 1) {
-            return memoryFloat->addValue(value);
-        }
-        if (type == 2) {
-            return memoryFloat->addValue(value);
         }
         return -1;
     }
@@ -355,5 +333,5 @@ void doOperation(FunctionEntry *function);
 
 template<typename T>
 int storeVariableCte(T value, int type, FunctionEntry *entry) {
-    return entry->cteMemory->addValue<T>(value, type);
+    return entry->cteMemory->addValue(type);
 }
