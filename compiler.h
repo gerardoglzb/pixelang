@@ -1,7 +1,52 @@
 #include <iostream>
 #include <unordered_map>
 #include <stack>
+#include <vector>
 using namespace std;
+
+static stack<string> operators;
+static stack<int> types;
+
+template<typename T>
+struct MemoryFrame {
+    size_t size;
+    vector<T> *frame;
+
+    MemoryFrame(size_t size) {
+        this->size = size;
+        this->frame = new vector<T>(size);
+    }
+};
+
+template <typename T>
+struct MemoryFrames {
+
+    MemoryFrame<T> *global;
+    MemoryFrame<T> *local;
+    MemoryFrame<T> *temporal;
+    MemoryFrame<T> *constant;
+
+    MemoryFrames() {
+        this->global = new MemoryFrame<T>(2000);
+        this->local = new MemoryFrame<T>(1000);
+        this->temporal = new MemoryFrame<T>(3000);
+        this->constant = new MemoryFrame<T>(1000);
+    }
+};
+
+struct Memory {
+    MemoryFrames<int> *memoryInt;
+    MemoryFrames<float> *memoryFloat;
+    MemoryFrames<string> *memoryString;
+
+    Memory() {
+        this->memoryInt = new MemoryFrames<int>();
+        this->memoryFloat = new MemoryFrames<float>();
+        this->memoryString = new MemoryFrames<string>();
+    }
+};
+
+static Memory memory;
 
 struct ArrItem {
     void *val;
@@ -21,6 +66,7 @@ struct ArrItem {
 struct VariableEntry {
     string name;
     int type;
+    int address;
     VariableEntry *next;
     ArrItem *arrHead;
 
@@ -34,6 +80,15 @@ struct VariableEntry {
     VariableEntry(string name, int type) {
         this->name = name;
         this->type = type;
+        this->address = -1;
+        this->next = nullptr;
+        this->arrHead = new ArrItem();
+    };
+
+    VariableEntry(string name, int type, int address) {
+        this->name = name;
+        this->type = type;
+        this->address = address;
         this->next = nullptr;
         this->arrHead = new ArrItem();
     };
@@ -180,6 +235,10 @@ struct FunctionDirectory {
         return find(currentFunctions->top());
     }
 
+    VariableTable *currentTable() {
+        return this->currentFunction()->table;
+    }
+
     FunctionDirectory() {
         this->head = new FunctionEntry();
         this->currentFunctions = new stack<string>();
@@ -206,11 +265,15 @@ void declareFunction(string name, int type, FunctionDirectory *funcDir, int line
 
 int semanticCube(int oper, int type1, int type2);
 
-void pushOperator(int oper);
+void pushOperand(int operand);
 
-void pushOperator(float oper);
+void pushOperand(float operand);
 
 template<typename T>
-void pushOperatorOfType(T oper, int type) {
-    pushOperator(oper);
+void pushOperandOfType(T operand, int type) {
+    pushOperand(operand);
 }
+
+void pushOperator(string oper);
+
+void doAdditionSubstraction();

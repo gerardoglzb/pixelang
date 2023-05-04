@@ -1,16 +1,25 @@
 #include <utility>
 #include "compiler.h"
 
-static stack<string> operators;
-static stack<int> types;
+void doAdditionSubstraction() {
+}
 
-void pushOperator(int oper) {
+void pushOperand(int oper) {
     cout << "pushing " << oper << endl;
 }
 
-void pushOperator(float oper) {
+void pushOperand(float oper) {
     cout << "pushing " << oper << endl;
 }
+
+void pushOperator(string oper) {
+    operators.push(oper);
+}
+
+// <template typename T>
+// int storeVariable(string name, T value) {
+//     return 1;
+// }
 
 VariableEntry *declareVariable(string name, int type, VariableTable *table, int lineas) {
     VariableEntry *entry = new VariableEntry(name, type);

@@ -160,7 +160,11 @@ comp2 :
     | NOT_EQUAL ;
 
 exp :
-    term exp2 ;
+    term {
+        if (operators.size() > 0 && (operators.top() == "+" || operators.top() == "-")) {
+            doAdditionSubstraction();
+        }
+    } exp2 ;
 
 exp2 :
     ADDITION exp
@@ -168,18 +172,28 @@ exp2 :
     | ;
 
 term :
-    factor term2 ;
+    factor {
+        if (operators.size() > 0 && (operators.top() == "*" || operators.top() == "/")) {
+            cout << "Por div" << endl;
+        }
+    } term2 ;
 
 term2 :
-    MULTI term
-    | DIV term
+    MULTI {
+        operators.push("*");
+    } term
+    | DIV {
+        operators.push("/")
+    } term
     | ;
 
 factor :
     LEFT_PAR expression RIGHT_PAR
     | ADDITION var_cte
     | SUBSTRACTION var_cte
-    | var_cte ;
+    | var_cte {
+        
+    } ;
 
 index :
     expression
@@ -188,20 +202,21 @@ index :
 var_cte :
     ID array_or_func
     | CTE_FLOAT {
-        pushOperatorOfType<float>($1, 1);
+        pushOperandOfType<float>($1, 1);
     }
     | CTE_INT {
-        pushOperatorOfType<int>($1, 0);
+        pushOperandOfType<int>($1, 0);
     } ;
 
 array_or_func :
     LEFT_PAR arguments RIGHT_PAR
     | LEFT_BRACK index RIGHT_BRACK
-    | ;
+    | {
+    } ;
 
 arguments :
-    exp COMMA arguments
-    | exp ;
+    expression COMMA arguments
+    | expression ;
 
 statements :
     statement statements
@@ -217,7 +232,7 @@ statement :
 assignment :
     ID EQUAL call
     | ID LEFT_BRACK index RIGHT_BRACK EQUAL call
-    | ID EQUAL expression SEMICOLON ;
+    | ID EQUAL expression SEMICOLON
     | ID LEFT_BRACK index RIGHT_BRACK EQUAL expression SEMICOLON ;
 
 call :
