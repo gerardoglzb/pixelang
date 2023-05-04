@@ -1,25 +1,31 @@
 #include <utility>
 #include "compiler.h"
 
-void doAddSub() {
+void doOperation(FunctionEntry *function) {
+    int rightOperand = operands.top(); operands.top();
+    int rightType = types.top(); types.pop();
+    int leftOperand = operands.top(); types.pop();
+    int leftType = types.top(); types.pop();
+    int oper = operators.top(); operators.pop();
+
+    int resultType = semanticCube(oper, leftType, rightType);
+    if (resultType > -1) {
+        // generate quad
+        int result = function->declareTemp(resultType);
+    } else {
+        cout << "Type mismatch." << endl;;
+        exit(-1);
+    }
 }
 
-void doMultiDiv() {
-
-}
-
-void pushOperandByID(string name, FunctionEntry *entry) {
-    operands.push(entry->findAddress(name));
-    types.push(entry->findType(name));
+void pushOperandByID(string name, FunctionEntry *function) {
+    operands.push(function->findAddress(name));
+    types.push(function->findType(name));
 }
 
 void pushOperandOfType(int address, int type) {
     operands.push(address);
     types.push(type);
-}
-
-void pushOperator(string oper) {
-    operators.push(oper);
 }
 
 VariableEntry *declareVariable(string name, int type, VariableTable *table, int lineas) {
@@ -122,7 +128,7 @@ void declareFunction(string name, int type, FunctionDirectory *funcDir, int line
 }
 
 // 0 equal, 1 add, 2 sub, 3 multi, 4 div
-// 0 int, 1 float, -1 err
+// 0 int, 1 float, 2 string -1 err
 int semanticCube(int oper, int type1, int type2) {
     int cube[5][2][2] = {
         {

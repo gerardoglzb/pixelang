@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-static stack<string> operators;
+static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div
 static stack<int> types;
 static stack<int> operands;
 
@@ -24,6 +24,10 @@ struct MemoryFrame {
         frame[index] = value;
         return index++;
     }
+
+    int addValue() {
+        return index++;
+    }
 };
 
 struct Memory {
@@ -35,6 +39,19 @@ struct Memory {
         this->memoryInt = new MemoryFrame<int>(size);
         this->memoryFloat = new MemoryFrame<float>(size);
         this->memoryString = new MemoryFrame<string>(size);
+    }
+
+    int addValue(int type) {
+        if (type == 0) {
+            return memoryInt->addValue();
+        }
+        if (type == 1) {
+            return memoryFloat->addValue();
+        }
+        if (type == 2) {
+            return memoryFloat->addValue();
+        }
+        return -1;
     }
 
     template <typename T>
@@ -186,6 +203,10 @@ struct FunctionEntry {
     Memory *tempMemory;
     Memory *cteMemory;
 
+    int declareTemp(int type) {
+        return tempMemory->addValue(type);
+    }
+
     void removeTable() {
         delete table;
         table = NULL;
@@ -330,9 +351,7 @@ void pushOperandByID(string name, FunctionEntry *entry);
 
 void pushOperator(string oper);
 
-void doAddSub();
-
-void doMultiDiv();
+void doOperation(FunctionEntry *function);
 
 template<typename T>
 int storeVariableCte(T value, int type, FunctionEntry *entry) {

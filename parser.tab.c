@@ -1647,8 +1647,8 @@ yyreduce:
   case 35:
 #line 163 "parser.y"
     {
-        if (operators.size() > 0 && (operators.top() == "+" || operators.top() == "-")) {
-            doAddSub();
+        if (operators.size() > 0 && (operators.top() == 1 || operators.top() == 2)) {
+            doOperation(functionDirectory.currentFunction());
         }
     ;}
     break;
@@ -1656,8 +1656,8 @@ yyreduce:
   case 40:
 #line 175 "parser.y"
     {
-        if (operators.size() > 0 && (operators.top() == "*" || operators.top() == "/")) {
-            doMultiDiv();
+        if (operators.size() > 0 && (operators.top() == 3 || operators.top() == 4)) {
+            doOperation(functionDirectory.currentFunction());
         }
     ;}
     break;
@@ -1665,28 +1665,28 @@ yyreduce:
   case 42:
 #line 182 "parser.y"
     {
-        operators.push("*");
+        operators.push(3);
     ;}
     break;
 
   case 44:
 #line 185 "parser.y"
     {
-        operators.push("/")
+        operators.push(4)
     ;}
     break;
 
   case 48:
 #line 192 "parser.y"
     {
-        operators.push("+");
+        operators.push(1);
     ;}
     break;
 
   case 50:
 #line 195 "parser.y"
     {
-        operators.push("-");
+        operators.push(2);
     ;}
     break;
 

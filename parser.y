@@ -161,8 +161,8 @@ comp2 :
 
 exp :
     term {
-        if (operators.size() > 0 && (operators.top() == "+" || operators.top() == "-")) {
-            doAddSub();
+        if (operators.size() > 0 && (operators.top() == 1 || operators.top() == 2)) {
+            doOperation(functionDirectory.currentFunction());
         }
     } exp2 ;
 
@@ -173,27 +173,27 @@ exp2 :
 
 term :
     factor {
-        if (operators.size() > 0 && (operators.top() == "*" || operators.top() == "/")) {
-            doMultiDiv();
+        if (operators.size() > 0 && (operators.top() == 3 || operators.top() == 4)) {
+            doOperation(functionDirectory.currentFunction());
         }
     } term2 ;
 
 term2 :
     MULTI {
-        operators.push("*");
+        operators.push(3);
     } term
     | DIV {
-        operators.push("/")
+        operators.push(4)
     } term
     | ;
 
 factor :
     LEFT_PAR expression RIGHT_PAR
     | ADDITION {
-        operators.push("+");
+        operators.push(1);
     } var_cte
     | SUBSTRACTION {
-        operators.push("-");
+        operators.push(2);
     } var_cte
     | var_cte ;
 
