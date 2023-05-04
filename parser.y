@@ -10,7 +10,6 @@
 
     extern "C" int lineas;
     extern "C" FunctionDirectory functionDirectory;
-    extern "C" Memory *globalMemory;
      
     void yyerror(const char *s);
 %}
@@ -74,8 +73,7 @@
 
 program : 
     PROGRAM ID {
-        globalMemory = new Memory(2000);
-        declareFunction($2, 4, &functionDirectory, lineas);
+        declareFunction($2, 4, &functionDirectory, lineas, 2000, 4000, 2000);
     } SEMICOLON vars functions block {
         printf("Valid syntax.\n");
     } ;
@@ -203,11 +201,11 @@ var_cte :
     ID array_or_func
     | CTE_FLOAT {
         pushOperandOfType<float>($1, 1);
-        storeVariable<float>($1, 1);
+        storeVariableCte<float>($1, 1, functionDirectory.currentFunction());
     }
     | CTE_INT {
         pushOperandOfType<int>($1, 0);
-        storeVariable<int>($1, 0);
+        storeVariableCte<int>($1, 0, functionDirectory.currentFunction());
     } ;
 
 array_or_func :

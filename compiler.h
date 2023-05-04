@@ -10,12 +10,12 @@ static stack<int> types;
 template<typename T>
 struct MemoryFrame {
     size_t size;
-    vector<T> *frame;
+    vector<T> frame;
     int index;
 
     MemoryFrame(size_t size) {
         this->size = size;
-        this->frame = new vector<T>(size);
+        this->frame = vector<T>(size);
         this->index = 0;
     }
 
@@ -185,6 +185,19 @@ struct FunctionEntry {
         this->table = table;
         this->type = type;
         this->next = nullptr;
+        this->localMemory = new Memory(1000);
+        this->tempMemory = new Memory(3000);
+        this->cteMemory = new Memory(1000);
+    };
+
+    FunctionEntry(string name, int type, VariableTable *table, int localSize, int tempSize, int cteSize) {
+        this->name = name;
+        this->table = table;
+        this->type = type;
+        this->next = nullptr;
+        this->localMemory = new Memory(localSize);
+        this->tempMemory = new Memory(tempSize);
+        this->cteMemory = new Memory(cteSize);
     };
 };
 
@@ -242,6 +255,7 @@ struct FunctionDirectory {
     }
 
     FunctionEntry *currentFunction() {
+        cout << "topping " << currentFunctions->top() << endl;
         return find(currentFunctions->top());
     }
 
@@ -273,6 +287,8 @@ void declareVariables(IDNode *variable, int type, VariableTable *table, int line
 
 void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas);
 
+void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas, int localSize, int tempSize, int cteSize);
+
 int semanticCube(int oper, int type1, int type2);
 
 void pushOperand(int operand);
@@ -289,6 +305,6 @@ void pushOperator(string oper);
 void doAdditionSubstraction();
 
 template<typename T>
-int storeVariable(T value, int type) {
-    return 1;
+int storeVariableCte(T value, int type, FunctionEntry *entry) {
+    return entry->cteMemory->addValue<T>(value, type);
 }
