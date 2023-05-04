@@ -2,19 +2,24 @@
 #include "compiler.h"
 
 void doOperation(FunctionEntry *function) {
-    int rightOperand = operands.top(); operands.top();
-    int rightType = types.top(); types.pop();
-    int leftOperand = operands.top(); types.pop();
-    int leftType = types.top(); types.pop();
-    int oper = operators.top(); operators.pop();
+    if (operands.size() > 1 && !operators.empty()) {
+        int rightOperand = operands.top(); operands.pop();
+        int rightType = types.top(); types.pop();
+        int leftOperand = operands.top(); types.pop();
+        int leftType = types.top(); types.pop();
+        int oper = operators.top(); operators.pop();
 
-    int resultType = semanticCube(oper, leftType, rightType);
-    if (resultType > -1) {
-        // generate quad
-        int result = function->declareTemp(resultType);
+        int resultType = semanticCube(oper, leftType, rightType);
+        if (resultType > -1) {
+            // generate quad
+            int result = function->declareTemp(resultType);
+        } else {
+            cout << "Type mismatch." << endl;;
+            exit(-1);
+        }
     } else {
-        cout << "Type mismatch." << endl;;
-        exit(-1);
+        cout << "Whoops. error for the time being. " << endl;
+        // TODO: si puede haber 1 operando si es IGUAL o algo así. puede estar vacío si es GOTO y así, etc.
     }
 }
 

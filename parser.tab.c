@@ -535,10 +535,10 @@ static const yytype_uint16 yyrline[] =
      132,   135,   138,   141,   144,   145,   148,   149,   150,   153,
      154,   157,   158,   159,   160,   163,   163,   170,   171,   172,
      175,   175,   182,   182,   185,   185,   188,   191,   192,   192,
-     195,   195,   198,   201,   202,   205,   206,   209,   212,   217,
-     218,   221,   222,   225,   226,   229,   230,   231,   232,   233,
-     236,   237,   238,   239,   242,   245,   246,   249,   250,   253,
-     256,   257,   260,   261,   264,   265,   268,   269,   272,   275
+     195,   195,   198,   201,   202,   205,   206,   209,   212,   219,
+     220,   223,   224,   227,   228,   231,   232,   233,   234,   235,
+     238,   239,   240,   241,   244,   247,   248,   251,   252,   255,
+     258,   259,   262,   263,   266,   267,   270,   271,   274,   277
 };
 #endif
 
@@ -1707,13 +1707,15 @@ yyreduce:
   case 58:
 #line 212 "parser.y"
     {
+        cout << "DYING" << endl;
         pushOperandOfType(storeVariableCte((yyvsp[(1) - (1)].ival), 1, functionDirectory.currentFunction()), 0);
+        cout << "DYING" << endl;
     ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1717 "parser.tab.c"
+#line 1719 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1927,7 +1929,7 @@ yyreturn:
 }
 
 
-#line 277 "parser.y"
+#line 279 "parser.y"
 
 
 int main() {

@@ -10,8 +10,8 @@ function fun() : int {
 }
 
 function fun2() : int {
-    b = +3 - -5;
-    return(b);
+
+    return(3);
 }
 
 {

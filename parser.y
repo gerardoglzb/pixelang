@@ -210,7 +210,9 @@ var_cte :
         pushOperandOfType(storeVariableCte($1, 1, functionDirectory.currentFunction()), 1);
     }
     | CTE_INT {
+        cout << "DYING" << endl;
         pushOperandOfType(storeVariableCte($1, 1, functionDirectory.currentFunction()), 0);
+        cout << "DYING" << endl;
     } ;
 
 array_or_func :
