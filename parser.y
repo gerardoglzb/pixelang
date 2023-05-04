@@ -10,6 +10,7 @@
 
     extern "C" int lineas;
     extern "C" FunctionDirectory functionDirectory;
+    extern "C" Memory *globalMemory;
      
     void yyerror(const char *s);
 %}
@@ -73,6 +74,7 @@
 
 program : 
     PROGRAM ID {
+        globalMemory = new Memory(2000);
         declareFunction($2, 4, &functionDirectory, lineas);
     } SEMICOLON vars functions block {
         printf("Valid syntax.\n");
@@ -191,9 +193,7 @@ factor :
     LEFT_PAR expression RIGHT_PAR
     | ADDITION var_cte
     | SUBSTRACTION var_cte
-    | var_cte {
-        
-    } ;
+    | var_cte ;
 
 index :
     expression
@@ -203,9 +203,11 @@ var_cte :
     ID array_or_func
     | CTE_FLOAT {
         pushOperandOfType<float>($1, 1);
+        storeVariable<float>($1, 1);
     }
     | CTE_INT {
         pushOperandOfType<int>($1, 0);
+        storeVariable<int>($1, 0);
     } ;
 
 array_or_func :

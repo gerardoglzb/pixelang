@@ -11,42 +11,45 @@ template<typename T>
 struct MemoryFrame {
     size_t size;
     vector<T> *frame;
+    int index;
 
     MemoryFrame(size_t size) {
         this->size = size;
         this->frame = new vector<T>(size);
+        this->index = 0;
     }
-};
 
-template <typename T>
-struct MemoryFrames {
-
-    MemoryFrame<T> *global;
-    MemoryFrame<T> *local;
-    MemoryFrame<T> *temporal;
-    MemoryFrame<T> *constant;
-
-    MemoryFrames() {
-        this->global = new MemoryFrame<T>(2000);
-        this->local = new MemoryFrame<T>(1000);
-        this->temporal = new MemoryFrame<T>(3000);
-        this->constant = new MemoryFrame<T>(1000);
+    int addValue(T value) {
+        frame[index] = value;
+        return index++;
     }
 };
 
 struct Memory {
-    MemoryFrames<int> *memoryInt;
-    MemoryFrames<float> *memoryFloat;
-    MemoryFrames<string> *memoryString;
+    MemoryFrame<int> *memoryInt;
+    MemoryFrame<float> *memoryFloat;
+    MemoryFrame<string> *memoryString;
 
-    Memory() {
-        this->memoryInt = new MemoryFrames<int>();
-        this->memoryFloat = new MemoryFrames<float>();
-        this->memoryString = new MemoryFrames<string>();
+    Memory(size_t size) {
+        this->memoryInt = new MemoryFrame<int>(size);
+        this->memoryFloat = new MemoryFrame<float>(size);
+        this->memoryString = new MemoryFrame<string>(size);
+    }
+
+    template <typename T>
+    int addValue(T value, int type) {
+        if (type == 0) {
+            return memoryInt->addValue(value);
+        }
+        if (type == 1) {
+            return memoryFloat->addValue(value);
+        }
+        if (type == 2) {
+            return memoryFloat->addValue(value);
+        }
+        return -1;
     }
 };
-
-static Memory memory;
 
 struct ArrItem {
     void *val;
@@ -158,6 +161,10 @@ struct FunctionEntry {
     int type;
     FunctionEntry *next;
 
+    Memory *localMemory;
+    Memory *tempMemory;
+    Memory *cteMemory;
+
     void removeTable() {
         delete table;
         table = NULL;
@@ -168,6 +175,9 @@ struct FunctionEntry {
         this->table = new VariableTable();
         this->type = 7;
         this->next = nullptr;
+        this->localMemory = new Memory(1000);
+        this->tempMemory = new Memory(3000);
+        this->cteMemory = new Memory(1000);
     };
 
     FunctionEntry(string name, int type, VariableTable *table) {
@@ -277,3 +287,8 @@ void pushOperandOfType(T operand, int type) {
 void pushOperator(string oper);
 
 void doAdditionSubstraction();
+
+template<typename T>
+int storeVariable(T value, int type) {
+    return 1;
+}

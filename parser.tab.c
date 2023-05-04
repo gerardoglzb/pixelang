@@ -163,6 +163,7 @@
 
     extern "C" int lineas;
     extern "C" FunctionDirectory functionDirectory;
+    extern "C" Memory *globalMemory;
      
     void yyerror(const char *s);
 
@@ -187,7 +188,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 17 "parser.y"
+#line 18 "parser.y"
 {
     char *sval;
     int ival;
@@ -196,7 +197,7 @@ typedef union YYSTYPE
     int chType; // 0 int, 1 float, 2 string, 3 void, 4 prog, 5 int arr, 6 float arr, 7 temp, -1 err
 }
 /* Line 193 of yacc.c.  */
-#line 200 "parser.tab.c"
+#line 201 "parser.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -209,7 +210,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 213 "parser.tab.c"
+#line 214 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -530,15 +531,15 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    75,    75,    75,    82,    83,    86,    89,    94,    98,
-     104,   105,   108,   108,   116,   119,   124,   125,   128,   131,
-     132,   135,   138,   141,   144,   145,   148,   149,   150,   153,
-     154,   157,   158,   159,   160,   163,   163,   170,   171,   172,
-     175,   175,   182,   182,   185,   185,   188,   191,   192,   193,
-     194,   199,   200,   203,   204,   207,   212,   213,   214,   218,
-     219,   222,   223,   226,   227,   228,   229,   230,   233,   234,
-     235,   236,   239,   242,   243,   246,   247,   250,   253,   254,
-     257,   258,   261,   262,   265,   266,   269,   272
+       0,    76,    76,    76,    84,    85,    88,    91,    96,   100,
+     106,   107,   110,   110,   118,   121,   126,   127,   130,   133,
+     134,   137,   140,   143,   146,   147,   150,   151,   152,   155,
+     156,   159,   160,   161,   162,   165,   165,   172,   173,   174,
+     177,   177,   184,   184,   187,   187,   190,   193,   194,   195,
+     196,   199,   200,   203,   204,   208,   214,   215,   216,   220,
+     221,   224,   225,   228,   229,   230,   231,   232,   235,   236,
+     237,   238,   241,   244,   245,   248,   249,   252,   255,   256,
+     259,   260,   263,   264,   267,   268,   271,   274
 };
 #endif
 
@@ -1557,35 +1558,36 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 75 "parser.y"
+#line 76 "parser.y"
     {
+        globalMemory = new Memory(2000);
         declareFunction((yyvsp[(2) - (2)].sval), 4, &functionDirectory, lineas);
     ;}
     break;
 
   case 3:
-#line 77 "parser.y"
+#line 79 "parser.y"
     {
         printf("Valid syntax.\n");
     ;}
     break;
 
   case 6:
-#line 86 "parser.y"
+#line 88 "parser.y"
     {
         declareVariables((yyvsp[(1) - (3)].nodeID), (yyvsp[(3) - (3)].chType), functionDirectory.currentFunction()->table, lineas);
     ;}
     break;
 
   case 7:
-#line 89 "parser.y"
+#line 91 "parser.y"
     {
         declareArrays((yyvsp[(1) - (6)].nodeID), (yyvsp[(3) - (6)].chType), (yyvsp[(5) - (6)].ival), functionDirectory.currentFunction()->table, lineas);
     ;}
     break;
 
   case 8:
-#line 94 "parser.y"
+#line 96 "parser.y"
     {
         IDNode *node = new IDNode((yyvsp[(1) - (1)].sval));
         (yyval.nodeID) = node;
@@ -1593,7 +1595,7 @@ yyreduce:
     break;
 
   case 9:
-#line 98 "parser.y"
+#line 100 "parser.y"
     {
         IDNode *node = new IDNode((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].nodeID));
         (yyval.nodeID) = node;
@@ -1601,14 +1603,14 @@ yyreduce:
     break;
 
   case 12:
-#line 108 "parser.y"
+#line 110 "parser.y"
     {
         declareFunction((yyvsp[(2) - (2)].sval), 7, &functionDirectory, lineas);
     ;}
     break;
 
   case 13:
-#line 110 "parser.y"
+#line 112 "parser.y"
     {
         functionDirectory.removeTable((yyvsp[(2) - (13)].sval));
         functionDirectory.currentFunctions->pop();
@@ -1616,35 +1618,35 @@ yyreduce:
     break;
 
   case 14:
-#line 116 "parser.y"
+#line 118 "parser.y"
     {
         functionDirectory.currentFunction()->type = (yyvsp[(1) - (1)].chType);
     ;}
     break;
 
   case 15:
-#line 119 "parser.y"
+#line 121 "parser.y"
     {
         functionDirectory.currentFunction()->type = 5;
     ;}
     break;
 
   case 21:
-#line 135 "parser.y"
+#line 137 "parser.y"
     {
         declareVariable((yyvsp[(1) - (5)].sval), (yyvsp[(3) - (5)].chType), functionDirectory.currentFunction()->table, lineas);
     ;}
     break;
 
   case 22:
-#line 138 "parser.y"
+#line 140 "parser.y"
     {
         declareVariable((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].chType), functionDirectory.currentFunction()->table, lineas);
     ;}
     break;
 
   case 35:
-#line 163 "parser.y"
+#line 165 "parser.y"
     {
         if (operators.size() > 0 && (operators.top() == "+" || operators.top() == "-")) {
             doAdditionSubstraction();
@@ -1653,7 +1655,7 @@ yyreduce:
     break;
 
   case 40:
-#line 175 "parser.y"
+#line 177 "parser.y"
     {
         if (operators.size() > 0 && (operators.top() == "*" || operators.top() == "/")) {
             cout << "Por div" << endl;
@@ -1662,23 +1664,16 @@ yyreduce:
     break;
 
   case 42:
-#line 182 "parser.y"
+#line 184 "parser.y"
     {
         operators.push("*");
     ;}
     break;
 
   case 44:
-#line 185 "parser.y"
+#line 187 "parser.y"
     {
         operators.push("/")
-    ;}
-    break;
-
-  case 50:
-#line 194 "parser.y"
-    {
-        
     ;}
     break;
 
@@ -1686,25 +1681,27 @@ yyreduce:
 #line 204 "parser.y"
     {
         pushOperandOfType<float>((yyvsp[(1) - (1)].fval), 1);
+        storeVariable<float>((yyvsp[(1) - (1)].fval), 1);
     ;}
     break;
 
   case 55:
-#line 207 "parser.y"
+#line 208 "parser.y"
     {
         pushOperandOfType<int>((yyvsp[(1) - (1)].ival), 0);
+        storeVariable<int>((yyvsp[(1) - (1)].ival), 0);
     ;}
     break;
 
   case 58:
-#line 214 "parser.y"
+#line 216 "parser.y"
     {
     ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1708 "parser.tab.c"
+#line 1705 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1918,7 +1915,7 @@ yyreturn:
 }
 
 
-#line 274 "parser.y"
+#line 276 "parser.y"
 
 
 int main() {

@@ -10,6 +10,7 @@ using namespace std;
 int lineas = 1;
 
 FunctionDirectory functionDirectory;
+Memory *globalMemory;
 
 %}
 %%

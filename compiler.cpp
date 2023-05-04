@@ -16,11 +16,6 @@ void pushOperator(string oper) {
     operators.push(oper);
 }
 
-// <template typename T>
-// int storeVariable(string name, T value) {
-//     return 1;
-// }
-
 VariableEntry *declareVariable(string name, int type, VariableTable *table, int lineas) {
     VariableEntry *entry = new VariableEntry(name, type);
     if (table->has(name)) {
