@@ -1,15 +1,21 @@
 #include <utility>
 #include "compiler.h"
 
-void doAdditionSubstraction() {
+void doAddSub() {
 }
 
-void pushOperand(int oper) {
-    cout << "pushing " << oper << endl;
+void doMultiDiv() {
+
 }
 
-void pushOperand(float oper) {
-    cout << "pushing " << oper << endl;
+void pushOperandByID(string name, FunctionEntry *entry) {
+    operands.push(entry->findAddress(name));
+    types.push(entry->findType(name));
+}
+
+void pushOperandOfType(int address, int type) {
+    operands.push(address);
+    types.push(type);
 }
 
 void pushOperator(string oper) {

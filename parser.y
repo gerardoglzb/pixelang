@@ -84,10 +84,10 @@ vars :
 
 var :
     var_list COLON type {
-        declareVariables($1, $3, functionDirectory.currentFunction()->table, lineas);
+        declareVariables($1, $3, functionDirectory.currentTable(), lineas);
     }
     | var_list COLON type LEFT_BRACK CTE_INT RIGHT_BRACK {
-        declareArrays($1, $3, $5, functionDirectory.currentFunction()->table, lineas);
+        declareArrays($1, $3, $5, functionDirectory.currentTable(), lineas);
     } ;
 
 var_list :
@@ -133,10 +133,10 @@ type :
 
 params :
     ID COLON type COMMA params {
-        declareVariable($1, $3, functionDirectory.currentFunction()->table, lineas);
+        declareVariable($1, $3, functionDirectory.currentTable(), lineas);
     }
     | ID COLON type {
-        declareVariable($1, $3, functionDirectory.currentFunction()->table, lineas);
+        declareVariable($1, $3, functionDirectory.currentTable(), lineas);
     }
     | ;
 
@@ -162,7 +162,7 @@ comp2 :
 exp :
     term {
         if (operators.size() > 0 && (operators.top() == "+" || operators.top() == "-")) {
-            doAdditionSubstraction();
+            doAddSub();
         }
     } exp2 ;
 
@@ -174,7 +174,7 @@ exp2 :
 term :
     factor {
         if (operators.size() > 0 && (operators.top() == "*" || operators.top() == "/")) {
-            cout << "Por div" << endl;
+            doMultiDiv();
         }
     } term2 ;
 
@@ -189,8 +189,12 @@ term2 :
 
 factor :
     LEFT_PAR expression RIGHT_PAR
-    | ADDITION var_cte
-    | SUBSTRACTION var_cte
+    | ADDITION {
+        operators.push("+");
+    } var_cte
+    | SUBSTRACTION {
+        operators.push("-");
+    } var_cte
     | var_cte ;
 
 index :
@@ -199,20 +203,19 @@ index :
 
 var_cte :
     ID array_or_func
+    | ID {
+        pushOperandByID($1, functionDirectory.currentFunction());
+    }
     | CTE_FLOAT {
-        pushOperandOfType<float>($1, 1);
-        storeVariableCte<float>($1, 1, functionDirectory.currentFunction());
+        pushOperandOfType(storeVariableCte($1, 1, functionDirectory.currentFunction()), 1);
     }
     | CTE_INT {
-        pushOperandOfType<int>($1, 0);
-        storeVariableCte<int>($1, 0, functionDirectory.currentFunction());
+        pushOperandOfType(storeVariableCte($1, 1, functionDirectory.currentFunction()), 0);
     } ;
 
 array_or_func :
     LEFT_PAR arguments RIGHT_PAR
-    | LEFT_BRACK index RIGHT_BRACK
-    | {
-    } ;
+    | LEFT_BRACK index RIGHT_BRACK ;
 
 arguments :
     expression COMMA arguments

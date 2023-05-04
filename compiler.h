@@ -6,6 +6,7 @@ using namespace std;
 
 static stack<string> operators;
 static stack<int> types;
+static stack<int> operands;
 
 template<typename T>
 struct MemoryFrame {
@@ -112,6 +113,26 @@ struct VariableTable {
         return NULL;
     }
 
+    VariableEntry *fullFind(string name) {
+        VariableEntry *result = find(name);
+        if (!result) {
+            result = parent->find(name);
+        }
+        if (!result) {
+            cout << "Error: Variable " << name << " is not defined." << endl;
+            exit(-1);
+        }
+        return result;
+    }
+
+    int findAddress(string name) {
+        return fullFind(name)->address;
+    }
+
+    int findType(string name) {
+        return fullFind(name)->type;
+    }
+
     void insert(VariableEntry *newEntry) {
         VariableEntry *entry = head;
         while (entry->next) {
@@ -168,6 +189,14 @@ struct FunctionEntry {
     void removeTable() {
         delete table;
         table = NULL;
+    }
+
+    int findAddress(string name) {
+        return table->findAddress(name);
+    }
+
+    int findType(string name) {
+        return table->findType(name);
     }
 
     FunctionEntry() {
@@ -295,14 +324,15 @@ void pushOperand(int operand);
 
 void pushOperand(float operand);
 
-template<typename T>
-void pushOperandOfType(T operand, int type) {
-    pushOperand(operand);
-}
+void pushOperandOfType(int operand, int type);
+
+void pushOperandByID(string name, FunctionEntry *entry);
 
 void pushOperator(string oper);
 
-void doAdditionSubstraction();
+void doAddSub();
+
+void doMultiDiv();
 
 template<typename T>
 int storeVariableCte(T value, int type, FunctionEntry *entry) {
