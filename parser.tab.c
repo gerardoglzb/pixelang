@@ -1564,7 +1564,7 @@ yyreduce:
         case 2:
 #line 75 "parser.y"
     {
-        declareMainFunction((yyvsp[(2) - (2)].sval), lineas, 2000, 4000, 2000, &functionDirectory);
+        declareMainFunction((yyvsp[(2) - (2)].sval), lineas, &functionDirectory);
     ;}
     break;
 

@@ -8,7 +8,7 @@ void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
 }
 
 void printQuad(Quadruple *quad) {
-    printf("%i %i %i %i\n", quad->oper, quad->leftOperand, quad->rightOperand, quad->result);
+    printf("%i\t%i\t%i\t%i\n", quad->oper, quad->leftOperand, quad->rightOperand, quad->result);
 }
 
 void printQuads() {
@@ -59,6 +59,7 @@ void doOperation() {
                 leftOperand = -1;
             } else {
                 result = declareTemp(resultType);
+                cout << " Resss is " << result << endl;
             }
             generateQuad(oper, leftOperand, rightOperand, result);
             pushOperandOfType(result, resultType);
@@ -161,12 +162,12 @@ void declareFunction(string name, int type, int lineas) {
     cout << endl;
 }
 
-void declareMainFunction(string name, int lineas, int localSize, int tempSize, int cteSize, FunctionDirectory *directory) {
+void declareMainFunction(string name, int lineas, FunctionDirectory *directory) {
     cout << "Declarando ";
     VariableTable *table = new VariableTable();
     table->parent = NULL;
 
-    FunctionEntry *entry = new FunctionEntry(name, 4, table, localSize, tempSize, cteSize);
+    FunctionEntry *entry = new FunctionEntry(name, 4, table, 2000, 4000, 2000);
 
     funcDir = directory;
     funcDir->main = entry;

@@ -27,18 +27,20 @@ static queue<Quadruple> quads;
 
 template<typename T>
 struct MemoryFrame {
-    size_t size;
+    int size;
     int index;
+    int offset;
 
-    MemoryFrame(size_t size) {
+    MemoryFrame(int size, int offset) {
         this->size = size;
         this->index = 0;
+        this->offset = offset;
     }
 
     int addValue() {
         int temp = index;
         index++;
-        return temp;
+        return temp + offset;
     }
 };
 
@@ -47,10 +49,10 @@ struct Memory {
     MemoryFrame<float> *memoryFloat;
     MemoryFrame<string> *memoryString;
 
-    Memory(size_t size) {
-        this->memoryInt = new MemoryFrame<int>(size);
-        this->memoryFloat = new MemoryFrame<float>(size);
-        this->memoryString = new MemoryFrame<string>(size);
+    Memory(int size, int offset) {
+        this->memoryInt = new MemoryFrame<int>(size, offset);
+        this->memoryFloat = new MemoryFrame<float>(size, offset + size);
+        this->memoryString = new MemoryFrame<string>(size, offset + size * 2);
     }
 
     int addValue(int type) {
@@ -194,6 +196,7 @@ struct FunctionEntry {
     Memory *localMemory;
     Memory *tempMemory;
     Memory *cteMemory;
+    int memoryOffset;
 
     void removeTable() {
         delete table;
@@ -213,9 +216,10 @@ struct FunctionEntry {
         this->table = new VariableTable();
         this->type = 7;
         this->next = nullptr;
-        this->localMemory = new Memory(1000);
-        this->tempMemory = new Memory(3000);
-        this->cteMemory = new Memory(1000);
+        this->memoryOffset = 8000;
+        this->localMemory = new Memory(1000, this->memoryOffset);
+        this->tempMemory = new Memory(3000, this->memoryOffset + 1000);
+        this->cteMemory = new Memory(1000, this->memoryOffset + 1000 + 3000);
     };
 
     FunctionEntry(string name, int type, VariableTable *table) {
@@ -223,9 +227,10 @@ struct FunctionEntry {
         this->table = table;
         this->type = type;
         this->next = nullptr;
-        this->localMemory = new Memory(1000);
-        this->tempMemory = new Memory(3000);
-        this->cteMemory = new Memory(1000);
+        this->memoryOffset = 8000;
+        this->localMemory = new Memory(1000, this->memoryOffset);
+        this->tempMemory = new Memory(3000, this->memoryOffset + 1000);
+        this->cteMemory = new Memory(1000, this->memoryOffset + 3000);
     };
 
     FunctionEntry(string name, int type, VariableTable *table, int localSize, int tempSize, int cteSize) {
@@ -233,9 +238,10 @@ struct FunctionEntry {
         this->table = table;
         this->type = type;
         this->next = nullptr;
-        this->localMemory = new Memory(localSize);
-        this->tempMemory = new Memory(tempSize);
-        this->cteMemory = new Memory(cteSize);
+        this->memoryOffset = 0;
+        this->localMemory = new Memory(localSize, 0);
+        this->tempMemory = new Memory(tempSize, 0 + localSize);
+        this->cteMemory = new Memory(cteSize, 0 + localSize + tempSize);
     };
 };
 
@@ -321,7 +327,7 @@ void declareVariables(IDNode *variable, int type, int lineas);
 
 void declareFunction(string name, int type, int lineas);
 
-void declareMainFunction(string name, int lineas, int localSize, int tempSize, int cteSize, FunctionDirectory *directory);
+void declareMainFunction(string name, int lineas, FunctionDirectory *directory);
 
 int semanticCube(int oper, int type1, int type2);
 

@@ -73,7 +73,7 @@
 
 program : 
     PROGRAM ID {
-        declareMainFunction($2, lineas, 2000, 4000, 2000, &functionDirectory);
+        declareMainFunction($2, lineas, &functionDirectory);
     } SEMICOLON vars functions block {
         printf("Valid syntax.\n");
         printQuads();
