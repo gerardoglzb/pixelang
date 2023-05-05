@@ -529,7 +529,7 @@ using namespace std;
 
 int lineas = 1;
 
-FunctionDirectory functionDirectory;
+FunctionDirectory functionDirectory = FunctionDirectory();
 
 #line 534 "lex.yy.c"
 #line 535 "lex.yy.c"

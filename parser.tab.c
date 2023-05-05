@@ -532,16 +532,16 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    75,    75,    75,    82,    83,    86,    89,    94,    98,
-     104,   105,   108,   108,   116,   119,   124,   125,   128,   131,
-     132,   135,   138,   141,   144,   144,   147,   150,   153,   156,
-     159,   159,   162,   165,   168,   171,   174,   179,   179,   184,
-     184,   187,   187,   190,   193,   193,   198,   198,   201,   201,
-     204,   207,   208,   208,   211,   211,   214,   217,   218,   221,
-     222,   225,   228,   235,   236,   239,   240,   243,   244,   247,
-     248,   249,   250,   251,   254,   255,   256,   257,   260,   263,
-     264,   267,   268,   271,   274,   275,   278,   279,   282,   283,
-     286,   287,   290,   293
+       0,    75,    75,    75,    84,    85,    88,    91,    96,   100,
+     106,   107,   110,   110,   118,   121,   126,   127,   130,   133,
+     134,   137,   140,   143,   146,   146,   149,   152,   155,   158,
+     161,   161,   164,   167,   170,   173,   176,   181,   181,   186,
+     186,   189,   189,   192,   195,   195,   200,   200,   203,   203,
+     206,   209,   210,   210,   213,   213,   216,   219,   220,   223,
+     224,   227,   230,   237,   238,   241,   242,   245,   246,   249,
+     250,   251,   252,   253,   256,   257,   258,   259,   262,   265,
+     266,   269,   270,   273,   276,   277,   280,   281,   284,   285,
+     288,   289,   292,   295
 };
 #endif
 
@@ -1565,33 +1565,35 @@ yyreduce:
         case 2:
 #line 75 "parser.y"
     {
-        declareFunction((yyvsp[(2) - (2)].sval), 4, &functionDirectory, lineas, 2000, 4000, 2000);
+        cout << "!" << endl;
+        declareMainFunction((yyvsp[(2) - (2)].sval), lineas, 2000, 4000, 2000, &functionDirectory);
+        cout << "HM" << endl;
     ;}
     break;
 
   case 3:
-#line 77 "parser.y"
+#line 79 "parser.y"
     {
         printf("Valid syntax.\n");
     ;}
     break;
 
   case 6:
-#line 86 "parser.y"
+#line 88 "parser.y"
     {
         declareVariables((yyvsp[(1) - (3)].nodeID), (yyvsp[(3) - (3)].chType), functionDirectory.currentTable(), lineas);
     ;}
     break;
 
   case 7:
-#line 89 "parser.y"
+#line 91 "parser.y"
     {
         declareArrays((yyvsp[(1) - (6)].nodeID), (yyvsp[(3) - (6)].chType), (yyvsp[(5) - (6)].ival), functionDirectory.currentTable(), lineas);
     ;}
     break;
 
   case 8:
-#line 94 "parser.y"
+#line 96 "parser.y"
     {
         IDNode *node = new IDNode((yyvsp[(1) - (1)].sval));
         (yyval.nodeID) = node;
@@ -1599,7 +1601,7 @@ yyreduce:
     break;
 
   case 9:
-#line 98 "parser.y"
+#line 100 "parser.y"
     {
         IDNode *node = new IDNode((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].nodeID));
         (yyval.nodeID) = node;
@@ -1607,14 +1609,14 @@ yyreduce:
     break;
 
   case 12:
-#line 108 "parser.y"
+#line 110 "parser.y"
     {
-        declareFunction((yyvsp[(2) - (2)].sval), 7, &functionDirectory, lineas);
+        declareFunction((yyvsp[(2) - (2)].sval), 7, lineas);
     ;}
     break;
 
   case 13:
-#line 110 "parser.y"
+#line 112 "parser.y"
     {
         functionDirectory.removeTable((yyvsp[(2) - (13)].sval));
         functionDirectory.currentFunctions->pop();
@@ -1622,161 +1624,161 @@ yyreduce:
     break;
 
   case 14:
-#line 116 "parser.y"
+#line 118 "parser.y"
     {
         functionDirectory.currentFunction()->type = (yyvsp[(1) - (1)].chType);
     ;}
     break;
 
   case 15:
-#line 119 "parser.y"
+#line 121 "parser.y"
     {
         functionDirectory.currentFunction()->type = 5;
     ;}
     break;
 
   case 21:
-#line 135 "parser.y"
+#line 137 "parser.y"
     {
         declareVariable((yyvsp[(1) - (5)].sval), (yyvsp[(3) - (5)].chType), functionDirectory.currentTable(), lineas);
     ;}
     break;
 
   case 22:
-#line 138 "parser.y"
+#line 140 "parser.y"
     {
         declareVariable((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].chType), functionDirectory.currentTable(), lineas);
     ;}
     break;
 
   case 24:
-#line 144 "parser.y"
+#line 146 "parser.y"
     {
         checkIfShouldDoOperation(vector<int>({9, 10}), functionDirectory.currentFunction());
     ;}
     break;
 
   case 27:
-#line 150 "parser.y"
+#line 152 "parser.y"
     {
         operators.push(9);
     ;}
     break;
 
   case 28:
-#line 153 "parser.y"
+#line 155 "parser.y"
     {
         operators.push(10);
     ;}
     break;
 
   case 30:
-#line 159 "parser.y"
+#line 161 "parser.y"
     {
         checkIfShouldDoOperation(vector<int>({5, 6, 7, 8}), functionDirectory.currentFunction());
     ;}
     break;
 
   case 33:
-#line 165 "parser.y"
+#line 167 "parser.y"
     {
         operators.push(5);
     ;}
     break;
 
   case 34:
-#line 168 "parser.y"
+#line 170 "parser.y"
     {
         operators.push(6);
     ;}
     break;
 
   case 35:
-#line 171 "parser.y"
+#line 173 "parser.y"
     {
         operators.push(7);
     ;}
     break;
 
   case 36:
-#line 174 "parser.y"
+#line 176 "parser.y"
     {
         operators.push(8);
     ;}
     break;
 
   case 37:
-#line 179 "parser.y"
+#line 181 "parser.y"
     {
         checkIfShouldDoOperation(vector<int>(1, 2), functionDirectory.currentFunction());
     ;}
     break;
 
   case 39:
-#line 184 "parser.y"
+#line 186 "parser.y"
     {
         operators.push(1);
     ;}
     break;
 
   case 41:
-#line 187 "parser.y"
+#line 189 "parser.y"
     {
         operators.push(2);
     ;}
     break;
 
   case 44:
-#line 193 "parser.y"
+#line 195 "parser.y"
     {
         checkIfShouldDoOperation(vector<int>(3, 4), functionDirectory.currentFunction());
     ;}
     break;
 
   case 46:
-#line 198 "parser.y"
+#line 200 "parser.y"
     {
         operators.push(3);
     ;}
     break;
 
   case 48:
-#line 201 "parser.y"
+#line 203 "parser.y"
     {
         operators.push(4)
     ;}
     break;
 
   case 52:
-#line 208 "parser.y"
+#line 210 "parser.y"
     {
         operators.push(1);
     ;}
     break;
 
   case 54:
-#line 211 "parser.y"
+#line 213 "parser.y"
     {
         operators.push(2);
     ;}
     break;
 
   case 60:
-#line 222 "parser.y"
+#line 224 "parser.y"
     {
         pushOperandByID((yyvsp[(1) - (1)].sval), functionDirectory.currentFunction());
     ;}
     break;
 
   case 61:
-#line 225 "parser.y"
+#line 227 "parser.y"
     {
         pushOperandOfType(storeVariableCte((yyvsp[(1) - (1)].fval), 1, functionDirectory.currentFunction()), 1);
     ;}
     break;
 
   case 62:
-#line 228 "parser.y"
+#line 230 "parser.y"
     {
         cout << "DYING" << endl;
         pushOperandOfType(storeVariableCte((yyvsp[(1) - (1)].ival), 1, functionDirectory.currentFunction()), 0);
@@ -1786,7 +1788,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1790 "parser.tab.c"
+#line 1792 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2000,7 +2002,7 @@ yyreturn:
 }
 
 
-#line 295 "parser.y"
+#line 297 "parser.y"
 
 
 int main() {

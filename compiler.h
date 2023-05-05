@@ -249,7 +249,11 @@ struct FunctionEntry {
 struct FunctionDirectory {
     FunctionEntry *head;
     stack<string> *currentFunctions;
-    string global; // Si se quiere agregar nesting, se cambia esto.
+    FunctionEntry *main;
+
+    FunctionEntry *findMain() {
+        return main;
+    }
 
     FunctionEntry *find(string name) {
         FunctionEntry *entry = head;
@@ -285,6 +289,7 @@ struct FunctionDirectory {
             entry = entry->next;
         }
         entry->removeTable();
+        currentFunctions->pop();
     }
 
     void insert(FunctionEntry *newEntry) {
@@ -293,6 +298,7 @@ struct FunctionDirectory {
             entry = entry->next;
         }
         entry->next = newEntry;
+        currentFunctions->push(entry->name);
     }
 
     bool has(string name) {
@@ -311,16 +317,12 @@ struct FunctionDirectory {
     FunctionDirectory() {
         this->head = new FunctionEntry();
         this->currentFunctions = new stack<string>();
-        this->global = "";
-    };
-
-    FunctionDirectory(string global) {
-        this->head = new FunctionEntry();
-        this->currentFunctions = new stack<string>();
-        this->global = global;
+        this->main = nullptr;
     };
 
 };
+
+static FunctionDirectory *funcDir;
 
 VariableEntry *declareVariable(string name, int type, VariableTable *table, int lineas);
 
@@ -330,9 +332,9 @@ void declareArrays(IDNode* variable, int type, int size, VariableTable *table, i
 
 void declareVariables(IDNode *variable, int type, VariableTable *table, int lineas);
 
-void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas);
+void declareFunction(string name, int type, int lineas);
 
-void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas, int localSize, int tempSize, int cteSize);
+void declareMainFunction(string name, int lineas, int localSize, int tempSize, int cteSize, FunctionDirectory *directory);
 
 int semanticCube(int oper, int type1, int type2);
 

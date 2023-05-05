@@ -73,7 +73,9 @@
 
 program : 
     PROGRAM ID {
-        declareFunction($2, 4, &functionDirectory, lineas, 2000, 4000, 2000);
+        cout << "!" << endl;
+        declareMainFunction($2, lineas, 2000, 4000, 2000, &functionDirectory);
+        cout << "HM" << endl;
     } SEMICOLON vars functions block {
         printf("Valid syntax.\n");
     } ;
@@ -106,7 +108,7 @@ functions :
 
 function :
     FUNCTION ID {
-        declareFunction($2, 7, &functionDirectory, lineas);
+        declareFunction($2, 7, lineas);
     } LEFT_PAR params RIGHT_PAR COLON function_type LEFT_CURLY vars statements returns RIGHT_CURLY {
         functionDirectory.removeTable($2);
         functionDirectory.currentFunctions->pop();

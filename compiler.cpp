@@ -107,15 +107,10 @@ void declareVariables(IDNode *variable, int type, VariableTable *table, int line
     cout << endl;
 }
 
-void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas) {
+void declareFunction(string name, int type, int lineas) {
     cout << "Declarando ";
     VariableTable *table = new VariableTable();
-    if (type == 6) {
-        funcDir->global = name;
-        table->parent = NULL;
-    } else {
-        table->parent = funcDir->find(funcDir->global)->table;
-    }
+    table->parent = funcDir->findMain()->table;
 
     FunctionEntry *entry = new FunctionEntry(name, type, table);
 
@@ -124,33 +119,21 @@ void declareFunction(string name, int type, FunctionDirectory *funcDir, int line
         exit(-1);
     } else {
         funcDir->insert(entry);
-        funcDir->currentFunctions->push(name);
         cout << entry->name << "(" << entry->type << ") ";
     }
     cout << endl;
 }
 
-void declareFunction(string name, int type, FunctionDirectory *funcDir, int lineas, int localSize, int tempSize, int cteSize) {
+void declareMainFunction(string name, int lineas, int localSize, int tempSize, int cteSize, FunctionDirectory *directory) {
     cout << "Declarando ";
     VariableTable *table = new VariableTable();
-    if (type == 6) {
-        funcDir->global = name;
-        table->parent = NULL;
-    } else {
-        table->parent = funcDir->find(funcDir->global)->table;
-    }
+    table->parent = NULL;
 
-    FunctionEntry *entry = new FunctionEntry(name, type, table, localSize, tempSize, cteSize);
+    FunctionEntry *entry = new FunctionEntry(name, 4, table, localSize, tempSize, cteSize);
 
-    if (funcDir->has(name)) {
-        cout << "Error: Redefinition of function " << entry->name << " on line "  << lineas << ".\n";
-        exit(-1);
-    } else {
-        funcDir->insert(entry);
-        funcDir->currentFunctions->push(name);
-        cout << entry->name << "(" << entry->type << ") ";
-    }
-    cout << endl;
+    funcDir = directory;
+    funcDir->main = entry;
+    cout << entry->name << "(" << entry->type << ") " << endl;
 }
 
 // 0 equal, 1 add, 2 sub, 3 multi, 4 div
