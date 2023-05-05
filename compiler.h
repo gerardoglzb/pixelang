@@ -136,7 +136,6 @@ struct VariableTable {
     }
 
     int findAddress(string name) {
-        cout << "address for " << name << " is " << fullFind(name)->address << endl;
         return fullFind(name)->address;
     }
 
