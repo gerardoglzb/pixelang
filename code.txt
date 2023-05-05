@@ -3,6 +3,5 @@ program test;
 var b, c, a : int;
 
 {
-    c = 3;
-    b = (c + (a - 3));
+    b = 4 + (1 - 3) * 2;
 }

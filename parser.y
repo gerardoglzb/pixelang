@@ -208,7 +208,11 @@ factor :
         pushOperandByID($1);
     }
     | ID array_or_func
-    | LEFT_PAR expression RIGHT_PAR
+    | LEFT_PAR {
+        pushOperator(11);
+    } expression RIGHT_PAR {
+        pushOperator(12);
+    }
     | ADDITION {
         pushOperator(1);
     } var_cte

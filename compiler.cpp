@@ -77,6 +77,14 @@ void checkIfShouldDoOperation(vector<int> myOperators) {
     if (operators.size() == 0) {
         return;
     }
+    if (operators.top() == 12) {
+        operators.pop();
+        operators.pop();
+        return;
+    }
+    if (operators.top() == 11) {
+        return;
+    }
     bool shouldDoOperation = false;
     for (int oper : myOperators) {
         cout << " with " << operators.top() << "-" << oper << " , ";
