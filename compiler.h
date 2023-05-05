@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unordered_map>
+#include <unordered_set>
 #include <stack>
 #include <queue>
 using namespace std;
@@ -64,33 +65,18 @@ struct Memory {
     }
 };
 
-struct ArrItem {
-    void *val;
-    ArrItem *next;
-
-    ArrItem() {
-        this->val = nullptr;
-        this->next = nullptr;
-    }
-
-    ArrItem(void *val) {
-        this->val = val;
-        this->next = nullptr;
-    }
-};
-
 struct VariableEntry {
     string name;
     int type;
     int address;
+    int length;
     VariableEntry *next;
-    ArrItem *arrHead;
 
     VariableEntry() {
         this->name = "";
         this->type = 7;
         this->next = nullptr;
-        this->arrHead = new ArrItem();
+        this->length = 1;
     };
 
     VariableEntry(string name, int type) {
@@ -98,7 +84,7 @@ struct VariableEntry {
         this->type = type;
         this->address = -1;
         this->next = nullptr;
-        this->arrHead = new ArrItem();
+        this->length = 1;
     };
 
     VariableEntry(string name, int type, int address) {
@@ -106,7 +92,15 @@ struct VariableEntry {
         this->type = type;
         this->address = address;
         this->next = nullptr;
-        this->arrHead = new ArrItem();
+        this->length = 1;
+    };
+
+    VariableEntry(string name, int type, int address, int length) {
+        this->name = name;
+        this->type = type;
+        this->address = address;
+        this->next = nullptr;
+        this->length = length;
     };
 };
 
@@ -248,8 +242,8 @@ struct FunctionEntry {
 
 struct FunctionDirectory {
     FunctionEntry *head;
-    stack<string> *currentFunctions;
     FunctionEntry *main;
+    unordered_set<string> previousFunctions;
 
     FunctionEntry *findMain() {
         return main;
@@ -280,25 +274,13 @@ struct FunctionDirectory {
         delete entry;
     }
 
-    void removeTable(string name) {
-        FunctionEntry *entry = head;
-        while (entry) {
-            if (entry->name == name) {
-                break;
-            }
-            entry = entry->next;
-        }
-        entry->removeTable();
-        currentFunctions->pop();
-    }
-
     void insert(FunctionEntry *newEntry) {
         FunctionEntry *entry = head;
         while (entry->next) {
             entry = entry->next;
         }
         entry->next = newEntry;
-        currentFunctions->push(entry->name);
+        previousFunctions.insert(newEntry->name);
     }
 
     bool has(string name) {
@@ -306,8 +288,14 @@ struct FunctionDirectory {
     }
 
     FunctionEntry *currentFunction() {
-        cout << "topping " << currentFunctions->top() << endl;
-        return find(currentFunctions->top());
+        FunctionEntry *entry = head;
+        if (!entry->next) {
+            return main;
+        }
+        while (entry->next) {
+            entry = entry->next;
+        }
+        return entry;
     }
 
     VariableTable *currentTable() {
@@ -316,21 +304,21 @@ struct FunctionDirectory {
 
     FunctionDirectory() {
         this->head = new FunctionEntry();
-        this->currentFunctions = new stack<string>();
         this->main = nullptr;
+        this->previousFunctions = unordered_set<string>();
     };
 
 };
 
 static FunctionDirectory *funcDir;
 
-VariableEntry *declareVariable(string name, int type, VariableTable *table, int lineas);
+VariableEntry *declareVariable(string name, int type, int lineas);
 
-void declareArray(string name, int type, int size, VariableTable *table, int lineas);
+void declareArray(string name, int type, int size, int lineas);
 
-void declareArrays(IDNode* variable, int type, int size, VariableTable *table, int lineas);
+void declareArrays(IDNode* variable, int type, int size, int lineas);
 
-void declareVariables(IDNode *variable, int type, VariableTable *table, int lineas);
+void declareVariables(IDNode *variable, int type, int lineas);
 
 void declareFunction(string name, int type, int lineas);
 
@@ -348,9 +336,9 @@ void pushOperandByID(string name, FunctionEntry *entry);
 
 void pushOperator(string oper);
 
-void doOperation(FunctionEntry *function);
+void doOperation();
 
-void checkIfShouldDoOperation(vector<int> myOperators, FunctionEntry *function);
+void checkIfShouldDoOperation(vector<int> myOperators);
 
 template<typename T>
 int storeVariableCte(T value, int type, FunctionEntry *entry) {

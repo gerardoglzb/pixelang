@@ -73,9 +73,7 @@
 
 program : 
     PROGRAM ID {
-        cout << "!" << endl;
         declareMainFunction($2, lineas, 2000, 4000, 2000, &functionDirectory);
-        cout << "HM" << endl;
     } SEMICOLON vars functions block {
         printf("Valid syntax.\n");
     } ;
@@ -86,10 +84,10 @@ vars :
 
 var :
     var_list COLON type {
-        declareVariables($1, $3, functionDirectory.currentTable(), lineas);
+        declareVariables($1, $3, lineas);
     }
     | var_list COLON type LEFT_BRACK CTE_INT RIGHT_BRACK {
-        declareArrays($1, $3, $5, functionDirectory.currentTable(), lineas);
+        declareArrays($1, $3, $5, lineas);
     } ;
 
 var_list :
@@ -110,8 +108,7 @@ function :
     FUNCTION ID {
         declareFunction($2, 7, lineas);
     } LEFT_PAR params RIGHT_PAR COLON function_type LEFT_CURLY vars statements returns RIGHT_CURLY {
-        functionDirectory.removeTable($2);
-        functionDirectory.currentFunctions->pop();
+        functionDirectory.remove($2);
     } ;
 
 function_type :
@@ -135,16 +132,16 @@ type :
 
 params :
     ID COLON type COMMA params {
-        declareVariable($1, $3, functionDirectory.currentTable(), lineas);
+        declareVariable($1, $3, lineas);
     }
     | ID COLON type {
-        declareVariable($1, $3, functionDirectory.currentTable(), lineas);
+        declareVariable($1, $3, lineas);
     }
     | ;
 
 expression :
     comp {
-        checkIfShouldDoOperation(vector<int>({9, 10}), functionDirectory.currentFunction());
+        checkIfShouldDoOperation(vector<int>({9, 10}));
     } expression2 comp 
     | comp ;
 
@@ -159,7 +156,7 @@ expression2 :
 
 comp :
     exp {
-        checkIfShouldDoOperation(vector<int>({5, 6, 7, 8}), functionDirectory.currentFunction());
+        checkIfShouldDoOperation(vector<int>({5, 6, 7, 8}));
     } comp2 exp 
     | exp ;
 
@@ -179,7 +176,7 @@ comp2 :
 
 exp :
     term {
-        checkIfShouldDoOperation(vector<int>(1, 2), functionDirectory.currentFunction());
+        checkIfShouldDoOperation(vector<int>(1, 2));
     } exp2 ;
 
 exp2 :
@@ -193,7 +190,7 @@ exp2 :
 
 term :
     factor {
-        checkIfShouldDoOperation(vector<int>(3, 4), functionDirectory.currentFunction());
+        checkIfShouldDoOperation(vector<int>(3, 4));
     } term2 ;
 
 term2 :
@@ -228,9 +225,7 @@ var_cte :
         pushOperandOfType(storeVariableCte($1, 1, functionDirectory.currentFunction()), 1);
     }
     | CTE_INT {
-        cout << "DYING" << endl;
         pushOperandOfType(storeVariableCte($1, 1, functionDirectory.currentFunction()), 0);
-        cout << "DYING" << endl;
     } ;
 
 array_or_func :

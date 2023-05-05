@@ -6,7 +6,7 @@ void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     quads.push(quad);
 }
 
-void doOperation(FunctionEntry *function) {
+void doOperation() {
     if (operands.size() > 1 && !operators.empty()) {
         int rightOperand = operands.top(); operands.pop();
         int rightType = types.top(); types.pop();
@@ -16,7 +16,7 @@ void doOperation(FunctionEntry *function) {
 
         int resultType = semanticCube(oper, leftType, rightType);
         if (resultType > -1) {
-            int result = function->declareTemp(resultType);
+            int result = funcDir->currentFunction()->declareTemp(resultType);
             generateQuad(oper, leftOperand, rightOperand, result);
         } else {
             cout << "Type mismatch." << endl;;
@@ -28,7 +28,7 @@ void doOperation(FunctionEntry *function) {
     }
 }
 
-void checkIfShouldDoOperation(vector<int> myOperators, FunctionEntry *function) {
+void checkIfShouldDoOperation(vector<int> myOperators) {
     if (operators.size() == 0) {
         return;
     }
@@ -40,7 +40,7 @@ void checkIfShouldDoOperation(vector<int> myOperators, FunctionEntry *function) 
         }
     }
     if (shouldDoOperation) {
-        doOperation(function);
+        doOperation();
     }
 }
 
@@ -54,53 +54,41 @@ void pushOperandOfType(int address, int type) {
     types.push(type);
 }
 
-VariableEntry *declareVariable(string name, int type, VariableTable *table, int lineas) {
-    VariableEntry *entry = new VariableEntry(name, type);
+VariableEntry *declareVariable(string name, int type, int lineas) {
+    VariableTable *table = funcDir->currentTable();
     if (table->has(name)) {
-        cout << "Error: Redefinition of var " << entry->name << " on line "  << lineas << ".\n";
+        cout << "Error: Redefinition of var " << name << " on line "  << lineas << ".\n";
         exit(-1);
-    } else {
-        table->insert(entry);
-        cout << entry->name << "(" << entry->type << ") ";
     }
+    VariableEntry *entry = new VariableEntry(name, type);
+    table->insert(entry);
+    cout << entry->name << "(" << entry->type << ") ";
     return entry;
 }
 
-void declareArray(string name, int type, int size, VariableTable *table, int lineas) {
+void declareArray(string name, int type, int size, int lineas) {
     if (size <= 0) {
         cout << "Error: Array " << name << " on line "  << lineas << " cannot be of size 0.\n";
         exit(-1);
     }
-    VariableEntry *entry = declareVariable(name, (type == 0) ? 5 : 6, table, lineas);
-    ArrItem *curr = entry->arrHead;
-    for (int i = 0; i < size; i++) {
-        ArrItem *item = new ArrItem();
-        if (type == 0) {
-            int temp = 0;
-            item->val = &temp;
-        } else {
-            float temp = 0.0;
-            item->val = &temp;
-        }
-        curr->next = item;
-        curr = curr->next;
-    }
+    VariableEntry *entry = declareVariable(name, (type == 0) ? 5 : 6, lineas);
+    entry->length = size;
 }
 
-void declareArrays(IDNode* variable, int type, int size, VariableTable *table, int lineas) {
+void declareVariables(IDNode *variable, int type, int lineas) {
     cout << "Declarando ";
-    do {
-        declareArray(variable->name, type, size, table, lineas);
-        variable = variable->next;
-    }
-    while (variable);
+    // do {
+        declareVariable(variable->name, type, lineas);
+        // variable = variable->next;
+    // }
+    // while (variable);
     cout << endl;
 }
 
-void declareVariables(IDNode *variable, int type, VariableTable *table, int lineas) {
+void declareArrays(IDNode* variable, int type, int size, int lineas) {
     cout << "Declarando ";
     do {
-        declareVariable(variable->name, type, table, lineas);
+        declareArray(variable->name, type, size, lineas);
         variable = variable->next;
     }
     while (variable);
