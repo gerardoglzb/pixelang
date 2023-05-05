@@ -76,6 +76,7 @@ program :
         declareMainFunction($2, lineas, 2000, 4000, 2000, &functionDirectory);
     } SEMICOLON vars functions block {
         printf("Valid syntax.\n");
+        printQuads();
     } ;
 
 vars :
@@ -147,10 +148,10 @@ expression :
 
 expression2 : 
     AND {
-        operators.push(9);
+        pushOperator(9);
     }
     | OR {
-        operators.push(10);
+        pushOperator(10);
     }
     | ;
 
@@ -162,53 +163,53 @@ comp :
 
 comp2 :
     MORE_THAN {
-        operators.push(5);
+        pushOperator(5);
     }
     | LESS_THAN {
-        operators.push(6);
+        pushOperator(6);
     }
     | EQUAL_TO {
-        operators.push(7);
+        pushOperator(7);
     }
     | NOT_EQUAL {
-        operators.push(8);
+        pushOperator(8);
     } ;
 
 exp :
     term {
-        checkIfShouldDoOperation(vector<int>(1, 2));
+        checkIfShouldDoOperation(vector<int>({1, 2}));
     } exp2 ;
 
 exp2 :
     ADDITION {
-        operators.push(1);
+        pushOperator(1);
     } exp
     | SUBSTRACTION {
-        operators.push(2);
+        pushOperator(2);
     } exp
     | ;
 
 term :
     factor {
-        checkIfShouldDoOperation(vector<int>(3, 4));
+        checkIfShouldDoOperation(vector<int>({3, 4}));
     } term2 ;
 
 term2 :
     MULTI {
-        operators.push(3);
+        pushOperator(3);
     } term
     | DIV {
-        operators.push(4)
+        pushOperator(4)
     } term
     | ;
 
 factor :
     LEFT_PAR expression RIGHT_PAR
     | ADDITION {
-        operators.push(1);
+        pushOperator(1);
     } var_cte
     | SUBSTRACTION {
-        operators.push(2);
+        pushOperator(2);
     } var_cte
     | var_cte ;
 
@@ -219,13 +220,13 @@ index :
 var_cte :
     ID array_or_func
     | ID {
-        pushOperandByID($1, functionDirectory.currentFunction());
+        pushOperandByID($1);
     }
     | CTE_FLOAT {
-        pushOperandOfType(storeVariableCte($1, 1, functionDirectory.currentFunction()), 1);
+        pushOperandOfType(declareCte(1), 1);
     }
     | CTE_INT {
-        pushOperandOfType(storeVariableCte($1, 1, functionDirectory.currentFunction()), 0);
+        pushOperandOfType(declareCte(0), 0);
     } ;
 
 array_or_func :
@@ -248,10 +249,18 @@ statement :
     | repetition ;
 
 assignment :
-    ID EQUAL call
-    | ID LEFT_BRACK index RIGHT_BRACK EQUAL call
-    | ID EQUAL expression SEMICOLON
-    | ID LEFT_BRACK index RIGHT_BRACK EQUAL expression SEMICOLON ;
+    assignee EQUAL call
+    | assignee EQUAL {
+        pushOperator(0);
+    } expression SEMICOLON {
+        checkIfShouldDoOperation(vector<int>({0}));
+    } ;
+
+assignee :
+    ID {
+        pushOperandByID($1);
+    }
+    | ID LEFT_BRACK index RIGHT_BRACK ;
 
 call :
     ID LEFT_PAR call2 RIGHT_PAR SEMICOLON ;

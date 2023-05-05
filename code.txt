@@ -1,20 +1,10 @@
 program test;
 
-var a : float[3];
-var x, z : int;
-
-function fun() : int {
-    var a : int;
-    a = 3.2;
-    return(a);
-}
-
-function fun2() : int {
-    var b : int;
-    b = +3 - -5;
-    return(b);
-}
+var b, c, a : int;
 
 {
-    a = -3;
+    c = 3;
+    b = 4;
+    a = 4 + 3 + 5;
+    c = 1;
 }

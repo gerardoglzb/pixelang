@@ -2,49 +2,97 @@
 #include "compiler.h"
 
 void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
+    cout << "GENerating quad " << endl;
     Quadruple quad = Quadruple(oper, leftOperand, rightOperand, result);
     quads.push(quad);
 }
 
+void printQuad(Quadruple *quad) {
+    printf("%i %i %i %i\n", quad->oper, quad->leftOperand, quad->rightOperand, quad->result);
+}
+
+void printQuads() {
+    cout << "QUADS: " << endl;
+    while (!quads.empty()) {
+        printQuad(&quads.front());
+        quads.pop();
+    }
+}
+
+void pushOperator(int oper) {
+    operators.push(oper);
+}
+
+int declareCte(int type) {
+    return funcDir->currentFunction()->cteMemory->addValue(type);
+}
+
+int declareTemp(int type) {
+    return funcDir->currentFunction()->tempMemory->addValue(type);
+}
+
+int declareLocal(int type) {
+    return funcDir->currentFunction()->localMemory->addValue(type);
+}
+
 void doOperation() {
-    if (operands.size() > 1 && !operators.empty()) {
+    cout << " doing operation " << operators.top() << endl;
+    if (operands.size() >= 1 && !operators.empty()) {
         int rightOperand = operands.top(); operands.pop();
         int rightType = types.top(); types.pop();
-        int leftOperand = operands.top(); types.pop();
-        int leftType = types.top(); types.pop();
+        int leftOperand;
+        int leftType;
+        if (operands.size() == 1) {
+            leftOperand = declareCte(0);
+            leftType = 0;
+        } else {
+            leftOperand = operands.top(); operands.pop();
+            leftType = types.top(); types.pop();
+        }
         int oper = operators.top(); operators.pop();
 
         int resultType = semanticCube(oper, leftType, rightType);
         if (resultType > -1) {
-            int result = funcDir->currentFunction()->declareTemp(resultType);
+            int result;
+            if (oper == 0) {
+                result = leftOperand;
+                leftOperand = -1;
+            } else {
+                result = declareTemp(resultType);
+            }
             generateQuad(oper, leftOperand, rightOperand, result);
+            pushOperandOfType(result, resultType);
         } else {
             cout << "Type mismatch." << endl;;
             exit(-1);
         }
     } else {
         cout << "Whoops. error for the time being. " << endl;
-        // TODO: si puede haber 1 operando si es IGUAL o algo así. puede estar vacío si es GOTO y así, etc.
     }
 }
 
 void checkIfShouldDoOperation(vector<int> myOperators) {
+    cout << " doing check operation " << operators.size() << endl;
     if (operators.size() == 0) {
         return;
     }
     bool shouldDoOperation = false;
     for (int oper : myOperators) {
+        cout << " with " << operators.top() << "-" << oper << " , ";
         if (operators.top() == oper) {
             shouldDoOperation = true;
+            cout << " SHOULD " << endl;
             break;
         }
     }
+    cout << endl;
     if (shouldDoOperation) {
         doOperation();
     }
 }
 
-void pushOperandByID(string name, FunctionEntry *function) {
+void pushOperandByID(string name) {
+    FunctionEntry *function = funcDir->currentFunction();
     operands.push(function->findAddress(name));
     types.push(function->findType(name));
 }
@@ -61,6 +109,7 @@ VariableEntry *declareVariable(string name, int type, int lineas) {
         exit(-1);
     }
     VariableEntry *entry = new VariableEntry(name, type);
+    entry->address = declareLocal(type);
     table->insert(entry);
     cout << entry->name << "(" << entry->type << ") ";
     return entry;
@@ -77,11 +126,11 @@ void declareArray(string name, int type, int size, int lineas) {
 
 void declareVariables(IDNode *variable, int type, int lineas) {
     cout << "Declarando ";
-    // do {
+    do {
         declareVariable(variable->name, type, lineas);
-        // variable = variable->next;
-    // }
-    // while (variable);
+        variable = variable->next;
+    }
+    while (variable);
     cout << endl;
 }
 

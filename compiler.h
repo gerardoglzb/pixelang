@@ -36,7 +36,9 @@ struct MemoryFrame {
     }
 
     int addValue() {
-        return index++;
+        int temp = index;
+        index++;
+        return temp;
     }
 };
 
@@ -132,6 +134,7 @@ struct VariableTable {
     }
 
     int findAddress(string name) {
+        cout << "address for " << name << " is " << fullFind(name)->address << endl;
         return fullFind(name)->address;
     }
 
@@ -191,10 +194,6 @@ struct FunctionEntry {
     Memory *localMemory;
     Memory *tempMemory;
     Memory *cteMemory;
-
-    int declareTemp(int type) {
-        return tempMemory->addValue(type);
-    }
 
     void removeTable() {
         delete table;
@@ -332,7 +331,7 @@ void pushOperand(float operand);
 
 void pushOperandOfType(int operand, int type);
 
-void pushOperandByID(string name, FunctionEntry *entry);
+void pushOperandByID(string name);
 
 void pushOperator(string oper);
 
@@ -340,7 +339,10 @@ void doOperation();
 
 void checkIfShouldDoOperation(vector<int> myOperators);
 
-template<typename T>
-int storeVariableCte(T value, int type, FunctionEntry *entry) {
-    return entry->cteMemory->addValue(type);
-}
+int declareCte(int type);
+
+void printQuad(Quadruple *quad);
+
+void printQuads();
+
+void pushOperator(int oper);
