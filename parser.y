@@ -204,7 +204,11 @@ term2 :
     | ;
 
 factor :
-    LEFT_PAR expression RIGHT_PAR
+    ID {
+        pushOperandByID($1);
+    }
+    | ID array_or_func
+    | LEFT_PAR expression RIGHT_PAR
     | ADDITION {
         pushOperator(1);
     } var_cte
@@ -218,11 +222,7 @@ index :
     | CTE_INT
 
 var_cte :
-    ID array_or_func
-    | ID {
-        pushOperandByID($1);
-    }
-    | CTE_FLOAT {
+    CTE_FLOAT {
         pushOperandOfType(declareCte(1), 1);
     }
     | CTE_INT {
