@@ -249,7 +249,7 @@ statement :
     assignment
     | call
     | printing
-    | decision
+    | conditional
     | repetition ;
 
 assignment :
@@ -288,16 +288,31 @@ printing_3 :
     expression
     | CTE_STRING ;
 
-decision :
-    IF LEFT_PAR expression RIGHT_PAR block ELSE block
-    | IF LEFT_PAR expression RIGHT_PAR block ;
+conditional :
+    conditional_if ELSE {
+        generateElse();
+    } block
+    | conditional_if ;
+
+conditional_if :
+    IF LEFT_PAR expression RIGHT_PAR {
+        generateIf();
+    } block {
+        fillJumpIf();
+    } ;
 
 repetition :
     rep_cond
     | rep_no_cond ;
 
 rep_cond :
-    WHILE LEFT_PAR expression RIGHT_PAR DO block ;
+    WHILE {
+        pushJumpCurrent();
+    } LEFT_PAR expression RIGHT_PAR {
+        generateWhile();
+    } DO block {
+        fillJumpWhile();
+    } ;
 
 rep_no_cond :
     FOR LEFT_PAR ID EQUAL expression TO expression RIGHT_PAR block ;

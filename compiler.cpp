@@ -3,7 +3,7 @@
 
 void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     Quadruple quad = Quadruple(oper, leftOperand, rightOperand, result);
-    quads.push(quad);
+    quads.push_back(quad);
 }
 
 void printQuad(Quadruple *quad) {
@@ -14,8 +14,53 @@ void printQuads() {
     cout << "QUADS: " << endl;
     while (!quads.empty()) {
         printQuad(&quads.front());
-        quads.pop();
+        quads.erase(quads.begin());
     }
+}
+
+void generateWhile() {
+    int type = types.top(); types.pop();
+    if (type != 0) {
+        cout << "Error: Expression in cycle not a boolean." << endl;
+        exit(-1);
+    }
+    int result = operands.top(); operands.pop();
+    generateQuad(13, result, -1, -1);
+    jumps.push(quads.size() - 1);
+}
+
+void fillJumpWhile() {
+    int end = jumps.top(); jumps.pop();
+    int ret = jumps.top(); jumps.pop();
+    generateQuad(14, -1, -1, ret);
+    quads[end].result = quads.size();
+}
+
+void pushJumpCurrent() {
+    jumps.push(quads.size());
+}
+
+void generateElse() {
+    generateQuad(14, -1, -1, -1);
+    int isFalse = jumps.top(); jumps.pop();
+    jumps.push(quads.size() -1);
+    quads[isFalse].result = quads.size() + 1;
+}
+
+void fillJumpIf() {
+    int end = jumps.top(); jumps.pop();
+    quads[end].result = quads.size() + 1;
+}
+
+void generateIf() {
+    int type = types.top(); types.pop();
+    if (type != 0) {
+        cout << "Error: Expression in conditional not a boolean." << endl;
+        exit(-1);
+    }
+    int result = operands.top(); operands.pop();
+    generateQuad(13, result, -1, -1);
+    jumps.push(quads.size() - 1);
 }
 
 void pushOperator(int oper) {
@@ -41,7 +86,7 @@ void doOperation() {
         int leftOperand;
         int leftType;
         int oper = operators.top(); operators.pop();
-        
+
         if (operands.size() == 1 && oper != 0) {
             leftOperand = declareCte(0);
             leftType = 0;
@@ -98,7 +143,6 @@ void checkIfShouldDoOperation(vector<int> myOperators) {
 
 void pushOperandByID(string name) {
     FunctionEntry *function = funcDir->currentFunction();
-    cout << "PUSHING by id " << name << " " << function->findAddress(name) << endl;
     operands.push(function->findAddress(name));
     types.push(function->findType(name));
 }

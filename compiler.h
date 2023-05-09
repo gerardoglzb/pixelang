@@ -2,12 +2,14 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <stack>
-#include <queue>
+#include <vector>
 using namespace std;
 
-static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div, 5 greater, 6 less, 7 equal to, 8 not equal, 9 and, 10 or, 11 leftpar, 12 rightpar
+static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div, 5 greater, 6 less, 7 equal to, 8 not equal, 9 and, 10 or,
+                            // 11 leftpar, 12 rightpar, 13 gotoF, 14 goto, 15 gosub, 16 era, 17 param, 18 endfunc
 static stack<int> types;
 static stack<int> operands;
+static stack<int> jumps;
 
 struct Quadruple {
     int oper;
@@ -23,7 +25,7 @@ struct Quadruple {
     }
 };
 
-static queue<Quadruple> quads;
+static vector<Quadruple> quads;
 
 template<typename T>
 struct MemoryFrame {
@@ -248,6 +250,10 @@ struct FunctionDirectory {
     FunctionEntry *head;
     FunctionEntry *main;
     unordered_set<string> previousFunctions;
+    int paramsDefined;
+    int localVarsDefined;
+    int currQuad;
+    int tempVarsUsed;
 
     FunctionEntry *findMain() {
         return main;
@@ -351,3 +357,15 @@ void printQuad(Quadruple *quad);
 void printQuads();
 
 void pushOperator(int oper);
+
+void generateIf();
+
+void fillJumpIf();
+
+void generateElse();
+
+void pushJumpCurrent();
+
+void generateWhile();
+
+void fillJumpWhile();
