@@ -27,7 +27,7 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 "to"                            { return TO; }
 "function"                      { return FUNCTION; }
 "return"                        { return RETURN; }
-"void"                          { yylval.chType = 3; return VOID; }
+"void"                          { yylval.chType = 5; return VOID; }
 
 "+"                             { return ADDITION; }
 "-"                             { return SUBSTRACTION; }

@@ -10,6 +10,23 @@ void printQuad(Quadruple *quad) {
     printf("%i\t%i\t%i\t%i\n", quad->oper, quad->leftOperand, quad->rightOperand, quad->result);
 }
 
+void setCurrentParamCount(int count) {
+    cout << " LOOK@ME" << count;
+    funcDir->currentFunction()->paramCount = count;
+}
+
+void setCurrentLocalVarCount(int count) {
+    funcDir->currentFunction()->localVarCount = count;
+}
+
+void setCurrentTempVarCount(int count) {
+    funcDir->currentFunction()->tempVarCount = count;
+}
+
+void setCurrentCurrQuad() {
+    funcDir->currentFunction()->currQuad = quads.size();
+}
+
 void printQuads() {
     cout << "QUADS: " << endl;
     while (!quads.empty()) {

@@ -131,9 +131,11 @@ typedef union YYSTYPE
     float fval;
     struct IDNode *nodeID;
     int chType; // 0 int, 1 float, 2 string, 3 void, 4 prog, 5 int arr, 6 float arr, 7 temp, -1 err
+    int ivar;
+    int iparam;
 }
 /* Line 1529 of yacc.c.  */
-#line 137 "parser.tab.h"
+#line 139 "parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

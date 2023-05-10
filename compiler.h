@@ -199,6 +199,11 @@ struct FunctionEntry {
     Memory *cteMemory;
     int memoryOffset;
 
+    int paramCount;
+    int localVarCount;
+    int tempVarCount;
+    int currQuad;
+
     void removeTable() {
         delete table;
         table = NULL;
@@ -250,10 +255,6 @@ struct FunctionDirectory {
     FunctionEntry *head;
     FunctionEntry *main;
     unordered_set<string> previousFunctions;
-    int paramsDefined;
-    int localVarsDefined;
-    int currQuad;
-    int tempVarsUsed;
 
     FunctionEntry *findMain() {
         return main;
@@ -369,3 +370,11 @@ void pushJumpCurrent();
 void generateWhile();
 
 void fillJumpWhile();
+
+void setCurrentParamCount(int count);
+
+void setCurrentLocalVarCount(int count);
+
+void setCurrentTempVarCount(int count);
+
+void setCurrentCurrQuad();

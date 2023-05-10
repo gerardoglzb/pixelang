@@ -20,6 +20,8 @@
     float fval;
     struct IDNode *nodeID;
     int chType; // 0 int, 1 float, 2 string, 3 void, 4 prog, 5 int arr, 6 float arr, 7 temp, -1 err
+    int ivar;
+    int iparam;
 }
 
 %start program
@@ -68,6 +70,8 @@
 
 %type <nodeID> var_list
 %type <chType> type function_type
+%type <ivar> vars
+%type <iparam> params
 
 %%
 
@@ -80,8 +84,12 @@ program :
     } ;
 
 vars :
-    VAR var SEMICOLON vars
-    | ;
+    VAR var SEMICOLON vars {
+        $$ = $4 + 1;
+    }
+    | {
+        $$ = 0;
+    } ;
 
 var :
     var_list COLON type {
@@ -108,7 +116,12 @@ functions :
 function :
     FUNCTION ID {
         declareFunction($2, 7, lineas);
-    } LEFT_PAR params RIGHT_PAR COLON function_type LEFT_CURLY vars statements returns RIGHT_CURLY {
+    } LEFT_PAR params RIGHT_PAR COLON {
+        setCurrentParamCount($5);
+    } function_type LEFT_CURLY vars {
+        setCurrentLocalVarCount($9);
+        setCurrentCurrQuad();
+    } statements returns RIGHT_CURLY {
         functionDirectory.remove($2);
     } ;
 
@@ -134,11 +147,15 @@ type :
 params :
     ID COLON type COMMA params {
         declareVariable($1, $3, lineas);
+        $$ = $5 + 1;
     }
     | ID COLON type {
         declareVariable($1, $3, lineas);
+        $$ = 1;
     }
-    | ;
+    | {
+        $$ = 0;
+    } ;
 
 expression :
     comp {
