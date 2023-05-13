@@ -114,12 +114,22 @@ struct VariableTable {
     VariableEntry *head;
     VariableTable *parent;
 
+    void clean() {
+        VariableEntry *entry = head;
+        while (entry) {
+            VariableEntry *next = entry->next;
+            entry->next = nullptr;
+            // delete entry;
+            entry = next;
+        }
+    }
+
     VariableEntry *find(string name) {
         VariableEntry *entry = head;
         while (entry) {
-        if (entry->name == name) {
-            return entry;
-        }
+            if (entry->name == name) {
+                return entry;
+            }
             entry = entry->next;
         }
         return NULL;
@@ -205,9 +215,12 @@ struct FunctionEntry {
     int tempVarCount;
     int currQuad;
 
-    void removeTable() {
-        delete variableTable;
-        variableTable = NULL;
+    void removeVariableTable() {
+        if (!variableTable)
+            return;
+        // variableTable->clean();
+        // delete variableTable;
+        // variableTable = nullptr;
     }
 
     int findAddress(string name) {
@@ -264,6 +277,19 @@ struct FunctionDirectory {
         return main;
     }
 
+    int getFunctionID(string name) {
+        FunctionEntry *entry = head;
+        int counter = 0;
+        while (entry) {
+            if (entry->name == name) {
+                return counter;
+            }
+            entry = entry->next;
+            counter++;
+        }
+        return -1;
+    }
+
     FunctionEntry *find(string name) {
         FunctionEntry *entry = head;
         while (entry) {
@@ -275,7 +301,8 @@ struct FunctionDirectory {
         return NULL;
     }
 
-    void remove(string name) {
+    void removeVariableTable(string name) {
+        cout << "REMOVING " << name << endl;
         FunctionEntry *entry = head;
         FunctionEntry *prev = NULL;
         while (entry) {
@@ -285,8 +312,9 @@ struct FunctionDirectory {
             prev = entry;
             entry = entry->next;
         }
-        prev->next = entry->next;
-        delete entry;
+        if (entry) {
+            entry->removeVariableTable();
+        }
     }
 
     void insert(FunctionEntry *newEntry) {

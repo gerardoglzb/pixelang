@@ -123,7 +123,7 @@ function :
         setCurrentCurrQuad();
     } function_statements RIGHT_CURLY {
         generateEndFunc();
-        functionDirectory.remove($2);
+        functionDirectory.removeVariableTable($2);
     } ;
 
 function_type :

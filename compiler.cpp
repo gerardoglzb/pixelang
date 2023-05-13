@@ -13,8 +13,13 @@ void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     quads.push_back(quad);
 }
 
+void generateEra() {
+    return;
+    generateQuad(17, -1, -1, funcDir->getFunctionID(funcDir->currentFunction()->name));
+}
+
 void generateEndFunc() {
-    generateQuad(8, -1, -1, -1);
+    generateQuad(18, -1, -1, -1);
 }
 
 void printQuad(Quadruple *quad) {

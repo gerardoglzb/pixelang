@@ -1663,7 +1663,7 @@ yyreduce:
 #line 124 "parser.y"
     {
         generateEndFunc();
-        functionDirectory.remove((yyvsp[(2) - (14)].sval));
+        functionDirectory.removeVariableTable((yyvsp[(2) - (14)].sval));
     ;}
     break;
 
