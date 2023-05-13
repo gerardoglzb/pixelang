@@ -121,7 +121,7 @@ function :
     } function_type LEFT_CURLY vars {
         setCurrentLocalVarCount($9);
         setCurrentCurrQuad();
-    } statements returns RIGHT_CURLY {
+    } function_statements RIGHT_CURLY {
         generateEndFunc();
         functionDirectory.remove($2);
     } ;
@@ -134,7 +134,7 @@ function_type :
         functionDirectory.currentFunction()->type = 5;
     } ;
 
-returns :
+return :
     RETURN LEFT_PAR expression RIGHT_PAR SEMICOLON
     | RETURN SEMICOLON ;
 
@@ -271,6 +271,14 @@ statement :
     | printing
     | conditional
     | repetition ;
+
+function_statements :
+    function_statement function_statements
+    | ;
+
+function_statement :
+    statement
+    | return ;
 
 assignment :
     assignee EQUAL call
