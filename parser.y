@@ -122,6 +122,7 @@ function :
         setCurrentLocalVarCount($9);
         setCurrentCurrQuad();
     } statements returns RIGHT_CURLY {
+        generateEndFunc();
         functionDirectory.remove($2);
     } ;
 
@@ -146,10 +147,12 @@ type :
 
 params :
     ID COLON type COMMA params {
+        declareParameter($1, $3, lineas);
         declareVariable($1, $3, lineas);
         $$ = $5 + 1;
     }
     | ID COLON type {
+        declareParameter($1, $3, lineas);
         declareVariable($1, $3, lineas);
         $$ = 1;
     }

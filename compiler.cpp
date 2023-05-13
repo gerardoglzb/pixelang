@@ -6,20 +6,26 @@ void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     quads.push_back(quad);
 }
 
+void generateEndFunc() {
+    generateQuad(8, -1, -1, -1);
+}
+
 void printQuad(Quadruple *quad) {
     printf("%i\t%i\t%i\t%i\n", quad->oper, quad->leftOperand, quad->rightOperand, quad->result);
 }
 
 void setCurrentParamCount(int count) {
-    cout << " LOOK@ME" << count;
+    cout << "param count: " << count << endl;
     funcDir->currentFunction()->paramCount = count;
 }
 
 void setCurrentLocalVarCount(int count) {
+    cout << "local count: " << count << endl;
     funcDir->currentFunction()->localVarCount = count;
 }
 
 void setCurrentTempVarCount(int count) {
+    cout << "temp count: " << count << endl;
     funcDir->currentFunction()->tempVarCount = count;
 }
 
@@ -170,13 +176,24 @@ void pushOperandOfType(int address, int type) {
 }
 
 VariableEntry *declareVariable(string name, int type, int lineas) {
-    VariableTable *table = funcDir->currentTable();
+    VariableTable *table = funcDir->currentVariableTable();
     if (table->has(name)) {
         cout << "Error: Redefinition of var " << name << " on line "  << lineas << ".\n";
         exit(-1);
     }
     VariableEntry *entry = new VariableEntry(name, type);
     entry->address = declareLocal(type);
+    table->insert(entry);
+    return entry;
+}
+
+VariableEntry *declareParameter(string name, int type, int lineas) {
+    VariableTable *table = funcDir->currentParameterTable();
+    if (table->has(name)) {
+        cout << "Error: Redefinition of parameter " << name << " on line "  << lineas << ".\n";
+        exit(-1);
+    }
+    VariableEntry *entry = new VariableEntry(name, type);
     table->insert(entry);
     return entry;
 }
@@ -208,7 +225,7 @@ void declareArrays(IDNode* variable, int type, int size, int lineas) {
 
 void declareFunction(string name, int type, int lineas) {
     VariableTable *table = new VariableTable();
-    table->parent = funcDir->findMain()->table;
+    table->parent = funcDir->findMain()->variableTable;
 
     FunctionEntry *entry = new FunctionEntry(name, type, table);
 

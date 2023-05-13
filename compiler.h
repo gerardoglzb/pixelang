@@ -190,7 +190,8 @@ struct IDNode {
 
 struct FunctionEntry {
     string name;
-    VariableTable *table;
+    VariableTable *variableTable;
+    VariableTable *parameterTable;
     int type;
     FunctionEntry *next;
 
@@ -205,21 +206,22 @@ struct FunctionEntry {
     int currQuad;
 
     void removeTable() {
-        delete table;
-        table = NULL;
+        delete variableTable;
+        variableTable = NULL;
     }
 
     int findAddress(string name) {
-        return table->findAddress(name);
+        return variableTable->findAddress(name);
     }
 
     int findType(string name) {
-        return table->findType(name);
+        return variableTable->findType(name);
     }
 
     FunctionEntry() {
         this->name = "";
-        this->table = new VariableTable();
+        this->variableTable = new VariableTable();
+        this->parameterTable = new VariableTable();
         this->type = 7;
         this->next = nullptr;
         this->memoryOffset = 8000;
@@ -228,9 +230,10 @@ struct FunctionEntry {
         this->cteMemory = new Memory(1000, this->memoryOffset + 1000 + 3000);
     };
 
-    FunctionEntry(string name, int type, VariableTable *table) {
+    FunctionEntry(string name, int type, VariableTable *variableTable) {
         this->name = name;
-        this->table = table;
+        this->variableTable = variableTable;
+        this->parameterTable = new VariableTable();
         this->type = type;
         this->next = nullptr;
         this->memoryOffset = 8000;
@@ -239,9 +242,10 @@ struct FunctionEntry {
         this->cteMemory = new Memory(1000, this->memoryOffset + 3000);
     };
 
-    FunctionEntry(string name, int type, VariableTable *table, int localSize, int tempSize, int cteSize) {
+    FunctionEntry(string name, int type, VariableTable *variableTable, int localSize, int tempSize, int cteSize) {
         this->name = name;
-        this->table = table;
+        this->variableTable = variableTable;
+        this->parameterTable = new VariableTable();
         this->type = type;
         this->next = nullptr;
         this->memoryOffset = 0;
@@ -309,8 +313,12 @@ struct FunctionDirectory {
         return entry;
     }
 
-    VariableTable *currentTable() {
-        return this->currentFunction()->table;
+    VariableTable *currentVariableTable() {
+        return this->currentFunction()->variableTable;
+    }
+
+    VariableTable *currentParameterTable() {
+        return this->currentFunction()->parameterTable;
     }
 
     FunctionDirectory() {
@@ -378,3 +386,7 @@ void setCurrentLocalVarCount(int count);
 void setCurrentTempVarCount(int count);
 
 void setCurrentCurrQuad();
+
+void generateEndFunc();
+
+VariableEntry *declareParameter(string name, int type, int lineas);
