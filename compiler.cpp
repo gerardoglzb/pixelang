@@ -1,6 +1,13 @@
 #include <utility>
 #include "compiler.h"
 
+void verifyFunctionExists(string name, int lineas) {
+    if (!funcDir->has(name)) {
+        cout << "Function " << name << "doesn't exist in line " << lineas << endl;
+        exit(-1);
+    }
+}
+
 void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     Quadruple quad = Quadruple(oper, leftOperand, rightOperand, result);
     quads.push_back(quad);

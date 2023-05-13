@@ -295,7 +295,9 @@ assignee :
     | ID LEFT_BRACK index RIGHT_BRACK ;
 
 call :
-    ID LEFT_PAR call2 RIGHT_PAR SEMICOLON ;
+    ID {
+        verifyFunctionExists($1, lineas);
+    } LEFT_PAR call2 RIGHT_PAR SEMICOLON ;
 
 call2 :
     expression call3

@@ -390,3 +390,5 @@ void setCurrentCurrQuad();
 void generateEndFunc();
 
 VariableEntry *declareParameter(string name, int type, int lineas);
+
+void verifyFunctionExists(string name, int lineas);
