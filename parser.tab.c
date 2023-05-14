@@ -1872,7 +1872,7 @@ yyreduce:
   case 83:
 #line 287 "parser.y"
     {
-        pushOperator(EQUALTO_);
+        pushOperator(EQUALS_);
     ;}
     break;
 

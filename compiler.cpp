@@ -69,6 +69,9 @@ void generateEndFunc() {
 void printQuad(Quadruple *quad, int idx) {
     string oper = "";
     switch(quad->oper) {
+        case EQUALS_:
+            oper = "EQUALS_";
+            break;
         case ADD_:
             oper = "ADD_";
             break;

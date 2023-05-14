@@ -285,7 +285,7 @@ function_statement :
 assignment :
     assignee EQUAL call
     | assignee EQUAL {
-        pushOperator(EQUALTO_);
+        pushOperator(EQUALS_);
     } expression SEMICOLON {
         checkIfShouldDoOperation(vector<int>({0}));
     } ;

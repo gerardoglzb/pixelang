@@ -1,6 +1,7 @@
 #include <iostream>
 
 enum Operator {
+    EQUALS_,
     ADD_,
     SUB_,
     MULTI_,
