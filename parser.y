@@ -1,6 +1,6 @@
 %{
     #include <iostream>
-    #include "compiler.h"
+    #include "compiler.hpp"
     using namespace std;
 
     extern "C" FILE *yyin;

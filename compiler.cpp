@@ -1,5 +1,5 @@
 #include <utility>
-#include "compiler.h"
+#include "compiler.hpp"
 
 void verifyFunctionExists(string name, int lineas) {
     if (!funcDir->has(name)) {
@@ -62,8 +62,8 @@ void generateEndFunc() {
     generateQuad(18, -1, -1, -1);
 }
 
-void printQuad(Quadruple *quad) {
-    printf("%i\t%i\t%i\t%i\n", quad->oper, quad->leftOperand, quad->rightOperand, quad->result);
+void printQuad(Quadruple *quad, int idx) {
+    printf("%i\t%i\t%i\t%i\t%i\n", idx, quad->oper, quad->leftOperand, quad->rightOperand, quad->result);
 }
 
 void setCurrentParamCount(int count) {
@@ -84,8 +84,9 @@ void setCurrentCurrQuad() {
 
 void printQuads() {
     cout << "QUADS: " << endl;
+    int idx = 1;
     while (!quads.empty()) {
-        printQuad(&quads.front());
+        printQuad(&quads.front(), idx++);
         quads.erase(quads.begin());
     }
 }

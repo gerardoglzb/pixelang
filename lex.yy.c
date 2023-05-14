@@ -521,7 +521,7 @@ char *yytext;
 #line 2 "scanner.l"
 
 #include <iostream>
-#include "compiler.h"
+#include "compiler.hpp"
 using namespace std;
 
 #include "parser.tab.h"
