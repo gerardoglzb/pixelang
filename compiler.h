@@ -202,6 +202,7 @@ struct FunctionEntry {
     string name;
     VariableTable *variableTable;
     VariableTable *parameterTable;
+    VariableEntry *currentParameter;
     int type;
     FunctionEntry *next;
 
@@ -214,6 +215,11 @@ struct FunctionEntry {
     int localVarCount;
     int tempVarCount;
     int currQuad;
+
+    VariableEntry *nextCurrentParameter() {
+        currentParameter = currentParameter->next;
+        return currentParameter;
+    }
 
     void removeVariableTable() {
         if (!variableTable)
@@ -235,6 +241,7 @@ struct FunctionEntry {
         this->name = "";
         this->variableTable = new VariableTable();
         this->parameterTable = new VariableTable();
+        this->currentParameter = this->variableTable->head;
         this->type = 7;
         this->next = nullptr;
         this->memoryOffset = 8000;
@@ -247,6 +254,7 @@ struct FunctionEntry {
         this->name = name;
         this->variableTable = variableTable;
         this->parameterTable = new VariableTable();
+        this->currentParameter = this->variableTable->head;
         this->type = type;
         this->next = nullptr;
         this->memoryOffset = 8000;
@@ -259,6 +267,7 @@ struct FunctionEntry {
         this->name = name;
         this->variableTable = variableTable;
         this->parameterTable = new VariableTable();
+        this->currentParameter = this->variableTable->head;
         this->type = type;
         this->next = nullptr;
         this->memoryOffset = 0;
@@ -267,6 +276,8 @@ struct FunctionEntry {
         this->cteMemory = new Memory(cteSize, 0 + localSize + tempSize);
     };
 };
+
+static FunctionEntry *currentCall;
 
 struct FunctionDirectory {
     FunctionEntry *head;
@@ -302,7 +313,6 @@ struct FunctionDirectory {
     }
 
     void removeVariableTable(string name) {
-        cout << "REMOVING " << name << endl;
         FunctionEntry *entry = head;
         FunctionEntry *prev = NULL;
         while (entry) {
@@ -420,3 +430,17 @@ void generateEndFunc();
 VariableEntry *declareParameter(string name, int type, int lineas);
 
 void verifyFunctionExists(string name, int lineas);
+
+void generateEra(string name);
+
+VariableEntry *nextParameter(FunctionEntry *function);
+
+void generateParam();
+
+void generateGosub();
+
+void verifyParameters(string name);
+
+void generateGosub(string name);
+
+void setCurrentCall(string name);

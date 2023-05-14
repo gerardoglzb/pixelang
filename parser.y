@@ -297,14 +297,25 @@ assignee :
 call :
     ID {
         verifyFunctionExists($1, lineas);
-    } LEFT_PAR call2 RIGHT_PAR SEMICOLON ;
+    } LEFT_PAR {
+        generateEra($1);
+        setCurrentCall($1);
+    } call2 RIGHT_PAR {
+        verifyParameters($1);
+        generateGosub($1);
+        setCurrentCall("");
+    } SEMICOLON ;
 
 call2 :
-    expression call3
+    expression {
+        generateParam();
+    } call3
     | ;
 
 call3 :
-    COMMA expression call3
+    COMMA expression {
+        generateParam();
+    } call3
     | ;
 
 printing :

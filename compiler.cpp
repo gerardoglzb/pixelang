@@ -8,14 +8,54 @@ void verifyFunctionExists(string name, int lineas) {
     }
 }
 
+void verifyParameters(string name) {
+    if (funcDir->find(name)->nextCurrentParameter()) {
+        printf("Too few parameters.\n");
+        exit(-1);
+    }
+}
+
 void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     Quadruple quad = Quadruple(oper, leftOperand, rightOperand, result);
     quads.push_back(quad);
 }
 
-void generateEra() {
-    return;
-    generateQuad(17, -1, -1, funcDir->getFunctionID(funcDir->currentFunction()->name));
+void generateGosub(string name) {
+    generateQuad(15, -1, -1, funcDir->getFunctionID(name));
+}
+
+VariableEntry *nextParameter(FunctionEntry *function) {
+    VariableEntry *param = function->nextCurrentParameter();
+    if (!param) {
+        printf("Too many parameters.\n");
+        exit(-1);
+    }
+    return param;
+}
+
+void setCurrentCall(string name) {
+    if (name == "")
+        currentCall = nullptr;
+    currentCall = funcDir->find(name);
+}
+
+void generateParam() {
+    int arg = operands.top(); operands.pop();
+    int type = types.top(); types.pop();
+    if (!currentCall)
+        exit(-1);
+    VariableEntry *param = nextParameter(currentCall);
+
+    if (type != param->type) {
+        cout << "Parameter is not the same" << endl;
+        exit(-1);
+    }
+
+    generateQuad(17, arg, -1, param->address);
+}
+
+void generateEra(string name) {
+    generateQuad(16, -1, -1, funcDir->getFunctionID(funcDir->find(name)->name));
 }
 
 void generateEndFunc() {
@@ -27,17 +67,14 @@ void printQuad(Quadruple *quad) {
 }
 
 void setCurrentParamCount(int count) {
-    cout << "param count: " << count << endl;
     funcDir->currentFunction()->paramCount = count;
 }
 
 void setCurrentLocalVarCount(int count) {
-    cout << "local count: " << count << endl;
     funcDir->currentFunction()->localVarCount = count;
 }
 
 void setCurrentTempVarCount(int count) {
-    cout << "temp count: " << count << endl;
     funcDir->currentFunction()->tempVarCount = count;
 }
 
@@ -129,8 +166,6 @@ void doOperation() {
             leftOperand = operands.top(); operands.pop();
             leftType = types.top(); types.pop();
         }
-
-        printf("oper: %i %i %i\n", oper, leftOperand, rightOperand);
 
         int resultType = semanticCube(oper, leftType, rightType);
         if (resultType > -1) {
