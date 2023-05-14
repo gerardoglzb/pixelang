@@ -7,7 +7,7 @@
 using namespace std;
 
 static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div, 5 greater, 6 less, 7 equal to, 8 not equal, 9 and, 10 or,
-                            // 11 leftpar, 12 rightpar, 13 gotoF, 14 goto, 15 gosub, 16 era, 17 param, 18 endfunc
+                            // 11 leftpar, 12 rightpar, 13 gotoF, 14 goto, 15 gosub, 16 era, 17 param, 18 endfunc, 19 print
 static stack<int> types;
 static stack<int> operands;
 static stack<int> jumps;
@@ -204,6 +204,7 @@ struct FunctionEntry {
     VariableTable *variableTable;
     VariableTable *parameterTable;
     VariableEntry *currentParameter;
+    stack<int> paramTypes;
     int type;
     FunctionEntry *next;
 
@@ -216,10 +217,21 @@ struct FunctionEntry {
     int localVarCount;
     int tempVarCount;
     int currQuad;
+    int currentParam;
+
+    void resetParamCount() {
+        currentParam = 0;
+    }
 
     VariableEntry *nextCurrentParameter() {
-        currentParameter = currentParameter->next;
-        return currentParameter;
+        currentParameter = parameterTable->head;
+        int paramIdx = currentParam++;
+        while (paramCount - paramIdx++ > 0) {
+            if (!currentParameter->next)
+                exit(-1);
+            currentParameter = currentParameter->next;
+        }
+        return currentParam > paramCount ? nullptr : currentParameter;
     }
 
     void removeVariableTable() {
@@ -242,7 +254,6 @@ struct FunctionEntry {
         this->name = "";
         this->variableTable = new VariableTable();
         this->parameterTable = new VariableTable();
-        this->currentParameter = this->variableTable->head;
         this->type = 7;
         this->next = nullptr;
         this->memoryOffset = 8000;
@@ -255,7 +266,6 @@ struct FunctionEntry {
         this->name = name;
         this->variableTable = variableTable;
         this->parameterTable = new VariableTable();
-        this->currentParameter = this->variableTable->head;
         this->type = type;
         this->next = nullptr;
         this->memoryOffset = 8000;
@@ -268,7 +278,6 @@ struct FunctionEntry {
         this->name = name;
         this->variableTable = variableTable;
         this->parameterTable = new VariableTable();
-        this->currentParameter = this->variableTable->head;
         this->type = type;
         this->next = nullptr;
         this->memoryOffset = 0;
@@ -445,3 +454,9 @@ void verifyParameters(string name);
 void generateGosub(string name);
 
 void setCurrentCall(string name);
+
+void fillMain();
+
+void generatePrint();
+
+void resetParameterCount(string name);

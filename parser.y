@@ -78,7 +78,9 @@
 program : 
     PROGRAM ID {
         declareMainFunction($2, lineas, &functionDirectory);
-    } SEMICOLON vars functions block {
+    } SEMICOLON vars functions {
+        fillMain();
+    } block {
         printf("Valid syntax.\n");
         printQuads();
     } ;
@@ -300,6 +302,7 @@ call :
     } LEFT_PAR {
         generateEra($1);
         setCurrentCall($1);
+        resetParameterCount($1);
     } call2 RIGHT_PAR {
         verifyParameters($1);
         generateGosub($1);
@@ -326,8 +329,11 @@ printing_2 :
     | printing_3 ;
 
 printing_3 :
-    expression
-    | CTE_STRING ;
+    expression {
+        generatePrint();
+    }
+    | CTE_STRING {
+    } ;
 
 conditional :
     conditional_if ELSE {

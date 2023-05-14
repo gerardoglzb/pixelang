@@ -39,6 +39,10 @@ void setCurrentCall(string name) {
     currentCall = funcDir->find(name);
 }
 
+void resetParameterCount(string name) {
+    funcDir->find(name)->resetParamCount();
+}
+
 void generateParam() {
     int arg = operands.top(); operands.pop();
     int type = types.top(); types.pop();
@@ -47,7 +51,7 @@ void generateParam() {
     VariableEntry *param = nextParameter(currentCall);
 
     if (type != param->type) {
-        cout << "Parameter is not the same" << endl;
+        cout << "Parameter is not the same " << type << " " << param->type << endl;
         exit(-1);
     }
 
@@ -119,6 +123,9 @@ void printQuad(Quadruple *quad, int idx) {
         case ENDFUNC_:
             oper = "ENDFU";
             break;
+        case PRINT_:
+            oper = "PRINT";
+            break;
     }
     printf("%i\t%s\t%i\t%i\t%i\n", idx, oper.c_str(), quad->leftOperand, quad->rightOperand, quad->result);
 }
@@ -148,6 +155,10 @@ void printQuads() {
     }
 }
 
+void generatePrint() {
+    // generateQuad(PRINT_, -1, -1, quads.back().result);
+}
+
 void generateWhile() {
     int type = types.top(); types.pop();
     if (type != 0) {
@@ -157,6 +168,10 @@ void generateWhile() {
     int result = operands.top(); operands.pop();
     generateQuad(GOTOF_, result, -1, -1);
     jumps.push(quads.size() - 1);
+}
+
+void fillMain() {
+    quads[0].result = quads.size();
 }
 
 void fillJumpWhile() {
@@ -350,6 +365,8 @@ void declareMainFunction(string name, int lineas, FunctionDirectory *directory) 
 
     funcDir = directory;
     funcDir->main = entry;
+
+    generateQuad(GOTO_, -1, -1, -1);
 }
 
 // 0 equal, 1 add, 2 sub, 3 multi, 4 div

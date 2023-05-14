@@ -19,4 +19,5 @@ enum Operator {
     ERA_,
     PARAM_,
     ENDFUNC_,
+    PRINT_,
 };
