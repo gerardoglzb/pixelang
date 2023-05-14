@@ -1724,14 +1724,14 @@ yyreduce:
   case 29:
 #line 170 "parser.y"
     {
-        pushOperator(9);
+        pushOperator(AND_);
     ;}
     break;
 
   case 30:
 #line 173 "parser.y"
     {
-        pushOperator(10);
+        pushOperator(OR_);
     ;}
     break;
 
@@ -1745,28 +1745,28 @@ yyreduce:
   case 35:
 #line 185 "parser.y"
     {
-        pushOperator(5);
+        pushOperator(GREATER_);
     ;}
     break;
 
   case 36:
 #line 188 "parser.y"
     {
-        pushOperator(6);
+        pushOperator(LESS_);
     ;}
     break;
 
   case 37:
 #line 191 "parser.y"
     {
-        pushOperator(7);
+        pushOperator(EQUALTO_);
     ;}
     break;
 
   case 38:
 #line 194 "parser.y"
     {
-        pushOperator(8);
+        pushOperator(NOTEQUAL_);
     ;}
     break;
 
@@ -1780,14 +1780,14 @@ yyreduce:
   case 41:
 #line 204 "parser.y"
     {
-        pushOperator(1);
+        pushOperator(ADD_);
     ;}
     break;
 
   case 43:
 #line 207 "parser.y"
     {
-        pushOperator(2);
+        pushOperator(SUB_);
     ;}
     break;
 
@@ -1801,14 +1801,14 @@ yyreduce:
   case 48:
 #line 218 "parser.y"
     {
-        pushOperator(3);
+        pushOperator(MULTI_);
     ;}
     break;
 
   case 50:
 #line 221 "parser.y"
     {
-        pushOperator(4)
+        pushOperator(DIV_);
     ;}
     break;
 
@@ -1822,28 +1822,28 @@ yyreduce:
   case 55:
 #line 231 "parser.y"
     {
-        pushOperator(11);
+        pushOperator(LEFTPAR_);
     ;}
     break;
 
   case 56:
 #line 233 "parser.y"
     {
-        pushOperator(12);
+        pushOperator(RIGHTPAR_);
     ;}
     break;
 
   case 57:
 #line 236 "parser.y"
     {
-        pushOperator(1);
+        pushOperator(ADD_);
     ;}
     break;
 
   case 59:
 #line 239 "parser.y"
     {
-        pushOperator(2);
+        pushOperator(SUB_);
     ;}
     break;
 
@@ -1864,7 +1864,7 @@ yyreduce:
   case 82:
 #line 285 "parser.y"
     {
-        pushOperator(0);
+        pushOperator(EQUALTO_);
     ;}
     break;
 

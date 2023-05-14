@@ -21,7 +21,7 @@ void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
 }
 
 void generateGosub(string name) {
-    generateQuad(15, -1, -1, funcDir->getFunctionID(name));
+    generateQuad(GOSUB_, -1, -1, funcDir->getFunctionID(name));
 }
 
 VariableEntry *nextParameter(FunctionEntry *function) {
@@ -51,19 +51,76 @@ void generateParam() {
         exit(-1);
     }
 
-    generateQuad(17, arg, -1, param->address);
+    generateQuad(PARAM_, arg, -1, param->address);
 }
 
 void generateEra(string name) {
-    generateQuad(16, -1, -1, funcDir->getFunctionID(funcDir->find(name)->name));
+    generateQuad(ERA_, -1, -1, funcDir->getFunctionID(funcDir->find(name)->name));
 }
 
 void generateEndFunc() {
-    generateQuad(18, -1, -1, -1);
+    generateQuad(ENDFUNC_, -1, -1, -1);
 }
 
 void printQuad(Quadruple *quad, int idx) {
-    printf("%i\t%i\t%i\t%i\t%i\n", idx, quad->oper, quad->leftOperand, quad->rightOperand, quad->result);
+    string oper = "";
+    switch(quad->oper) {
+        case ADD_:
+            oper = "ADD_";
+            break;
+        case SUB_:
+            oper = "SUB_";
+            break;
+        case MULTI_:
+            oper = "MULTI";
+            break;
+        case DIV_:
+            oper = "DIV_";
+            break;
+        case GREATER_:
+            oper = "GREAT";
+            break;
+        case LESS_:
+            oper = "LESS_";
+            break;
+        case EQUALTO_:
+            oper = "EQUAL";
+            break;
+        case NOTEQUAL_:
+            oper = "NOTEQ";
+            break;
+        case AND_:
+            oper = "AND_";
+            break;
+        case OR_:
+            oper = "OR_";
+            break;
+        case LEFTPAR_:
+            oper = "LEFTP";
+            break;
+        case RIGHTPAR_:
+            oper = "RIGHT";
+            break;
+        case GOTOF_:
+            oper = "GOTOF";
+            break;
+        case GOTO_:
+            oper = "GOTO_";
+            break;
+        case GOSUB_:
+            oper = "GOSUB";
+            break;
+        case ERA_:
+            oper = "ERA_";
+            break;
+        case PARAM_:
+            oper = "PARAM";
+            break;
+        case ENDFUNC_:
+            oper = "ENDFU";
+            break;
+    }
+    printf("%i\t%s\t%i\t%i\t%i\n", idx, oper.c_str(), quad->leftOperand, quad->rightOperand, quad->result);
 }
 
 void setCurrentParamCount(int count) {
@@ -98,14 +155,14 @@ void generateWhile() {
         exit(-1);
     }
     int result = operands.top(); operands.pop();
-    generateQuad(13, result, -1, -1);
+    generateQuad(GOTOF_, result, -1, -1);
     jumps.push(quads.size() - 1);
 }
 
 void fillJumpWhile() {
     int end = jumps.top(); jumps.pop();
     int ret = jumps.top(); jumps.pop();
-    generateQuad(14, -1, -1, ret);
+    generateQuad(GOTO_, -1, -1, ret);
     quads[end].result = quads.size();
 }
 
@@ -114,7 +171,7 @@ void pushJumpCurrent() {
 }
 
 void generateElse() {
-    generateQuad(14, -1, -1, -1);
+    generateQuad(GOTO_, -1, -1, -1);
     int isFalse = jumps.top(); jumps.pop();
     jumps.push(quads.size() -1);
     quads[isFalse].result = quads.size() + 1;
@@ -132,7 +189,7 @@ void generateIf() {
         exit(-1);
     }
     int result = operands.top(); operands.pop();
-    generateQuad(13, result, -1, -1);
+    generateQuad(GOTOF_, result, -1, -1);
     jumps.push(quads.size() - 1);
 }
 
@@ -192,12 +249,12 @@ void checkIfShouldDoOperation(vector<int> myOperators) {
     if (operators.size() == 0) {
         return;
     }
-    if (operators.top() == 12) {
+    if (operators.top() == RIGHTPAR_) {
         operators.pop();
         operators.pop();
         return;
     }
-    if (operators.top() == 11) {
+    if (operators.top() == LEFTPAR_) {
         return;
     }
     bool shouldDoOperation = false;

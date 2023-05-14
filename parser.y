@@ -168,10 +168,10 @@ expression :
 
 expression2 : 
     AND {
-        pushOperator(9);
+        pushOperator(AND_);
     }
     | OR {
-        pushOperator(10);
+        pushOperator(OR_);
     }
     | ;
 
@@ -183,16 +183,16 @@ comp :
 
 comp2 :
     MORE_THAN {
-        pushOperator(5);
+        pushOperator(GREATER_);
     }
     | LESS_THAN {
-        pushOperator(6);
+        pushOperator(LESS_);
     }
     | EQUAL_TO {
-        pushOperator(7);
+        pushOperator(EQUALTO_);
     }
     | NOT_EQUAL {
-        pushOperator(8);
+        pushOperator(NOTEQUAL_);
     } ;
 
 exp :
@@ -202,10 +202,10 @@ exp :
 
 exp2 :
     ADDITION {
-        pushOperator(1);
+        pushOperator(ADD_);
     } exp
     | SUBSTRACTION {
-        pushOperator(2);
+        pushOperator(SUB_);
     } exp
     | ;
 
@@ -216,10 +216,10 @@ term :
 
 term2 :
     MULTI {
-        pushOperator(3);
+        pushOperator(MULTI_);
     } term
     | DIV {
-        pushOperator(4)
+        pushOperator(DIV_);
     } term
     | ;
 
@@ -229,15 +229,15 @@ factor :
     }
     | ID array_or_func
     | LEFT_PAR {
-        pushOperator(11);
+        pushOperator(LEFTPAR_);
     } expression RIGHT_PAR {
-        pushOperator(12);
+        pushOperator(RIGHTPAR_);
     }
     | ADDITION {
-        pushOperator(1);
+        pushOperator(ADD_);
     } var_cte
     | SUBSTRACTION {
-        pushOperator(2);
+        pushOperator(SUB_);
     } var_cte
     | var_cte ;
 
@@ -283,7 +283,7 @@ function_statement :
 assignment :
     assignee EQUAL call
     | assignee EQUAL {
-        pushOperator(0);
+        pushOperator(EQUALTO_);
     } expression SEMICOLON {
         checkIfShouldDoOperation(vector<int>({0}));
     } ;
