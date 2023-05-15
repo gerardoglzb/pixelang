@@ -168,7 +168,7 @@ void generatePrint() {
 
 void generateWhile() {
     int type = types.top(); types.pop();
-    if (type != 0) {
+    if (type != INT_) {
         cout << "Error: Expression in cycle not a boolean." << endl;
         exit(-1);
     }
@@ -206,7 +206,7 @@ void fillJumpIf() {
 
 void generateIf() {
     int type = types.top(); types.pop();
-    if (type != 0) {
+    if (type != INT_) {
         cout << "Error: Expression in conditional not a boolean." << endl;
         exit(-1);
     }
@@ -231,36 +231,6 @@ int declareLocal(int type) {
     return funcDir->currentFunction()->localMemory->addValue(type);
 }
 
-// void printOperands() {
-//     stack<int> temp;
-//     cout << "Operands: ";
-//     while (!operands.empty()) {
-//         temp.push(operands.top());
-//         operands.pop();
-//     }
-//     while (!temp.empty()) {
-//         operands.push(temp.top());
-//         cout << temp.top() << " ";
-//         temp.pop();
-//     }
-//     cout << endl;
-// }
-
-// void printOperators() {
-//     stack<int> temp;
-//     cout << "Operators: ";
-//     while (!operators.empty()) {
-//         temp.push(operators.top());
-//         operators.pop();
-//     }
-//     while (!temp.empty()) {
-//         operators.push(temp.top());
-//         cout << operatorName(temp.top()) << " ";
-//         temp.pop();
-//     }
-//     cout << endl;
-// }
-
 void doOperation() {
     if (operands.size() >= 1 && !operators.empty()) {
         int rightOperand = operands.top(); operands.pop();
@@ -271,10 +241,10 @@ void doOperation() {
 
         if (oper == PRINT_) {
             leftOperand = -1;
-            leftType = 0;
+            leftType = INT_;
         }  else if (operands.size() == 1 && oper != EQUALS_) {
             leftOperand = declareCte(0);
-            leftType = 0;
+            leftType = INT_;
         } else {
             leftOperand = operands.top(); operands.pop();
             leftType = types.top(); types.pop();
@@ -365,7 +335,7 @@ void declareArray(string name, int type, int size, int lineas) {
         cout << "Error: Array " << name << " on line "  << lineas << " cannot be of size 0.\n";
         exit(-1);
     }
-    VariableEntry *entry = declareVariable(name, (type == 0) ? 5 : 6, lineas);
+    VariableEntry *entry = declareVariable(name, (type == INT_) ? 5 : 6, lineas);
     entry->length = size;
 }
 
@@ -411,8 +381,6 @@ void declareMainFunction(string name, int lineas, FunctionDirectory *directory) 
     generateQuad(GOTO_, -1, -1, -1);
 }
 
-// 0 equal, 1 add, 2 sub, 3 multi, 4 div
-// 0 int, 1 float, 2 string -1 err
 int semanticCube(int oper, int type1, int type2) {
     int cube[5][2][2] = {
         {
@@ -439,7 +407,7 @@ int semanticCube(int oper, int type1, int type2) {
 
     if (oper == PRINT_)
         return 0;
-        
+
     if (oper > 4 || type1 > 1 || type2 > 1) {
         cout << "Error in semantic cube." << endl;
         printf("%i %i %i\n", oper, type1, type2);

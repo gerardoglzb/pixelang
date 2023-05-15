@@ -4,6 +4,7 @@
 #include <stack>
 #include <vector>
 #include "./Semantics/Operator.hpp"
+#include "./Semantics/Type.hpp"
 using namespace std;
 
 static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div, 5 greater, 6 less, 7 equal to, 8 not equal, 9 and, 10 or,
@@ -460,9 +461,5 @@ void fillMain();
 void generatePrint();
 
 void resetParameterCount(string name);
-
-void printOperands();
-
-void printOperators();
 
 string operatorName(int _oper);
