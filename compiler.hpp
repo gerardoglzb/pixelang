@@ -409,7 +409,7 @@ void checkIfShouldDoOperation(vector<int> myOperators);
 
 int declareCte(int type);
 
-void printQuad(Quadruple *quad);
+void printQuad(Quadruple *quad, int idx);
 
 void printQuads();
 
@@ -460,3 +460,9 @@ void fillMain();
 void generatePrint();
 
 void resetParameterCount(string name);
+
+void printOperands();
+
+void printOperators();
+
+string operatorName(int _oper);

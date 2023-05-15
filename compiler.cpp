@@ -66,9 +66,9 @@ void generateEndFunc() {
     generateQuad(ENDFUNC_, -1, -1, -1);
 }
 
-void printQuad(Quadruple *quad, int idx) {
+string operatorName(int _oper) {
     string oper = "";
-    switch(quad->oper) {
+    switch(_oper) {
         case EQUALS_:
             oper = "EQUALS_";
             break;
@@ -130,7 +130,11 @@ void printQuad(Quadruple *quad, int idx) {
             oper = "PRINT";
             break;
     }
-    printf("%i\t%s\t%i\t%i\t%i\n", idx, oper.c_str(), quad->leftOperand, quad->rightOperand, quad->result);
+    return oper;
+}
+
+void printQuad(Quadruple *quad, int idx) {
+    printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
 }
 
 void setCurrentParamCount(int count) {
@@ -174,7 +178,7 @@ void generateWhile() {
 }
 
 void fillMain() {
-    quads[0].result = quads.size();
+    quads[0].result = quads.size() + 1;
 }
 
 void fillJumpWhile() {
@@ -227,6 +231,36 @@ int declareLocal(int type) {
     return funcDir->currentFunction()->localMemory->addValue(type);
 }
 
+// void printOperands() {
+//     stack<int> temp;
+//     cout << "Operands: ";
+//     while (!operands.empty()) {
+//         temp.push(operands.top());
+//         operands.pop();
+//     }
+//     while (!temp.empty()) {
+//         operands.push(temp.top());
+//         cout << temp.top() << " ";
+//         temp.pop();
+//     }
+//     cout << endl;
+// }
+
+// void printOperators() {
+//     stack<int> temp;
+//     cout << "Operators: ";
+//     while (!operators.empty()) {
+//         temp.push(operators.top());
+//         operators.pop();
+//     }
+//     while (!temp.empty()) {
+//         operators.push(temp.top());
+//         cout << operatorName(temp.top()) << " ";
+//         temp.pop();
+//     }
+//     cout << endl;
+// }
+
 void doOperation() {
     if (operands.size() >= 1 && !operators.empty()) {
         int rightOperand = operands.top(); operands.pop();
@@ -235,7 +269,10 @@ void doOperation() {
         int leftType;
         int oper = operators.top(); operators.pop();
 
-        if (operands.size() == 1 && oper != 0) {
+        if (oper == PRINT_) {
+            leftOperand = -1;
+            leftType = 0;
+        }  else if (operands.size() == 1 && oper != EQUALS_) {
             leftOperand = declareCte(0);
             leftType = 0;
         } else {
@@ -246,9 +283,11 @@ void doOperation() {
         int resultType = semanticCube(oper, leftType, rightType);
         if (resultType > -1) {
             int result;
-            if (oper == 0) {
+            if (oper == EQUALS_) {
                 result = leftOperand;
                 leftOperand = -1;
+            } else if (oper == PRINT_) {
+                result = -1;
             } else {
                 result = declareTemp(resultType);
             }
@@ -289,11 +328,13 @@ void checkIfShouldDoOperation(vector<int> myOperators) {
 
 void pushOperandByID(string name) {
     FunctionEntry *function = funcDir->currentFunction();
+    printf("Pushing %i\n", function->findAddress(name));
     operands.push(function->findAddress(name));
     types.push(function->findType(name));
 }
 
 void pushOperandOfType(int address, int type) {
+    printf("Pushing %i\n", address);
     operands.push(address);
     types.push(type);
 }

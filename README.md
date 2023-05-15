@@ -1,3 +1,3 @@
 # pixelang
 
-El avance tiene todo hasta el avance #3, incluyendo la tabla de variables, directorio de funciones, cubo semántico, directorio de memoria y ya se generan quads para asignación y operaciones aritméticas, no hay para loops todavía.
+El avance ahora incluye los quads para ciclos y decisiones. También parece generar los quads para las funciones (tanto definición como llamada), aunque no estoy 100% seguro de que funcione del todo correctamente. La memoria también podría utilizar cambios.

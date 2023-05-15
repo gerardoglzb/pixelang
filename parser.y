@@ -322,7 +322,11 @@ call3 :
     | ;
 
 printing :
-    PRINT LEFT_PAR printing_2 RIGHT_PAR SEMICOLON ;
+    PRINT {
+        pushOperator(PRINT_);
+    } LEFT_PAR printing_2 RIGHT_PAR SEMICOLON {
+        checkIfShouldDoOperation(vector<int>({PRINT_}));
+    } ;
 
 printing_2 :
     printing_3 COMMA printing_2
@@ -330,7 +334,6 @@ printing_2 :
 
 printing_3 :
     expression {
-        generatePrint();
     }
     | CTE_STRING {
     } ;
