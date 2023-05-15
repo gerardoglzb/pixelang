@@ -1693,7 +1693,7 @@ yyreduce:
   case 18:
 #line 135 "parser.y"
     {
-        functionDirectory.currentFunction()->type = 5;
+        functionDirectory.currentFunction()->type = VOID_;
     ;}
     break;
 
@@ -1858,14 +1858,14 @@ yyreduce:
   case 65:
 #line 251 "parser.y"
     {
-        pushOperandOfType(declareCte(1), 1);
+        pushOperandOfType(declareCte(1), FLOAT_);
     ;}
     break;
 
   case 66:
 #line 254 "parser.y"
     {
-        pushOperandOfType(declareCte(0), 0);
+        pushOperandOfType(declareCte(0), INT_);
     ;}
     break;
 

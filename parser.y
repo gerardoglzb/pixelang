@@ -133,7 +133,7 @@ function_type :
         functionDirectory.currentFunction()->type = $1;
     }
     | VOID {
-        functionDirectory.currentFunction()->type = 5;
+        functionDirectory.currentFunction()->type = VOID_;
     } ;
 
 return :
@@ -249,10 +249,10 @@ index :
 
 var_cte :
     CTE_FLOAT {
-        pushOperandOfType(declareCte(1), 1);
+        pushOperandOfType(declareCte(1), FLOAT_);
     }
     | CTE_INT {
-        pushOperandOfType(declareCte(0), 0);
+        pushOperandOfType(declareCte(0), INT_);
     } ;
 
 array_or_func :
