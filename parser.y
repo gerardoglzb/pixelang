@@ -227,9 +227,8 @@ term2 :
 
 factor :
     ID {
-        pushOperandByID($1);
-    }
-    | ID array_or_func
+        handleIDExpression($1);
+    } array_or_func
     | LEFT_PAR {
         pushOperator(LEFTPAR_);
     } expression RIGHT_PAR {
@@ -256,12 +255,33 @@ var_cte :
     } ;
 
 array_or_func :
-    LEFT_PAR arguments RIGHT_PAR
-    | LEFT_BRACK index RIGHT_BRACK ;
+    {
+        verifyFunctionExists(getIDExpression(), lineas);
+        setCurrentCall(getIDExpression());
+    } LEFT_PAR {
+        generateEra(getCurrentCall());
+        resetParameterCount(getCurrentCall());
+    } arguments RIGHT_PAR {
+        verifyParameters(getCurrentCall());
+        generateGosub(getCurrentCall());
+        setCurrentCall("");
+    }
+    | LEFT_BRACK index RIGHT_BRACK 
+    | {
+        pushOperandByID(getIDExpression());
+    } ;
 
 arguments :
-    expression COMMA arguments
-    | expression ;
+    expression {
+        generateParam();
+    } arguments2
+    | ;
+
+arguments2 :
+    COMMA expression {
+        generateParam();
+    } arguments2
+    | ;
 
 statements :
     statement statements
@@ -285,13 +305,9 @@ function_statement :
 assignment :
     assignee EQUAL {
         pushOperator(EQUALS_);
-    } assignment2 SEMICOLON {
+    } expression SEMICOLON {
         checkIfShouldDoOperation(vector<int>({0}));
     } ;
-
-assignment2 :
-    call
-    | expression ;
 
 assignee :
     ID {
@@ -310,7 +326,7 @@ call :
         verifyParameters($1);
         generateGosub($1);
         setCurrentCall("");
-    } ;
+    } SEMICOLON ;
 
 call2 :
     expression {

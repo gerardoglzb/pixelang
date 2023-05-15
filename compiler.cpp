@@ -10,7 +10,7 @@ void verifyFunctionExists(string name, int lineas) {
 
 void verifyParameters(string name) {
     if (funcDir->find(name)->nextCurrentParameter()) {
-        printf("Too few parameters.\n");
+        printf("Too few parameters %s.\n", name.c_str());
         exit(-1);
     }
 }
@@ -37,6 +37,18 @@ void setCurrentCall(string name) {
     if (name == "")
         currentCall = nullptr;
     currentCall = funcDir->find(name);
+}
+
+string getCurrentCall() {
+    return currentCall->name;
+}
+
+void handleIDExpression(string name) {
+    IDExpression = name;
+}
+
+string getIDExpression() {
+    return IDExpression;
 }
 
 void resetParameterCount(string name) {

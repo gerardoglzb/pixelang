@@ -13,6 +13,8 @@ static stack<int> types;
 static stack<int> operands;
 static stack<int> jumps;
 
+static string IDExpression;
+
 struct Quadruple {
     int oper;
     int leftOperand;
@@ -300,7 +302,7 @@ struct FunctionDirectory {
     }
 
     int getFunctionID(string name) {
-        FunctionEntry *entry = head;
+        FunctionEntry *entry = head->next;
         int counter = 0;
         while (entry) {
             if (entry->name == name) {
@@ -463,3 +465,9 @@ void generatePrint();
 void resetParameterCount(string name);
 
 string operatorName(int _oper);
+
+string getCurrentCall();
+
+void handleIDExpression(string name);
+
+string getIDExpression();
