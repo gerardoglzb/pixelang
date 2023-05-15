@@ -328,13 +328,11 @@ void checkIfShouldDoOperation(vector<int> myOperators) {
 
 void pushOperandByID(string name) {
     FunctionEntry *function = funcDir->currentFunction();
-    printf("Pushing %i\n", function->findAddress(name));
     operands.push(function->findAddress(name));
     types.push(function->findType(name));
 }
 
 void pushOperandOfType(int address, int type) {
-    printf("Pushing %i\n", address);
     operands.push(address);
     types.push(type);
 }
@@ -439,8 +437,13 @@ int semanticCube(int oper, int type1, int type2) {
         },
     };
 
+    if (oper == PRINT_)
+        return 0;
+        
     if (oper > 4 || type1 > 1 || type2 > 1) {
         cout << "Error in semantic cube." << endl;
+        printf("%i %i %i\n", oper, type1, type2);
+        exit(-1);
     }
 
     return cube[oper][type1][type2];

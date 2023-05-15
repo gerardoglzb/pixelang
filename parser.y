@@ -283,12 +283,15 @@ function_statement :
     | return ;
 
 assignment :
-    assignee EQUAL call
-    | assignee EQUAL {
+    assignee EQUAL {
         pushOperator(EQUALS_);
-    } expression SEMICOLON {
+    } assignment2 SEMICOLON {
         checkIfShouldDoOperation(vector<int>({0}));
     } ;
+
+assignment2 :
+    call
+    | expression ;
 
 assignee :
     ID {
@@ -307,7 +310,7 @@ call :
         verifyParameters($1);
         generateGosub($1);
         setCurrentCall("");
-    } SEMICOLON ;
+    } ;
 
 call2 :
     expression {
