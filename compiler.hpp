@@ -65,13 +65,13 @@ struct Memory {
     }
 
     int addValue(int type) {
-        if (type == 0) {
+        if (type == INT_) {
             return memoryInt->addValue();
         }
-        if (type == 1) {
+        if (type == FLOAT_) {
             return memoryFloat->addValue();
         }
-        if (type == 2) {
+        if (type == STRING_) {
             return memoryFloat->addValue();
         }
         return -1;
