@@ -21,4 +21,5 @@ enum Operator {
     PARAM_,
     ENDFUNC_,
     PRINT_,
+    RETURN_,
 };

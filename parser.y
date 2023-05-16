@@ -121,8 +121,9 @@ function :
     } LEFT_PAR params RIGHT_PAR COLON {
         setCurrentParamCount($5);
     } function_type LEFT_CURLY vars {
-        setCurrentLocalVarCount($9);
+        setCurrentLocalVarCount($11);
         setCurrentCurrQuad();
+        setCurrentFuncType($9);
     } function_statements RIGHT_CURLY {
         generateEndFunc();
         functionDirectory.removeVariableTable($2);
@@ -137,7 +138,12 @@ function_type :
     } ;
 
 return :
-    RETURN LEFT_PAR expression RIGHT_PAR SEMICOLON
+    RETURN {
+        pushOperator(RETURN_);
+    } LEFT_PAR expression RIGHT_PAR SEMICOLON {
+        checkIfShouldDoOperation(vector<int>({RETURN_}));
+        verifyReturnType(getCurrentFuncType());
+    }
     | RETURN SEMICOLON ;
 
 block :
@@ -149,13 +155,11 @@ type :
 
 params :
     ID COLON type COMMA params {
-        declareParameter($1, $3, lineas);
-        declareVariable($1, $3, lineas);
+        declareParameter($1, $3, lineas, declareVariable($1, $3, lineas)->address);
         $$ = $5 + 1;
     }
     | ID COLON type {
-        declareParameter($1, $3, lineas);
-        declareVariable($1, $3, lineas);
+        declareParameter($1, $3, lineas, declareVariable($1, $3, lineas)->address);
         $$ = 1;
     }
     | {
@@ -248,10 +252,10 @@ index :
 
 var_cte :
     CTE_FLOAT {
-        pushOperandOfType(declareCte(1), FLOAT_);
+        pushOperandOfType(declareCte(FLOAT_), FLOAT_);
     }
     | CTE_INT {
-        pushOperandOfType(declareCte(0), INT_);
+        pushOperandOfType(declareCte(INT_), INT_);
     } ;
 
 array_or_func :
@@ -264,6 +268,7 @@ array_or_func :
     } arguments RIGHT_PAR {
         verifyParameters(getCurrentCall());
         generateGosub(getCurrentCall());
+        pushOperandResult(getCurrentCall());
         setCurrentCall("");
     }
     | LEFT_BRACK index RIGHT_BRACK 
@@ -352,10 +357,8 @@ printing_2 :
     | printing_3 ;
 
 printing_3 :
-    expression {
-    }
-    | CTE_STRING {
-    } ;
+    expression
+    | CTE_STRING ;
 
 conditional :
     conditional_if ELSE {

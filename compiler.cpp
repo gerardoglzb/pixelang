@@ -82,25 +82,25 @@ string operatorName(int _oper) {
     string oper = "";
     switch(_oper) {
         case EQUALS_:
-            oper = "EQUALS_";
+            oper = "EQUALS";
             break;
         case ADD_:
-            oper = "ADD_";
+            oper = "ADD";
             break;
         case SUB_:
-            oper = "SUB_";
+            oper = "SUB";
             break;
         case MULTI_:
             oper = "MULTI";
             break;
         case DIV_:
-            oper = "DIV_";
+            oper = "DIV";
             break;
         case GREATER_:
             oper = "GREAT";
             break;
         case LESS_:
-            oper = "LESS_";
+            oper = "LESS";
             break;
         case EQUALTO_:
             oper = "EQUAL";
@@ -109,10 +109,10 @@ string operatorName(int _oper) {
             oper = "NOTEQ";
             break;
         case AND_:
-            oper = "AND_";
+            oper = "AND";
             break;
         case OR_:
-            oper = "OR_";
+            oper = "OR";
             break;
         case LEFTPAR_:
             oper = "LEFTP";
@@ -124,13 +124,13 @@ string operatorName(int _oper) {
             oper = "GOTOF";
             break;
         case GOTO_:
-            oper = "GOTO_";
+            oper = "GOTO";
             break;
         case GOSUB_:
             oper = "GOSUB";
             break;
         case ERA_:
-            oper = "ERA_";
+            oper = "ERA";
             break;
         case PARAM_:
             oper = "PARAM";
@@ -140,6 +140,9 @@ string operatorName(int _oper) {
             break;
         case PRINT_:
             oper = "PRINT";
+            break;
+        case RETURN_:
+            oper = "RETURN";
             break;
     }
     return oper;
@@ -172,10 +175,6 @@ void printQuads() {
         printQuad(&quads.front(), idx++);
         quads.erase(quads.begin());
     }
-}
-
-void generatePrint() {
-    // generateQuad(PRINT_, -1, -1, quads.back().result);
 }
 
 void generateWhile() {
@@ -239,8 +238,36 @@ int declareTemp(int type) {
     return funcDir->currentFunction()->tempMemory->addValue(type);
 }
 
+int declareGlobalTemp(int type) {
+    return funcDir->main->tempMemory->addValue(type);
+}
+
 int declareLocal(int type) {
     return funcDir->currentFunction()->localMemory->addValue(type);
+}
+
+void setCurrentFuncType(int type) {
+    currentFuncType = type;
+}
+
+int getCurrentFuncType() {
+    return currentFuncType;
+}
+
+void verifyReturnType(int functionType) {
+    if (semanticCube(EQUALS_, lastResultType, functionType) == -1) {
+        cout << "Function type and return value are not compatible." << lastResultType << " "  << functionType << endl;
+        exit(-1);
+    }
+}
+
+void pushOperandResult(string name) {
+    int functionType = funcDir->find(name)->type;
+    if (semanticCube(EQUALS_, lastResultType, functionType) == -1) {
+        cout << "Function type and return value are not compatible.2" << endl;
+        exit(-1);
+    }
+    pushOperandOfType(lastResult, functionType);
 }
 
 void doOperation() {
@@ -251,7 +278,7 @@ void doOperation() {
         int leftType;
         int oper = operators.top(); operators.pop();
 
-        if (oper == PRINT_) {
+        if (oper == PRINT_ | oper == RETURN_) {
             leftOperand = -1;
             leftType = INT_;
         }  else if (operands.size() == 1 && oper != EQUALS_) {
@@ -270,6 +297,10 @@ void doOperation() {
                 leftOperand = -1;
             } else if (oper == PRINT_) {
                 result = -1;
+            } else if (oper == RETURN_) {
+                result = declareGlobalTemp(rightType);
+                lastResult = result;
+                lastResultType = rightType;
             } else {
                 result = declareTemp(resultType);
             }
@@ -331,13 +362,14 @@ VariableEntry *declareVariable(string name, int type, int lineas) {
     return entry;
 }
 
-VariableEntry *declareParameter(string name, int type, int lineas) {
+VariableEntry *declareParameter(string name, int type, int lineas, int address) {
     VariableTable *table = funcDir->currentParameterTable();
     if (table->has(name)) {
         cout << "Error: Redefinition of parameter " << name << " on line "  << lineas << ".\n";
         exit(-1);
     }
     VariableEntry *entry = new VariableEntry(name, type);
+    entry->address = address;
     table->insert(entry);
     return entry;
 }
@@ -417,7 +449,7 @@ int semanticCube(int oper, int type1, int type2) {
         },
     };
 
-    if (oper == PRINT_)
+    if (oper == PRINT_ || oper == RETURN_)
         return 0;
 
     if (oper > 4 || type1 > 1 || type2 > 1) {

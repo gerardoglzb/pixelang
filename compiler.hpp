@@ -8,12 +8,15 @@
 using namespace std;
 
 static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div, 5 greater, 6 less, 7 equal to, 8 not equal, 9 and, 10 or,
-                            // 11 leftpar, 12 rightpar, 13 gotoF, 14 goto, 15 gosub, 16 era, 17 param, 18 endfunc, 19 print
+                            // 11 leftpar, 12 rightpar, 13 gotoF, 14 goto, 15 gosub, 16 era, 17 param, 18 endfunc, 19 print 20 return
 static stack<int> types;
 static stack<int> operands;
 static stack<int> jumps;
 
 static string IDExpression;
+static int lastResult;
+static int lastResultType;
+static int currentFuncType;
 
 struct Quadruple {
     int oper;
@@ -295,7 +298,7 @@ static FunctionEntry *currentCall;
 struct FunctionDirectory {
     FunctionEntry *head;
     FunctionEntry *main;
-    unordered_set<string> previousFunctions;
+    FunctionEntry *currentFunc;
 
     FunctionEntry *findMain() {
         return main;
@@ -325,9 +328,14 @@ struct FunctionDirectory {
         return NULL;
     }
 
+    FunctionEntry *currentFunction() {
+        return currentFunc ? currentFunc : main;
+    }
+
     void removeVariableTable(string name) {
         FunctionEntry *entry = head;
         FunctionEntry *prev = NULL;
+        currentFunc = nullptr;
         while (entry) {
             if (entry->name == name) {
                 break;
@@ -346,22 +354,11 @@ struct FunctionDirectory {
             entry = entry->next;
         }
         entry->next = newEntry;
-        previousFunctions.insert(newEntry->name);
+        currentFunc = entry->next;
     }
 
     bool has(string name) {
         return find(name) != NULL;
-    }
-
-    FunctionEntry *currentFunction() {
-        FunctionEntry *entry = head;
-        if (!entry->next) {
-            return main;
-        }
-        while (entry->next) {
-            entry = entry->next;
-        }
-        return entry;
     }
 
     VariableTable *currentVariableTable() {
@@ -375,7 +372,7 @@ struct FunctionDirectory {
     FunctionDirectory() {
         this->head = new FunctionEntry();
         this->main = nullptr;
-        this->previousFunctions = unordered_set<string>();
+        this->currentFunc = nullptr;
     };
 
 };
@@ -440,7 +437,7 @@ void setCurrentCurrQuad();
 
 void generateEndFunc();
 
-VariableEntry *declareParameter(string name, int type, int lineas);
+VariableEntry *declareParameter(string name, int type, int lineas, int address);
 
 void verifyFunctionExists(string name, int lineas);
 
@@ -460,8 +457,6 @@ void setCurrentCall(string name);
 
 void fillMain();
 
-void generatePrint();
-
 void resetParameterCount(string name);
 
 string operatorName(int _oper);
@@ -471,3 +466,11 @@ string getCurrentCall();
 void handleIDExpression(string name);
 
 string getIDExpression();
+
+void pushOperandResult(string name);
+
+void verifyReturnType(int type);
+
+int getCurrentFuncType();
+
+void setCurrentFuncType(int type);
