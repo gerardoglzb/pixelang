@@ -254,6 +254,14 @@ int getCurrentFuncType() {
     return currentFuncType;
 }
 
+void setCurrentFunc(string name) {
+    currentFunc = funcDir->find(name);
+}
+
+void setFunctionReturn() {
+    currentFunc->resultAddress = lastResult;
+}
+
 void verifyReturnType(int functionType) {
     if (semanticCube(EQUALS_, lastResultType, functionType) == -1) {
         cout << "Function type and return value are not compatible." << lastResultType << " "  << functionType << endl;
@@ -263,11 +271,11 @@ void verifyReturnType(int functionType) {
 
 void pushOperandResult(string name) {
     int functionType = funcDir->find(name)->type;
-    if (semanticCube(EQUALS_, lastResultType, functionType) == -1) {
+    if (semanticCube(EQUALS_, currentCall->type, functionType) == -1) {
         cout << "Function type and return value are not compatible.2" << endl;
         exit(-1);
     }
-    pushOperandOfType(lastResult, functionType);
+    pushOperandOfType(currentCall->resultAddress, functionType);
 }
 
 void doOperation() {

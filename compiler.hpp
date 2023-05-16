@@ -212,6 +212,7 @@ struct FunctionEntry {
     VariableEntry *currentParameter;
     stack<int> paramTypes;
     int type;
+    int resultAddress;
     FunctionEntry *next;
 
     Memory *localMemory;
@@ -264,8 +265,8 @@ struct FunctionEntry {
         this->next = nullptr;
         this->memoryOffset = 8000;
         this->localMemory = new Memory(1000, this->memoryOffset);
-        this->tempMemory = new Memory(3000, this->memoryOffset + 1000);
-        this->cteMemory = new Memory(1000, this->memoryOffset + 1000 + 3000);
+        this->tempMemory = new Memory(3000, this->memoryOffset + 1000 * 3);
+        this->cteMemory = new Memory(1000, this->memoryOffset + 1000 * 3 + 3000 * 3);
     };
 
     FunctionEntry(string name, int type, VariableTable *variableTable) {
@@ -274,10 +275,10 @@ struct FunctionEntry {
         this->parameterTable = new VariableTable();
         this->type = type;
         this->next = nullptr;
-        this->memoryOffset = 8000;
+        this->memoryOffset = 8000 * 3;
         this->localMemory = new Memory(1000, this->memoryOffset);
-        this->tempMemory = new Memory(3000, this->memoryOffset + 1000);
-        this->cteMemory = new Memory(1000, this->memoryOffset + 3000);
+        this->tempMemory = new Memory(3000, this->memoryOffset + 1000 * 3);
+        this->cteMemory = new Memory(1000, this->memoryOffset + 1000 * 3 + 3000 * 3);
     };
 
     FunctionEntry(string name, int type, VariableTable *variableTable, int localSize, int tempSize, int cteSize) {
@@ -288,12 +289,13 @@ struct FunctionEntry {
         this->next = nullptr;
         this->memoryOffset = 0;
         this->localMemory = new Memory(localSize, 0);
-        this->tempMemory = new Memory(tempSize, 0 + localSize);
-        this->cteMemory = new Memory(cteSize, 0 + localSize + tempSize);
+        this->tempMemory = new Memory(tempSize, 0 + localSize * 3);
+        this->cteMemory = new Memory(cteSize, 0 + localSize * 3 + tempSize * 3);
     };
 };
 
 static FunctionEntry *currentCall;
+static FunctionEntry *currentFunc;
 
 struct FunctionDirectory {
     FunctionEntry *head;
@@ -474,3 +476,7 @@ void verifyReturnType(int type);
 int getCurrentFuncType();
 
 void setCurrentFuncType(int type);
+
+void setCurrentFunc(string name);
+
+void setFunctionReturn();

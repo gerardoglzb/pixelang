@@ -124,6 +124,7 @@ function :
         setCurrentLocalVarCount($11);
         setCurrentCurrQuad();
         setCurrentFuncType($9);
+        setCurrentFunc($2);
     } function_statements RIGHT_CURLY {
         generateEndFunc();
         functionDirectory.removeVariableTable($2);
@@ -142,6 +143,7 @@ return :
         pushOperator(RETURN_);
     } LEFT_PAR expression RIGHT_PAR SEMICOLON {
         checkIfShouldDoOperation(vector<int>({RETURN_}));
+        setFunctionReturn();
         verifyReturnType(getCurrentFuncType());
     }
     | RETURN SEMICOLON ;
