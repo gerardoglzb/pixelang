@@ -547,13 +547,13 @@ static const yytype_uint16 yyrline[] =
      175,   178,   181,   184,   187,   187,   190,   193,   196,   199,
      202,   207,   207,   212,   212,   215,   215,   218,   221,   221,
      226,   226,   229,   229,   232,   235,   235,   238,   238,   243,
-     243,   246,   246,   249,   252,   253,   256,   259,   264,   268,
-     264,   278,   279,   284,   284,   287,   290,   290,   293,   296,
-     297,   300,   301,   302,   303,   304,   307,   308,   311,   312,
-     315,   315,   322,   325,   328,   330,   334,   328,   341,   341,
-     344,   347,   347,   350,   353,   353,   360,   361,   364,   365,
-     368,   368,   371,   374,   374,   381,   382,   385,   387,   385,
-     394
+     243,   246,   246,   249,   252,   253,   256,   259,   264,   267,
+     264,   276,   277,   282,   282,   285,   288,   288,   291,   294,
+     295,   298,   299,   300,   301,   302,   305,   306,   309,   310,
+     313,   313,   320,   323,   326,   328,   332,   326,   339,   339,
+     342,   345,   345,   348,   351,   351,   358,   359,   362,   363,
+     366,   366,   369,   372,   372,   379,   380,   383,   385,   383,
+     392
 };
 #endif
 
@@ -1894,14 +1894,13 @@ yyreduce:
   case 68:
 #line 264 "parser.y"
     {
-        printf("Starting\n");
         verifyFunctionExists(getIDExpression(), lineas);
         setCurrentCall(getIDExpression());
     ;}
     break;
 
   case 69:
-#line 268 "parser.y"
+#line 267 "parser.y"
     {
         generateEra(getCurrentCall());
         resetParameterCount(getCurrentCall());
@@ -1909,67 +1908,66 @@ yyreduce:
     break;
 
   case 70:
-#line 271 "parser.y"
+#line 270 "parser.y"
     {
         verifyParameters(getCurrentCall());
         generateGosub(getCurrentCall());
         pushOperandResult(getCurrentCall());
         setCurrentCall("");
-        printf("Ending\n");
     ;}
     break;
 
   case 72:
-#line 279 "parser.y"
+#line 277 "parser.y"
     {
         pushOperandByID(getIDExpression());
     ;}
     break;
 
   case 73:
-#line 284 "parser.y"
+#line 282 "parser.y"
     {
         generateParam();
     ;}
     break;
 
   case 76:
-#line 290 "parser.y"
+#line 288 "parser.y"
     {
         generateParam();
     ;}
     break;
 
   case 90:
-#line 315 "parser.y"
+#line 313 "parser.y"
     {
         pushOperator(EQUALS_);
     ;}
     break;
 
   case 91:
-#line 317 "parser.y"
+#line 315 "parser.y"
     {
         checkIfShouldDoOperation(vector<int>({0}));
     ;}
     break;
 
   case 92:
-#line 322 "parser.y"
+#line 320 "parser.y"
     {
         pushOperandByID((yyvsp[(1) - (1)].sval));
     ;}
     break;
 
   case 94:
-#line 328 "parser.y"
+#line 326 "parser.y"
     {
         verifyFunctionExists((yyvsp[(1) - (1)].sval), lineas);
     ;}
     break;
 
   case 95:
-#line 330 "parser.y"
+#line 328 "parser.y"
     {
         generateEra((yyvsp[(1) - (3)].sval));
         setCurrentCall((yyvsp[(1) - (3)].sval));
@@ -1978,7 +1976,7 @@ yyreduce:
     break;
 
   case 96:
-#line 334 "parser.y"
+#line 332 "parser.y"
     {
         verifyParameters((yyvsp[(1) - (6)].sval));
         generateGosub((yyvsp[(1) - (6)].sval));
@@ -1987,70 +1985,70 @@ yyreduce:
     break;
 
   case 98:
-#line 341 "parser.y"
+#line 339 "parser.y"
     {
         generateParam();
     ;}
     break;
 
   case 101:
-#line 347 "parser.y"
+#line 345 "parser.y"
     {
         generateParam();
     ;}
     break;
 
   case 104:
-#line 353 "parser.y"
+#line 351 "parser.y"
     {
         pushOperator(PRINT_);
     ;}
     break;
 
   case 105:
-#line 355 "parser.y"
+#line 353 "parser.y"
     {
         checkIfShouldDoOperation(vector<int>({PRINT_}));
     ;}
     break;
 
   case 110:
-#line 368 "parser.y"
+#line 366 "parser.y"
     {
         generateElse();
     ;}
     break;
 
   case 113:
-#line 374 "parser.y"
+#line 372 "parser.y"
     {
         generateIf();
     ;}
     break;
 
   case 114:
-#line 376 "parser.y"
+#line 374 "parser.y"
     {
         fillJumpIf();
     ;}
     break;
 
   case 117:
-#line 385 "parser.y"
+#line 383 "parser.y"
     {
         pushJumpCurrent();
     ;}
     break;
 
   case 118:
-#line 387 "parser.y"
+#line 385 "parser.y"
     {
         generateWhile();
     ;}
     break;
 
   case 119:
-#line 389 "parser.y"
+#line 387 "parser.y"
     {
         fillJumpWhile();
     ;}
@@ -2058,7 +2056,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2062 "parser.tab.c"
+#line 2060 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2272,7 +2270,7 @@ yyreturn:
 }
 
 
-#line 396 "parser.y"
+#line 394 "parser.y"
 
 
 int main() {
