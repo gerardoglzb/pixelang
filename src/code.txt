@@ -4,11 +4,7 @@ var b, c, a : int;
 
 {
     a = 3;
-    while (a == 3) do {
-        if (a > 1 && b < c) {
-            print(a);
-            print(b);
-        }
-        a = 5;
+    for (a = 4 to 6) {
+        print(a);
     }
 }

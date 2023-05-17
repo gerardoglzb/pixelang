@@ -294,7 +294,7 @@ statements :
     | ;
 
 statement :
-    assignment
+    assignment SEMICOLON
     | call
     | printing
     | conditional
@@ -311,7 +311,7 @@ function_statement :
 assignment :
     assignee EQUAL {
         pushOperator(EQUALS_);
-    } expression SEMICOLON {
+    } expression {
         checkIfShouldDoOperation(vector<int>({EQUALS_}));
     } ;
 
@@ -388,7 +388,20 @@ rep_cond :
     } ;
 
 rep_no_cond :
-    FOR LEFT_PAR ID EQUAL expression TO expression RIGHT_PAR block ;
+    FOR {
+        pushJumpCurrent();
+    } LEFT_PAR assignment {
+        pushLastAssignment();
+    } TO expression {
+        validateLastAssignment(INT_);
+        validateLastOperand(INT_);
+        pushOperator(LESS_);
+        doOperation();
+    } RIGHT_PAR {
+        generateWhile();
+    } block {
+        fillJumpFor();
+    } ;
 
 %%
 

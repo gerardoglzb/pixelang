@@ -20,6 +20,8 @@ static stack<int> jumps;
 static string IDExpression;
 static int lastResult;
 static int lastResultType;
+static int lastAssignmentType;
+static int lastAssignment;
 static int currentFuncType;
 
 static vector<Quadruple> quads;
@@ -86,6 +88,8 @@ void pushOperator(int oper);
 
 void generateIf();
 
+void fillJumpFor();
+
 void fillJumpIf();
 
 void generateElse();
@@ -93,6 +97,16 @@ void generateElse();
 void pushJumpCurrent();
 
 void generateWhile();
+
+void validateLastOperand(int type);
+
+void validateID(string name, int type);
+
+void validateLastAssignment(int type);
+
+void pushLastAssignment();
+
+void generateFor();
 
 void fillJumpWhile();
 

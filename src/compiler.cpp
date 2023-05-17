@@ -188,6 +188,44 @@ void generateWhile() {
     jumps.push(quads.size() - 1);
 }
 
+void validateLastOperand(int type) {
+    if (types.top() != type) {
+        printf("Type validation error!");
+        exit(-1);
+    }
+}
+
+void pushLastAssignment() {
+    operands.push(lastAssignment);
+    types.push(lastAssignmentType);
+}
+
+void validateLastAssignment(int type) {
+    if (lastAssignmentType != type) {
+        printf("Type validation error (assignment)!\n");
+        cout << type << " " << lastAssignmentType << endl;
+        exit(-1);
+    }
+}
+
+void validateID(string name, int type) {
+    if (funcDir->currentFunction()->findType(name) != type) {
+        printf("Type validation error (ID)!");
+        exit(-1);
+    }
+}
+
+void generateFor() {
+    int type = types.top(); types.pop();
+    if (type != INT_) {
+        cout << "Error: Expression in cycle not a boolean." << endl;
+        exit(-1);
+    }
+    int result = operands.top(); operands.pop();
+    generateQuad(GOTOF_, result, -1, -1);
+    jumps.push(quads.size() - 1);
+}
+
 void fillMain() {
     quads[0].result = quads.size() + 1;
 }
@@ -196,6 +234,13 @@ void fillJumpWhile() {
     int end = jumps.top(); jumps.pop();
     int ret = jumps.top(); jumps.pop();
     generateQuad(GOTO_, -1, -1, ret);
+    quads[end].result = quads.size() + 1;
+}
+
+void fillJumpFor() {
+    int end = jumps.top(); jumps.pop();
+    int ret = jumps.top(); jumps.pop();
+    generateQuad(GOTO_, -1, -1, ret + 1);
     quads[end].result = quads.size() + 1;
 }
 
@@ -303,6 +348,9 @@ void doOperation() {
             if (oper == EQUALS_) {
                 result = leftOperand;
                 leftOperand = -1;
+                cout << " assigning " << resultType << endl;
+                lastAssignmentType = resultType;
+                lastAssignment = result;
             } else if (oper == PRINT_) {
                 result = -1;
             } else if (oper == RETURN_) {
@@ -436,7 +484,7 @@ void declareMainFunction(string name, int lineas, FunctionDirectory *directory) 
 int semanticCube(int oper, int type1, int type2) {
     int cube[5][2][2] = {
         {
-            {1, -1,},
+            {0, -1,},
             {1, 1,},
         },
         {
