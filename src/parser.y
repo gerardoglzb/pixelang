@@ -349,7 +349,7 @@ call3 :
 printing :
     PRINT {
         pushOperator(PRINT_);
-    } LEFT_PAR printing_2 RIGHT_PAR SEMICOLON {
+    } LEFT_PAR printing_3 RIGHT_PAR SEMICOLON {
         checkIfShouldDoOperation(vector<int>({PRINT_}));
     } ;
 

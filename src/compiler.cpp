@@ -196,11 +196,11 @@ void fillJumpWhile() {
     int end = jumps.top(); jumps.pop();
     int ret = jumps.top(); jumps.pop();
     generateQuad(GOTO_, -1, -1, ret);
-    quads[end].result = quads.size();
+    quads[end].result = quads.size() + 1;
 }
 
 void pushJumpCurrent() {
-    jumps.push(quads.size());
+    jumps.push(quads.size() + 1);
 }
 
 void generateElse() {
