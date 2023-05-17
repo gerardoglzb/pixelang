@@ -124,7 +124,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 17 "parser.y"
+#line 17 "./src/parser.y"
 {
     char *sval;
     int ival;
@@ -135,7 +135,7 @@ typedef union YYSTYPE
     int iparam;
 }
 /* Line 1529 of yacc.c.  */
-#line 139 "parser.tab.h"
+#line 139 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

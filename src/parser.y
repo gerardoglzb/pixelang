@@ -1,6 +1,6 @@
 %{
     #include <iostream>
-    #include "compiler.hpp"
+    #include "../include/compiler.hpp"
     using namespace std;
 
     extern "C" FILE *yyin;
@@ -394,9 +394,9 @@ rep_no_cond :
 %%
 
 int main() {
-    FILE *myfile = fopen("code.txt", "r");
+    FILE *myfile = fopen("./src/code.txt", "r");
     if (!myfile) {
-        cout << "No 'code.txt' file found." << endl;
+        cout << "No 'code.txt' file found in src/." << endl;
         return -1;
     }
 

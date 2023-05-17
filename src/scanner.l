@@ -1,10 +1,10 @@
 %{
 
 #include <iostream>
-#include "compiler.hpp"
+#include "../include/compiler.hpp"
 using namespace std;
 
-#include "parser.tab.h"
+#include "../bin/parser.tab.h"
 #define YY_DECL extern "C" int yylex()
 
 int lineas = 1;

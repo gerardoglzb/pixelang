@@ -1,8 +1,8 @@
 all:
-	bison -d parser.y
-	flex scanner.l
-	g++ -std=c++11 compiler.cpp parser.tab.c lex.yy.c -o Code
-	./Code
+	bison -d ./src/parser.y --output-file=./bin/parser.tab.c --defines=./bin/parser.tab.h
+	flex -o ./bin/lex.yy.c ./src/scanner.l
+	g++ -std=c++11 ./src/compiler.cpp ./bin/parser.tab.c ./bin/lex.yy.c -o ./bin/Code
+	./bin/Code
 
 clean:
-	rm Code lex.yy.c parser.tab.c parser.tab.h
+	rm ./bin/Code ./bin/lex.yy.c ./bin/parser.tab.c ./bin/parser.tab.h

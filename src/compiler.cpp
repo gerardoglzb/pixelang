@@ -1,5 +1,5 @@
 #include <utility>
-#include "compiler.hpp"
+#include "../include/compiler.hpp"
 
 void verifyFunctionExists(string name, int lineas) {
     if (!funcDir->has(name)) {
