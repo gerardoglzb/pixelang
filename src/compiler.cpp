@@ -1,4 +1,5 @@
 #include <utility>
+#include <fstream>
 #include "../include/compiler.hpp"
 
 void verifyFunctionExists(string name, int lineas) {
@@ -148,8 +149,9 @@ string operatorName(int _oper) {
     return oper;
 }
 
-void printQuad(Quadruple *quad, int idx) {
+void printQuad(Quadruple *quad, int idx, ofstream &file) {
     printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
+    file << quad->oper << "," << quad->leftOperand << "," << quad->rightOperand << "," << quad->result << endl;
 }
 
 void setCurrentParamCount(int count) {
@@ -169,12 +171,17 @@ void setCurrentCurrQuad() {
 }
 
 void printQuads() {
+    ofstream file;
+    file.open("./bin/quads.txt");
+
     cout << "QUADS: " << endl;
     int idx = 1;
     while (!quads.empty()) {
-        printQuad(&quads.front(), idx++);
+        printQuad(&quads.front(), idx++, file);
         quads.erase(quads.begin());
     }
+
+    file.close();
 }
 
 void generateWhile() {
