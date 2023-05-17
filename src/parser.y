@@ -171,37 +171,36 @@ params :
 expression :
     comp {
         checkIfShouldDoOperation(vector<int>({AND_, OR_}));
-    } expression2 comp 
-    | comp ;
+    } expression2 ;
 
 expression2 : 
     AND {
         pushOperator(AND_);
-    }
+    } expression
     | OR {
         pushOperator(OR_);
-    }
+    } expression
     | ;
 
 comp :
     exp {
         checkIfShouldDoOperation(vector<int>({GREATER_, LESS_, EQUALTO_, NOTEQUAL_}));
-    } comp2 exp 
-    | exp ;
+    } comp2 ;
 
 comp2 :
     MORE_THAN {
         pushOperator(GREATER_);
-    }
+    } comp
     | LESS_THAN {
         pushOperator(LESS_);
-    }
+    } comp
     | EQUAL_TO {
         pushOperator(EQUALTO_);
-    }
+    } comp
     | NOT_EQUAL {
         pushOperator(NOTEQUAL_);
-    } ;
+    } comp 
+    | ;
 
 exp :
     term {

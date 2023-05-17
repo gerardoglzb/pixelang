@@ -97,7 +97,7 @@ string operatorName(int _oper) {
             oper = "DIV";
             break;
         case GREATER_:
-            oper = "GREAT";
+            oper = "GREATER";
             break;
         case LESS_:
             oper = "LESS";
@@ -136,7 +136,7 @@ string operatorName(int _oper) {
             oper = "PARAM";
             break;
         case ENDFUNC_:
-            oper = "ENDFU";
+            oper = "ENDF";
             break;
         case PRINT_:
             oper = "PRINT";
@@ -335,7 +335,6 @@ void checkIfShouldDoOperation(vector<int> myOperators) {
     if (operators.top() == LEFTPAR_) {
         return;
     }
-    printf("CHECKIF %i\n", myOperators[0]);
     bool shouldDoOperation = false;
     for (int oper : myOperators) {
         if (operators.top() == oper) {
@@ -461,11 +460,11 @@ int semanticCube(int oper, int type1, int type2) {
     if (oper == PRINT_ || oper == RETURN_)
         return 0;
 
-    if (oper > 4 || type1 > 1 || type2 > 1) {
+    if (oper > 10 || type1 > 1 || type2 > 1) {
         cout << "Error in semantic cube." << endl;
         printf("%i %i %i\n", oper, type1, type2);
         exit(-1);
     }
 
-    return cube[oper][type1][type2];
+    return oper < 5 ? cube[oper][type1][type2] : 0;
 }
