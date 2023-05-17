@@ -1747,7 +1747,7 @@ yyreduce:
   case 28:
 #line 172 "./src/parser.y"
     {
-        checkIfShouldDoOperation(vector<int>({9, 10}));
+        checkIfShouldDoOperation(vector<int>({AND_, OR_}));
     ;}
     break;
 
@@ -1768,7 +1768,7 @@ yyreduce:
   case 34:
 #line 187 "./src/parser.y"
     {
-        checkIfShouldDoOperation(vector<int>({5, 6, 7, 8}));
+        checkIfShouldDoOperation(vector<int>({GREATER_, LESS_, EQUALTO_, NOTEQUAL_}));
     ;}
     break;
 
@@ -1803,7 +1803,7 @@ yyreduce:
   case 41:
 #line 207 "./src/parser.y"
     {
-        checkIfShouldDoOperation(vector<int>({1, 2}));
+        checkIfShouldDoOperation(vector<int>({ADD_, SUB_}));
     ;}
     break;
 
@@ -1824,7 +1824,7 @@ yyreduce:
   case 48:
 #line 221 "./src/parser.y"
     {
-        checkIfShouldDoOperation(vector<int>({3, 4}));
+        checkIfShouldDoOperation(vector<int>({MULTI_, DIV_}));
     ;}
     break;
 
@@ -1948,7 +1948,7 @@ yyreduce:
   case 91:
 #line 315 "./src/parser.y"
     {
-        checkIfShouldDoOperation(vector<int>({0}));
+        checkIfShouldDoOperation(vector<int>({EQUALS_}));
     ;}
     break;
 

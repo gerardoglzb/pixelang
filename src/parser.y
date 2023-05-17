@@ -170,7 +170,7 @@ params :
 
 expression :
     comp {
-        checkIfShouldDoOperation(vector<int>({9, 10}));
+        checkIfShouldDoOperation(vector<int>({AND_, OR_}));
     } expression2 comp 
     | comp ;
 
@@ -185,7 +185,7 @@ expression2 :
 
 comp :
     exp {
-        checkIfShouldDoOperation(vector<int>({5, 6, 7, 8}));
+        checkIfShouldDoOperation(vector<int>({GREATER_, LESS_, EQUALTO_, NOTEQUAL_}));
     } comp2 exp 
     | exp ;
 
@@ -205,7 +205,7 @@ comp2 :
 
 exp :
     term {
-        checkIfShouldDoOperation(vector<int>({1, 2}));
+        checkIfShouldDoOperation(vector<int>({ADD_, SUB_}));
     } exp2 ;
 
 exp2 :
@@ -219,7 +219,7 @@ exp2 :
 
 term :
     factor {
-        checkIfShouldDoOperation(vector<int>({3, 4}));
+        checkIfShouldDoOperation(vector<int>({MULTI_, DIV_}));
     } term2 ;
 
 term2 :
@@ -313,7 +313,7 @@ assignment :
     assignee EQUAL {
         pushOperator(EQUALS_);
     } expression SEMICOLON {
-        checkIfShouldDoOperation(vector<int>({0}));
+        checkIfShouldDoOperation(vector<int>({EQUALS_}));
     } ;
 
 assignee :

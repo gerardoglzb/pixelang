@@ -335,6 +335,7 @@ void checkIfShouldDoOperation(vector<int> myOperators) {
     if (operators.top() == LEFTPAR_) {
         return;
     }
+    printf("CHECKIF %i\n", myOperators[0]);
     bool shouldDoOperation = false;
     for (int oper : myOperators) {
         if (operators.top() == oper) {
