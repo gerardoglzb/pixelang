@@ -1,10 +1,10 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-using namespace std;
+#include "../include/VirtualMachine/VirtualMachine.hpp"
 
 int main() {
+    // vector<Quadruple> quads;
+    // vector<Constant> constants;
+    // vector<FunctionEntry> functions;
+
     ifstream file("./bin/quads.txt");
     if (!file.is_open()) {
         cout << "No quads.txt file found" << endl;
@@ -19,9 +19,9 @@ int main() {
         while (getline(stream, item[idx++], ','));
         for (int i = 0; i < 4; i++) {
             item[i] = item[i].substr(0, item[i].length());
-            cout << item[i] << "  ";
         }
-        cout << endl;
     }
     file.close();
+
+    // VirtualMachine vm = VirtualMachine();
 }

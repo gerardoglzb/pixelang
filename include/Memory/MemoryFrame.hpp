@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-template<typename T>
 struct MemoryFrame {
     int size;
     int index;
