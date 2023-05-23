@@ -375,8 +375,7 @@ void doOperation() {
             leftOperand = -1;
             leftType = rightType;
         }  else if (operands.size() == 1 && oper != EQUALS_) {
-            printf("Declaringi zero \n");
-            leftOperand = declareCte(INT_, 0); // this could be the same one every time
+            leftOperand = declareCte(INT_, 0); // TODO: this could be the same one every time
             leftType = INT_;
         } else {
             leftOperand = operands.top(); operands.pop();
