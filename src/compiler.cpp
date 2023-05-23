@@ -145,6 +145,9 @@ string operatorName(int _oper) {
         case RETURN_:
             oper = "RETURN";
             break;
+        case END_:
+            oper = "END";
+            break;
     }
     return oper;
 }
@@ -155,6 +158,7 @@ void printQuad(Quadruple *quad, int idx, ofstream &file) {
 }
 
 void generateObject() {
+    generateQuad(END_, -1, -1, -1);
     ofstream file;
     file.open("./bin/quads.txt");
     printFunctions(file);

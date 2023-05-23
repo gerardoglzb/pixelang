@@ -30,6 +30,24 @@ struct VirtualMachine {
         cteMemory = new VMemory(functions[0].cteVals[0], functions[0].cteVals[1], functions[0].cteVals[2], functions[0].memoryOffset + 2000 * 3 + 4000 * 3, functions[0].memoryOffset + 2000 * 3 + 4000 * 3 + 2000, functions[0].memoryOffset + 2000 * 3 + 4000 * 3 + 2000 * 2);
     }
 
+    VMemory *getVMemory(int address) {
+        if (address < 6000)
+            return globalMemory;
+        if (address < 17999)
+            return tempMemory;
+        // if (address < 23999)
+        return cteMemory;
+    }
+
+    void setValue(int address, int value) {
+        getVMemory(address)->setValue(address, value);
+    }
+
+    template<typename T>
+    T getValue(int address) {
+        return getVMemory(address)->getValue<T>(address);
+    }
+
     void storeFunctions() {
         return;
     }
@@ -49,38 +67,48 @@ struct VirtualMachine {
         }
     }
 
-    void executeQuad(Quadruple *quad) {
+    int executeQuad(int pid) {
+        Quadruple *quad = &quads[pid++];
         int oper = quad->oper, leftOperand = quad->leftOperand, rightOperand = quad->rightOperand, result = quad->result;
         switch(oper) {
             case EQUALS_:
+                setValue(result, rightOperand);
                 break;
             case ADD_:
+                setValue(result, leftOperand + rightOperand);
                 break;
             case SUB_:
+                setValue(result, leftOperand - rightOperand);
                 break;
             case MULTI_:
+                setValue(result, leftOperand * rightOperand);
                 break;
             case DIV_:
+                setValue(result, leftOperand / rightOperand);
                 break;
             case GREATER_:
+                setValue(result, leftOperand > rightOperand);
                 break;
             case LESS_:
+                setValue(result, leftOperand < rightOperand);
                 break;
             case EQUALTO_:
+                setValue(result, leftOperand == rightOperand);
                 break;
             case NOTEQUAL_:
+                setValue(result, leftOperand != rightOperand);
                 break;
             case AND_:
+                setValue(result, leftOperand && rightOperand);
                 break;
             case OR_:
-                break;
-            case LEFTPAR_:
-                break;
-            case RIGHTPAR_:
+                setValue(result, leftOperand || rightOperand);
                 break;
             case GOTOF_:
+                pid = leftOperand ? pid : result;
                 break;
             case GOTO_:
+                pid = result;
                 break;
             case GOSUB_:
                 break;
@@ -91,15 +119,20 @@ struct VirtualMachine {
             case ENDFUNC_:
                 break;
             case PRINT_:
+                cout << rightOperand << endl;
                 break;
             case RETURN_:
                 break;
+            case END_:
+                pid = -1;
+                break;
         }
+        return pid;
     }
 
     void executeQuads() {
         int pid = 1;
-        executeQuad(&quads[pid-1]);
+        while (executeQuad(pid) != -1);
     }
 
     void run() {
