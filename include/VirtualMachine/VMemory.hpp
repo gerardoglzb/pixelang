@@ -1,16 +1,24 @@
 #include <iostream>
 #include <type_traits>
 #include "./VMemoryFrame.hpp"
+using namespace std;
 
 struct VMemory {
     VMemoryFrame<int> *memoryInt;
     VMemoryFrame<float> *memoryFloat;
     VMemoryFrame<string> *memoryString;
 
-    VMemory(int intSize, int floatSize, int stringSize, int intOffset, int floatOffset, int stringOffset) {
-        this->memoryInt = new VMemoryFrame<int>(intSize, intOffset);
-        this->memoryFloat = new VMemoryFrame<float>(floatSize, floatOffset);
-        this->memoryString = new VMemoryFrame<string>(stringSize, stringOffset);
+    VMemory(int intSize, int floatSize, int stringSize, int totalOffset, int intOffset, int floatOffset, int stringOffset) {
+        this->memoryInt = new VMemoryFrame<int>(intSize, totalOffset + intOffset, INT_);
+        this->memoryFloat = new VMemoryFrame<float>(floatSize, totalOffset + floatOffset, FLOAT_);
+        this->memoryString = new VMemoryFrame<string>(stringSize, totalOffset + stringOffset, STRING_);
+    }
+
+    int getType(int address) {
+        int intType = memoryInt->getType(address);
+        intType = (intType == -1) ? memoryFloat->getType(address) : intType;
+        intType = (intType == -1) ? memoryString->getType(address) : intType;
+        return intType;
     }
 
     void setValue(int idx, int value) {
@@ -25,16 +33,15 @@ struct VMemory {
         this->memoryString->setValue(idx, value);
     }
 
-    template<typename T>
-    T getValue(int idx) {
-        if (std::is_same<T, int>::value) {
-            return this->memoryInt->getValue(idx);
-        }
-        if (std::is_same<T, float>::value) {
-            return this->memoryFloat->getValue(idx);
-        }
-        if (std::is_same<T, string>::value) {
-            return this->memoryString->getValue(idx);
-        }
+    int getValueInt(int idx) {
+        return this->memoryInt->getValue(idx);
+    }
+
+    float getValueFloat(int idx) {
+        return this->memoryFloat->getValue(idx);
+    }
+
+    string getValueString(int idx) {
+        return this->memoryString->getValue(idx);
     }
 };

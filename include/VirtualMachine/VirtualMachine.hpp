@@ -7,7 +7,7 @@
 #include "../Quadruples/Quadruple.hpp"
 #include "./Constant.hpp"
 #include "./Function.hpp"
-#include "../Semantics/Type.hpp"
+#include "./VMHelper.hpp"
 #include "../Semantics/Operator.hpp"
 
 struct VirtualMachine {
@@ -25,27 +25,9 @@ struct VirtualMachine {
         this->functions = functions;
         this->constants = constants;
 
-        globalMemory = new VMemory(functions[0].localVals[0], functions[0].localVals[1], functions[0].localVals[2], functions[0].memoryOffset, functions[0].memoryOffset + 2000, functions[0].memoryOffset + 2000 * 2);
-        tempMemory = new VMemory(functions[0].tempVals[0], functions[0].tempVals[1], functions[0].tempVals[2], functions[0].memoryOffset + 2000 * 3, functions[0].memoryOffset + 2000 * 3 + 4000, functions[0].memoryOffset + 2000 * 3 + 4000 * 2);
-        cteMemory = new VMemory(functions[0].cteVals[0], functions[0].cteVals[1], functions[0].cteVals[2], functions[0].memoryOffset + 2000 * 3 + 4000 * 3, functions[0].memoryOffset + 2000 * 3 + 4000 * 3 + 2000, functions[0].memoryOffset + 2000 * 3 + 4000 * 3 + 2000 * 2);
-    }
-
-    VMemory *getVMemory(int address) {
-        if (address < 6000)
-            return globalMemory;
-        if (address < 17999)
-            return tempMemory;
-        // if (address < 23999)
-        return cteMemory;
-    }
-
-    void setValue(int address, int value) {
-        getVMemory(address)->setValue(address, value);
-    }
-
-    template<typename T>
-    T getValue(int address) {
-        return getVMemory(address)->getValue<T>(address);
+        globalMemory = new VMemory(functions[0].localVals[0], functions[0].localVals[1], functions[0].localVals[2], functions[0].memoryOffset, 0, 2000, 2000 * 2);
+        tempMemory = new VMemory(functions[0].tempVals[0], functions[0].tempVals[1], functions[0].tempVals[2], functions[0].memoryOffset + 2000 * 3, 0, 4000, 4000 * 2);
+        cteMemory = new VMemory(functions[0].cteVals[0], functions[0].cteVals[1], functions[0].cteVals[2], functions[0].memoryOffset + 2000 * 3 + 4000 * 3, 0, 2000, 2000 * 2);
     }
 
     void storeFunctions() {
@@ -70,39 +52,40 @@ struct VirtualMachine {
     int executeQuad(int pid) {
         Quadruple *quad = &quads[pid++];
         int oper = quad->oper, leftOperand = quad->leftOperand, rightOperand = quad->rightOperand, result = quad->result;
+        VMHelper helper(oper, leftOperand, rightOperand, result, globalMemory, tempMemory, cteMemory);
         switch(oper) {
             case EQUALS_:
-                setValue(result, rightOperand);
+                helper.executeEquals();
                 break;
             case ADD_:
-                setValue(result, leftOperand + rightOperand);
+                helper.executeAdd();
                 break;
             case SUB_:
-                setValue(result, leftOperand - rightOperand);
+                helper.executeSub();
                 break;
             case MULTI_:
-                setValue(result, leftOperand * rightOperand);
+                // helper.executeMulti();
                 break;
             case DIV_:
-                setValue(result, leftOperand / rightOperand);
+                // helper.executeDiv();
                 break;
             case GREATER_:
-                setValue(result, leftOperand > rightOperand);
+                // helper.executeGreater();
                 break;
             case LESS_:
-                setValue(result, leftOperand < rightOperand);
+                // helper.executeLess();
                 break;
             case EQUALTO_:
-                setValue(result, leftOperand == rightOperand);
+                // helper.executeEqualTo();
                 break;
             case NOTEQUAL_:
-                setValue(result, leftOperand != rightOperand);
+                // helper.executeNotEqual();
                 break;
             case AND_:
-                setValue(result, leftOperand && rightOperand);
+                // helper.executeAnd();
                 break;
             case OR_:
-                setValue(result, leftOperand || rightOperand);
+                // helper.executeOr();
                 break;
             case GOTOF_:
                 pid = leftOperand ? pid : result;
@@ -119,7 +102,7 @@ struct VirtualMachine {
             case ENDFUNC_:
                 break;
             case PRINT_:
-                cout << rightOperand << endl;
+                helper.executePrint();
                 break;
             case RETURN_:
                 break;
@@ -132,7 +115,9 @@ struct VirtualMachine {
 
     void executeQuads() {
         int pid = 1;
-        while (executeQuad(pid) != -1);
+        while (pid != -1) {
+            pid = executeQuad(pid);
+        }
     }
 
     void run() {
