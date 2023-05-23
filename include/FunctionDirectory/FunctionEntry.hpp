@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 struct FunctionEntry {
     string name;
@@ -20,6 +21,12 @@ struct FunctionEntry {
     int tempVarCount;
     int currQuad;
     int currentParam;
+
+    void printFunction(ofstream &file) {
+        file << type << "," << resultAddress << "," << memoryOffset << ",";
+        file << localMemory->getSizeInt() << "," << localMemory->getSizeFloat() << "," << localMemory->getSizeString() << ",";
+        file << tempMemory->getSizeInt() << "," << tempMemory->getSizeFloat() << "," << tempMemory->getSizeString() << endl;
+    }
 
     void resetParamCount() {
         currentParam = 0;

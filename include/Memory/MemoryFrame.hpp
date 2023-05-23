@@ -25,7 +25,6 @@ struct MemoryFrame {
             cout << "Memory frame inconsistent."  << endl;
             exit(-1);
         }
-        printf("frame adn\n");
         values.push_back(val);
         return this->addValue();
     }

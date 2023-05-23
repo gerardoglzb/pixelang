@@ -6,6 +6,18 @@ struct Memory {
     MemoryFrame<float> *memoryFloat;
     MemoryFrame<string> *memoryString;
 
+    int getSizeInt() {
+        return memoryInt->size;
+    }
+
+    int getSizeFloat() {
+        return memoryFloat->size;
+    }
+
+    int getSizeString() {
+        return memoryString->size;
+    }
+
     Memory(int size, int offset) {
         this->memoryInt = new MemoryFrame<int>(size, offset);
         this->memoryFloat = new MemoryFrame<float>(size, offset + size);

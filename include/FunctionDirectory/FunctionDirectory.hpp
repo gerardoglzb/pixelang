@@ -10,6 +10,15 @@ struct FunctionDirectory {
         return main;
     }
 
+    void printFunctions(ofstream &file) {
+        FunctionEntry *entry = head->next;
+        main->printFunction(file);
+        while (entry) {
+            entry->printFunction(file);
+            entry = entry->next;
+        }
+    }
+
     int getFunctionID(string name) {
         FunctionEntry *entry = head->next;
         int counter = 0;

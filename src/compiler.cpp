@@ -184,17 +184,20 @@ void printCtes(ofstream &file, vector<T> &values, int offset) {
     for (T value : values) {
         file << value << "," << offset++ << endl;
     }
-    file << "%%" << endl;
 }
 
 void printCtes(ofstream &file) {
     printCtes(file, funcDir->main->cteMemory->memoryInt->values, funcDir->main->cteMemory->memoryInt->offset);
+    file << "%" << endl;
     printCtes(file, funcDir->main->cteMemory->memoryFloat->values, funcDir->main->cteMemory->memoryFloat->offset);
+    file << "%" << endl;
     printCtes(file, funcDir->main->cteMemory->memoryString->values, funcDir->main->cteMemory->memoryString->offset);
+    file << "%%" << endl;
 }
 
 void printFunctions(ofstream &file) {
-
+    funcDir->printFunctions(file);
+    file << "%%" << endl;
 }
 
 void printQuads(ofstream &file) {
@@ -349,17 +352,14 @@ void pushOperandResult(string name) {
 }
 
 int declareCte(int type, int value) {
-    cout << "declaring " << value << endl;
     return funcDir->main->cteMemory->addValue(type, value);
 }
 
 int declareCte(int type, string value) {
-    cout << "declarings " << value << endl;
     return funcDir->main->cteMemory->addValue(type, value);
 }
 
 int declareCte(int type, float value) {
-    cout << "declaringf " << value << endl;
     return funcDir->main->cteMemory->addValue(type, value);
 }
 

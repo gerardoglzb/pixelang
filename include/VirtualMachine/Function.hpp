@@ -22,4 +22,16 @@ struct Function {
         this->tempFloats = tempFloats;
         this->tempStrings = tempStrings;
     }
+
+    Function(string item[9]) {
+        this->type = stoi(item[0]);
+        this->resultAddress = stoi(item[1]);
+        this->memoryOffset = stoi(item[2]);
+        this->localInts = stoi(item[3]);
+        this->localFloats = stoi(item[4]);
+        this->localStrings = stoi(item[5]);
+        this->tempInts = stoi(item[6]);
+        this->tempFloats = stoi(item[7]);
+        this->tempStrings = stoi(item[8]);
+    }
 };

@@ -11,7 +11,7 @@ function x(test : int, try : int) : int {
 
 function y() : float {
     var z : float;
-    z = c + 1;
+    z = c + 1.5;
     return(z);
 }
 
