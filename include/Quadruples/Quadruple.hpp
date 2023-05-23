@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 struct Quadruple {
     int oper;
@@ -11,5 +12,12 @@ struct Quadruple {
         this->leftOperand = leftOperand;
         this->rightOperand = rightOperand;
         this->result = result;
+    }
+
+    Quadruple(string item[4]) {
+        this->oper = stoi(item[0]);
+        this->leftOperand = stoi(item[1]);
+        this->rightOperand = stoi(item[2]);
+        this->result = stoi(item[3]);
     }
 };

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <sstream>
 #include "./VMemory.hpp"
 #include "../Quadruples/Quadruple.hpp"
@@ -11,6 +12,10 @@ struct VirtualMachine {
     VMemory *globalMemory;
     VMemory *tempMemory;
     VMemory *cteMemory;
+
+    vector<Quadruple> quads;
+    vector<Function> functions;
+    vector<Constant> constants;
 
     VirtualMachine() {
         // globalMemory = new VMemory(globalInts, globalFloats, globalStrings, 0, 1, 2);

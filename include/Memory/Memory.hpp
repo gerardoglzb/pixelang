@@ -2,14 +2,14 @@
 #include "./MemoryFrame.hpp"
 
 struct Memory {
-    MemoryFrame *memoryInt;
-    MemoryFrame *memoryFloat;
-    MemoryFrame *memoryString;
+    MemoryFrame<int> *memoryInt;
+    MemoryFrame<float> *memoryFloat;
+    MemoryFrame<string> *memoryString;
 
     Memory(int size, int offset) {
-        this->memoryInt = new MemoryFrame(size, offset);
-        this->memoryFloat = new MemoryFrame(size, offset + size);
-        this->memoryString = new MemoryFrame(size, offset + size * 2);
+        this->memoryInt = new MemoryFrame<int>(size, offset);
+        this->memoryFloat = new MemoryFrame<float>(size, offset + size);
+        this->memoryString = new MemoryFrame<string>(size, offset + size * 2);
     }
 
     int addValue(int type) {
@@ -21,6 +21,20 @@ struct Memory {
         }
         if (type == STRING_) {
             return memoryFloat->addValue();
+        }
+        return -1;
+    }
+
+    template<typename T>
+    int addValue(int type, T value) {
+        if (type == INT_) {
+            return memoryInt->addValue(value);
+        }
+        if (type == FLOAT_) {
+            return memoryFloat->addValue(value);
+        }
+        if (type == STRING_) {
+            return memoryFloat->addValue(value);
         }
         return -1;
     }

@@ -253,10 +253,10 @@ index :
 
 var_cte :
     CTE_FLOAT {
-        pushOperandOfType(declareCte(FLOAT_), FLOAT_);
+        pushOperandOfType(declareCte(FLOAT_, CTE_FLOAT), FLOAT_);
     }
     | CTE_INT {
-        pushOperandOfType(declareCte(INT_), INT_);
+        pushOperandOfType(declareCte(INT_, CTE_INT), INT_);
     } ;
 
 array_or_func :

@@ -1887,14 +1887,14 @@ yyreduce:
   case 71:
 #line 255 "./src/parser.y"
     {
-        pushOperandOfType(declareCte(FLOAT_), FLOAT_);
+        pushOperandOfType(declareCte(FLOAT_, CTE_FLOAT), FLOAT_);
     ;}
     break;
 
   case 72:
 #line 258 "./src/parser.y"
     {
-        pushOperandOfType(declareCte(INT_), INT_);
+        pushOperandOfType(declareCte(INT_, CTE_INT), INT_);
     ;}
     break;
 

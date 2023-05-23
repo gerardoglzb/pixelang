@@ -282,8 +282,9 @@ void pushOperator(int oper) {
     operators.push(oper);
 }
 
-int declareCte(int type) {
-    return funcDir->currentFunction()->cteMemory->addValue(type);
+template<typename T>
+int declareCte(int type, T value) {
+    return funcDir->main->cteMemory->addValue(type, value);
 }
 
 int declareTemp(int type) {
@@ -342,7 +343,7 @@ void doOperation() {
             leftOperand = -1;
             leftType = INT_;
         }  else if (operands.size() == 1 && oper != EQUALS_) {
-            leftOperand = declareCte(0);
+            leftOperand = declareCte(INT_, 0); // this could be the same one every time
             leftType = INT_;
         } else {
             leftOperand = operands.top(); operands.pop();

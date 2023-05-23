@@ -122,9 +122,8 @@ void generateGosub(string name);
 
 void fillMain();
 
-
-int declareCte(int type);
-
+template<typename T>
+int declareCte(int type, T value);
 
 void setCurrentParamCount(int count);
 
