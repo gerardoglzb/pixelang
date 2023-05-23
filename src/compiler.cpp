@@ -150,7 +150,7 @@ string operatorName(int _oper) {
 }
 
 void printQuad(Quadruple *quad, int idx, ofstream &file) {
-    printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
+    // printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
     file << quad->oper << "," << quad->leftOperand << "," << quad->rightOperand << "," << quad->result << endl;
 }
 

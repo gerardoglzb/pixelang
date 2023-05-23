@@ -1,6 +1,8 @@
 # pixelang
 
-El avance ahora incluye los quads para ciclos y decisiones. También parece generar los quads para las funciones (tanto definición como llamada), aunque no estoy 100% seguro de que funcione del todo correctamente. La memoria también podría utilizar cambios.
+El avance incluye la generación de cuádruplos de funciones y todo lo que va antes. También inicié la VM con un main.cpp que lee los contenidos del quads.txt generado (el obj) y los guarda en estructuras de dato que se mandarán a la VM. De momento la VM no hace nada.
+
+// Memorias
 
 0 gl int
 2000 gl fl

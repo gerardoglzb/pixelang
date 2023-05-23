@@ -26,10 +26,10 @@ void buildConstant(string line, vector<Constant> *constants, int *type) {
 
 void buildFunction(string line, vector<Function> *functions) {
     stringstream stream(line);
-    string item[9];
+    string item[12];
     int idx = 0;
     while (getline(stream, item[idx++], ','));
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 12; i++) {
         item[i] = item[i].substr(0, item[i].length());
     }
     functions->push_back(Function(item));
@@ -64,5 +64,6 @@ int main() {
     }
     file.close();
 
-    // VirtualMachine vm = VirtualMachine();
+    VirtualMachine vm = VirtualMachine(functions, constants, quads);
+    vm.run();
 }

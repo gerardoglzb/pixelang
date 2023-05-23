@@ -20,4 +20,6 @@ struct Quadruple {
         this->rightOperand = stoi(item[2]);
         this->result = stoi(item[3]);
     }
+
+    Quadruple() {}
 };

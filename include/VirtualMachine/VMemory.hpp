@@ -1,4 +1,5 @@
 #include <iostream>
+#include <type_traits>
 #include "./VMemoryFrame.hpp"
 
 struct VMemory {
@@ -12,27 +13,28 @@ struct VMemory {
         this->memoryString = new VMemoryFrame<string>(stringSize, stringOffset);
     }
 
-    void setInt(int idx, int value) {
+    void setValue(int idx, int value) {
         this->memoryInt->setValue(idx, value);
     }
 
-    int getInt(int idx) {
-        return this->memoryInt->getValue(idx);
-    }
-
-    void setFloat(int idx, float value) {
+    void setValue(int idx, float value) {
         this->memoryFloat->setValue(idx, value);
     }
 
-    float getFloat(int idx) {
-        return this->memoryFloat->getValue(idx);
-    }
-
-    void setString(int idx, string value) {
+    void setValue(int idx, string value) {
         this->memoryString->setValue(idx, value);
     }
 
-    string getString(int idx) {
-        return this->memoryString->getValue(idx);
+    template<typename T>
+    T getValue(int idx) {
+        if (std::is_same<T, int>::value) {
+            return this->memoryInt->getValue(idx);
+        }
+        if (std::is_same<T, float>::value) {
+            return this->memoryFloat->getValue(idx);
+        }
+        if (std::is_same<T, string>::value) {
+            return this->memoryString->getValue(idx);
+        }
     }
 };

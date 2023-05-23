@@ -25,7 +25,8 @@ struct FunctionEntry {
     void printFunction(ofstream &file) {
         file << type << "," << resultAddress << "," << memoryOffset << ",";
         file << localMemory->getSizeInt() << "," << localMemory->getSizeFloat() << "," << localMemory->getSizeString() << ",";
-        file << tempMemory->getSizeInt() << "," << tempMemory->getSizeFloat() << "," << tempMemory->getSizeString() << endl;
+        file << tempMemory->getSizeInt() << "," << tempMemory->getSizeFloat() << "," << tempMemory->getSizeString() << ",";
+        file << cteMemory->getSizeInt() << "," << cteMemory->getSizeFloat() << "," << cteMemory->getSizeString() << endl;
     }
 
     void resetParamCount() {
