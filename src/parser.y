@@ -231,7 +231,7 @@ term2 :
     } term
     | ;
 
-factor :
+factor : // TODO : permitir que se pueda poner negativo y not
     ID {
         handleIDExpression($1);
     } array_or_func
@@ -240,12 +240,12 @@ factor :
     } expression RIGHT_PAR {
         pushOperator(RIGHTPAR_);
     }
-    | ADDITION {
+    /* | ADDITION {
         pushOperator(ADD_);
     } var_cte
     | SUBSTRACTION {
         pushOperator(SUB_);
-    } var_cte
+    } var_cte */
     | var_cte ;
 
 index :
