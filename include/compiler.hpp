@@ -122,8 +122,14 @@ void generateGosub(string name);
 
 void fillMain();
 
-template<typename T>
-int declareCte(int type, T value);
+
+
+int declareCte(int type, int value);
+
+int declareCte(int type, string value);
+
+int declareCte(int type, float value);
+
 
 void setCurrentParamCount(int count);
 
@@ -144,6 +150,12 @@ string getIDExpression();
 
 void printQuad(Quadruple *quad, int idx);
 
-void printQuads();
+void printQuads(ofstream &file);
+
+void printFunctions(ofstream &file);
+
+void printCtes(ofstream &file);
 
 string operatorName(int _oper);
+
+void generateObject();

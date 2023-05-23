@@ -25,17 +25,15 @@ struct Memory {
         return -1;
     }
 
-    template<typename T>
-    int addValue(int type, T value) {
-        if (type == INT_) {
-            return memoryInt->addValue(value);
-        }
-        if (type == FLOAT_) {
-            return memoryFloat->addValue(value);
-        }
-        if (type == STRING_) {
-            return memoryFloat->addValue(value);
-        }
-        return -1;
+    int addValue(int type, int value) {
+        return memoryInt->addValue(value);
+    }
+
+    int addValue(int type, float value) {
+        return memoryFloat->addValue(value);
+    }
+
+    int addValue(int type, string value) {
+        return memoryString->addValue(value);
     }
 };

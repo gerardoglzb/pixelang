@@ -154,6 +154,15 @@ void printQuad(Quadruple *quad, int idx, ofstream &file) {
     file << quad->oper << "," << quad->leftOperand << "," << quad->rightOperand << "," << quad->result << endl;
 }
 
+void generateObject() {
+    ofstream file;
+    file.open("./bin/quads.txt");
+    printFunctions(file);
+    printCtes(file);
+    printQuads(file);
+    file.close();
+}
+
 void setCurrentParamCount(int count) {
     funcDir->currentFunction()->paramCount = count;
 }
@@ -170,18 +179,31 @@ void setCurrentCurrQuad() {
     funcDir->currentFunction()->currQuad = quads.size();
 }
 
-void printQuads() {
-    ofstream file;
-    file.open("./bin/quads.txt");
+template<typename T>
+void printCtes(ofstream &file, vector<T> &values, int offset) {
+    for (T value : values) {
+        file << value << "," << offset++ << endl;
+    }
+    file << "%%" << endl;
+}
 
+void printCtes(ofstream &file) {
+    printCtes(file, funcDir->main->cteMemory->memoryInt->values, funcDir->main->cteMemory->memoryInt->offset);
+    printCtes(file, funcDir->main->cteMemory->memoryFloat->values, funcDir->main->cteMemory->memoryFloat->offset);
+    printCtes(file, funcDir->main->cteMemory->memoryString->values, funcDir->main->cteMemory->memoryString->offset);
+}
+
+void printFunctions(ofstream &file) {
+
+}
+
+void printQuads(ofstream &file) {
     // cout << "QUADS: " << endl;
     int idx = 1;
     while (!quads.empty()) {
         printQuad(&quads.front(), idx++, file);
         quads.erase(quads.begin());
     }
-
-    file.close();
 }
 
 void generateWhile() {
@@ -282,11 +304,6 @@ void pushOperator(int oper) {
     operators.push(oper);
 }
 
-template<typename T>
-int declareCte(int type, T value) {
-    return funcDir->main->cteMemory->addValue(type, value);
-}
-
 int declareTemp(int type) {
     return funcDir->currentFunction()->tempMemory->addValue(type);
 }
@@ -331,6 +348,21 @@ void pushOperandResult(string name) {
     pushOperandOfType(currentCall->resultAddress, functionType);
 }
 
+int declareCte(int type, int value) {
+    cout << "declaring " << value << endl;
+    return funcDir->main->cteMemory->addValue(type, value);
+}
+
+int declareCte(int type, string value) {
+    cout << "declarings " << value << endl;
+    return funcDir->main->cteMemory->addValue(type, value);
+}
+
+int declareCte(int type, float value) {
+    cout << "declaringf " << value << endl;
+    return funcDir->main->cteMemory->addValue(type, value);
+}
+
 void doOperation() {
     if (operands.size() >= 1 && !operators.empty()) {
         int rightOperand = operands.top(); operands.pop();
@@ -341,8 +373,9 @@ void doOperation() {
 
         if (oper == PRINT_ | oper == RETURN_) {
             leftOperand = -1;
-            leftType = INT_;
+            leftType = rightType;
         }  else if (operands.size() == 1 && oper != EQUALS_) {
+            printf("Declaringi zero \n");
             leftOperand = declareCte(INT_, 0); // this could be the same one every time
             leftType = INT_;
         } else {

@@ -6,7 +6,7 @@ struct MemoryFrame {
     int size;
     int index;
     int offset;
-    vector<int> values;
+    vector<T> values;
 
     MemoryFrame(int size, int offset) {
         this->size = size;
@@ -21,6 +21,11 @@ struct MemoryFrame {
     }
 
     int addValue(T val) {
+        if (index != values.size()) {
+            cout << "Memory frame inconsistent."  << endl;
+            exit(-1);
+        }
+        printf("frame adn\n");
         values.push_back(val);
         return this->addValue();
     }

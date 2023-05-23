@@ -16,6 +16,7 @@
 
 %union {
     char *sval;
+    char *strval;
     int ival;
     float fval;
     struct IDNode *nodeID;
@@ -28,7 +29,7 @@
 
 %token <ival> CTE_INT
 %token <fval> CTE_FLOAT
-%token <sval> CTE_STRING
+%token <strval> CTE_STRING
 %token <sval> ID
 
 %token PROGRAM
@@ -82,7 +83,7 @@ program :
         fillMain();
     } block {
         printf("Valid syntax.\n");
-        printQuads();
+        generateObject();
     } ;
 
 vars :
@@ -253,10 +254,10 @@ index :
 
 var_cte :
     CTE_FLOAT {
-        pushOperandOfType(declareCte(FLOAT_, CTE_FLOAT), FLOAT_);
+        pushOperandOfType(declareCte(FLOAT_, $1), FLOAT_);
     }
     | CTE_INT {
-        pushOperandOfType(declareCte(INT_, CTE_INT), INT_);
+        pushOperandOfType(declareCte(INT_, $1), INT_);
     } ;
 
 array_or_func :
@@ -359,7 +360,9 @@ printing_2 :
 
 printing_3 :
     expression
-    | CTE_STRING ;
+    | CTE_STRING {
+        pushOperandOfType(declareCte(STRING_, $1), STRING_);
+    } ;
 
 conditional :
     conditional_if ELSE {

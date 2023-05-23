@@ -1013,7 +1013,7 @@ case 40:
 /* rule 40 can match eol */
 YY_RULE_SETUP
 #line 61 "./src/scanner.l"
-{ yylval.sval = strdup(yytext); return CTE_STRING; }
+{ yylval.strval = strdup(yytext); return CTE_STRING; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP

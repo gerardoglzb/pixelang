@@ -127,6 +127,7 @@ typedef union YYSTYPE
 #line 17 "./src/parser.y"
 {
     char *sval;
+    char *strval;
     int ival;
     float fval;
     struct IDNode *nodeID;
@@ -135,7 +136,7 @@ typedef union YYSTYPE
     int iparam;
 }
 /* Line 1529 of yacc.c.  */
-#line 139 "./bin/parser.tab.h"
+#line 140 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

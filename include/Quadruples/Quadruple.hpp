@@ -15,9 +15,10 @@ struct Quadruple {
     }
 
     Quadruple(string item[4]) {
-        this->oper = stoi(item[0]);
-        this->leftOperand = stoi(item[1]);
-        this->rightOperand = stoi(item[2]);
-        this->result = stoi(item[3]);
+        printf("xd %s %s %s %s\n", item[0].c_str(), item[1].c_str(), item[2].c_str(), item[3].c_str());
+        // this->oper = stoi(item[0]);
+        // this->leftOperand = stoi(item[1]);
+        // this->rightOperand = stoi(item[2]);
+        // this->result = stoi(item[3]);
     }
 };
