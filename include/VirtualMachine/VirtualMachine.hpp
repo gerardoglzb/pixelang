@@ -51,7 +51,7 @@ struct VirtualMachine {
 
     int executions = 0;
     int executeQuad(int pid) {
-        if (executions++ > 100) {
+        if (executions++ > 200) {
             cout << "Too long" << endl;
             exit(-1);
         }

@@ -554,7 +554,7 @@ static const yytype_uint16 yyrline[] =
      310,   313,   313,   320,   323,   326,   328,   332,   326,   339,
      339,   342,   345,   345,   348,   351,   351,   362,   363,   368,
      368,   373,   378,   378,   383,   384,   387,   389,   387,   396,
-     398,   400,   405,   396
+     398,   401,   406,   396
 };
 #endif
 
@@ -2070,11 +2070,12 @@ yyreduce:
 #line 398 "./src/parser.y"
     {
         pushLastAssignment();
+        saveForVariable();
     ;}
     break;
 
   case 121:
-#line 400 "./src/parser.y"
+#line 401 "./src/parser.y"
     {
         validateLastAssignment(INT_);
         validateLastOperand(INT_);
@@ -2084,14 +2085,14 @@ yyreduce:
     break;
 
   case 122:
-#line 405 "./src/parser.y"
+#line 406 "./src/parser.y"
     {
         generateWhile();
     ;}
     break;
 
   case 123:
-#line 407 "./src/parser.y"
+#line 408 "./src/parser.y"
     {
         fillJumpFor();
     ;}
@@ -2099,7 +2100,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2103 "./bin/parser.tab.c"
+#line 2104 "./bin/parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2313,7 +2314,7 @@ yyreturn:
 }
 
 
-#line 411 "./src/parser.y"
+#line 412 "./src/parser.y"
 
 
 int main() {

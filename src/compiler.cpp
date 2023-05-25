@@ -236,6 +236,10 @@ void pushLastAssignment() {
     types.push(lastAssignmentType);
 }
 
+void saveForVariable() {
+    forVariables.push(lastAssignment);
+}
+
 void validateLastAssignment(int type) {
     if (lastAssignmentType != type) {
         printf("Type validation error (assignment)!\n");
@@ -276,6 +280,8 @@ void fillJumpWhile() {
 void fillJumpFor() {
     int end = jumps.top(); jumps.pop();
     int ret = jumps.top(); jumps.pop();
+    generateQuad(ADD_, forVariables.top(), declareCte(INT_, 1), forVariables.top());
+    forVariables.pop();
     generateQuad(GOTO_, -1, -1, ret + 1);
     quads[end].result = quads.size() + 1;
 }

@@ -22,6 +22,7 @@ static int lastResult;
 static int lastResultType;
 static int lastAssignmentType;
 static int lastAssignment;
+static stack<int> forVariables;
 static int currentFuncType;
 
 static vector<Quadruple> quads;
@@ -105,6 +106,8 @@ void validateID(string name, int type);
 void validateLastAssignment(int type);
 
 void pushLastAssignment();
+
+void saveForVariable();
 
 void generateFor();
 

@@ -397,6 +397,7 @@ rep_no_cond :
         pushJumpCurrent();
     } LEFT_PAR assignment {
         pushLastAssignment();
+        saveForVariable();
     } TO expression {
         validateLastAssignment(INT_);
         validateLastOperand(INT_);
