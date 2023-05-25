@@ -367,15 +367,17 @@ printing_3 :
 conditional :
     conditional_if ELSE {
         generateElse();
-    } block
-    | conditional_if ;
+    } block {
+        fillJumpIf();
+    }
+    | conditional_if {
+        fillJumpIf();
+    } ;
 
 conditional_if :
     IF LEFT_PAR expression RIGHT_PAR {
         generateIf();
-    } block {
-        fillJumpIf();
-    } ;
+    } block ;
 
 repetition :
     rep_cond

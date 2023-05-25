@@ -280,6 +280,17 @@ struct VMHelper {
         }
     }
 
+    int executeGotoF(int pid) {
+        if (leftType == INT_) {
+            int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+            return leftOperand ? pid : resultAddress;
+        } else if (leftType == FLOAT_) {
+            float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+            return leftOperand ? pid : resultAddress;
+        }
+        return -1;
+    }
+
     void executePrint() {
         if (rightType == INT_) {
             int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);

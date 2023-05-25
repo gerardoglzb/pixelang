@@ -49,7 +49,12 @@ struct VirtualMachine {
         }
     }
 
+    int executions = 0;
     int executeQuad(int pid) {
+        if (executions++ > 100) {
+            cout << "Too long" << endl;
+            exit(-1);
+        }
         Quadruple *quad = &quads[pid++];
         int oper = quad->oper, leftOperand = quad->leftOperand, rightOperand = quad->rightOperand, result = quad->result;
         VMHelper helper(oper, leftOperand, rightOperand, result, globalMemory, tempMemory, cteMemory);
@@ -88,7 +93,7 @@ struct VirtualMachine {
                 helper.executeOr();
                 break;
             case GOTOF_:
-                pid = leftOperand ? pid : result;
+                pid = helper.executeGotoF(pid);
                 break;
             case GOTO_:
                 pid = result;

@@ -553,8 +553,8 @@ static const yytype_uint16 yyrline[] =
      294,   295,   298,   299,   300,   301,   302,   305,   306,   309,
      310,   313,   313,   320,   323,   326,   328,   332,   326,   339,
      339,   342,   345,   345,   348,   351,   351,   362,   363,   368,
-     368,   371,   374,   374,   381,   382,   385,   387,   385,   394,
-     396,   398,   403,   394
+     368,   373,   378,   378,   383,   384,   387,   389,   387,   396,
+     398,   400,   405,   396
 };
 #endif
 
@@ -2017,57 +2017,64 @@ yyreduce:
     ;}
     break;
 
-  case 112:
-#line 374 "./src/parser.y"
-    {
-        generateIf();
-    ;}
-    break;
-
-  case 113:
-#line 376 "./src/parser.y"
+  case 110:
+#line 370 "./src/parser.y"
     {
         fillJumpIf();
     ;}
     break;
 
+  case 111:
+#line 373 "./src/parser.y"
+    {
+        fillJumpIf();
+    ;}
+    break;
+
+  case 112:
+#line 378 "./src/parser.y"
+    {
+        generateIf();
+    ;}
+    break;
+
   case 116:
-#line 385 "./src/parser.y"
+#line 387 "./src/parser.y"
     {
         pushJumpCurrent();
     ;}
     break;
 
   case 117:
-#line 387 "./src/parser.y"
+#line 389 "./src/parser.y"
     {
         generateWhile();
     ;}
     break;
 
   case 118:
-#line 389 "./src/parser.y"
+#line 391 "./src/parser.y"
     {
         fillJumpWhile();
     ;}
     break;
 
   case 119:
-#line 394 "./src/parser.y"
+#line 396 "./src/parser.y"
     {
         pushJumpCurrent();
     ;}
     break;
 
   case 120:
-#line 396 "./src/parser.y"
+#line 398 "./src/parser.y"
     {
         pushLastAssignment();
     ;}
     break;
 
   case 121:
-#line 398 "./src/parser.y"
+#line 400 "./src/parser.y"
     {
         validateLastAssignment(INT_);
         validateLastOperand(INT_);
@@ -2077,14 +2084,14 @@ yyreduce:
     break;
 
   case 122:
-#line 403 "./src/parser.y"
+#line 405 "./src/parser.y"
     {
         generateWhile();
     ;}
     break;
 
   case 123:
-#line 405 "./src/parser.y"
+#line 407 "./src/parser.y"
     {
         fillJumpFor();
     ;}
@@ -2092,7 +2099,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2096 "./bin/parser.tab.c"
+#line 2103 "./bin/parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2306,7 +2313,7 @@ yyreturn:
 }
 
 
-#line 409 "./src/parser.y"
+#line 411 "./src/parser.y"
 
 
 int main() {
