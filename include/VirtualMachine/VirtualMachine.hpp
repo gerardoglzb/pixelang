@@ -64,28 +64,28 @@ struct VirtualMachine {
                 helper.executeSub();
                 break;
             case MULTI_:
-                // helper.executeMulti();
+                helper.executeMulti();
                 break;
             case DIV_:
-                // helper.executeDiv();
+                helper.executeDiv();
                 break;
             case GREATER_:
-                // helper.executeGreater();
+                helper.executeGreater();
                 break;
             case LESS_:
-                // helper.executeLess();
+                helper.executeLess();
                 break;
             case EQUALTO_:
-                // helper.executeEqualTo();
+                helper.executeEqualTo();
                 break;
             case NOTEQUAL_:
-                // helper.executeNotEqual();
+                helper.executeNotEqual();
                 break;
             case AND_:
-                // helper.executeAnd();
+                helper.executeAnd();
                 break;
             case OR_:
-                // helper.executeOr();
+                helper.executeOr();
                 break;
             case GOTOF_:
                 pid = leftOperand ? pid : result;

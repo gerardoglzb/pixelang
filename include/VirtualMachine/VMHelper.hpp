@@ -47,10 +47,13 @@ struct VMHelper {
     void executeEquals() {
         if (rightType == INT_) {
             int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            if (getType(resultAddress) == FLOAT_) {
+                setValue(resultAddress, float(rightOperand));
+            }
             setValue(resultAddress, rightOperand);
         } else if (rightType == FLOAT_) {
             float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
-            setValue(resultAddress, rightOperand);
+            setValue(resultAddress, float(rightOperand));
         } else if (rightType == STRING_) {
             string rightOperand = getVMemory(rightOperandAddress)->getValueString(rightOperandAddress);
             setValue(resultAddress, rightOperand);
@@ -65,16 +68,16 @@ struct VMHelper {
                 setValue(resultAddress, leftOperand + rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
-                setValue(resultAddress, leftOperand + rightOperand);
+                setValue(resultAddress, float(leftOperand + rightOperand));
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
                 int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
-                setValue(resultAddress, leftOperand + rightOperand);
+                setValue(resultAddress, float(leftOperand + rightOperand));
             } else if (leftType == FLOAT_) {
                 float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
-                setValue(resultAddress, leftOperand + rightOperand);
+                setValue(resultAddress, float(leftOperand + rightOperand));
             }
         }
     }
@@ -87,16 +90,192 @@ struct VMHelper {
                 setValue(resultAddress, leftOperand - rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
-                setValue(resultAddress, leftOperand - rightOperand);
+                setValue(resultAddress, float(leftOperand - rightOperand));
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
                 int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
-                setValue(resultAddress, leftOperand - rightOperand);
+                setValue(resultAddress, float(leftOperand - rightOperand));
             } else if (leftType == FLOAT_) {
                 float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
-                setValue(resultAddress, leftOperand - rightOperand);
+                setValue(resultAddress, float(leftOperand - rightOperand));
+            }
+        }
+    }
+
+    void executeMulti() {
+        if (rightType == INT_) {
+            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand * rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, float(leftOperand * rightOperand));
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, float(leftOperand * rightOperand));
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, float(leftOperand * rightOperand));
+            }
+        }
+    }
+
+    void executeDiv() {
+        if (rightType == INT_) {
+            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, float(leftOperand / rightOperand));
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, float(leftOperand / rightOperand));
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, float(leftOperand / rightOperand));
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, float(leftOperand / rightOperand));
+            }
+        }
+    }
+
+    void executeGreater() {
+        if (rightType == INT_) {
+            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand > rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand > rightOperand);
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand > rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand > rightOperand);
+            }
+        }
+    }
+
+    void executeLess() {
+        if (rightType == INT_) {
+            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand < rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand < rightOperand);
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand < rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand < rightOperand);
+            }
+        }
+    }
+
+    void executeEqualTo() {
+        if (rightType == INT_) {
+            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand == rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand == rightOperand);
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand == rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand == rightOperand);
+            }
+        }
+    }
+
+    void executeNotEqual() {
+        if (rightType == INT_) {
+            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand != rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand != rightOperand);
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand != rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand != rightOperand);
+            }
+        }
+    }
+
+    void executeAnd() {
+        if (rightType == INT_) {
+            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand && rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand && rightOperand);
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand && rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand && rightOperand);
+            }
+        }
+    }
+
+    void executeOr() {
+        if (rightType == INT_) {
+            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand || rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand || rightOperand);
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand || rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand || rightOperand);
             }
         }
     }

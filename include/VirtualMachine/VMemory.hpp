@@ -1,5 +1,4 @@
 #include <iostream>
-#include <type_traits>
 #include "./VMemoryFrame.hpp"
 using namespace std;
 
