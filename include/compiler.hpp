@@ -11,6 +11,8 @@
 #include "./VariableTable/IDNode.hpp"
 #include "./FunctionDirectory/FunctionDirectory.hpp"
 
+static string programName;
+
 static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div, 5 greater, 6 less, 7 equal to, 8 not equal, 9 and, 10 or,
                             // 11 leftpar, 12 rightpar, 13 gotoF, 14 goto, 15 gosub, 16 era, 17 param, 18 endfunc, 19 print 20 return
 static stack<int> types;
@@ -162,3 +164,6 @@ void printCtes(ofstream &file);
 string operatorName(int _oper);
 
 void generateObject();
+
+
+void setProgramName(string name);

@@ -11,6 +11,7 @@
 
 struct VirtualMachine {
     VFunctionMemory *globalMemory;
+    string filename;
 
     vector<Quadruple> quads;
     vector<Function> functions;
@@ -20,11 +21,12 @@ struct VirtualMachine {
     stack<VFunctionMemory*> eraStack;
     stack<int> returnStack;
 
-    VirtualMachine(vector<Function> functions, vector<Constant> constants, vector<Quadruple> quads) {
+    VirtualMachine(vector<Function> functions, vector<Constant> constants, vector<Quadruple> quads, string filename) {
         this->quads = vector<Quadruple>({Quadruple()});
         this->quads.insert(this->quads.end(), quads.begin(), quads.end());
         this->functions = functions;
         this->constants = constants;
+        this->filename = filename;
 
         this->globalMemory = new VFunctionMemory(&functions[0], 2000, 4000, 2000, nullptr, "main");
         this->subStack.push(this->globalMemory);

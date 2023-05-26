@@ -49,6 +49,8 @@ int main() {
     string line;
     int step = 0;
     int type = 0;
+    getline(file, line);
+    string filename;
     while (getline(file, line)) {
         if (line == "%%") {
             step++;
@@ -64,6 +66,6 @@ int main() {
     }
     file.close();
 
-    VirtualMachine vm = VirtualMachine(functions, constants, quads);
+    VirtualMachine vm = VirtualMachine(functions, constants, quads, filename);
     vm.run();
 }

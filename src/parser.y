@@ -79,6 +79,7 @@
 program : 
     PROGRAM ID {
         declareMainFunction($2, lineas, &functionDirectory);
+        setProgramName($2);
     } SEMICOLON vars functions {
         fillMain();
     } block {

@@ -157,10 +157,15 @@ void printQuad(Quadruple *quad, int idx, ofstream &file) {
     file << quad->oper << "," << quad->leftOperand << "," << quad->rightOperand << "," << quad->result << endl;
 }
 
+void setProgramName(string name) {
+    programName = name;
+}
+
 void generateObject() {
     generateQuad(END_, -1, -1, -1);
     ofstream file;
     file.open("./bin/quads.txt");
+    file << programName << endl;
     printFunctions(file);
     printCtes(file);
     printQuads(file);

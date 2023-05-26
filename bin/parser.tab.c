@@ -542,19 +542,19 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    80,    80,    82,    80,    90,    93,    98,   101,   106,
-     110,   116,   117,   120,   122,   124,   120,   135,   138,   143,
-     143,   150,   153,   156,   157,   160,   164,   168,   173,   173,
-     178,   178,   181,   181,   184,   187,   187,   192,   192,   195,
-     195,   198,   198,   201,   201,   204,   207,   207,   212,   212,
-     215,   215,   218,   221,   221,   226,   226,   229,   229,   232,
-     235,   235,   238,   238,   249,   252,   253,   256,   259,   264,
-     267,   264,   276,   277,   282,   282,   285,   288,   288,   291,
-     294,   295,   298,   299,   300,   301,   302,   305,   306,   309,
-     310,   313,   313,   320,   323,   326,   328,   332,   326,   339,
-     339,   342,   345,   345,   348,   351,   351,   362,   363,   368,
-     368,   373,   378,   378,   383,   384,   387,   389,   387,   396,
-     398,   401,   406,   396
+       0,    80,    80,    83,    80,    91,    94,    99,   102,   107,
+     111,   117,   118,   121,   123,   125,   121,   136,   139,   144,
+     144,   151,   154,   157,   158,   161,   165,   169,   174,   174,
+     179,   179,   182,   182,   185,   188,   188,   193,   193,   196,
+     196,   199,   199,   202,   202,   205,   208,   208,   213,   213,
+     216,   216,   219,   222,   222,   227,   227,   230,   230,   233,
+     236,   236,   239,   239,   250,   253,   254,   257,   260,   265,
+     268,   265,   277,   278,   283,   283,   286,   289,   289,   292,
+     295,   296,   299,   300,   301,   302,   303,   306,   307,   310,
+     311,   314,   314,   321,   324,   327,   329,   333,   327,   340,
+     340,   343,   346,   346,   349,   352,   352,   363,   364,   369,
+     369,   374,   379,   379,   384,   385,   388,   390,   388,   397,
+     399,   402,   407,   397
 };
 #endif
 
@@ -1602,18 +1602,19 @@ yyreduce:
 #line 80 "./src/parser.y"
     {
         declareMainFunction((yyvsp[(2) - (2)].sval), lineas, &functionDirectory);
+        setProgramName((yyvsp[(2) - (2)].sval));
     ;}
     break;
 
   case 3:
-#line 82 "./src/parser.y"
+#line 83 "./src/parser.y"
     {
         fillMain();
     ;}
     break;
 
   case 4:
-#line 84 "./src/parser.y"
+#line 85 "./src/parser.y"
     {
         printf("Valid syntax.\n");
         generateObject();
@@ -1621,35 +1622,35 @@ yyreduce:
     break;
 
   case 5:
-#line 90 "./src/parser.y"
+#line 91 "./src/parser.y"
     {
         (yyval.ivar) = (yyvsp[(4) - (4)].ivar) + 1;
     ;}
     break;
 
   case 6:
-#line 93 "./src/parser.y"
+#line 94 "./src/parser.y"
     {
         (yyval.ivar) = 0;
     ;}
     break;
 
   case 7:
-#line 98 "./src/parser.y"
+#line 99 "./src/parser.y"
     {
         declareVariables((yyvsp[(1) - (3)].nodeID), (yyvsp[(3) - (3)].chType), lineas);
     ;}
     break;
 
   case 8:
-#line 101 "./src/parser.y"
+#line 102 "./src/parser.y"
     {
         declareArrays((yyvsp[(1) - (6)].nodeID), (yyvsp[(3) - (6)].chType), (yyvsp[(5) - (6)].ival), lineas);
     ;}
     break;
 
   case 9:
-#line 106 "./src/parser.y"
+#line 107 "./src/parser.y"
     {
         IDNode *node = new IDNode((yyvsp[(1) - (1)].sval));
         (yyval.nodeID) = node;
@@ -1657,7 +1658,7 @@ yyreduce:
     break;
 
   case 10:
-#line 110 "./src/parser.y"
+#line 111 "./src/parser.y"
     {
         IDNode *node = new IDNode((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].nodeID));
         (yyval.nodeID) = node;
@@ -1665,21 +1666,21 @@ yyreduce:
     break;
 
   case 13:
-#line 120 "./src/parser.y"
+#line 121 "./src/parser.y"
     {
         declareFunction((yyvsp[(2) - (2)].sval), 7, lineas);
     ;}
     break;
 
   case 14:
-#line 122 "./src/parser.y"
+#line 123 "./src/parser.y"
     {
         setCurrentParamCount((yyvsp[(5) - (7)].iparam));
     ;}
     break;
 
   case 15:
-#line 124 "./src/parser.y"
+#line 125 "./src/parser.y"
     {
         setCurrentLocalVarCount((yyvsp[(11) - (11)].ivar));
         setCurrentCurrQuad();
@@ -1689,7 +1690,7 @@ yyreduce:
     break;
 
   case 16:
-#line 129 "./src/parser.y"
+#line 130 "./src/parser.y"
     {
         generateEndFunc();
         functionDirectory.removeVariableTable((yyvsp[(2) - (14)].sval));
@@ -1697,28 +1698,28 @@ yyreduce:
     break;
 
   case 17:
-#line 135 "./src/parser.y"
+#line 136 "./src/parser.y"
     {
         functionDirectory.currentFunction()->type = (yyvsp[(1) - (1)].chType);
     ;}
     break;
 
   case 18:
-#line 138 "./src/parser.y"
+#line 139 "./src/parser.y"
     {
         functionDirectory.currentFunction()->type = VOID_;
     ;}
     break;
 
   case 19:
-#line 143 "./src/parser.y"
+#line 144 "./src/parser.y"
     {
         pushOperator(RETURN_);
     ;}
     break;
 
   case 20:
-#line 145 "./src/parser.y"
+#line 146 "./src/parser.y"
     {
         checkIfShouldDoOperation(vector<int>({RETURN_}));
         setFunctionReturn();
@@ -1727,7 +1728,7 @@ yyreduce:
     break;
 
   case 25:
-#line 160 "./src/parser.y"
+#line 161 "./src/parser.y"
     {
         declareParameter((yyvsp[(1) - (5)].sval), (yyvsp[(3) - (5)].chType), lineas, declareVariable((yyvsp[(1) - (5)].sval), (yyvsp[(3) - (5)].chType), lineas)->address);
         (yyval.iparam) = (yyvsp[(5) - (5)].iparam) + 1;
@@ -1735,7 +1736,7 @@ yyreduce:
     break;
 
   case 26:
-#line 164 "./src/parser.y"
+#line 165 "./src/parser.y"
     {
         declareParameter((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].chType), lineas, declareVariable((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].chType), lineas)->address);
         (yyval.iparam) = 1;
@@ -1743,147 +1744,147 @@ yyreduce:
     break;
 
   case 27:
-#line 168 "./src/parser.y"
+#line 169 "./src/parser.y"
     {
         (yyval.iparam) = 0;
     ;}
     break;
 
   case 28:
-#line 173 "./src/parser.y"
+#line 174 "./src/parser.y"
     {
         checkIfShouldDoOperation(vector<int>({AND_, OR_}));
     ;}
     break;
 
   case 30:
-#line 178 "./src/parser.y"
+#line 179 "./src/parser.y"
     {
         pushOperator(AND_);
     ;}
     break;
 
   case 32:
-#line 181 "./src/parser.y"
+#line 182 "./src/parser.y"
     {
         pushOperator(OR_);
     ;}
     break;
 
   case 35:
-#line 187 "./src/parser.y"
+#line 188 "./src/parser.y"
     {
         checkIfShouldDoOperation(vector<int>({GREATER_, LESS_, EQUALTO_, NOTEQUAL_}));
     ;}
     break;
 
   case 37:
-#line 192 "./src/parser.y"
+#line 193 "./src/parser.y"
     {
         pushOperator(GREATER_);
     ;}
     break;
 
   case 39:
-#line 195 "./src/parser.y"
+#line 196 "./src/parser.y"
     {
         pushOperator(LESS_);
     ;}
     break;
 
   case 41:
-#line 198 "./src/parser.y"
+#line 199 "./src/parser.y"
     {
         pushOperator(EQUALTO_);
     ;}
     break;
 
   case 43:
-#line 201 "./src/parser.y"
+#line 202 "./src/parser.y"
     {
         pushOperator(NOTEQUAL_);
     ;}
     break;
 
   case 46:
-#line 207 "./src/parser.y"
+#line 208 "./src/parser.y"
     {
         checkIfShouldDoOperation(vector<int>({ADD_, SUB_}));
     ;}
     break;
 
   case 48:
-#line 212 "./src/parser.y"
+#line 213 "./src/parser.y"
     {
         pushOperator(ADD_);
     ;}
     break;
 
   case 50:
-#line 215 "./src/parser.y"
+#line 216 "./src/parser.y"
     {
         pushOperator(SUB_);
     ;}
     break;
 
   case 53:
-#line 221 "./src/parser.y"
+#line 222 "./src/parser.y"
     {
         checkIfShouldDoOperation(vector<int>({MULTI_, DIV_}));
     ;}
     break;
 
   case 55:
-#line 226 "./src/parser.y"
+#line 227 "./src/parser.y"
     {
         pushOperator(MULTI_);
     ;}
     break;
 
   case 57:
-#line 229 "./src/parser.y"
+#line 230 "./src/parser.y"
     {
         pushOperator(DIV_);
     ;}
     break;
 
   case 60:
-#line 235 "./src/parser.y"
+#line 236 "./src/parser.y"
     {
         handleIDExpression((yyvsp[(1) - (1)].sval));
     ;}
     break;
 
   case 62:
-#line 238 "./src/parser.y"
+#line 239 "./src/parser.y"
     {
         pushOperator(LEFTPAR_);
     ;}
     break;
 
   case 63:
-#line 240 "./src/parser.y"
+#line 241 "./src/parser.y"
     {
         pushOperator(RIGHTPAR_);
     ;}
     break;
 
   case 67:
-#line 256 "./src/parser.y"
+#line 257 "./src/parser.y"
     {
         pushOperandOfType(declareCte(FLOAT_, (yyvsp[(1) - (1)].fval)), FLOAT_);
     ;}
     break;
 
   case 68:
-#line 259 "./src/parser.y"
+#line 260 "./src/parser.y"
     {
         pushOperandOfType(declareCte(INT_, (yyvsp[(1) - (1)].ival)), INT_);
     ;}
     break;
 
   case 69:
-#line 264 "./src/parser.y"
+#line 265 "./src/parser.y"
     {
         verifyFunctionExists(getIDExpression(), lineas);
         setCurrentCall(getIDExpression());
@@ -1891,7 +1892,7 @@ yyreduce:
     break;
 
   case 70:
-#line 267 "./src/parser.y"
+#line 268 "./src/parser.y"
     {
         generateEra(getCurrentCall());
         resetParameterCount(getCurrentCall());
@@ -1899,7 +1900,7 @@ yyreduce:
     break;
 
   case 71:
-#line 270 "./src/parser.y"
+#line 271 "./src/parser.y"
     {
         verifyParameters(getCurrentCall());
         generateGosub(getCurrentCall());
@@ -1909,56 +1910,56 @@ yyreduce:
     break;
 
   case 73:
-#line 277 "./src/parser.y"
+#line 278 "./src/parser.y"
     {
         pushOperandByID(getIDExpression());
     ;}
     break;
 
   case 74:
-#line 282 "./src/parser.y"
+#line 283 "./src/parser.y"
     {
         generateParam();
     ;}
     break;
 
   case 77:
-#line 288 "./src/parser.y"
+#line 289 "./src/parser.y"
     {
         generateParam();
     ;}
     break;
 
   case 91:
-#line 313 "./src/parser.y"
+#line 314 "./src/parser.y"
     {
         pushOperator(EQUALS_);
     ;}
     break;
 
   case 92:
-#line 315 "./src/parser.y"
+#line 316 "./src/parser.y"
     {
         checkIfShouldDoOperation(vector<int>({EQUALS_}));
     ;}
     break;
 
   case 93:
-#line 320 "./src/parser.y"
+#line 321 "./src/parser.y"
     {
         pushOperandByID((yyvsp[(1) - (1)].sval));
     ;}
     break;
 
   case 95:
-#line 326 "./src/parser.y"
+#line 327 "./src/parser.y"
     {
         verifyFunctionExists((yyvsp[(1) - (1)].sval), lineas);
     ;}
     break;
 
   case 96:
-#line 328 "./src/parser.y"
+#line 329 "./src/parser.y"
     {
         generateEra((yyvsp[(1) - (3)].sval));
         setCurrentCall((yyvsp[(1) - (3)].sval));
@@ -1967,7 +1968,7 @@ yyreduce:
     break;
 
   case 97:
-#line 332 "./src/parser.y"
+#line 333 "./src/parser.y"
     {
         verifyParameters((yyvsp[(1) - (6)].sval));
         generateGosub((yyvsp[(1) - (6)].sval));
@@ -1976,98 +1977,98 @@ yyreduce:
     break;
 
   case 99:
-#line 339 "./src/parser.y"
+#line 340 "./src/parser.y"
     {
         generateParam();
     ;}
     break;
 
   case 102:
-#line 345 "./src/parser.y"
+#line 346 "./src/parser.y"
     {
         generateParam();
     ;}
     break;
 
   case 105:
-#line 351 "./src/parser.y"
+#line 352 "./src/parser.y"
     {
         pushOperator(PRINT_);
     ;}
     break;
 
   case 106:
-#line 353 "./src/parser.y"
+#line 354 "./src/parser.y"
     {
         checkIfShouldDoOperation(vector<int>({PRINT_}));
     ;}
     break;
 
   case 108:
-#line 363 "./src/parser.y"
+#line 364 "./src/parser.y"
     {
         pushOperandOfType(declareCte(STRING_, (yyvsp[(1) - (1)].strval)), STRING_);
     ;}
     break;
 
   case 109:
-#line 368 "./src/parser.y"
+#line 369 "./src/parser.y"
     {
         generateElse();
     ;}
     break;
 
   case 110:
-#line 370 "./src/parser.y"
+#line 371 "./src/parser.y"
     {
         fillJumpIf();
     ;}
     break;
 
   case 111:
-#line 373 "./src/parser.y"
+#line 374 "./src/parser.y"
     {
         fillJumpIf();
     ;}
     break;
 
   case 112:
-#line 378 "./src/parser.y"
+#line 379 "./src/parser.y"
     {
         generateIf();
     ;}
     break;
 
   case 116:
-#line 387 "./src/parser.y"
+#line 388 "./src/parser.y"
     {
         pushJumpCurrent();
     ;}
     break;
 
   case 117:
-#line 389 "./src/parser.y"
+#line 390 "./src/parser.y"
     {
         generateWhile();
     ;}
     break;
 
   case 118:
-#line 391 "./src/parser.y"
+#line 392 "./src/parser.y"
     {
         fillJumpWhile();
     ;}
     break;
 
   case 119:
-#line 396 "./src/parser.y"
+#line 397 "./src/parser.y"
     {
         pushJumpCurrent();
     ;}
     break;
 
   case 120:
-#line 398 "./src/parser.y"
+#line 399 "./src/parser.y"
     {
         pushLastAssignment();
         saveForVariable();
@@ -2075,7 +2076,7 @@ yyreduce:
     break;
 
   case 121:
-#line 401 "./src/parser.y"
+#line 402 "./src/parser.y"
     {
         validateLastAssignment(INT_);
         validateLastOperand(INT_);
@@ -2085,14 +2086,14 @@ yyreduce:
     break;
 
   case 122:
-#line 406 "./src/parser.y"
+#line 407 "./src/parser.y"
     {
         generateWhile();
     ;}
     break;
 
   case 123:
-#line 408 "./src/parser.y"
+#line 409 "./src/parser.y"
     {
         fillJumpFor();
     ;}
@@ -2100,7 +2101,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2104 "./bin/parser.tab.c"
+#line 2105 "./bin/parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2314,7 +2315,7 @@ yyreturn:
 }
 
 
-#line 412 "./src/parser.y"
+#line 413 "./src/parser.y"
 
 
 int main() {
