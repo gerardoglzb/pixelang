@@ -2,9 +2,10 @@ program test;
 
 var a, b, c : int;
 
-function x(x1 : int) : int {
+function x(x1 : int, x2 : float) : int {
     var b : int;
     b = 1;
+    print(x2);
     return(x1 * a + b);
 }
 
@@ -12,7 +13,7 @@ function y() : int {
     var y1 : int;
     y1 = 5;
     b = 2;
-    return(x(y1));
+    return(x(y1, 1.2));
 }
 
 {
@@ -21,6 +22,6 @@ function y() : int {
     print(b);
 
     for (c = 0 to 3) {
-        print(x(c));
+        print(x(c, 3));
     }
 }

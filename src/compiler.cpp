@@ -63,7 +63,7 @@ void generateParam() {
         exit(-1);
     VariableEntry *param = nextParameter(currentCall);
 
-    if (type != param->type) {
+    if (semanticCube(EQUALS_, param->type, type) == -1) {
         cout << "Parameter is not the same " << type << " " << param->type << endl;
         exit(-1);
     }
