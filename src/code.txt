@@ -7,6 +7,8 @@ function x(test : int, try : int) : int {
 
     a = test;
     test = 5;
+    hi = 2;
+    print(hi);
     return(test + 1);
 }
 
@@ -18,8 +20,8 @@ function y() : float {
 
 {
     a = 4 + (1 - 3) * 2;
-    c = x(1, a);
     print("Hello");
+    c = x(2, a);
     print(y());
     print(c);
     print(a);

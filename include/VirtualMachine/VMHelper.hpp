@@ -12,13 +12,17 @@ struct VMHelper {
         this->leftOperandAddress = leftOperandAddress;
         this->rightOperandAddress = rightOperandAddress;
         this->resultAddress = resultAddress;
+        this->memory = memory;
         this->leftType = getType(leftOperandAddress);
         this->rightType = getType(rightOperandAddress);
-        this->memory = memory;
     }
 
     int getType(int address) {
         return memory->getType(address);
+    }
+
+    int getType(int address, VFunctionMemory *functionMemory) {
+        return functionMemory->getType(address);
     }
 
     VMemory *getVMemory(int address) {
@@ -31,18 +35,18 @@ struct VMHelper {
 
     template<typename T>
     void setValue(int address, T value) {
-        getVMemory(address)->setValue(address, value);
+        this->memory->setValue(address, value);
     }
 
     template<typename T>
     void setValue(int address, T value, VFunctionMemory *functionMemory) {
-        getVMemory(address)->setValue(address, value);
+        functionMemory->setValue(address, value);
     }
 
     void executeEquals() {
         if (rightType == INT_) {
             int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
-            if (getType(resultAddress) == FLOAT_) {
+            if (getType(resultAddress) == FLOAT_) { // TODO : asegurar float transformations en nuevas operaciones
                 setValue(resultAddress, float(rightOperand));
             }
             setValue(resultAddress, rightOperand);
@@ -52,6 +56,22 @@ struct VMHelper {
         } else if (rightType == STRING_) {
             string rightOperand = getVMemory(rightOperandAddress)->getValueString(rightOperandAddress);
             setValue(resultAddress, rightOperand);
+        }
+    }
+
+    void executeParam(VFunctionMemory *functionMemory) {
+        if (leftType == INT_) {
+            int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+            if (getType(resultAddress, functionMemory) == FLOAT_) {
+                setValue(resultAddress, float(leftOperand), functionMemory);
+            }
+            setValue(resultAddress, leftOperand, functionMemory);
+        } else if (leftType == FLOAT_) {
+            float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+            setValue(resultAddress, leftOperand, functionMemory);
+        } else if (leftType == STRING_) {
+            string leftOperand = getVMemory(leftOperandAddress)->getValueString(leftOperandAddress);
+            setValue(resultAddress, leftOperand, functionMemory);
         }
     }
 
@@ -284,19 +304,6 @@ struct VMHelper {
             return leftOperand ? pid : resultAddress;
         }
         return -1;
-    }
-
-    void executeParam(VFunctionMemory *functionMemory) {
-        if (leftType == INT_) {
-            int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
-            setValue(resultAddress, leftOperand, functionMemory);
-        } else if (leftType == FLOAT_) {
-            float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
-            setValue(resultAddress, leftOperand, functionMemory);
-        } else if (leftType == STRING_) {
-            string leftOperand = getVMemory(leftOperandAddress)->getValueString(leftOperandAddress);
-            setValue(resultAddress, leftOperand, functionMemory);
-        }
     }
 
     void executeReturn(VFunctionMemory *parentMemory) {

@@ -26,12 +26,12 @@ struct VirtualMachine {
         this->functions = functions;
         this->constants = constants;
 
-        this->globalMemory = new VFunctionMemory(&functions[0], 2000, 4000, 2000, nullptr);
+        this->globalMemory = new VFunctionMemory(&functions[0], 2000, 4000, 2000, nullptr, "main");
         this->subStack.push(this->globalMemory);
     }
 
     void createMemory(int id) {
-        eraStack.push(new VFunctionMemory(&functions[id], 1000, 3000, 1000, globalMemory));
+        eraStack.push(new VFunctionMemory(&functions[id], 1000, 3000, 1000, globalMemory, "func"));
     }
 
     void storeConstants() {
@@ -55,7 +55,7 @@ struct VirtualMachine {
             cout << "Too long" << endl;
             exit(-1);
         }
-        cout << "PID: " << pid << endl;
+        // cout << "PID: " << pid << endl;
         Quadruple *quad = &quads[pid++];
         int oper = quad->oper, leftOperand = quad->leftOperand, rightOperand = quad->rightOperand, result = quad->result;
         VFunctionMemory *currMemory = subStack.top();

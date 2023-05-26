@@ -8,12 +8,14 @@ struct VFunctionMemory {
     VMemory *tempMemory;
     VMemory *cteMemory;
     VFunctionMemory *globalMemory;
+    string name;
 
-    VFunctionMemory(Function *function, int intSize, int floatSize, int stringSize, VFunctionMemory *globalMemory) {
+    VFunctionMemory(Function *function, int intSize, int floatSize, int stringSize, VFunctionMemory *globalMemory, string name) {
         this->localMemory = new VMemory(function->localVals[0], function->localVals[1], function->localVals[2], function->memoryOffset, 0, intSize, intSize * 2);
         this->tempMemory = new VMemory(function->tempVals[0], function->tempVals[1], function->tempVals[2], function->memoryOffset + intSize * 3, 0, floatSize, floatSize * 2);
         this->cteMemory = new VMemory(function->cteVals[0], function->cteVals[1], function->cteVals[2], function->memoryOffset + intSize * 3 + floatSize * 3, 0, stringSize, stringSize * 2);
         this->globalMemory = globalMemory;
+        this->name = name;
     }
 
     int getType(int address) {
@@ -26,6 +28,11 @@ struct VFunctionMemory {
         intType = (intType == -1) ? globalMemory->tempMemory->getType(address) : intType;
         intType = (intType == -1) ? globalMemory->cteMemory->getType(address) : intType;
         return intType;
+    }
+
+    template<typename T>
+    void setValue(int address, T value) {
+        getVMemory(address)->setValue(address, value);
     }
 
     VMemory *getVMemory(int address) {
