@@ -180,7 +180,7 @@ void setCurrentTempVarCount(int count) {
 }
 
 void setCurrentCurrQuad() {
-    funcDir->currentFunction()->currQuad = quads.size();
+    funcDir->currentFunction()->currQuad = quads.size() + 1;
 }
 
 template<typename T>

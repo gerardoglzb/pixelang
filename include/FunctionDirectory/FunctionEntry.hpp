@@ -19,11 +19,11 @@ struct FunctionEntry {
     int paramCount;
     int localVarCount;
     int tempVarCount;
-    int currQuad;
+    int currQuad = 1;
     int currentParam;
 
     void printFunction(ofstream &file) {
-        file << type << "," << resultAddress << "," << memoryOffset << ",";
+        file << type << "," << resultAddress << "," << memoryOffset << "," << currQuad << ",";
         file << localMemory->getSizeInt() << "," << localMemory->getSizeFloat() << "," << localMemory->getSizeString() << ",";
         file << tempMemory->getSizeInt() << "," << tempMemory->getSizeFloat() << "," << tempMemory->getSizeString() << ",";
         file << cteMemory->getSizeInt() << "," << cteMemory->getSizeFloat() << "," << cteMemory->getSizeString() << endl;

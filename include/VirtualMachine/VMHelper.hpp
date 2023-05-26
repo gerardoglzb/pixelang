@@ -5,29 +5,28 @@ using namespace std;
 struct VMHelper {
     int oper, leftOperandAddress, rightOperandAddress, resultAddress;
     int leftType, rightType;
-    VMemory *globalMemory;
-    VMemory *tempMemory;
-    VMemory *cteMemory;
+    VFunctionMemory *memory;
 
-    VMHelper(int oper, int leftOperandAddress, int rightOperandAddress, int resultAddress, VMemory *globalMemory, VMemory *tempMemory, VMemory *cteMemory) {
+    VMHelper(int oper, int leftOperandAddress, int rightOperandAddress, int resultAddress, VFunctionMemory *memory) {
         this->oper = oper;
         this->leftOperandAddress = leftOperandAddress;
         this->rightOperandAddress = rightOperandAddress;
         this->resultAddress = resultAddress;
         this->leftType = getType(leftOperandAddress);
         this->rightType = getType(rightOperandAddress);
-        this->globalMemory = globalMemory;
-        this->tempMemory = tempMemory;
-        this->cteMemory = cteMemory;
+        this->memory = memory;
+    }
+
+    int getType(int address) {
+        return memory->getType(address);
     }
 
     VMemory *getVMemory(int address) {
-        if (address < 6000)
-            return globalMemory;
-        if (address < 17999)
-            return tempMemory;
-        // if (address < 23999)
-        return cteMemory;
+        return this->memory->getVMemory(address);
+    }
+
+    VMemory *getVMemory(int address, VFunctionMemory *functionMemory) {
+        return functionMemory->getVMemory(address);
     }
 
     template<typename T>
@@ -35,13 +34,9 @@ struct VMHelper {
         getVMemory(address)->setValue(address, value);
     }
 
-    int getType(int address) {
-        if (address == -1)
-            return -1;
-        int intType = globalMemory->getType(address);
-        intType = (intType == -1) ? tempMemory->getType(address) : intType;
-        intType = (intType == -1) ? cteMemory->getType(address) : intType;
-        return intType;
+    template<typename T>
+    void setValue(int address, T value, VFunctionMemory *functionMemory) {
+        getVMemory(address)->setValue(address, value);
     }
 
     void executeEquals() {
@@ -291,6 +286,32 @@ struct VMHelper {
         return -1;
     }
 
+    void executeParam(VFunctionMemory *functionMemory) {
+        if (leftType == INT_) {
+            int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+            setValue(resultAddress, leftOperand, functionMemory);
+        } else if (leftType == FLOAT_) {
+            float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+            setValue(resultAddress, leftOperand, functionMemory);
+        } else if (leftType == STRING_) {
+            string leftOperand = getVMemory(leftOperandAddress)->getValueString(leftOperandAddress);
+            setValue(resultAddress, leftOperand, functionMemory);
+        }
+    }
+
+    void executeReturn(VFunctionMemory *parentMemory) {
+        if (rightType == INT_) {
+            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            setValue(resultAddress, rightOperand, parentMemory);
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            setValue(resultAddress, rightOperand, parentMemory);
+        } else if (rightType == STRING_) {
+            string rightOperand = getVMemory(rightOperandAddress)->getValueString(rightOperandAddress);
+            setValue(resultAddress, rightOperand, parentMemory);
+        }
+    }
+
     void executePrint() {
         if (rightType == INT_) {
             int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
@@ -303,4 +324,5 @@ struct VMHelper {
             cout << rightOperand << endl;
         }
     }
+
 };

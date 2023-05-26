@@ -3,21 +3,22 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "./VMemory.hpp"
+#include "./VFunctionMemory.hpp"
 #include "../Quadruples/Quadruple.hpp"
 #include "./Constant.hpp"
-#include "./Function.hpp"
 #include "./VMHelper.hpp"
 #include "../Semantics/Operator.hpp"
 
 struct VirtualMachine {
-    VMemory *globalMemory;
-    VMemory *tempMemory;
-    VMemory *cteMemory;
+    VFunctionMemory *globalMemory;
 
     vector<Quadruple> quads;
     vector<Function> functions;
     vector<Constant> constants;
+
+    stack<VFunctionMemory*> subStack;
+    stack<VFunctionMemory*> eraStack;
+    stack<int> returnStack;
 
     VirtualMachine(vector<Function> functions, vector<Constant> constants, vector<Quadruple> quads) {
         this->quads = vector<Quadruple>({Quadruple()});
@@ -25,39 +26,40 @@ struct VirtualMachine {
         this->functions = functions;
         this->constants = constants;
 
-        globalMemory = new VMemory(functions[0].localVals[0], functions[0].localVals[1], functions[0].localVals[2], functions[0].memoryOffset, 0, 2000, 2000 * 2);
-        tempMemory = new VMemory(functions[0].tempVals[0], functions[0].tempVals[1], functions[0].tempVals[2], functions[0].memoryOffset + 2000 * 3, 0, 4000, 4000 * 2);
-        cteMemory = new VMemory(functions[0].cteVals[0], functions[0].cteVals[1], functions[0].cteVals[2], functions[0].memoryOffset + 2000 * 3 + 4000 * 3, 0, 2000, 2000 * 2);
+        this->globalMemory = new VFunctionMemory(&functions[0], 2000, 4000, 2000, nullptr);
+        this->subStack.push(this->globalMemory);
     }
 
-    void storeFunctions() {
-        return;
+    void createMemory(int id) {
+        eraStack.push(new VFunctionMemory(&functions[id], 1000, 3000, 1000, globalMemory));
     }
 
     void storeConstants() {
         for (Constant cte : constants) {
             if (cte.type == INT_) {
                 int val = stoi(cte.value);
-                cteMemory->setValue(cte.address, val);
+                globalMemory->cteMemory->setValue(cte.address, val);
             } else if (cte.type == FLOAT_) {
                 float val = stof(cte.value);
-                cteMemory->setValue(cte.address, val);
+                globalMemory->cteMemory->setValue(cte.address, val);
             } else if (cte.type == STRING_) {
                 string val = cte.value;
-                cteMemory->setValue(cte.address, val);
+                globalMemory->cteMemory->setValue(cte.address, val);
             }
         }
     }
 
     int executions = 0;
     int executeQuad(int pid) {
-        if (executions++ > 200) {
+        if (executions++ > 100) {
             cout << "Too long" << endl;
             exit(-1);
         }
+        cout << "PID: " << pid << endl;
         Quadruple *quad = &quads[pid++];
         int oper = quad->oper, leftOperand = quad->leftOperand, rightOperand = quad->rightOperand, result = quad->result;
-        VMHelper helper(oper, leftOperand, rightOperand, result, globalMemory, tempMemory, cteMemory);
+        VFunctionMemory *currMemory = subStack.top();
+        VMHelper helper(oper, leftOperand, rightOperand, result, currMemory);
         switch(oper) {
             case EQUALS_:
                 helper.executeEquals();
@@ -99,17 +101,28 @@ struct VirtualMachine {
                 pid = result;
                 break;
             case GOSUB_:
+                subStack.push(eraStack.top());
+                eraStack.pop();
+                returnStack.push(pid);
+                pid = functions[result + 1].startQuad;
                 break;
             case ERA_:
+                createMemory(result + 1);
                 break;
             case PARAM_:
+                helper.executeParam(eraStack.top());
                 break;
             case ENDFUNC_:
+                pid = returnStack.top(); returnStack.pop();
+                subStack.pop();
                 break;
             case PRINT_:
                 helper.executePrint();
                 break;
             case RETURN_:
+                subStack.pop();
+                helper.executeReturn(subStack.top());
+                subStack.push(currMemory);
                 break;
             case END_:
                 pid = -1;
@@ -126,7 +139,6 @@ struct VirtualMachine {
     }
 
     void run() {
-        storeFunctions();
         storeConstants();
         executeQuads();
     }
