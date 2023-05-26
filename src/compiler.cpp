@@ -153,7 +153,7 @@ string operatorName(int _oper) {
 }
 
 void printQuad(Quadruple *quad, int idx, ofstream &file) {
-    printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
+    // printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
     file << quad->oper << "," << quad->leftOperand << "," << quad->rightOperand << "," << quad->result << endl;
 }
 
@@ -384,7 +384,7 @@ void doOperation() {
         if (oper == PRINT_ | oper == RETURN_) {
             leftOperand = -1;
             leftType = rightType;
-        }  else if (operands.size() == 1 && oper != EQUALS_) {
+        }  else if (operands.size() == 1 && oper != EQUALS_ && operators.size() > 0 && operators.top() == EQUALS_) {
             leftOperand = declareCte(INT_, 0); // TODO: this could be the same one every time
             leftType = INT_;
         } else {

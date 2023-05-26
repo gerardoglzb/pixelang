@@ -28,6 +28,7 @@ struct VirtualMachine {
 
         this->globalMemory = new VFunctionMemory(&functions[0], 2000, 4000, 2000, nullptr, "main");
         this->subStack.push(this->globalMemory);
+        cout << "Output:" << endl;
     }
 
     void createMemory(int id) {
@@ -49,6 +50,7 @@ struct VirtualMachine {
         }
     }
 
+    vector<int> pids;
     int executions = 0;
     int executeQuad(int pid) {
         if (executions++ > 100) {
@@ -56,6 +58,7 @@ struct VirtualMachine {
             exit(-1);
         }
         // cout << "PID: " << pid << endl;
+        pids.push_back(pid);
         Quadruple *quad = &quads[pid++];
         int oper = quad->oper, leftOperand = quad->leftOperand, rightOperand = quad->rightOperand, result = quad->result;
         VFunctionMemory *currMemory = subStack.top();
@@ -126,6 +129,12 @@ struct VirtualMachine {
                 break;
             case END_:
                 pid = -1;
+                break;
+                cout << "PIDS: ";
+                for (int id : pids) {
+                    cout << id << " ";
+                }
+                cout << endl;
                 break;
         }
         return pid;
