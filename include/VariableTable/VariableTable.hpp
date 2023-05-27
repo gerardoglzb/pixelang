@@ -28,7 +28,7 @@ struct VariableTable {
 
     VariableEntry *fullFind(string name) {
         VariableEntry *result = find(name);
-        if (!result) {
+        if (!result && parent) { // TODO: make sure there's a parent bf trying something funnny
             result = parent->find(name);
         }
         if (!result) {
@@ -40,17 +40,6 @@ struct VariableTable {
 
     int findAddress(string name) {
         return fullFind(name)->address;
-    }
-
-    string getID(int address) {
-        VariableEntry *entry = head;
-        while (entry) {
-            if (entry->address == address) {
-                return entry->name;
-            }
-            entry = entry->next;
-        }
-        return "";
     }
 
     int findType(string name) {
@@ -67,6 +56,10 @@ struct VariableTable {
 
     bool has(string name) {
         return find(name) != NULL;
+    }
+
+    bool fullHas(string name) {
+        return fullFind(name) != NULL;
     }
 
     VariableTable() {

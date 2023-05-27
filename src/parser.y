@@ -249,10 +249,6 @@ factor : // TODO : permitir que se pueda poner negativo y not
     } var_cte */
     | var_cte ;
 
-index :
-    expression
-    | CTE_INT
-
 var_cte :
     CTE_FLOAT {
         pushOperandOfType(declareCte(FLOAT_, $1), FLOAT_);
@@ -275,13 +271,15 @@ array_or_func :
         setCurrentCall("");
     }
     | {
-        pushOperandByID(getIDExpression());
+        // pushOperandByID(getIDExpression());
     } LEFT_BRACK {
-        verifyIsArray();
-    } index {
+        pushOperator(LEFTPAR_);
+        verifyIsArray(getIDExpression());
+    } expression {
         generateVerify();
     } RIGHT_BRACK {
         generateAccess();
+        pushOperator(RIGHTPAR_);
     }
     | {
         pushOperandByID(getIDExpression());
@@ -330,13 +328,15 @@ assignee :
         pushOperandByID($1);
     }
     | ID {
-        pushOperandByID($1);
+        // pushOperandByID($1);
     } LEFT_BRACK {
-        verifyIsArray();
-    } index {
+        pushOperator(LEFTPAR_);
+        verifyIsArray($1);
+    } expression {
         generateVerify();
     } RIGHT_BRACK {
         generateAccess();
+        pushOperator(LEFTPAR_);
     } ;
 
 call :

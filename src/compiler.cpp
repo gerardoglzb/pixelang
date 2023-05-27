@@ -34,8 +34,7 @@ VariableEntry *nextParameter(FunctionEntry *function) {
     return param;
 }
 
-void verifyIsArray() {
-    string id = getIDfromAddress(operands.top()); operands.pop();
+void verifyIsArray(string id) {
     VariableEntry *entry = funcDir->currentVariableTable()->fullFind(id);
     if (entry->length == 1) {
         cout << "Not an array" << endl;
@@ -49,7 +48,7 @@ void generateVerify() {
         cout << "Accessing arrays can only be integers." << endl;
         exit(-1);
     }
-    generateQuad(VERIFY_, operands.top(), 0, arrayAccesses.top()->length);
+    generateQuad(VERIFY_, operands.top(), 0, arrayAccesses.top()->length - 1);
 }
 
 void setCurrentCall(string name) {
@@ -166,12 +165,15 @@ string operatorName(int _oper) {
         case END_:
             oper = "END";
             break;
+        case VERIFY_:
+            oper = "VERIFY";
+            break;
     }
     return oper;
 }
 
 void printQuad(Quadruple *quad, int idx, ofstream &file) {
-    // printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
+    printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
     file << quad->oper << "," << quad->leftOperand << "," << quad->rightOperand << "," << quad->result << endl;
 }
 
@@ -371,7 +373,7 @@ void setFunctionReturn() {
 void generateAccess() {
     int resultAddress = declareTemp(INT_);
     generateQuad(ADD_, operands.top(), arrayAccesses.top()->address, resultAddress);
-    pushOperandOfType(resultAddress, arrayAccesses.top()->type);
+    pushOperandOfType(-resultAddress, arrayAccesses.top()->type);
     arrayAccesses.pop();
 }
 
@@ -480,16 +482,13 @@ void pushOperandByID(string name) {
     types.push(function->findType(name));
 }
 
-string getIDfromAddress(int address) {
-    return funcDir->currentFunction()->getID(address);
-}
-
 void pushOperandOfType(int address, int type) {
     operands.push(address);
     types.push(type);
 }
 
-VariableEntry *declareVariable(string name, int type, int lineas, int length) {
+VariableEntry *declareVariable(string name, int type, int length, int lineas) {
+    cout << "declaring " << name << " of length " << length << endl;
     VariableTable *table = funcDir->currentVariableTable();
     if (table->has(name)) {
         cout << "Error: Redefinition of var " << name << " on line "  << lineas << ".\n";
@@ -515,7 +514,7 @@ VariableEntry *declareParameter(string name, int type, int lineas, int address) 
 
 void declareVariables(IDNode *variable, int type, int lineas) {
     do {
-        declareVariable(variable->name, type, lineas);
+        declareVariable(variable->name, type, 1, lineas);
         variable = variable->next;
     }
     while (variable);
@@ -523,7 +522,7 @@ void declareVariables(IDNode *variable, int type, int lineas) {
 
 void declareArrays(IDNode* variable, int type, int length, int lineas) {
     do {
-        declareVariable(variable->name, type, lineas, length);
+        declareVariable(variable->name, type, length, lineas);
         variable = variable->next;
     }
     while (variable);

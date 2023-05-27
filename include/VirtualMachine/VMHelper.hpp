@@ -17,81 +17,124 @@ struct VMHelper {
         this->rightType = getType(rightOperandAddress);
     }
 
+    void printValues() {
+        cout << oper << " " << leftOperandAddress << " " << rightOperandAddress << " " << resultAddress << endl;
+    }
+
     int getType(int address) {
+        if (address < -1) { // TODO: space for pointers
+            return memory->getType(memory->getVMemory(-address)->getValueInt(-address));
+        }
         return memory->getType(address);
     }
 
     int getType(int address, VFunctionMemory *functionMemory) {
+        if (address < -1) {
+            return functionMemory->getType(functionMemory->getVMemory(-address)->getValueInt(-address));
+        }
         return functionMemory->getType(address);
     }
 
+    int getValueInt(int address) {
+        if (address < -1) {
+            return getVMemory(address)->getValueInt(memory->getVMemory(-address)->getValueInt(-address));
+        }
+        return getVMemory(address)->getValueInt(address);
+    }
+
+    float getValueFloat(int address) {
+        if (address < -1) {
+            return getVMemory(address)->getValueFloat(memory->getVMemory(-address)->getValueInt(-address));
+        }
+        return getVMemory(address)->getValueFloat(address);
+    }
+
+    string getValueString(int address) {
+        if (address < -1) {
+            return getVMemory(address)->getValueString(memory->getVMemory(-address)->getValueInt(-address));
+        }
+        return getVMemory(address)->getValueString(address);
+    }
+
     VMemory *getVMemory(int address) {
+        if (address < -1) {
+            return this->memory->getVMemory(this->memory->getVMemory(-address)->getValueInt(-address));
+        }
         return this->memory->getVMemory(address);
     }
 
     VMemory *getVMemory(int address, VFunctionMemory *functionMemory) {
+        if (address < -1) {
+            return functionMemory->getVMemory(this->memory->getVMemory(-address)->getValueInt(-address));
+        }
         return functionMemory->getVMemory(address);
     }
 
     template<typename T>
     void setValue(int address, T value) {
+        if (address < -1) {
+            this->memory->setValue(this->memory->getVMemory(-address)->getValueInt(-address), value);
+        }
         this->memory->setValue(address, value);
     }
 
     template<typename T>
     void setValue(int address, T value, VFunctionMemory *functionMemory) {
+        if (address < -1) {
+            functionMemory->setValue(functionMemory->getVMemory(-address)->getValueInt(-address), value);
+        }
         functionMemory->setValue(address, value);
     }
 
     void executeEquals() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (getType(resultAddress) == FLOAT_) { // TODO : asegurar float transformations en nuevas operaciones
                 setValue(resultAddress, float(rightOperand));
             }
             setValue(resultAddress, rightOperand);
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             setValue(resultAddress, float(rightOperand));
         } else if (rightType == STRING_) {
-            string rightOperand = getVMemory(rightOperandAddress)->getValueString(rightOperandAddress);
+            string rightOperand = getValueString(rightOperandAddress);
             setValue(resultAddress, rightOperand);
         }
     }
 
     void executeParam(VFunctionMemory *functionMemory) {
         if (leftType == INT_) {
-            int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+            int leftOperand = getValueInt(leftOperandAddress);
             if (getType(resultAddress, functionMemory) == FLOAT_) {
                 setValue(resultAddress, float(leftOperand), functionMemory);
             }
             setValue(resultAddress, leftOperand, functionMemory);
         } else if (leftType == FLOAT_) {
-            float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+            float leftOperand = getValueFloat(leftOperandAddress);
             setValue(resultAddress, leftOperand, functionMemory);
         } else if (leftType == STRING_) {
-            string leftOperand = getVMemory(leftOperandAddress)->getValueString(leftOperandAddress);
+            string leftOperand = getValueString(leftOperandAddress);
             setValue(resultAddress, leftOperand, functionMemory);
         }
     }
 
     void executeAdd() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand + rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
             }
         }
@@ -99,21 +142,21 @@ struct VMHelper {
 
     void executeSub() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand - rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand - rightOperand));
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand - rightOperand));
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand - rightOperand));
             }
         }
@@ -121,21 +164,21 @@ struct VMHelper {
 
     void executeMulti() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand * rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand * rightOperand));
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand * rightOperand));
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand * rightOperand));
             }
         }
@@ -143,21 +186,21 @@ struct VMHelper {
 
     void executeDiv() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             }
         }
@@ -165,21 +208,21 @@ struct VMHelper {
 
     void executeGreater() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand > rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand > rightOperand);
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand > rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand > rightOperand);
             }
         }
@@ -187,21 +230,21 @@ struct VMHelper {
 
     void executeLess() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand < rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand < rightOperand);
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand < rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand < rightOperand);
             }
         }
@@ -209,21 +252,21 @@ struct VMHelper {
 
     void executeEqualTo() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand == rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand == rightOperand);
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand == rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand == rightOperand);
             }
         }
@@ -231,21 +274,21 @@ struct VMHelper {
 
     void executeNotEqual() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand != rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand != rightOperand);
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand != rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand != rightOperand);
             }
         }
@@ -253,21 +296,21 @@ struct VMHelper {
 
     void executeAnd() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand && rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand && rightOperand);
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand && rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand && rightOperand);
             }
         }
@@ -275,21 +318,21 @@ struct VMHelper {
 
     void executeOr() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand || rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand || rightOperand);
             }
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             if (leftType == INT_) {
-                int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+                int leftOperand = getValueInt(leftOperandAddress);
                 setValue(resultAddress, leftOperand || rightOperand);
             } else if (leftType == FLOAT_) {
-                float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+                float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand || rightOperand);
             }
         }
@@ -297,10 +340,10 @@ struct VMHelper {
 
     int executeGotoF(int pid) {
         if (leftType == INT_) {
-            int leftOperand = getVMemory(leftOperandAddress)->getValueInt(leftOperandAddress);
+            int leftOperand = getValueInt(leftOperandAddress);
             return leftOperand ? pid : resultAddress;
         } else if (leftType == FLOAT_) {
-            float leftOperand = getVMemory(leftOperandAddress)->getValueFloat(leftOperandAddress);
+            float leftOperand = getValueFloat(leftOperandAddress);
             return leftOperand ? pid : resultAddress;
         }
         return -1;
@@ -308,27 +351,37 @@ struct VMHelper {
 
     void executeReturn(VFunctionMemory *parentMemory) {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
+            int rightOperand = getValueInt(rightOperandAddress);
             setValue(resultAddress, rightOperand, parentMemory);
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
+            float rightOperand = getValueFloat(rightOperandAddress);
             setValue(resultAddress, rightOperand, parentMemory);
         } else if (rightType == STRING_) {
-            string rightOperand = getVMemory(rightOperandAddress)->getValueString(rightOperandAddress);
+            string rightOperand = getValueString(rightOperandAddress);
             setValue(resultAddress, rightOperand, parentMemory);
         }
     }
 
     void executePrint() {
         if (rightType == INT_) {
-            int rightOperand = getVMemory(rightOperandAddress)->getValueInt(rightOperandAddress);
-            cout << rightOperand << endl;
+            int rightOperand = getValueInt(rightOperandAddress);
+            cout << "print: " << rightOperand << endl;
         } else if (rightType == FLOAT_) {
-            float rightOperand = getVMemory(rightOperandAddress)->getValueFloat(rightOperandAddress);
-            cout << rightOperand << endl;
+            float rightOperand = getValueFloat(rightOperandAddress);
+            cout << "print: " << rightOperand << endl;
         } else if (rightType == STRING_) {
-            string rightOperand = getVMemory(rightOperandAddress)->getValueString(rightOperandAddress);
-            cout << rightOperand << endl;
+            string rightOperand = getValueString(rightOperandAddress);
+            cout << "print: " << rightOperand << endl;
+        }
+    }
+
+    void executeVerify() {
+        int leftOperand = getValueInt(leftOperandAddress);
+        if (leftOperand < rightOperandAddress || leftOperand > resultAddress) {
+            printValues();
+            cout << leftOperand << endl;
+            cout << "Index out of range" << endl;
+            exit(-1);
         }
     }
 

@@ -136,6 +136,9 @@ struct VirtualMachine {
                 }
                 cout << endl;
                 break;
+            case VERIFY_:
+                helper.executeVerify();
+                break;
         }
         return pid;
     }

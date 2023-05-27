@@ -50,11 +50,9 @@ void verifyParameters(string name);
 
 void resetParameterCount(string name);
 
-void verifyIsArray();
+void verifyIsArray(string id);
 
 void generateAccess();
-
-string getIDfromAddress(int address);
 
 
 void verifyReturnType(int type);

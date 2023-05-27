@@ -29,6 +29,7 @@ struct Memory {
         for (int i = 1; i < amount; i++) {
             addValue(type);
         }
+        cout << "adding address " << address << " for size " << amount << endl;
         return address;
     }
 
