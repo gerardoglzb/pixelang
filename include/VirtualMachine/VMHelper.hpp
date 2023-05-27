@@ -379,7 +379,6 @@ struct VMHelper {
         int leftOperand = getValueInt(leftOperandAddress);
         if (leftOperand < rightOperandAddress || leftOperand > resultAddress) {
             printValues();
-            cout << leftOperand << endl;
             cout << "Index out of range" << endl;
             exit(-1);
         }

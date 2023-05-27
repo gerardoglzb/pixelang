@@ -106,6 +106,8 @@ void generateElse();
 
 void pushJumpCurrent();
 
+void pushJumpCurrent(int extra);
+
 void generateWhile();
 
 void validateLastOperand(int type);

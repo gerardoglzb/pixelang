@@ -206,7 +206,7 @@ string operatorName(int _oper) {
 }
 
 void printQuad(Quadruple *quad, int idx, ofstream &file) {
-    // printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
+    printf("%i\t%s\t %i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
     file << quad->oper << "," << quad->leftOperand << "," << quad->rightOperand << "," << quad->result << endl;
 }
 
@@ -222,6 +222,14 @@ void generateObject() {
     printFunctions(file);
     printCtes(file);
     printQuads(file);
+    if (operands.size()) {
+        cout << "Operands not empty." << endl;
+        exit(-1);
+    }
+    if (operators.size()) {
+        cout << "Operators not empty." << endl;
+        exit(-1);
+    }
     file.close();
 }
 
@@ -348,6 +356,10 @@ void pushJumpCurrent() {
     jumps.push(quads.size() + 1);
 }
 
+void pushJumpCurrent(int extra) {
+    jumps.push(quads.size() + 1 + extra);
+}
+
 void generateElse() {
     generateQuad(GOTO_, -1, -1, -1);
     int isFalse = jumps.top(); jumps.pop();
@@ -405,7 +417,9 @@ void setFunctionReturn() {
 
 void generateAccess() {
     int resultAddress = declareTemp(INT_);
-    generateQuad(ADD_, operands.top(), arrayAccesses.top()->address, resultAddress);
+    int baseAddress = declareCte(INT_, arrayAccesses.top()->address);
+    generateQuad(ADD_, operands.top(), baseAddress, resultAddress);
+    operands.pop(); types.pop();
     pushOperandOfType(-resultAddress, arrayAccesses.top()->type);
     arrayAccesses.pop();
 }
@@ -481,7 +495,8 @@ void doOperation() {
                 result = declareTemp(resultType);
             }
             generateQuad(oper, leftOperand, rightOperand, result);
-            pushOperandOfType(result, resultType);
+            if (oper != EQUALS_ && oper != PRINT_ && oper != RETURN_) // TODO: if there were, a = b = c then this is wrong
+                pushOperandOfType(result, resultType);
         } else {
             cout << "Type mismatch." << endl;;
             exit(-1);

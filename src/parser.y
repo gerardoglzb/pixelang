@@ -411,10 +411,11 @@ rep_cond :
 
 rep_no_cond :
     FOR {
-        pushJumpCurrent();
+        // pushJumpCurrent();
     } LEFT_PAR assignment {
         pushLastAssignment();
         saveForVariable();
+        pushJumpCurrent(-1);
     } TO expression {
         validateLastAssignment(INT_);
         validateLastOperand(INT_);
