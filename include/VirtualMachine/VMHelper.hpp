@@ -74,6 +74,7 @@ struct VMHelper {
     void setValue(int address, T value) {
         if (address < -1) {
             this->memory->setValue(this->memory->getVMemory(-address)->getValueInt(-address), value);
+            return;
         }
         this->memory->setValue(address, value);
     }
@@ -82,6 +83,7 @@ struct VMHelper {
     void setValue(int address, T value, VFunctionMemory *functionMemory) {
         if (address < -1) {
             functionMemory->setValue(functionMemory->getVMemory(-address)->getValueInt(-address), value);
+            return;
         }
         functionMemory->setValue(address, value);
     }

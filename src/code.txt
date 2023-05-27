@@ -1,14 +1,22 @@
 program test;
 
-var x : int;
+var a, b, c : int;
 var arr : int[5];
+var i : int;
+
+function fill(am: int, a : int) : void {
+    var i : int;
+    for (i = 0 to am) {
+        arr[i] = a * a * i;
+    }
+}
 
 {
-    arr[0] = 3;
-    arr[1] = arr[0] - 1;
-    x = 0;
-    while (x * x < arr[0] + 2 - 1 + arr[1]) do {
-        print(x);
-        x = x + 1;
+    a = 3;
+    i = 0;
+    fill(4, 2);
+    while (i < 5) do {
+        print(arr[i]);
+        i = i + 1;
     }
 }
