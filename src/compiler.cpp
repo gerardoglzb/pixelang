@@ -34,6 +34,24 @@ VariableEntry *nextParameter(FunctionEntry *function) {
     return param;
 }
 
+void verifyIsArray() {
+    string id = getIDfromAddress(operands.top()); operands.pop();
+    VariableEntry *entry = funcDir->currentVariableTable()->fullFind(id);
+    if (entry->length == 1) {
+        cout << "Not an array" << endl;
+        exit(-1);
+    }
+    arrayAccesses.push(entry);
+}
+
+void generateVerify() {
+    if (types.top() != INT_) {
+        cout << "Accessing arrays can only be integers." << endl;
+        exit(-1);
+    }
+    generateQuad(VERIFY_, operands.top(), 0, arrayAccesses.top()->length);
+}
+
 void setCurrentCall(string name) {
     if (name == "")
         currentCall = nullptr;
@@ -350,6 +368,13 @@ void setFunctionReturn() {
     currentFunc->resultAddress = lastResult;
 }
 
+void generateAccess() {
+    int resultAddress = declareTemp(INT_);
+    generateQuad(ADD_, operands.top(), arrayAccesses.top()->address, resultAddress);
+    pushOperandOfType(resultAddress, arrayAccesses.top()->type);
+    arrayAccesses.pop();
+}
+
 void verifyReturnType(int functionType) {
     if (semanticCube(EQUALS_, lastResultType, functionType) == -1) {
         cout << "Function type and return value are not compatible." << lastResultType << " "  << functionType << endl;
@@ -453,6 +478,10 @@ void pushOperandByID(string name) {
     FunctionEntry *function = funcDir->currentFunction();
     operands.push(function->findAddress(name));
     types.push(function->findType(name));
+}
+
+string getIDfromAddress(int address) {
+    return funcDir->currentFunction()->getID(address);
 }
 
 void pushOperandOfType(int address, int type) {

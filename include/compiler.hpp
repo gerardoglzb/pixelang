@@ -18,6 +18,7 @@ static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div, 5 greater
 static stack<int> types;
 static stack<int> operands;
 static stack<int> jumps;
+static stack<VariableEntry*> arrayAccesses;
 
 static string IDExpression;
 static int lastResult;
@@ -49,7 +50,11 @@ void verifyParameters(string name);
 
 void resetParameterCount(string name);
 
-void setAsArray(string name);
+void verifyIsArray();
+
+void generateAccess();
+
+string getIDfromAddress(int address);
 
 
 void verifyReturnType(int type);
@@ -90,6 +95,8 @@ void checkIfShouldDoOperation(vector<int> myOperators);
 void pushOperator(int oper);
 
 void generateIf();
+
+void generateVerify();
 
 void fillJumpFor();
 

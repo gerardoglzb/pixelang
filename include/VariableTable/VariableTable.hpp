@@ -42,6 +42,17 @@ struct VariableTable {
         return fullFind(name)->address;
     }
 
+    string getID(int address) {
+        VariableEntry *entry = head;
+        while (entry) {
+            if (entry->address == address) {
+                return entry->name;
+            }
+            entry = entry->next;
+        }
+        return "";
+    }
+
     int findType(string name) {
         return fullFind(name)->type;
     }

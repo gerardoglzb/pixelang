@@ -23,4 +23,5 @@ enum Operator {
     PRINT_,
     RETURN_,
     END_,
+    VERIFY_,
 };

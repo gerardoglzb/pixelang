@@ -56,6 +56,10 @@ struct FunctionEntry {
         return variableTable->findAddress(name);
     }
 
+    string getID(int address) {
+        return variableTable->getID(address);
+    }
+
     int findType(string name) {
         return variableTable->findType(name);
     }

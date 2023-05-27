@@ -276,7 +276,13 @@ array_or_func :
     }
     | {
         pushOperandByID(getIDExpression());
-    } LEFT_BRACK index RIGHT_BRACK 
+    } LEFT_BRACK {
+        verifyIsArray();
+    } index {
+        generateVerify();
+    } RIGHT_BRACK {
+        generateAccess();
+    }
     | {
         pushOperandByID(getIDExpression());
     } ;
@@ -323,7 +329,15 @@ assignee :
     ID {
         pushOperandByID($1);
     }
-    | ID LEFT_BRACK index RIGHT_BRACK ;
+    | ID {
+        pushOperandByID($1);
+    } LEFT_BRACK {
+        verifyIsArray();
+    } index {
+        generateVerify();
+    } RIGHT_BRACK {
+        generateAccess();
+    } ;
 
 call :
     ID {
