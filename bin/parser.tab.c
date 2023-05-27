@@ -1729,7 +1729,7 @@ yyreduce:
   case 25:
 #line 161 "./src/parser.y"
     {
-        declareParameter((yyvsp[(1) - (5)].sval), (yyvsp[(3) - (5)].chType), lineas, declareVariable((yyvsp[(1) - (5)].sval), (yyvsp[(3) - (5)].chType), lineas)->address);
+        declareParameter((yyvsp[(1) - (5)].sval), (yyvsp[(3) - (5)].chType), lineas, declareVariable((yyvsp[(1) - (5)].sval), (yyvsp[(3) - (5)].chType), 1, lineas)->address);
         (yyval.iparam) = (yyvsp[(5) - (5)].iparam) + 1;
     ;}
     break;
@@ -1737,7 +1737,7 @@ yyreduce:
   case 26:
 #line 165 "./src/parser.y"
     {
-        declareParameter((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].chType), lineas, declareVariable((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].chType), lineas)->address);
+        declareParameter((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].chType), lineas, declareVariable((yyvsp[(1) - (3)].sval), (yyvsp[(3) - (3)].chType), 1, lineas)->address);
         (yyval.iparam) = 1;
     ;}
     break;

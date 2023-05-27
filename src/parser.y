@@ -159,11 +159,11 @@ type :
 
 params :
     ID COLON type COMMA params {
-        declareParameter($1, $3, lineas, declareVariable($1, $3, lineas)->address);
+        declareParameter($1, $3, lineas, declareVariable($1, $3, 1, lineas)->address);
         $$ = $5 + 1;
     }
     | ID COLON type {
-        declareParameter($1, $3, lineas, declareVariable($1, $3, lineas)->address);
+        declareParameter($1, $3, lineas, declareVariable($1, $3, 1, lineas)->address);
         $$ = 1;
     }
     | {
