@@ -16,9 +16,42 @@ void verifyParameters(string name) {
     }
 }
 
+void printOperators() {
+    stack<int> temp;
+    while (operators.size()) {
+        temp.push(operators.top());
+        operators.pop();
+    }
+    cout << "Operators: ";
+    while (temp.size()) {
+        operators.push(temp.top());
+        cout << operatorName(temp.top()) << ", ";
+        temp.pop();
+    }
+    cout << endl;
+}
+
+void printOperands() {
+    stack<int> temp;
+    while (operands.size()) {
+        temp.push(operands.top());
+        operands.pop();
+    }
+    cout << "Operands: ";
+    while (temp.size()) {
+        operands.push(temp.top());
+        cout << temp.top() << ", ";
+        temp.pop();
+    }
+    cout << endl;
+}
+
 void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     Quadruple quad = Quadruple(oper, leftOperand, rightOperand, result);
     quads.push_back(quad);
+    printOperators();
+    printOperands();
+    printf("%lu\t%s\t%i\t%i\t%i\n\n", quads.size(), operatorName(oper).c_str(), leftOperand, rightOperand, result);
 }
 
 void generateGosub(string name) {
@@ -136,7 +169,7 @@ string operatorName(int _oper) {
             oper = "LEFTP";
             break;
         case RIGHTPAR_:
-            oper = "RIGHT";
+            oper = "RIGHTP";
             break;
         case GOTOF_:
             oper = "GOTOF";
@@ -173,7 +206,7 @@ string operatorName(int _oper) {
 }
 
 void printQuad(Quadruple *quad, int idx, ofstream &file) {
-    printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
+    // printf("%i\t%s\t%i\t%i\t%i\n", idx, operatorName(quad->oper).c_str(), quad->leftOperand, quad->rightOperand, quad->result);
     file << quad->oper << "," << quad->leftOperand << "," << quad->rightOperand << "," << quad->result << endl;
 }
 
@@ -381,6 +414,12 @@ void verifyReturnType(int functionType) {
     if (semanticCube(EQUALS_, lastResultType, functionType) == -1) {
         cout << "Function type and return value are not compatible." << lastResultType << " "  << functionType << endl;
         exit(-1);
+    }
+}
+
+void popOperator(int oper) {
+    if (operators.size() && operators.top() == oper) {
+        operators.pop();
     }
 }
 

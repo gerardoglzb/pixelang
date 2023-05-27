@@ -1934,7 +1934,7 @@ yyreduce:
 #line 280 "./src/parser.y"
     {
         generateAccess();
-        pushOperator(RIGHTPAR_);
+        popOperator(LEFTPAR_);
     ;}
     break;
 
@@ -2006,7 +2006,7 @@ yyreduce:
 #line 337 "./src/parser.y"
     {
         generateAccess();
-        pushOperator(LEFTPAR_);
+        popOperator(LEFTPAR_);
     ;}
     break;
 

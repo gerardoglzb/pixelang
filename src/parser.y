@@ -279,7 +279,7 @@ array_or_func :
         generateVerify();
     } RIGHT_BRACK {
         generateAccess();
-        pushOperator(RIGHTPAR_);
+        popOperator(LEFTPAR_);
     }
     | {
         pushOperandByID(getIDExpression());
@@ -336,7 +336,7 @@ assignee :
         generateVerify();
     } RIGHT_BRACK {
         generateAccess();
-        pushOperator(LEFTPAR_);
+        popOperator(LEFTPAR_);
     } ;
 
 call :

@@ -84,6 +84,8 @@ void pushOperandByID(string name);
 
 void pushOperator(string oper);
 
+void popOperator(int oper);
+
 void pushOperandResult(string name);
 
 void doOperation();
