@@ -35,11 +35,9 @@ static FunctionEntry *currentFunc;
 static FunctionDirectory *funcDir;
 
 
-VariableEntry *declareVariable(string name, int type, int lineas);
+VariableEntry *declareVariable(string name, int type, int lineas, int length=1);
 
-void declareArray(string name, int type, int size, int lineas);
-
-void declareArrays(IDNode* variable, int type, int size, int lineas);
+void declareArrays(IDNode* variable, int type, int length, int lineas);
 
 void declareVariables(IDNode *variable, int type, int lineas);
 
@@ -50,6 +48,8 @@ VariableEntry *nextParameter(FunctionEntry *function);
 void verifyParameters(string name);
 
 void resetParameterCount(string name);
+
+void setAsArray(string name);
 
 
 void verifyReturnType(int type);

@@ -274,7 +274,9 @@ array_or_func :
         pushOperandResult(getCurrentCall());
         setCurrentCall("");
     }
-    | LEFT_BRACK index RIGHT_BRACK 
+    | {
+        pushOperandByID(getIDExpression());
+    } LEFT_BRACK index RIGHT_BRACK 
     | {
         pushOperandByID(getIDExpression());
     } ;

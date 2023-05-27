@@ -330,8 +330,8 @@ int declareGlobalTemp(int type) {
     return funcDir->main->tempMemory->addValue(type);
 }
 
-int declareLocal(int type) {
-    return funcDir->currentFunction()->localMemory->addValue(type);
+int declareLocal(int type, int size) {
+    return funcDir->currentFunction()->localMemory->addValues(type, size);
 }
 
 void setCurrentFuncType(int type) {
@@ -460,14 +460,14 @@ void pushOperandOfType(int address, int type) {
     types.push(type);
 }
 
-VariableEntry *declareVariable(string name, int type, int lineas) {
+VariableEntry *declareVariable(string name, int type, int lineas, int length) {
     VariableTable *table = funcDir->currentVariableTable();
     if (table->has(name)) {
         cout << "Error: Redefinition of var " << name << " on line "  << lineas << ".\n";
         exit(-1);
     }
-    VariableEntry *entry = new VariableEntry(name, type);
-    entry->address = declareLocal(type);
+    VariableEntry *entry = new VariableEntry(name, type, length);
+    entry->address = declareLocal(type, length);
     table->insert(entry);
     return entry;
 }
@@ -484,15 +484,6 @@ VariableEntry *declareParameter(string name, int type, int lineas, int address) 
     return entry;
 }
 
-void declareArray(string name, int type, int size, int lineas) {
-    if (size <= 0) {
-        cout << "Error: Array " << name << " on line "  << lineas << " cannot be of size 0.\n";
-        exit(-1);
-    }
-    VariableEntry *entry = declareVariable(name, (type == INT_) ? 5 : 6, lineas);
-    entry->length = size;
-}
-
 void declareVariables(IDNode *variable, int type, int lineas) {
     do {
         declareVariable(variable->name, type, lineas);
@@ -501,9 +492,9 @@ void declareVariables(IDNode *variable, int type, int lineas) {
     while (variable);
 }
 
-void declareArrays(IDNode* variable, int type, int size, int lineas) {
+void declareArrays(IDNode* variable, int type, int length, int lineas) {
     do {
-        declareArray(variable->name, type, size, lineas);
+        declareVariable(variable->name, type, lineas, length);
         variable = variable->next;
     }
     while (variable);

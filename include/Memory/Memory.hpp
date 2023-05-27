@@ -24,6 +24,14 @@ struct Memory {
         this->memoryString = new MemoryFrame<string>(size, offset + size * 2);
     }
 
+    int addValues(int type, int amount) {
+        int address = addValue(type);
+        for (int i = 1; i < amount; i++) {
+            addValue(type);
+        }
+        return address;
+    }
+
     int addValue(int type) {
         if (type == INT_) {
             return memoryInt->addValue();
