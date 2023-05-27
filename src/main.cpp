@@ -49,8 +49,8 @@ int main() {
     string line;
     int step = 0;
     int type = 0;
-    getline(file, line);
     string filename;
+    getline(file, filename);
     while (getline(file, line)) {
         if (line == "%%") {
             step++;
