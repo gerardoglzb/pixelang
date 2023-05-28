@@ -1918,7 +1918,7 @@ yyreduce:
   case 71:
 #line 275 "./src/parser.y"
     {
-        pushOperator(LEFTPAR_);
+        pushOperator(FAKEBOT_);
         verifyIsArray(getIDExpression());
     ;}
     break;
@@ -1934,7 +1934,7 @@ yyreduce:
 #line 280 "./src/parser.y"
     {
         generateAccess();
-        popOperator(LEFTPAR_);
+        popOperator(FAKEBOT_);
     ;}
     break;
 
@@ -1990,7 +1990,7 @@ yyreduce:
   case 96:
 #line 332 "./src/parser.y"
     {
-        pushOperator(LEFTPAR_);
+        pushOperator(FAKEBOT_);
         verifyIsArray((yyvsp[(1) - (3)].sval));
     ;}
     break;
@@ -2006,7 +2006,7 @@ yyreduce:
 #line 337 "./src/parser.y"
     {
         generateAccess();
-        popOperator(LEFTPAR_);
+        popOperator(FAKEBOT_);
     ;}
     break;
 

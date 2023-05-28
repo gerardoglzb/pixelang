@@ -24,4 +24,5 @@ enum Operator {
     RETURN_,
     END_,
     VERIFY_,
+    FAKEBOT_,
 };

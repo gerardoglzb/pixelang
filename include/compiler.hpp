@@ -176,3 +176,8 @@ void generateObject();
 
 
 void setProgramName(string name);
+
+
+void printOperators();
+
+void printOperands();

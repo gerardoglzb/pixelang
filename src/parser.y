@@ -273,13 +273,13 @@ array_or_func :
     | {
         // pushOperandByID(getIDExpression());
     } LEFT_BRACK {
-        pushOperator(LEFTPAR_);
+        pushOperator(FAKEBOT_);
         verifyIsArray(getIDExpression());
     } expression {
         generateVerify();
     } RIGHT_BRACK {
         generateAccess();
-        popOperator(LEFTPAR_);
+        popOperator(FAKEBOT_);
     }
     | {
         pushOperandByID(getIDExpression());
@@ -330,13 +330,13 @@ assignee :
     | ID {
         // pushOperandByID($1);
     } LEFT_BRACK {
-        pushOperator(LEFTPAR_);
+        pushOperator(FAKEBOT_);
         verifyIsArray($1);
     } expression {
         generateVerify();
     } RIGHT_BRACK {
         generateAccess();
-        popOperator(LEFTPAR_);
+        popOperator(FAKEBOT_);
     } ;
 
 call :

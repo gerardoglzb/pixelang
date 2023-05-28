@@ -510,10 +510,13 @@ void checkIfShouldDoOperation(vector<int> myOperators) {
     if (operators.size() == 0) {
         return;
     }
-    if (operators.top() == RIGHTPAR_) {
-        operators.pop();
-        operators.pop();
+    if (operators.top() == FAKEBOT_) {
         return;
+    }
+    if (operators.top() == RIGHTPAR_) {
+        cout << "BYEEE" << endl;
+        operators.pop();
+        operators.pop();
     }
     if (operators.top() == LEFTPAR_) {
         return;
@@ -542,7 +545,6 @@ void pushOperandOfType(int address, int type) {
 }
 
 VariableEntry *declareVariable(string name, int type, int length, int lineas) {
-    cout << "declaring " << name << " of length " << length << endl;
     VariableTable *table = funcDir->currentVariableTable();
     if (table->has(name)) {
         cout << "Error: Redefinition of var " << name << " on line "  << lineas << ".\n";

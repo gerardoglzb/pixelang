@@ -7,7 +7,7 @@ var i : int;
 function fill(am: int, a : int) : void {
     var i : int;
     for (i = 0 to am) {
-        arr[i] = a * a * i;
+        arr[i] = a * a * (i + 1);
     }
 }
 
