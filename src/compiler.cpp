@@ -126,6 +126,7 @@ void generateEra(string name) {
 }
 
 void generateEndFunc() {
+    cout << "generating endfunc" << endl;
     generateQuad(ENDFUNC_, -1, -1, -1);
 }
 
@@ -154,7 +155,7 @@ string operatorName(int _oper) {
             oper = "LESS";
             break;
         case EQUALTO_:
-            oper = "EQUAL";
+            oper = "EQUALTO";
             break;
         case NOTEQUAL_:
             oper = "NOTEQ";
@@ -384,6 +385,8 @@ void generateIf() {
 }
 
 void pushOperator(int oper) {
+    if (oper == RETURN_)
+        cout << "ultimate push ret new" << endl;
     operators.push(oper);
 }
 
@@ -466,6 +469,13 @@ void doOperation() {
         int leftType;
         int oper = operators.top(); operators.pop();
 
+        if (oper == RETURN_) {
+            printf("Just poppoed return \n");
+            if (operators.size())
+                cout << operators.top() << endl;
+            else
+                cout << "emptY" << endl;
+        }
         if (oper == PRINT_ | oper == RETURN_) {
             leftOperand = -1;
             leftType = rightType;
@@ -488,7 +498,11 @@ void doOperation() {
             } else if (oper == PRINT_) {
                 result = -1;
             } else if (oper == RETURN_) {
-                result = declareGlobalTemp(rightType);
+                result = returnAddresses.top();
+                if (result == -1) {
+                    cout << "Trying to return to a void function" << endl;
+                    exit(-1);
+                }
                 lastResult = result;
                 lastResultType = rightType;
             } else {
@@ -644,4 +658,17 @@ int semanticCube(int oper, int type1, int type2) {
     }
 
     return oper < 5 ? cube[oper][type1][type2] : 0;
+}
+
+void createReturnAddress() {
+    if (currentFunc->type == VOID_) {
+        returnAddresses.push(-1);
+    } else {
+        int address = declareGlobalTemp(currentFunc->type);
+        returnAddresses.push(address);
+    }
+}
+
+void popReturnAddress() {
+    returnAddresses.pop();
 }

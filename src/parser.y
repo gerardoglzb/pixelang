@@ -127,7 +127,9 @@ function :
         setCurrentCurrQuad();
         setCurrentFuncType($9);
         setCurrentFunc($2);
+        createReturnAddress();
     } statements RIGHT_CURLY {
+        popReturnAddress();
         generateEndFunc();
         functionDirectory.removeVariableTable($2);
     } ;
@@ -142,6 +144,7 @@ function_type :
 
 return :
     RETURN {
+        cout << "return in return push " << endl;
         pushOperator(RETURN_);
     } LEFT_PAR expression RIGHT_PAR SEMICOLON {
         checkIfShouldDoOperation(vector<int>({RETURN_}));

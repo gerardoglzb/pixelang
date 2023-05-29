@@ -117,7 +117,6 @@ struct VirtualMachine {
                 break;
             case ENDFUNC_:
                 pid = returnStack.top(); returnStack.pop();
-                subStack.pop();
                 break;
             case PRINT_:
                 helper.executePrint();
@@ -125,11 +124,11 @@ struct VirtualMachine {
             case RETURN_:
                 subStack.pop();
                 helper.executeReturn(subStack.top());
-                subStack.push(currMemory);
+                pid = returnStack.top(); returnStack.pop();
                 break;
             case END_:
                 pid = -1;
-                break;
+                // break;
                 cout << "PIDS: ";
                 for (int id : pids) {
                     cout << id << " ";

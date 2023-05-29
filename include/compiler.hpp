@@ -26,6 +26,7 @@ static int lastResultType;
 static int lastAssignmentType;
 static int lastAssignment;
 static stack<int> forVariables;
+static stack<int> returnAddresses;
 static int currentFuncType;
 
 static vector<Quadruple> quads;
@@ -64,6 +65,10 @@ void setCurrentFuncType(int type);
 void setCurrentFunc(string name);
 
 void setFunctionReturn();
+
+void createReturnAddress();
+
+void popReturnAddress();
 
 void verifyFunctionExists(string name, int lineas);
 
