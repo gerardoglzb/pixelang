@@ -4,19 +4,14 @@ var a, b, c : int;
 var arr : int[5];
 var i : int;
 
-function fill(am: int, a : int) : void {
-    var i : int;
-    for (i = 0 to am) {
-        arr[i] = a * a * (i + 1);
+function fact(x : int) : int {
+    if (x == 1) {
+        return(1);
     }
+    return(fact(x-1));
 }
 
 {
-    a = 3;
-    i = 0;
-    fill(4, 2);
-    while (i < 5) do {
-        print(arr[i]);
-        i = i + 1;
-    }
+    a = fact(5);
+    print(a);
 }

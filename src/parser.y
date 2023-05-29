@@ -127,7 +127,7 @@ function :
         setCurrentCurrQuad();
         setCurrentFuncType($9);
         setCurrentFunc($2);
-    } function_statements RIGHT_CURLY {
+    } statements RIGHT_CURLY {
         generateEndFunc();
         functionDirectory.removeVariableTable($2);
     } ;
@@ -270,9 +270,14 @@ array_or_func :
         pushOperandResult(getCurrentCall());
         setCurrentCall("");
     }
+    | array
+    | array array
     | {
-        // pushOperandByID(getIDExpression());
-    } LEFT_BRACK {
+        pushOperandByID(getIDExpression());
+    } ;
+
+array :
+    LEFT_BRACK {
         pushOperator(FAKEBOT_);
         verifyIsArray(getIDExpression());
     } expression {
@@ -281,9 +286,6 @@ array_or_func :
         generateAccess();
         popOperator(FAKEBOT_);
     }
-    | {
-        pushOperandByID(getIDExpression());
-    } ;
 
 arguments :
     expression {
@@ -306,14 +308,7 @@ statement :
     | call
     | printing
     | conditional
-    | repetition ;
-
-function_statements :
-    function_statement function_statements
-    | ;
-
-function_statement :
-    statement
+    | repetition
     | return ;
 
 assignment :

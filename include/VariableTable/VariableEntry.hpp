@@ -15,7 +15,6 @@ struct VariableEntry {
     };
 
     VariableEntry(string name, int type) {
-        cout << " noarray2 " << endl;
         this->name = name;
         this->type = type;
         this->address = -1;
