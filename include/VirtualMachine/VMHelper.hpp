@@ -110,7 +110,6 @@ struct VMHelper {
             if (getType(resultAddress, functionMemory) == FLOAT_) {
                 setValue(resultAddress, float(leftOperand), functionMemory);
             }
-            cout << "setting " << leftOperand << " to " << resultAddress << endl;
             setValue(resultAddress, leftOperand, functionMemory);
         } else if (leftType == FLOAT_) {
             float leftOperand = getValueFloat(leftOperandAddress);

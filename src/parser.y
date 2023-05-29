@@ -267,11 +267,13 @@ array_or_func :
     } LEFT_PAR {
         generateEra(getCurrentCall());
         resetParameterCount(getCurrentCall());
+        pushOperator(FAKEBOT_);
     } arguments RIGHT_PAR {
         verifyParameters(getCurrentCall());
         generateGosub(getCurrentCall());
         pushOperandResult(getCurrentCall());
         setCurrentCall("");
+        popOperator(FAKEBOT_);
     }
     | array
     | array array
