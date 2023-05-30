@@ -367,13 +367,14 @@ struct VMHelper {
     void executePrint() {
         if (rightType == INT_) {
             int rightOperand = getValueInt(rightOperandAddress);
-            cout << "print: " << rightOperand << endl;
+            cout << rightOperand << endl;
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            cout << "print: " << rightOperand << endl;
+            cout << rightOperand << endl;
         } else if (rightType == STRING_) {
             string rightOperand = getValueString(rightOperandAddress);
-            cout << "print: " << rightOperand << endl;
+            rightOperand = rightOperand.substr(1, rightOperand.length() - 2);
+            cout << rightOperand << endl;
         }
     }
 

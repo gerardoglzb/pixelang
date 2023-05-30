@@ -1,6 +1,6 @@
 # pixelang
 
-El avance incluye la generación de cuádruplos de funciones y todo lo que va antes. También inicié la VM con un main.cpp que lee los contenidos del quads.txt generado (el obj) y los guarda en estructuras de dato que se mandarán a la VM. De momento la VM no hace nada.
+El avance incluye básicamente todo lo anterior: análisis léxico y sintáctico, variables, funciones, expresiones aritméticas y estatutos secuenciales (tanto la generación de quads como la ejecución de la máquina virtual y manejo de memoria para todo). También funcionan los arreglos, pero solo de una dimensión, no matrices.
 
 // Memorias
 

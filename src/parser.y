@@ -144,7 +144,6 @@ function_type :
 
 return :
     RETURN {
-        cout << "return in return push " << endl;
         pushOperator(RETURN_);
     } LEFT_PAR expression RIGHT_PAR SEMICOLON {
         checkIfShouldDoOperation(vector<int>({RETURN_}));

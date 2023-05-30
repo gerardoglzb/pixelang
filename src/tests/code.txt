@@ -15,4 +15,5 @@ function fib(n: int) : int {
     for (i = 0 to 11) {
         print(fib(i));
     }
+    print("done");
 }
