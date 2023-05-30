@@ -69,9 +69,11 @@ VariableEntry *nextParameter(FunctionEntry *function) {
 
 void verifyIsArray(string id) {
     VariableEntry *entry = funcDir->currentVariableTable()->fullFind(id);
-    if (entry->length == 1) {
+    if (entry->arrNode == nullptr) {
+        cout << "Trying to access a non-array." << endl;
         exit(-1);
     }
+    entry->resetArrayNode();
     arrayAccesses.push(entry);
 }
 
@@ -80,7 +82,7 @@ void generateVerify() {
         cout << "Accessing arrays can only be integers." << endl;
         exit(-1);
     }
-    generateQuad(VERIFY_, operands.top(), 0, arrayAccesses.top()->length - 1);
+    generateQuad(VERIFY_, operands.top(), 0, arrayAccesses.top()->currArrNode->size - 1);
 }
 
 void setCurrentCall(string name) {
@@ -417,12 +419,40 @@ void setFunctionReturn() {
 }
 
 void generateAccess() {
-    int resultAddress = declareTemp(INT_);
-    int baseAddress = declareCte(INT_, arrayAccesses.top()->address);
-    generateQuad(ADD_, operands.top(), baseAddress, resultAddress);
-    operands.pop(); types.pop();
-    pushOperandOfType(-resultAddress, arrayAccesses.top()->type);
-    arrayAccesses.pop();
+    cout << "generating access 1" << endl;
+    ArrayNode *node = arrayAccesses.top()->currArrNode;
+    cout << "generating access 2" << endl;
+    if (node->next) {
+        cout << "generating access 2.5" << endl;
+        int resultAddress = declareTemp(INT_);
+        generateQuad(MULTI_, operands.top(), declareCte(INT_, node->mOrK), resultAddress);
+        operands.pop(); types.pop();
+        pushOperandOfType(resultAddress, INT_);
+    }
+    cout << "generating access 3" << endl;
+    if (node->prev) {
+        cout << "generating access 3.5" << endl;
+        int resultAddress = declareTemp(INT_);
+        int index = operands.top(); operands.pop(); types.pop();
+        generateQuad(ADD_, operands.top(), index, resultAddress);
+        operands.pop(); types.pop();
+        pushOperandOfType(resultAddress, INT_);
+    }
+    cout << "generating access 4" << endl;
+    if (!node->next) {
+        cout << "generating access 4.5" << endl;
+        int baseAddress = declareCte(INT_, arrayAccesses.top()->address);
+        int resultAddress = declareTemp(INT_);
+        int pointerAddress = declareTemp(INT_);
+        generateQuad(ADD_, operands.top(), declareCte(INT_, node->mOrK), resultAddress); // TODO: opcional porque siempre es 0
+        operands.pop(); types.pop();
+        generateQuad(ADD_, resultAddress, baseAddress, pointerAddress);
+        pushOperandOfType(-pointerAddress, arrayAccesses.top()->type);
+        arrayAccesses.pop();
+    } else {
+        arrayAccesses.top()->nextNode();
+    }
+    cout << "generating access 5" << endl;
 }
 
 void verifyReturnType(int functionType) {
@@ -554,7 +584,7 @@ void setCurrentArrayNode(ArrayNode *node) {
     currentArrayNode = node;
 }
 
-void getCurrentArrayNode() {
+ArrayNode *getCurrentArrayNode() {
     return currentArrayNode;
 }
 
@@ -564,7 +594,8 @@ VariableEntry *declareVariable(string name, int type, ArrayNode *arrayNodes, int
         cout << "Error: Redefinition of var " << name << " on line "  << lineas << ".\n";
         exit(-1);
     }
-    VariableEntry *entry = new VariableEntry(name, type, declareLocal(type, 1), arrayNodes);
+    int size = arrayNodes ? arrayNodes->getFullSize() : 1;
+    VariableEntry *entry = new VariableEntry(name, type, declareLocal(type, size), arrayNodes);
     table->insert(entry);
     return entry;
 }

@@ -100,20 +100,22 @@ vars :
     } ;
 
 var :
-    var_list {
-        setCurrentArrayNode(nullptr);
-    } COLON type array_list {
+    var_list COLON type array_list {
+        $4->calculateRs();
         declareVariables($1, $3, $4, lineas);
-    } ;
+    } 
+    | var_list COLON type {
+        declareVariables($1, $3, nullptr, lineas);
+    };
 
 array_list :
     array_declaration {
-        ArrayNode *node = new ArrayNode($1, getCurrentArrayNode());
-        setCurrentArrayNode(node);
+        ArrayNode *node = new ArrayNode($1);
         $$ = node;
-    } array_list
-    | {
-        $$ = nullptr;
+    }
+    | array_declaration array_list {
+        ArrayNode *node = new ArrayNode($1, $2);
+        $$ = node;
     } ;
 
 array_declaration :
@@ -179,11 +181,11 @@ type :
 
 params :
     ID COLON type COMMA params {
-        declareParameter($1, $3, lineas, declareVariable($1, $3, 1, lineas)->address);
+        declareParameter($1, $3, lineas, declareVariable($1, $3, nullptr, lineas)->address);
         $$ = $5 + 1;
     }
     | ID COLON type {
-        declareParameter($1, $3, lineas, declareVariable($1, $3, 1, lineas)->address);
+        declareParameter($1, $3, lineas, declareVariable($1, $3, nullptr, lineas)->address);
         $$ = 1;
     }
     | {
@@ -292,7 +294,12 @@ array_or_func :
         setCurrentCall("");
         popOperator(FAKEBOT_);
     }
-    | arrays
+    | {
+        pushOperator(FAKEBOT_);
+        verifyIsArray(getIDExpression());
+    } arrays {
+        popOperator(FAKEBOT_);
+    }
     | {
         pushOperandByID(getIDExpression());
     } ;
@@ -302,14 +309,10 @@ arrays :
     | array ;
 
 array :
-    LEFT_BRACK {
-        pushOperator(FAKEBOT_);
-        verifyIsArray(getIDExpression());
-    } expression {
+    LEFT_BRACK expression {
         generateVerify();
     } RIGHT_BRACK {
         generateAccess();
-        popOperator(FAKEBOT_);
     } ;
 
 arguments :
@@ -349,7 +352,11 @@ assignee :
     }
     | ID {
         handleIDExpression($1);
-    } arrays ;
+        pushOperator(FAKEBOT_);
+        verifyIsArray(getIDExpression());
+    } arrays {
+        popOperator(FAKEBOT_);
+    } ;
 
 call :
     ID {

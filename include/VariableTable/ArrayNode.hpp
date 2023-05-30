@@ -8,33 +8,51 @@ struct ArrayNode {
     ArrayNode *prev;
     ArrayNode *next;
 
+    int getFullSize() {
+        return next ? this->size * next->getFullSize() : this->size;
+    }
+
     int getM0() {
-        return next ? next->getM0 ? r;
+        return next ? next->getM0() : r;
     }
 
     void calculateK() {
-        int m = prev ? prev->mOrK next->getM0(): 
-        this->mOrK = next ? m : offset;
+        cout << "calculating K" << endl;
+        int m = prev ? prev->mOrK : getM0();
+        this->mOrK = next ? m : -offset;
+        if (next)
+            next->calculateK();
+    }
+    
+    void calculateRs() {
+        if (next) {
+            next->calculateRs();
+        } else {
+            getRs();
+        }
     }
 
-    ArrayNode(int size, ArrayNode *prev) {
+    int getRs() {
+        this->r = prev ? r * prev->getRs() : r;
+        return this->r;
+    }
+
+    ArrayNode(int size, ArrayNode *next) {
         this->size = size;
         this->mOrK = -1;
-        this->prev = prev;
-        this->next = nullptr;
-        this->r = size + 1;
-        if (prev) {
-            this->r *= prev->r;
-            prev->next = this;
-        }
+        this->next = next;
+        this->r = size;
         this->offset = 0;
+        if (next) {
+            next->prev = this;
+        }
     };
 
     ArrayNode(int size) {
         this->size = size;
         this->mOrK = -1;
-        this->prev = nullptr;
-        this->r = size + 1;
+        this->next = nullptr;
+        this->r = size;
         this->offset = 0;
     };
 };

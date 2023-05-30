@@ -6,7 +6,20 @@ struct VariableEntry {
     int type;
     int address;
     ArrayNode *arrNode;
+    ArrayNode *currArrNode;
     VariableEntry *next;
+
+    void resetArrayNode() {
+        currArrNode = arrNode;
+    }
+
+    void nextNode() {
+        if (!currArrNode) {
+            cout << "Array doesn't have enough dimensions for indexing." << endl;
+            exit(-1);
+        }
+        this->currArrNode = currArrNode->next;
+    }
 
     VariableEntry() {
         this->name = "";
@@ -29,6 +42,7 @@ struct VariableEntry {
         this->address = address;
         this->next = nullptr;
         this->arrNode = arrNode;
-        this->arrNode->calculateK();
+        if (arrNode)
+            this->arrNode->calculateK();
     };
 };

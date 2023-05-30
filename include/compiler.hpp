@@ -39,9 +39,9 @@ static FunctionDirectory *funcDir;
 static ArrayNode *currentArrayNode;
 
 
-VariableEntry *declareVariable(string name, int type, int lineas);
+VariableEntry *declareVariable(string name, int type, ArrayNode *arrayNodes, int lineas);
 
-void declareVariables(IDNode *variable, int type, int lineas);
+void declareVariables(IDNode *variable, int type, ArrayNode *arrayNodes, int lineas);
 
 VariableEntry *declareParameter(string name, int type, int lineas, int address);
 
@@ -54,6 +54,10 @@ void resetParameterCount(string name);
 void verifyIsArray(string id);
 
 void generateAccess();
+
+void setCurrentArrayNode(ArrayNode *node);
+
+ArrayNode *getCurrentArrayNode();
 
 
 void verifyReturnType(int type);
