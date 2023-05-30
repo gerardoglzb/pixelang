@@ -442,10 +442,12 @@ void popOperator(int oper) {
 void pushOperandResult(string name) {
     int functionType = funcDir->find(name)->type;
     if (semanticCube(EQUALS_, currentCall->type, functionType) == -1) {
-        cout << "Function type and return value are not compatible.2" << endl;
+        cout << "Function type and return value are not compatible." << endl;
         exit(-1);
     }
-    pushOperandOfType(currentCall->resultAddress, functionType);
+    int callAddress = declareTemp(functionType);
+    generateQuad(EQUALS_, -1, currentCall->resultAddress, callAddress);
+    pushOperandOfType(callAddress, functionType);
 }
 
 int declareCte(int type, int value) {

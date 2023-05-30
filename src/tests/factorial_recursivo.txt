@@ -12,5 +12,5 @@ function fact(x : int) : int {
 }
 
 {
-    print(fact(12));
+    print(fact(6));
 }

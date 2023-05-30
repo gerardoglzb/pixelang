@@ -135,8 +135,6 @@ void generateEra(string name);
 
 void generateParam();
 
-void generateGosub();
-
 void generateGosub(string name);
 
 void fillMain();

@@ -5,14 +5,14 @@ var arr : int[5];
 var i : int;
 
 function fact(x : int) : int {
-    var result : int = 1;
-    var i : int;
-    for (i = 1 to x) {
+    var result, i : int;
+    result = 1;
+    for (i = 1 to x+1) {
         result = result * i;
     }
-    return result;
+    return(result);
 }
 
 {
-    print(fact(12));
+    print(fact(6));
 }
