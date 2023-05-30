@@ -25,4 +25,9 @@ enum Operator {
     END_,
     VERIFY_,
     FAKEBOT_,
+    NOT_,
+    MOD_,
+    GREATEREQ_,
+    LESSEQ_,
+    EXPO_,
 };

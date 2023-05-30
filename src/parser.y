@@ -60,6 +60,7 @@
 %token EQUAL_TO
 %token AND
 %token OR
+%token NOT
 
 %token LEFT_PAR
 %token RIGHT_PAR
@@ -193,7 +194,7 @@ params :
     } ;
 
 expression :
-    comp {
+    not_expression {
         checkIfShouldDoOperation(vector<int>({AND_, OR_}));
     } expression2 ;
 
@@ -205,6 +206,14 @@ expression2 :
         pushOperator(OR_);
     } expression
     | ;
+
+not_expression :
+    NOT {
+        pushOperator(NOT_);
+    } comp {
+        checkIfShouldDoOperation(vector<int>({NOT_}));
+    }
+    | comp ;
 
 comp :
     exp {
@@ -254,7 +263,7 @@ term2 :
     } term
     | ;
 
-factor : // TODO : permitir que se pueda poner negativo y not
+factor :
     ID {
         handleIDExpression($1);
     } array_or_func

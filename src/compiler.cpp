@@ -202,6 +202,24 @@ string operatorName(int _oper) {
         case VERIFY_:
             oper = "VERIFY";
             break;
+        case FAKEBOT_:
+            oper = "FAKEBOT";
+            break;
+        case NOT_:
+            oper = "NOT";
+            break;
+        case MOD_:
+            oper = "MOD";
+            break;
+        case GREATEREQ_:
+            oper = "GREATEREQ";
+            break;
+        case LESSEQ_:
+            oper = "LESSEQ";
+            break;
+        case EXPO_:
+            oper = "EXPO";
+            break;
     }
     return oper;
 }
@@ -491,7 +509,7 @@ void doOperation() {
         int leftType;
         int oper = operators.top(); operators.pop();
 
-        if (oper == PRINT_ | oper == RETURN_) {
+        if (oper == PRINT_ | oper == RETURN_ || oper == NOT_) {
             leftOperand = -1;
             leftType = rightType;
         }  else if (operands.size() == 1 && oper != EQUALS_ && operators.size() > 0 && operators.top() == EQUALS_) {
@@ -665,7 +683,7 @@ int semanticCube(int oper, int type1, int type2) {
     if (oper == PRINT_ || oper == RETURN_)
         return 0;
 
-    if (oper > 10 || type1 > 1 || type2 > 1) {
+    if ((oper > OR_ && oper < NOT_) || type1 > 1 || type2 > 1) {
         cout << "Error in semantic cube." << endl;
         printf("%i %i %i\n", oper, type1, type2);
         exit(-1);

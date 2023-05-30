@@ -296,6 +296,16 @@ struct VMHelper {
         }
     }
 
+    void executeNot() {
+        if (rightType == INT_) {
+            int rightOperand = getValueInt(rightOperandAddress);
+            setValue(resultAddress, !rightOperand);
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getValueFloat(rightOperandAddress);
+            setValue(resultAddress, !rightOperand);
+        } // TODO : else para todos con error
+    }
+
     void executeAnd() {
         if (rightType == INT_) {
             int rightOperand = getValueInt(rightOperandAddress);

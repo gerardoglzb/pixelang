@@ -353,8 +353,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 43
-#define YY_END_OF_BUFFER 44
+#define YY_NUM_RULES 44
+#define YY_END_OF_BUFFER 45
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -364,16 +364,16 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[97] =
     {   0,
-        0,    0,   44,   42,   36,   35,   42,   42,   41,   42,
-       26,   27,   17,   15,   34,   16,   18,   38,   32,   33,
-       19,   25,   20,   37,   30,   31,   37,   37,   37,   37,
-       37,   37,   37,   37,   37,   28,   42,   29,   21,    0,
-       40,    0,   41,   23,   38,    0,   22,   37,    0,    9,
-       37,   37,   37,   37,    5,   37,   37,   37,   11,   37,
-       37,   37,   24,   39,   37,   37,   10,   37,    3,   37,
-       37,   37,    2,   37,   37,    6,   37,   37,   37,   37,
-       37,   14,   37,    4,   37,    7,   37,   37,    8,   37,
-       37,   13,   37,    1,   12,    0
+        0,    0,   45,   43,   37,   36,   25,   43,   42,   43,
+       27,   28,   17,   15,   35,   16,   18,   39,   33,   34,
+       19,   26,   20,   38,   31,   32,   38,   38,   38,   38,
+       38,   38,   38,   38,   38,   29,   43,   30,   21,    0,
+       41,    0,   42,   23,   39,    0,   22,   38,    0,    9,
+       38,   38,   38,   38,    5,   38,   38,   38,   11,   38,
+       38,   38,   24,   40,   38,   38,   10,   38,    3,   38,
+       38,   38,    2,   38,   38,    6,   38,   38,   38,   38,
+       38,   14,   38,    4,   38,    7,   38,   38,    8,   38,
+       38,   13,   38,    1,   12,    0
 
     } ;
 
@@ -933,104 +933,109 @@ YY_RULE_SETUP
 case 25:
 YY_RULE_SETUP
 #line 42 "./src/scanner.l"
-{ return EQUAL; }
+{ return NOT; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 43 "./src/scanner.l"
-{ return LEFT_PAR; }
+{ return EQUAL; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 44 "./src/scanner.l"
-{ return RIGHT_PAR; }
+{ return LEFT_PAR; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 45 "./src/scanner.l"
-{ return LEFT_CURLY; }
+{ return RIGHT_PAR; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 46 "./src/scanner.l"
-{ return RIGHT_CURLY; }
+{ return LEFT_CURLY; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 47 "./src/scanner.l"
-{ return LEFT_BRACK; }
+{ return RIGHT_CURLY; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 48 "./src/scanner.l"
-{ return RIGHT_BRACK; }
+{ return LEFT_BRACK; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 49 "./src/scanner.l"
-{ return COLON; }
+{ return RIGHT_BRACK; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 50 "./src/scanner.l"
-{ return SEMICOLON; }
+{ return COLON; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 51 "./src/scanner.l"
-{ return COMMA; }
+{ return SEMICOLON; }
 	YY_BREAK
 case 35:
-/* rule 35 can match eol */
 YY_RULE_SETUP
-#line 53 "./src/scanner.l"
-{ lineas++; }
+#line 52 "./src/scanner.l"
+{ return COMMA; }
 	YY_BREAK
 case 36:
+/* rule 36 can match eol */
 YY_RULE_SETUP
 #line 54 "./src/scanner.l"
-{ ; }
+{ lineas++; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 55 "./src/scanner.l"
+{ ; }
+	YY_BREAK
+case 38:
+YY_RULE_SETUP
+#line 56 "./src/scanner.l"
 { 
                                     yylval.sval = strdup(yytext);
                                     return ID; 
                                 }
 	YY_BREAK
-case 38:
-YY_RULE_SETUP
-#line 59 "./src/scanner.l"
-{ yylval.ival = atoi(yytext); return CTE_INT; }
-	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 60 "./src/scanner.l"
-{ yylval.fval = atof(yytext); return CTE_FLOAT; }
+{ yylval.ival = atoi(yytext); return CTE_INT; }
 	YY_BREAK
 case 40:
-/* rule 40 can match eol */
 YY_RULE_SETUP
 #line 61 "./src/scanner.l"
-{ yylval.strval = strdup(yytext); return CTE_STRING; }
+{ yylval.fval = atof(yytext); return CTE_FLOAT; }
 	YY_BREAK
 case 41:
+/* rule 41 can match eol */
 YY_RULE_SETUP
 #line 62 "./src/scanner.l"
-{ ; }
+{ yylval.strval = strdup(yytext); return CTE_STRING; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 65 "./src/scanner.l"
-{ printf("Invalid token found on line %d. '%s'\n", lineas, yytext); exit(-1); }
+#line 63 "./src/scanner.l"
+{ ; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 67 "./src/scanner.l"
+#line 66 "./src/scanner.l"
+{ printf("Invalid token found on line %d. '%s'\n", lineas, yytext); exit(-1); }
+	YY_BREAK
+case 44:
+YY_RULE_SETUP
+#line 68 "./src/scanner.l"
 ECHO;
 	YY_BREAK
-#line 1033 "./bin/lex.yy.c"
+#line 1038 "./bin/lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2035,7 +2040,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 67 "./src/scanner.l"
+#line 68 "./src/scanner.l"
 
 
 int yywrap(){ return 1; }

@@ -68,15 +68,16 @@
      EQUAL_TO = 284,
      AND = 285,
      OR = 286,
-     LEFT_PAR = 287,
-     RIGHT_PAR = 288,
-     LEFT_CURLY = 289,
-     RIGHT_CURLY = 290,
-     LEFT_BRACK = 291,
-     RIGHT_BRACK = 292,
-     COLON = 293,
-     SEMICOLON = 294,
-     COMMA = 295
+     NOT = 287,
+     LEFT_PAR = 288,
+     RIGHT_PAR = 289,
+     LEFT_CURLY = 290,
+     RIGHT_CURLY = 291,
+     LEFT_BRACK = 292,
+     RIGHT_BRACK = 293,
+     COLON = 294,
+     SEMICOLON = 295,
+     COMMA = 296
    };
 #endif
 /* Tokens.  */
@@ -109,15 +110,16 @@
 #define EQUAL_TO 284
 #define AND 285
 #define OR 286
-#define LEFT_PAR 287
-#define RIGHT_PAR 288
-#define LEFT_CURLY 289
-#define RIGHT_CURLY 290
-#define LEFT_BRACK 291
-#define RIGHT_BRACK 292
-#define COLON 293
-#define SEMICOLON 294
-#define COMMA 295
+#define NOT 287
+#define LEFT_PAR 288
+#define RIGHT_PAR 289
+#define LEFT_CURLY 290
+#define RIGHT_CURLY 291
+#define LEFT_BRACK 292
+#define RIGHT_BRACK 293
+#define COLON 294
+#define SEMICOLON 295
+#define COMMA 296
 
 
 
@@ -138,7 +140,7 @@ typedef union YYSTYPE
     int iarray;
 }
 /* Line 1529 of yacc.c.  */
-#line 142 "./bin/parser.tab.h"
+#line 144 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

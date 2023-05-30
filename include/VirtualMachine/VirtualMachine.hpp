@@ -138,6 +138,9 @@ struct VirtualMachine {
             case VERIFY_:
                 helper.executeVerify();
                 break;
+            case NOT_:
+                helper.executeNot();
+                break;
         }
         return pid;
     }

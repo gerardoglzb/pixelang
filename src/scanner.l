@@ -39,6 +39,7 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 "=="                            { return EQUAL_TO; }
 "&&"                            { return AND; }
 "||"                            { return OR; }
+"!"                             { return NOT; }
 "="                             { return EQUAL; }
 "("                             { return LEFT_PAR; }
 ")"                             { return RIGHT_PAR; }
