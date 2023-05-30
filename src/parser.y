@@ -274,11 +274,14 @@ array_or_func :
         setCurrentCall("");
         popOperator(FAKEBOT_);
     }
-    | array
-    | array array
+    | arrays
     | {
         pushOperandByID(getIDExpression());
     } ;
+
+arrays:
+    array arrays
+    | array ;
 
 array :
     LEFT_BRACK {
