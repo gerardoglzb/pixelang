@@ -1,4 +1,5 @@
 #include <iostream>
+#include "./ArrayNode.hpp"
 
 struct VariableEntry {
     string name;

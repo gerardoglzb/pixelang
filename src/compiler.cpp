@@ -70,7 +70,6 @@ VariableEntry *nextParameter(FunctionEntry *function) {
 void verifyIsArray(string id) {
     VariableEntry *entry = funcDir->currentVariableTable()->fullFind(id);
     if (entry->length == 1) {
-        cout << "Not an array" << endl;
         exit(-1);
     }
     arrayAccesses.push(entry);

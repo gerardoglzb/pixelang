@@ -279,7 +279,7 @@ array_or_func :
         pushOperandByID(getIDExpression());
     } ;
 
-arrays:
+arrays :
     array arrays
     | array ;
 
@@ -292,7 +292,7 @@ array :
     } RIGHT_BRACK {
         generateAccess();
         popOperator(FAKEBOT_);
-    }
+    } ;
 
 arguments :
     expression {
@@ -330,16 +330,8 @@ assignee :
         pushOperandByID($1);
     }
     | ID {
-        // pushOperandByID($1);
-    } LEFT_BRACK {
-        pushOperator(FAKEBOT_);
-        verifyIsArray($1);
-    } expression {
-        generateVerify();
-    } RIGHT_BRACK {
-        generateAccess();
-        popOperator(FAKEBOT_);
-    } ;
+        handleIDExpression($1);
+    } arrays ;
 
 call :
     ID {
