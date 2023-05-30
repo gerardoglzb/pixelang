@@ -16,8 +16,9 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 
 "program"                       { return PROGRAM; }
 "var"                           { return VAR; }
-"int"                           { yylval.chType = 0; return INT; }
-"float"                         { yylval.chType = 1; return FLOAT; }
+"int"                           { yylval.chType = INT_; return INT; }
+"float"                         { yylval.chType = FLOAT_; return FLOAT; }
+"bool"                          { yylval.chType = BOOL_; return BOOL; }
 "if"                            { return IF; }
 "else"                          { return ELSE; }
 "print"                         { return PRINT; }
@@ -56,6 +57,8 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 
 [\n]                            { lineas++; }
 [ \t\r]                         { ; }
+"false"                         { yylval.bval = FALSE_; return CTE_BOOL; }
+"true"                          { yylval.bval = TRUE_; return CTE_BOOL; }
 [a-zA-Z](_?([a-zA-Z]|[0-9]))*   { 
                                     yylval.sval = strdup(yytext);
                                     return ID; 

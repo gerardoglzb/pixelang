@@ -3,6 +3,12 @@
 enum Type {
     INT_,
     FLOAT_,
+    BOOL_,
     STRING_,
     VOID_,
+};
+
+enum Boolean {
+    FALSE_,
+    TRUE_,
 };

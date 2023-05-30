@@ -5,6 +5,7 @@ struct Memory {
     MemoryFrame<int> *memoryInt;
     MemoryFrame<float> *memoryFloat;
     MemoryFrame<string> *memoryString;
+    MemoryFrame<bool> *memoryBool;
 
     int getSizeInt() {
         return memoryInt->index;

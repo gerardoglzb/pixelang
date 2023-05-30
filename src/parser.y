@@ -19,9 +19,10 @@
     char *strval;
     int ival;
     float fval;
+    bool bval;
     struct IDNode *nodeID;
     struct ArrayNode *arrNode;
-    int chType; // 0 int, 1 float, 2 string, 3 void, 4 prog, 5 int arr, 6 float arr, 7 temp, -1 err
+    int chType;
     int ivar;
     int iparam;
     int iarray;
@@ -31,6 +32,7 @@
 
 %token <ival> CTE_INT
 %token <fval> CTE_FLOAT
+%token <bval> CTE_BOOL
 %token <strval> CTE_STRING
 %token <sval> ID
 
@@ -38,6 +40,7 @@
 %token VAR
 %token INT
 %token FLOAT
+%token BOOL
 %token IF
 %token ELSE
 %token PRINT
@@ -181,7 +184,8 @@ block :
 
 type :
     INT
-    | FLOAT;
+    | FLOAT
+    | BOOL ;
 
 params :
     ID COLON type COMMA params {
@@ -284,12 +288,6 @@ factor :
     } expression RIGHT_PAR {
         pushOperator(RIGHTPAR_);
     }
-    /* | ADDITION {
-        pushOperator(ADD_);
-    } var_cte
-    | SUBSTRACTION {
-        pushOperator(SUB_);
-    } var_cte */
     | var_cte ;
 
 var_cte :
@@ -298,6 +296,9 @@ var_cte :
     }
     | CTE_INT {
         pushOperandOfType(declareCte(INT_, $1), INT_);
+    }
+    | CTE_BOOL {
+        pushOperandOfType(declareCte(BOOL_, $1), BOOL_);
     } ;
 
 array_or_func :

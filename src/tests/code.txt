@@ -1,11 +1,10 @@
-program bubblesort;
+program test;
 
 var a, b, c : int;
+var x : bool;
 
 {
-    a = 5;
-    b = 3;
-    if (a >= 2) {
-        print("Yes");
-    }
+    a = 3;
+    x = 3;
+    print(x);
 }

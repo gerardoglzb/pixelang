@@ -41,91 +41,95 @@
    enum yytokentype {
      CTE_INT = 258,
      CTE_FLOAT = 259,
-     CTE_STRING = 260,
-     ID = 261,
-     PROGRAM = 262,
-     VAR = 263,
-     INT = 264,
-     FLOAT = 265,
-     IF = 266,
-     ELSE = 267,
-     PRINT = 268,
-     FOR = 269,
-     DO = 270,
-     WHILE = 271,
-     TO = 272,
-     FUNCTION = 273,
-     RETURN = 274,
-     VOID = 275,
-     ADDITION = 276,
-     SUBSTRACTION = 277,
-     MULTI = 278,
-     DIV = 279,
-     MOD = 280,
-     LESS_THAN = 281,
-     MORE_THAN = 282,
-     NOT_EQUAL = 283,
-     GREATEREQ = 284,
-     LESSEQ = 285,
-     EQUAL = 286,
-     EQUAL_TO = 287,
-     AND = 288,
-     OR = 289,
-     NOT = 290,
-     LEFT_PAR = 291,
-     RIGHT_PAR = 292,
-     LEFT_CURLY = 293,
-     RIGHT_CURLY = 294,
-     LEFT_BRACK = 295,
-     RIGHT_BRACK = 296,
-     COLON = 297,
-     SEMICOLON = 298,
-     COMMA = 299
+     CTE_BOOL = 260,
+     CTE_STRING = 261,
+     ID = 262,
+     PROGRAM = 263,
+     VAR = 264,
+     INT = 265,
+     FLOAT = 266,
+     BOOL = 267,
+     IF = 268,
+     ELSE = 269,
+     PRINT = 270,
+     FOR = 271,
+     DO = 272,
+     WHILE = 273,
+     TO = 274,
+     FUNCTION = 275,
+     RETURN = 276,
+     VOID = 277,
+     ADDITION = 278,
+     SUBSTRACTION = 279,
+     MULTI = 280,
+     DIV = 281,
+     MOD = 282,
+     LESS_THAN = 283,
+     MORE_THAN = 284,
+     NOT_EQUAL = 285,
+     GREATEREQ = 286,
+     LESSEQ = 287,
+     EQUAL = 288,
+     EQUAL_TO = 289,
+     AND = 290,
+     OR = 291,
+     NOT = 292,
+     LEFT_PAR = 293,
+     RIGHT_PAR = 294,
+     LEFT_CURLY = 295,
+     RIGHT_CURLY = 296,
+     LEFT_BRACK = 297,
+     RIGHT_BRACK = 298,
+     COLON = 299,
+     SEMICOLON = 300,
+     COMMA = 301
    };
 #endif
 /* Tokens.  */
 #define CTE_INT 258
 #define CTE_FLOAT 259
-#define CTE_STRING 260
-#define ID 261
-#define PROGRAM 262
-#define VAR 263
-#define INT 264
-#define FLOAT 265
-#define IF 266
-#define ELSE 267
-#define PRINT 268
-#define FOR 269
-#define DO 270
-#define WHILE 271
-#define TO 272
-#define FUNCTION 273
-#define RETURN 274
-#define VOID 275
-#define ADDITION 276
-#define SUBSTRACTION 277
-#define MULTI 278
-#define DIV 279
-#define MOD 280
-#define LESS_THAN 281
-#define MORE_THAN 282
-#define NOT_EQUAL 283
-#define GREATEREQ 284
-#define LESSEQ 285
-#define EQUAL 286
-#define EQUAL_TO 287
-#define AND 288
-#define OR 289
-#define NOT 290
-#define LEFT_PAR 291
-#define RIGHT_PAR 292
-#define LEFT_CURLY 293
-#define RIGHT_CURLY 294
-#define LEFT_BRACK 295
-#define RIGHT_BRACK 296
-#define COLON 297
-#define SEMICOLON 298
-#define COMMA 299
+#define CTE_BOOL 260
+#define CTE_STRING 261
+#define ID 262
+#define PROGRAM 263
+#define VAR 264
+#define INT 265
+#define FLOAT 266
+#define BOOL 267
+#define IF 268
+#define ELSE 269
+#define PRINT 270
+#define FOR 271
+#define DO 272
+#define WHILE 273
+#define TO 274
+#define FUNCTION 275
+#define RETURN 276
+#define VOID 277
+#define ADDITION 278
+#define SUBSTRACTION 279
+#define MULTI 280
+#define DIV 281
+#define MOD 282
+#define LESS_THAN 283
+#define MORE_THAN 284
+#define NOT_EQUAL 285
+#define GREATEREQ 286
+#define LESSEQ 287
+#define EQUAL 288
+#define EQUAL_TO 289
+#define AND 290
+#define OR 291
+#define NOT 292
+#define LEFT_PAR 293
+#define RIGHT_PAR 294
+#define LEFT_CURLY 295
+#define RIGHT_CURLY 296
+#define LEFT_BRACK 297
+#define RIGHT_BRACK 298
+#define COLON 299
+#define SEMICOLON 300
+#define COMMA 301
 
 
 
@@ -138,15 +142,16 @@ typedef union YYSTYPE
     char *strval;
     int ival;
     float fval;
+    bool bval;
     struct IDNode *nodeID;
     struct ArrayNode *arrNode;
-    int chType; // 0 int, 1 float, 2 string, 3 void, 4 prog, 5 int arr, 6 float arr, 7 temp, -1 err
+    int chType;
     int ivar;
     int iparam;
     int iarray;
 }
 /* Line 1529 of yacc.c.  */
-#line 150 "./bin/parser.tab.h"
+#line 155 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

@@ -29,5 +29,5 @@ enum Operator {
     END_,
     VERIFY_,
     FAKEBOT_,
-    EXPO_,
+    EXPO_, // TODO: expo
 };
