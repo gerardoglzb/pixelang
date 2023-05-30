@@ -20,9 +20,11 @@
     int ival;
     float fval;
     struct IDNode *nodeID;
+    struct ArrayNode *arrNode;
     int chType; // 0 int, 1 float, 2 string, 3 void, 4 prog, 5 int arr, 6 float arr, 7 temp, -1 err
     int ivar;
     int iparam;
+    int iarray;
 }
 
 %start program
@@ -70,9 +72,11 @@
 %token COMMA
 
 %type <nodeID> var_list
+%type <arrNode> array_list
 %type <chType> type function_type
 %type <ivar> vars
 %type <iparam> params
+%type <iarray> array_declaration
 
 %%
 
@@ -96,11 +100,25 @@ vars :
     } ;
 
 var :
-    var_list COLON type {
-        declareVariables($1, $3, lineas);
-    }
-    | var_list COLON type LEFT_BRACK CTE_INT RIGHT_BRACK {
-        declareArrays($1, $3, $5, lineas);
+    var_list {
+        setCurrentArrayNode(nullptr);
+    } COLON type array_list {
+        declareVariables($1, $3, $4, lineas);
+    } ;
+
+array_list :
+    array_declaration {
+        ArrayNode *node = new ArrayNode($1, getCurrentArrayNode());
+        setCurrentArrayNode(node);
+        $$ = node;
+    } array_list
+    | {
+        $$ = nullptr;
+    } ;
+
+array_declaration :
+    LEFT_BRACK CTE_INT RIGHT_BRACK {
+        $$ = $2;
     } ;
 
 var_list :

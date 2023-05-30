@@ -5,7 +5,6 @@ struct VariableEntry {
     string name;
     int type;
     int address;
-    int length;
     ArrayNode *arrNode;
     VariableEntry *next;
 
@@ -13,7 +12,6 @@ struct VariableEntry {
         this->name = "";
         this->type = 7;
         this->next = nullptr;
-        this->length = 1;
         this->arrNode = nullptr;
     };
 
@@ -22,16 +20,15 @@ struct VariableEntry {
         this->type = type;
         this->address = -1;
         this->next = nullptr;
-        this->length = 1;
         this->arrNode = nullptr;
     };
 
-    VariableEntry(string name, int type, int length) {
+    VariableEntry(string name, int type, int address, ArrayNode *arrNode) {
         this->name = name;
         this->type = type;
-        this->address = -1;
+        this->address = address;
         this->next = nullptr;
-        this->length = length;
-        this->arrNode = nullptr;
+        this->arrNode = arrNode;
+        this->arrNode->calculateK();
     };
 };

@@ -550,14 +550,21 @@ void pushOperandOfType(int address, int type) {
     types.push(type);
 }
 
-VariableEntry *declareVariable(string name, int type, int length, int lineas) {
+void setCurrentArrayNode(ArrayNode *node) {
+    currentArrayNode = node;
+}
+
+void getCurrentArrayNode() {
+    return currentArrayNode;
+}
+
+VariableEntry *declareVariable(string name, int type, ArrayNode *arrayNodes, int lineas) {
     VariableTable *table = funcDir->currentVariableTable();
     if (table->has(name)) {
         cout << "Error: Redefinition of var " << name << " on line "  << lineas << ".\n";
         exit(-1);
     }
-    VariableEntry *entry = new VariableEntry(name, type, length);
-    entry->address = declareLocal(type, length);
+    VariableEntry *entry = new VariableEntry(name, type, declareLocal(type, 1), arrayNodes);
     table->insert(entry);
     return entry;
 }
@@ -574,17 +581,9 @@ VariableEntry *declareParameter(string name, int type, int lineas, int address) 
     return entry;
 }
 
-void declareVariables(IDNode *variable, int type, int lineas) {
+void declareVariables(IDNode *variable, int type, ArrayNode *arrayNodes, int lineas) {
     do {
-        declareVariable(variable->name, type, 1, lineas);
-        variable = variable->next;
-    }
-    while (variable);
-}
-
-void declareArrays(IDNode* variable, int type, int length, int lineas) {
-    do {
-        declareVariable(variable->name, type, length, lineas);
+        declareVariable(variable->name, type, arrayNodes, lineas);
         variable = variable->next;
     }
     while (variable);

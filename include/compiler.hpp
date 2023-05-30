@@ -36,10 +36,10 @@ static FunctionEntry *currentFunc;
 
 static FunctionDirectory *funcDir;
 
+static ArrayNode *currentArrayNode;
 
-VariableEntry *declareVariable(string name, int type, int lineas, int length=1);
 
-void declareArrays(IDNode* variable, int type, int length, int lineas);
+VariableEntry *declareVariable(string name, int type, int lineas);
 
 void declareVariables(IDNode *variable, int type, int lineas);
 
