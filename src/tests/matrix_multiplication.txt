@@ -1,0 +1,37 @@
+program test;
+
+var matrixA : int[2][3];
+var matrixB : int[3][2];
+var result : int[2][2];
+var i, j, k : int;
+
+{
+    matrixA[0][0] = 1;
+    matrixA[0][1] = 3;
+    matrixA[0][2] = 6;
+    matrixA[1][0] = 10;
+    matrixA[1][1] = 15;
+    matrixA[1][2] = 21;
+
+    matrixB[0][0] = 1;
+    matrixB[0][1] = 1;
+    matrixB[1][0] = 2;
+    matrixB[1][1] = 3;
+    matrixB[2][0] = 4;
+    matrixB[2][1] = 5;
+
+    for (i = 0 to 2) {
+        for (j = 0 to 2) {
+            result[i][j] = 0;
+            for (k = 0 to 3) {
+                result[i][j] = result[i][j] + matrixA[i][k] * matrixB[k][j];
+            }
+        }
+    }
+
+    for (i = 0 to 2) {
+        for (j = 0 to 2) {
+            print(result[i][j]);
+        }
+    }
+}
