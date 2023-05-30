@@ -53,6 +53,7 @@
 %token SUBSTRACTION
 %token MULTI
 %token DIV
+%token MOD
 %token LESS_THAN
 %token MORE_THAN
 %token NOT_EQUAL
@@ -251,7 +252,7 @@ exp2 :
 
 term :
     factor {
-        checkIfShouldDoOperation(vector<int>({MULTI_, DIV_}));
+        checkIfShouldDoOperation(vector<int>({MULTI_, DIV_, MOD_}));
     } term2 ;
 
 term2 :
@@ -260,6 +261,9 @@ term2 :
     } term
     | DIV {
         pushOperator(DIV_);
+    } term
+    | MOD {
+        pushOperator(MOD_);
     } term
     | ;
 

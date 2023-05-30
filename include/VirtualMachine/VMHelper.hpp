@@ -208,6 +208,16 @@ struct VMHelper {
         }
     }
 
+    void executeMod() {
+        if (rightType == INT_) {
+            int rightOperand = getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand % rightOperand);
+            }
+        }
+    }
+
     void executeGreater() {
         if (rightType == INT_) {
             int rightOperand = getValueInt(rightOperandAddress);

@@ -33,6 +33,7 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 "-"                             { return SUBSTRACTION; }
 "*"                             { return MULTI; }
 "/"                             { return DIV; }
+"%"                             { return MOD; }
 "<"                             { return LESS_THAN; }
 ">"                             { return MORE_THAN; }
 "!="                            { return NOT_EQUAL; }

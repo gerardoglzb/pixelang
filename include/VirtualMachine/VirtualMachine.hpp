@@ -141,6 +141,9 @@ struct VirtualMachine {
             case NOT_:
                 helper.executeNot();
                 break;
+            case MOD_:
+                helper.executeMod();
+                break;
         }
         return pid;
     }
