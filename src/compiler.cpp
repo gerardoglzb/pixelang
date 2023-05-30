@@ -49,8 +49,8 @@ void printOperands() {
 void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     Quadruple quad = Quadruple(oper, leftOperand, rightOperand, result);
     quads.push_back(quad);
-    printOperators();
-    printOperands();
+    // printOperators();
+    // printOperands();
     printf("%lu\t%s\t%i\t%i\t%i\n\n", quads.size(), operatorName(oper).c_str(), leftOperand, rightOperand, result);
 }
 

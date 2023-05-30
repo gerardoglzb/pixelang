@@ -17,9 +17,10 @@ struct ArrayNode {
     }
 
     void calculateK() {
-        cout << "calculating K" << endl;
-        int m = prev ? prev->mOrK : getM0() / size;
+        cout << "calculating K moko " << getM0() << endl;
+        int m = prev ? prev->mOrK / size : getM0() / size;
         this->mOrK = next ? m : -offset;
+        cout << "mork for size" << size << " r " << r << " IS " << mOrK << endl;
         if (next)
             next->calculateK();
     }
@@ -33,7 +34,9 @@ struct ArrayNode {
     }
 
     int getRs() {
+        cout << "old r for size" << size << " r " << r << " IS " << r << endl;
         this->r = prev ? r * prev->getRs() : r;
+        cout << "r for size" << size << " r " << r << " IS " << r << endl;
         return this->r;
     }
 
