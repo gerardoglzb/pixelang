@@ -4,7 +4,7 @@
 
 void verifyFunctionExists(string name, int lineas) {
     if (!funcDir->has(name)) {
-        cout << "Function " << name << "doesn't exist in line " << lineas << endl;
+        cout << "Function " << name << " doesn't exist in line " << lineas << endl;
         exit(-1);
     }
 }
@@ -687,7 +687,7 @@ int semanticCube(int oper, int type1, int type2) {
     if (oper == PRINT_ || oper == RETURN_)
         return 0;
 
-    if (oper > NOT_ || type1 > 1 || type2 > 1) {
+    if (oper > LESSEQ_ || type1 > 1 || type2 > 1) {
         cout << "Error in semantic cube." << endl;
         printf("%i %i %i\n", oper, type1, type2);
         exit(-1);

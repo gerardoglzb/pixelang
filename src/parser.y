@@ -57,6 +57,8 @@
 %token LESS_THAN
 %token MORE_THAN
 %token NOT_EQUAL
+%token GREATEREQ
+%token LESSEQ
 %token EQUAL
 %token EQUAL_TO
 %token AND
@@ -218,7 +220,7 @@ not_expression :
 
 comp :
     exp {
-        checkIfShouldDoOperation(vector<int>({GREATER_, LESS_, EQUALTO_, NOTEQUAL_}));
+        checkIfShouldDoOperation(vector<int>({GREATER_, LESS_, EQUALTO_, NOTEQUAL_, GREATEREQ_, LESSEQ_}));
     } comp2 ;
 
 comp2 :
@@ -234,6 +236,12 @@ comp2 :
     | NOT_EQUAL {
         pushOperator(NOTEQUAL_);
     } comp 
+    | GREATEREQ {
+        pushOperator(GREATEREQ_);
+    } comp 
+    | LESSEQ {
+        pushOperator(LESSEQ_);
+    } comp
     | ;
 
 exp :

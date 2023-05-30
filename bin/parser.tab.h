@@ -65,20 +65,22 @@
      LESS_THAN = 281,
      MORE_THAN = 282,
      NOT_EQUAL = 283,
-     EQUAL = 284,
-     EQUAL_TO = 285,
-     AND = 286,
-     OR = 287,
-     NOT = 288,
-     LEFT_PAR = 289,
-     RIGHT_PAR = 290,
-     LEFT_CURLY = 291,
-     RIGHT_CURLY = 292,
-     LEFT_BRACK = 293,
-     RIGHT_BRACK = 294,
-     COLON = 295,
-     SEMICOLON = 296,
-     COMMA = 297
+     GREATEREQ = 284,
+     LESSEQ = 285,
+     EQUAL = 286,
+     EQUAL_TO = 287,
+     AND = 288,
+     OR = 289,
+     NOT = 290,
+     LEFT_PAR = 291,
+     RIGHT_PAR = 292,
+     LEFT_CURLY = 293,
+     RIGHT_CURLY = 294,
+     LEFT_BRACK = 295,
+     RIGHT_BRACK = 296,
+     COLON = 297,
+     SEMICOLON = 298,
+     COMMA = 299
    };
 #endif
 /* Tokens.  */
@@ -108,20 +110,22 @@
 #define LESS_THAN 281
 #define MORE_THAN 282
 #define NOT_EQUAL 283
-#define EQUAL 284
-#define EQUAL_TO 285
-#define AND 286
-#define OR 287
-#define NOT 288
-#define LEFT_PAR 289
-#define RIGHT_PAR 290
-#define LEFT_CURLY 291
-#define RIGHT_CURLY 292
-#define LEFT_BRACK 293
-#define RIGHT_BRACK 294
-#define COLON 295
-#define SEMICOLON 296
-#define COMMA 297
+#define GREATEREQ 284
+#define LESSEQ 285
+#define EQUAL 286
+#define EQUAL_TO 287
+#define AND 288
+#define OR 289
+#define NOT 290
+#define LEFT_PAR 291
+#define RIGHT_PAR 292
+#define LEFT_CURLY 293
+#define RIGHT_CURLY 294
+#define LEFT_BRACK 295
+#define RIGHT_BRACK 296
+#define COLON 297
+#define SEMICOLON 298
+#define COMMA 299
 
 
 
@@ -142,7 +146,7 @@ typedef union YYSTYPE
     int iarray;
 }
 /* Line 1529 of yacc.c.  */
-#line 146 "./bin/parser.tab.h"
+#line 150 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

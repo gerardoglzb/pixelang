@@ -5,7 +5,7 @@ var a, b, c : int;
 {
     a = 5;
     b = 3;
-    if (!a == 5 || b != 4) {
+    if (a >= 2) {
         print("Yes");
     }
 }

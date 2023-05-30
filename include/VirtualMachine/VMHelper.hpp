@@ -262,6 +262,50 @@ struct VMHelper {
         }
     }
 
+    void executeGreaterEq() {
+        if (rightType == INT_) {
+            int rightOperand = getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand >= rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand >= rightOperand);
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand >= rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand >= rightOperand);
+            }
+        }
+    }
+
+    void executeLessEq() {
+        if (rightType == INT_) {
+            int rightOperand = getValueInt(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand <= rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand <= rightOperand);
+            }
+        } else if (rightType == FLOAT_) {
+            float rightOperand = getValueFloat(rightOperandAddress);
+            if (leftType == INT_) {
+                int leftOperand = getValueInt(leftOperandAddress);
+                setValue(resultAddress, leftOperand <= rightOperand);
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getValueFloat(leftOperandAddress);
+                setValue(resultAddress, leftOperand <= rightOperand);
+            }
+        }
+    }
+
     void executeEqualTo() {
         if (rightType == INT_) {
             int rightOperand = getValueInt(rightOperandAddress);

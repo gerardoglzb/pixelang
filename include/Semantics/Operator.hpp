@@ -14,6 +14,8 @@ enum Operator {
     AND_,
     OR_,
     NOT_,
+    GREATEREQ_,
+    LESSEQ_,
     LEFTPAR_,
     RIGHTPAR_,
     GOTOF_,
@@ -27,7 +29,5 @@ enum Operator {
     END_,
     VERIFY_,
     FAKEBOT_,
-    GREATEREQ_,
-    LESSEQ_,
     EXPO_,
 };

@@ -38,6 +38,8 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 ">"                             { return MORE_THAN; }
 "!="                            { return NOT_EQUAL; }
 "=="                            { return EQUAL_TO; }
+">="                            { return GREATEREQ; }
+"<="                            { return LESSEQ; }
 "&&"                            { return AND; }
 "||"                            { return OR; }
 "!"                             { return NOT; }

@@ -144,6 +144,12 @@ struct VirtualMachine {
             case MOD_:
                 helper.executeMod();
                 break;
+            case GREATEREQ_:
+                helper.executeGreaterEq();
+                break;
+            case LESSEQ_:
+                helper.executeLessEq();
+                break;
         }
         return pid;
     }
