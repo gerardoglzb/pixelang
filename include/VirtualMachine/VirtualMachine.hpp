@@ -53,7 +53,7 @@ struct VirtualMachine {
     vector<int> pids;
     int executions = 0;
     int executeQuad(int pid) {
-        if (executions++ > 100) {
+        if (executions++ > 5000) {
             cout << "Too long" << endl;
             exit(-1);
         }
@@ -128,7 +128,7 @@ struct VirtualMachine {
                 break;
             case END_:
                 pid = -1;
-                // break;
+                break;
                 cout << "PIDS: ";
                 for (int id : pids) {
                     cout << id << " ";

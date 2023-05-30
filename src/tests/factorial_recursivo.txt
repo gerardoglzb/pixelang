@@ -1,4 +1,4 @@
-program test;
+program factorial_recursivo;
 
 var a, b, c : int;
 var arr : int[5];
@@ -12,5 +12,5 @@ function fact(x : int) : int {
 }
 
 {
-    print(fact(0-3));
+    print(fact(12));
 }

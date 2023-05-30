@@ -126,7 +126,6 @@ void generateEra(string name) {
 }
 
 void generateEndFunc() {
-    cout << "generating endfunc" << endl;
     generateQuad(ENDFUNC_, -1, -1, -1);
 }
 
@@ -469,13 +468,6 @@ void doOperation() {
         int leftType;
         int oper = operators.top(); operators.pop();
 
-        if (oper == RETURN_) {
-            printf("Just poppoed return \n");
-            if (operators.size())
-                cout << operators.top() << endl;
-            else
-                cout << "emptY" << endl;
-        }
         if (oper == PRINT_ | oper == RETURN_) {
             leftOperand = -1;
             leftType = rightType;
@@ -528,7 +520,6 @@ void checkIfShouldDoOperation(vector<int> myOperators) {
         return;
     }
     if (operators.top() == RIGHTPAR_) {
-        cout << "BYEEE" << endl;
         operators.pop();
         operators.pop();
     }

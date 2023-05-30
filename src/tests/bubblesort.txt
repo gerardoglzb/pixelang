@@ -1,0 +1,33 @@
+program bubblesort;
+
+var arr : int[6];
+var n : int;
+var i : int;
+
+function bubblesort(n : int) : void {
+    var i, j : int;
+    var temp : int;
+    for (i = 0 to n - 1) {
+        for (j = 0 to n - i - 1) {
+            if (arr[j] > arr[j+1]) {
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+
+{
+    n = 6;
+    arr[0] = 3;
+    arr[1] = 5;
+    arr[2] = 1;
+    arr[3] = 7;
+    arr[4] = 0;
+    arr[5] = 5;
+    bubblesort(n);
+    for (i = 0 to n) {
+        print(arr[i]);
+    }
+}

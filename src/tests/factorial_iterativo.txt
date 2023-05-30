@@ -1,0 +1,18 @@
+program factorial_iterativo;
+
+var a, b, c : int;
+var arr : int[5];
+var i : int;
+
+function fact(x : int) : int {
+    var result : int = 1;
+    var i : int;
+    for (i = 1 to x) {
+        result = result * i;
+    }
+    return result;
+}
+
+{
+    print(fact(12));
+}

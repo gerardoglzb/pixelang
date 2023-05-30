@@ -429,10 +429,16 @@ rep_no_cond :
 
 %%
 
-int main() {
-    FILE *myfile = fopen("./src/code.txt", "r");
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        cout << "Need source code filename." << endl;
+        exit(-1);
+    }
+    string filename = argv[1];
+    filename = "./src/tests/" + filename + ".txt";
+    FILE *myfile = fopen(filename.c_str(), "r");
     if (!myfile) {
-        cout << "No 'code.txt' file found in src/." << endl;
+        cout << "No file found for source code." << endl;
         return -1;
     }
 

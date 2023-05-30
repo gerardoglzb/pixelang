@@ -1,8 +1,12 @@
+ifndef SRC
+SRC = code
+endif
+
 all: Code Main
 
 Code: parser.tab.c lex.yy.c
 	g++ -std=c++11 ./src/compiler.cpp ./bin/parser.tab.c ./bin/lex.yy.c -o ./bin/Code
-	./bin/Code
+	./bin/Code "$(SRC)"
 
 Main: Code
 	g++ -std=c++11 ./src/main.cpp -o ./bin/Main
