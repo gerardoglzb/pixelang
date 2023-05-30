@@ -56,8 +56,8 @@ FunctionDirectory functionDirectory = FunctionDirectory();
                                     yylval.sval = strdup(yytext);
                                     return ID; 
                                 }
-[0-9]+                          { yylval.ival = atoi(yytext); return CTE_INT; }
-[0-9]+\.[0-9]+                  { yylval.fval = atof(yytext); return CTE_FLOAT; }
+-?[0-9]+                          { yylval.ival = atoi(yytext); return CTE_INT; }
+-?[0-9]+\.[0-9]+                  { yylval.fval = atof(yytext); return CTE_FLOAT; }
 \"(\\.|[^\\"])*\"               { yylval.strval = strdup(yytext); return CTE_STRING; }
 #.*                             { ; }
 

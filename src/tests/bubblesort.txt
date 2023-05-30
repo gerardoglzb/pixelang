@@ -22,10 +22,10 @@ function bubblesort(n : int) : void {
     n = 6;
     arr[0] = 3;
     arr[1] = 5;
-    arr[2] = 1;
+    arr[2] = -1;
     arr[3] = 7;
     arr[4] = 0;
-    arr[5] = 5;
+    arr[5] = -5;
     bubblesort(n);
     for (i = 0 to n) {
         print(arr[i]);
