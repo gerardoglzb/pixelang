@@ -686,3 +686,7 @@ void createReturnAddress() {
 void popReturnAddress() {
     returnAddresses.pop();
 }
+
+void generateNewline() {
+    generateQuad(PRINT_, -1, -1, -1);
+}

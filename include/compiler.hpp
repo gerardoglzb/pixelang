@@ -144,6 +144,9 @@ void generateGosub(string name);
 void fillMain();
 
 
+void generateNewline();
+
+
 
 int declareCte(int type, int value);
 

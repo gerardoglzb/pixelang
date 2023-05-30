@@ -386,15 +386,21 @@ call3 :
 printing :
     PRINT {
         pushOperator(PRINT_);
-    } LEFT_PAR printing_3 RIGHT_PAR SEMICOLON {
+    } LEFT_PAR expression_or_str printing_2 RIGHT_PAR SEMICOLON {
         checkIfShouldDoOperation(vector<int>({PRINT_}));
+        generateNewline();
     } ;
 
 printing_2 :
-    printing_3 COMMA printing_2
-    | printing_3 ;
+    {
+        checkIfShouldDoOperation(vector<int>({PRINT_}));
+    }
+    COMMA {
+        pushOperator(PRINT_);
+    } expression_or_str printing_2
+    | ;
 
-printing_3 :
+expression_or_str :
     expression
     | CTE_STRING {
         pushOperandOfType(declareCte(STRING_, $1), STRING_);
