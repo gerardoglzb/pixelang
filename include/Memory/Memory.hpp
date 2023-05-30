@@ -7,15 +7,15 @@ struct Memory {
     MemoryFrame<string> *memoryString;
 
     int getSizeInt() {
-        return memoryInt->size;
+        return memoryInt->index;
     }
 
     int getSizeFloat() {
-        return memoryFloat->size;
+        return memoryFloat->index;
     }
 
     int getSizeString() {
-        return memoryString->size;
+        return memoryString->index;
     }
 
     Memory(int size, int offset) {
