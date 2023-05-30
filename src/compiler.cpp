@@ -419,28 +419,21 @@ void setFunctionReturn() {
 }
 
 void generateAccess() {
-    cout << "generating access 1" << endl;
     ArrayNode *node = arrayAccesses.top()->currArrNode;
-    cout << "generating access 2" << endl;
     if (node->next) {
-        cout << "generating access 2.5" << endl;
         int resultAddress = declareTemp(INT_);
         generateQuad(MULTI_, operands.top(), declareCte(INT_, node->mOrK), resultAddress);
         operands.pop(); types.pop();
         pushOperandOfType(resultAddress, INT_);
     }
-    cout << "generating access 3" << endl;
     if (node->prev) {
-        cout << "generating access 3.5" << endl;
         int resultAddress = declareTemp(INT_);
         int index = operands.top(); operands.pop(); types.pop();
         generateQuad(ADD_, operands.top(), index, resultAddress);
         operands.pop(); types.pop();
         pushOperandOfType(resultAddress, INT_);
     }
-    cout << "generating access 4" << endl;
     if (!node->next) {
-        cout << "generating access 4.5" << endl;
         int baseAddress = declareCte(INT_, arrayAccesses.top()->address);
         int resultAddress = declareTemp(INT_);
         int pointerAddress = declareTemp(INT_);
@@ -452,7 +445,6 @@ void generateAccess() {
     } else {
         arrayAccesses.top()->nextNode();
     }
-    cout << "generating access 5" << endl;
 }
 
 void verifyReturnType(int functionType) {
