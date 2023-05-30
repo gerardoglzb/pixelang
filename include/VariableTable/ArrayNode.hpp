@@ -18,7 +18,7 @@ struct ArrayNode {
 
     void calculateK() {
         cout << "calculating K" << endl;
-        int m = prev ? prev->mOrK : getM0();
+        int m = prev ? prev->mOrK : getM0() / size;
         this->mOrK = next ? m : -offset;
         if (next)
             next->calculateK();
