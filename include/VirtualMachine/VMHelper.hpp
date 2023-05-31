@@ -87,7 +87,6 @@ struct VMHelper {
     template<typename T>
     void setValue(int address, T value) {
         if (address < -1) {
-            cout << "POINTER" << endl;
             this->memory->setValue(this->memory->getVMemory(-address)->getValueInt(-address), value);
             return;
         }
@@ -482,8 +481,8 @@ struct VMHelper {
 
     void executeOpen(queue<int> *iparams) {
         int filename = iparams->front(); iparams->pop();
-        Image image = Image();
-        setValue(resultAddress, &image);
+        Image *image = new Image();
+        setValue(resultAddress, image);
     }
 
 };
