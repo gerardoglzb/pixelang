@@ -24,10 +24,11 @@ struct Memory {
     }
 
     Memory(int offset) {
-        this->memoryInt = new MemoryFrame<int>(offset);
-        this->memoryFloat = new MemoryFrame<float>(offset + getMemorySize(offset));
-        this->memoryString = new MemoryFrame<string>(offset + getMemorySize(offset) * 2);
-        this->memoryBool = new MemoryFrame<bool>(offset + getMemorySize(offset) * 3);
+        cout << "new mem" << endl;
+        this->memoryInt = new MemoryFrame<int>(offset, getMemorySize(offset));
+        this->memoryFloat = new MemoryFrame<float>(offset + getMemorySize(offset), getMemorySize(offset));
+        this->memoryString = new MemoryFrame<string>(offset + getMemorySize(offset) * 2, getMemorySize(offset));
+        this->memoryBool = new MemoryFrame<bool>(offset + getMemorySize(offset) * 3, getMemorySize(offset));
     }
 
     int addValues(int type, int amount) {
@@ -123,7 +124,7 @@ struct Memory {
             return LOCAL_CTE_BOOL - LOCAL_CTE_STRING;
         if (frame == LOCAL_CTE_BOOL)
             return END_MEMORY - LOCAL_CTE_BOOL;
-        cout << "Memory address error" << endl;
+        cout << "Memory address error. Trying to look for " << frame << endl;
         exit(-1);
         return -1;
     }

@@ -18,7 +18,7 @@ enum MemoryAddresses {
 
 
     LOCAL_INT=32000,
-    LOCAL_FLOAT=23000,
+    LOCAL_FLOAT=33000,
     LOCAL_STRING=34000,
     LOCAL_BOOL=35000,
 
