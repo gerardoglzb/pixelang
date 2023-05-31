@@ -539,7 +539,7 @@ struct VMHelper {
             cout << rightOperand << " ";
         } else if (rightType == BOOL_) {
             bool rightOperand = getValueBool(rightOperandAddress);
-            cout << rightOperand << " ";
+            cout << (rightOperand ? "true" : "false") << " ";
         }
     }
 
