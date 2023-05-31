@@ -648,7 +648,7 @@ void declareMainFunction(string name, int lineas, FunctionDirectory *directory) 
     VariableTable *table = new VariableTable();
     table->parent = NULL;
 
-    FunctionEntry *entry = new FunctionEntry(name, 4, table, 2000, 4000, 2000);
+    FunctionEntry *entry = new FunctionEntry(name, 4, table, true);
 
     funcDir = directory;
     funcDir->main = entry;

@@ -19,6 +19,10 @@ struct Memory {
         return memoryString->index;
     }
 
+    int getSizeBool() {
+        return memoryBool->index;
+    }
+
     Memory(int offset) {
         this->memoryInt = new MemoryFrame<int>(offset);
         this->memoryFloat = new MemoryFrame<float>(offset + getMemorySize(offset));
@@ -113,7 +117,7 @@ struct Memory {
         if (frame == LOCAL_CTE_STRING)
             return LOCAL_CTE_BOOL - LOCAL_CTE_STRING;
         if (frame == LOCAL_CTE_BOOL)
-            return END - LOCAL_CTE_BOOL;
+            return END_MEMORY - LOCAL_CTE_BOOL;
         cout << "Memory address error" << endl;
         exit(-1);
         return -1;

@@ -26,13 +26,13 @@ struct VirtualMachine {
         this->functions = functions;
         this->constants = constants;
 
-        this->globalMemory = new VFunctionMemory(&functions[0], 2000, 4000, 2000, nullptr, "main");
+        this->globalMemory = new VFunctionMemory(&functions[0], nullptr, "main");
         this->subStack.push(this->globalMemory);
         cout << filename << ":" << endl;
     }
 
     void createMemory(int id) {
-        eraStack.push(new VFunctionMemory(&functions[id], 1000, 3000, 1000, globalMemory, "func"));
+        eraStack.push(new VFunctionMemory(&functions[id], globalMemory));
     }
 
     void storeConstants() {

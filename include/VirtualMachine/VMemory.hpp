@@ -6,11 +6,13 @@ struct VMemory {
     VMemoryFrame<int> *memoryInt;
     VMemoryFrame<float> *memoryFloat;
     VMemoryFrame<string> *memoryString;
+    VMemoryFrame<bool> *memoryBool;
 
-    VMemory(int intSize, int floatSize, int stringSize, int totalOffset, int intOffset, int floatOffset, int stringOffset) {
-        this->memoryInt = new VMemoryFrame<int>(intSize, totalOffset + intOffset, INT_);
-        this->memoryFloat = new VMemoryFrame<float>(floatSize, totalOffset + floatOffset, FLOAT_);
-        this->memoryString = new VMemoryFrame<string>(stringSize, totalOffset + stringOffset, STRING_);
+    VMemory(int intSize, int floatSize, int stringSize, int boolSize, int intOffset, int floatOffset, int stringOffset, int boolOffset) {
+        this->memoryInt = new VMemoryFrame<int>(intSize, intOffset, INT_);
+        this->memoryFloat = new VMemoryFrame<float>(floatSize, floatOffset, FLOAT_);
+        this->memoryString = new VMemoryFrame<string>(stringSize, stringOffset, STRING_);
+        this->memoryBool = new VMemoryFrame<bool>(boolSize, boolOffset, BOOL_);
     }
 
     int getType(int address) {

@@ -6,9 +6,9 @@ struct Function {
     int resultAddress;
     int memoryOffset;
     int startQuad;
-    int localVals[3];
-    int tempVals[3];
-    int cteVals[3];
+    int localVals[4];
+    int tempVals[4];
+    int cteVals[4];
 
     Function(int type, int resultAddress, int memoryOffset, int startQuad, int localInts, int localFloats, int localStrings, int tempInts, int tempFloats, int tempStrings, int cteInts, int cteFloats, int cteStrings) {
         this->type = type;
@@ -34,11 +34,14 @@ struct Function {
         this->localVals[0] = stoi(item[4]);
         this->localVals[1] = stoi(item[5]);
         this->localVals[2] = stoi(item[6]); 
-        this->tempVals[0] = stoi(item[7]);
-        this->tempVals[1] = stoi(item[8]);
-        this->tempVals[2] = stoi(item[9]); 
-        this->cteVals[0] = stoi(item[10]);
-        this->cteVals[1] = stoi(item[11]);
-        this->cteVals[2] = stoi(item[12]);
+        this->localVals[3] = stoi(item[7]);
+        this->tempVals[0] = stoi(item[8]);
+        this->tempVals[1] = stoi(item[9]);
+        this->tempVals[2] = stoi(item[10]); 
+        this->tempVals[3] = stoi(item[11]);
+        this->cteVals[0] = stoi(item[12]);
+        this->cteVals[1] = stoi(item[13]);
+        this->cteVals[2] = stoi(item[14]);
+        this->cteVals[3] = stoi(item[15]);
     }
 };

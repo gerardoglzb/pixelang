@@ -93,7 +93,7 @@ struct MemoryFrame {
         if (frame == LOCAL_CTE_STRING)
             return LOCAL_CTE_BOOL - LOCAL_CTE_STRING;
         if (frame == LOCAL_CTE_BOOL)
-            return END - LOCAL_CTE_BOOL;
+            return END_MEMORY - LOCAL_CTE_BOOL;
         cout << "Memory address error" << endl;
         exit(-1);
         return -1;

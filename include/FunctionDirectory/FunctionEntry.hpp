@@ -24,9 +24,9 @@ struct FunctionEntry {
 
     void printFunction(ofstream &file) {
         file << type << "," << resultAddress << "," << memoryOffset << "," << currQuad << ",";
-        file << localMemory->getSizeInt() << "," << localMemory->getSizeFloat() << "," << localMemory->getSizeString() << ",";
-        file << tempMemory->getSizeInt() << "," << tempMemory->getSizeFloat() << "," << tempMemory->getSizeString() << ",";
-        file << cteMemory->getSizeInt() << "," << cteMemory->getSizeFloat() << "," << cteMemory->getSizeString() << endl;
+        file << localMemory->getSizeInt() << "," << localMemory->getSizeFloat() << "," << localMemory->getSizeString() << "," << localMemory->getSizeBool() << ",";
+        file << tempMemory->getSizeInt() << "," << tempMemory->getSizeFloat() << "," << tempMemory->getSizeString() << "," << tempMemory->getSizeBool() << ",";
+        file << cteMemory->getSizeInt() << "," << cteMemory->getSizeFloat() << "," << cteMemory->getSizeString() << "," << cteMemory->getSizeBool() << endl;
     }
 
     void resetParamCount() {
@@ -82,7 +82,7 @@ struct FunctionEntry {
         this->cteMemory = new Memory(LOCAL_CTE_INT);
     };
 
-    FunctionEntry(string name, int type, VariableTable *variableTable, int localSize, int tempSize, int cteSize) { // for main
+    FunctionEntry(string name, int type, VariableTable *variableTable, bool isMain) { // for main
         this->name = name;
         this->variableTable = variableTable;
         this->parameterTable = new VariableTable();

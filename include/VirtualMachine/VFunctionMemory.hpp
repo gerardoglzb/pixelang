@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./Function.hpp"
 #include "./VMemory.hpp"
+#include "../Memory/MemoryAddresses.hpp"
 using namespace std;
 
 struct VFunctionMemory {
@@ -10,10 +11,18 @@ struct VFunctionMemory {
     VFunctionMemory *globalMemory;
     string name;
 
-    VFunctionMemory(Function *function, int intSize, int floatSize, int stringSize, VFunctionMemory *globalMemory, string name) {
-        this->localMemory = new VMemory(function->localVals[0], function->localVals[1], function->localVals[2], function->memoryOffset, 0, intSize, intSize * 2);
-        this->tempMemory = new VMemory(function->tempVals[0], function->tempVals[1], function->tempVals[2], function->memoryOffset + intSize * 3, 0, floatSize, floatSize * 2);
-        this->cteMemory = new VMemory(function->cteVals[0], function->cteVals[1], function->cteVals[2], function->memoryOffset + intSize * 3 + floatSize * 3, 0, stringSize, stringSize * 2);
+    VFunctionMemory(Function *function, VFunctionMemory *globalMemory) {
+        this->localMemory = new VMemory(function->localVals[0], function->localVals[1], function->localVals[2], function->localVals[3], LOCAL_INT, LOCAL_FLOAT, LOCAL_STRING, LOCAL_BOOL);
+        this->tempMemory = new VMemory(function->tempVals[0], function->tempVals[1], function->tempVals[2], function->tempVals[3], LOCAL_TEMP_INT, LOCAL_TEMP_FLOAT, LOCAL_TEMP_STRING, LOCAL_TEMP_BOOL);
+        this->cteMemory = new VMemory(function->cteVals[0], function->cteVals[1], function->cteVals[2], function->cteVals[3], LOCAL_CTE_INT, LOCAL_CTE_FLOAT, LOCAL_CTE_STRING, LOCAL_CTE_BOOL);
+        this->globalMemory = globalMemory;
+        this->name = "func";
+    }
+
+    VFunctionMemory(Function *function, VFunctionMemory *globalMemory, string name) {
+        this->localMemory = new VMemory(function->localVals[0], function->localVals[1], function->localVals[2], function->localVals[3], GLOBAL_INT, GLOBAL_FLOAT, GLOBAL_STRING, GLOBAL_BOOL);
+        this->tempMemory = new VMemory(function->tempVals[0], function->tempVals[1], function->tempVals[2], function->tempVals[3], GLOBAL_TEMP_INT, GLOBAL_TEMP_FLOAT, GLOBAL_TEMP_STRING, GLOBAL_TEMP_BOOL);
+        this->cteMemory = new VMemory(function->cteVals[0], function->cteVals[1], function->cteVals[2], function->cteVals[3], GLOBAL_CTE_INT, GLOBAL_CTE_FLOAT, GLOBAL_CTE_STRING, GLOBAL_CTE_BOOL);
         this->globalMemory = globalMemory;
         this->name = name;
     }
@@ -36,21 +45,20 @@ struct VFunctionMemory {
     }
 
     VMemory *getVMemory(int address) {
-        if (address < 24000) {
+        if (address < LOCAL_INT) {
             if (globalMemory)
                 return globalMemory->getVMemory(address);
-            if (address < 6000)
+            if (address < GLOBAL_TEMP_INT)
                 return localMemory;
-            if (address < 18000)
+            if (address < GLOBAL_CTE_INT)
                 return tempMemory;
-            if (address < 24000)
-                return cteMemory;
+            return cteMemory;
         }
-        if (address < 27000)
+        if (address < LOCAL_TEMP_INT)
             return localMemory;
-        if (address < 36000)
+        if (address < LOCAL_CTE_INT)
             return tempMemory;
-        if (address < 39000)
+        if (address < END_MEMORY)
             return cteMemory;
         cout << "Memory error " << endl;
         exit(-1); // TODO: mejorar error messages

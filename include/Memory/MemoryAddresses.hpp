@@ -32,5 +32,5 @@ enum MemoryAddresses {
     LOCAL_CTE_STRING=50000,
     LOCAL_CTE_BOOL=51000,
 
-    END=52000
+    END_MEMORY=52000
 };
