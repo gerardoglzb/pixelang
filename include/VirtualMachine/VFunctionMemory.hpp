@@ -20,9 +20,9 @@ struct VFunctionMemory {
     }
 
     VFunctionMemory(Function *function, VFunctionMemory *globalMemory, string name) {
-        this->localMemory = new VMemory(function->localVals[0], function->localVals[1], function->localVals[2], function->localVals[3], function->imageVals, GLOBAL_INT, GLOBAL_FLOAT, GLOBAL_STRING, GLOBAL_BOOL, LOCAL_IMAGE);
-        this->tempMemory = new VMemory(function->tempVals[0], function->tempVals[1], function->tempVals[2], function->tempVals[3], function->imageVals, GLOBAL_TEMP_INT, GLOBAL_TEMP_FLOAT, GLOBAL_TEMP_STRING, GLOBAL_TEMP_BOOL, LOCAL_IMAGE);
-        this->cteMemory = new VMemory(function->cteVals[0], function->cteVals[1], function->cteVals[2], function->cteVals[3], function->imageVals, GLOBAL_CTE_INT, GLOBAL_CTE_FLOAT, GLOBAL_CTE_STRING, GLOBAL_CTE_BOOL, LOCAL_IMAGE);
+        this->localMemory = new VMemory(function->localVals[0], function->localVals[1], function->localVals[2], function->localVals[3], function->imageVals, GLOBAL_INT, GLOBAL_FLOAT, GLOBAL_STRING, GLOBAL_BOOL, GLOBAL_IMAGE);
+        this->tempMemory = new VMemory(function->tempVals[0], function->tempVals[1], function->tempVals[2], function->tempVals[3], function->imageVals, GLOBAL_TEMP_INT, GLOBAL_TEMP_FLOAT, GLOBAL_TEMP_STRING, GLOBAL_TEMP_BOOL, GLOBAL_IMAGE);
+        this->cteMemory = new VMemory(function->cteVals[0], function->cteVals[1], function->cteVals[2], function->cteVals[3], function->imageVals, GLOBAL_CTE_INT, GLOBAL_CTE_FLOAT, GLOBAL_CTE_STRING, GLOBAL_CTE_BOOL, GLOBAL_IMAGE);
         this->globalMemory = globalMemory;
         this->name = name;
     }

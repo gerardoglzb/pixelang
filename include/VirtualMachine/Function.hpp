@@ -9,23 +9,7 @@ struct Function {
     int localVals[4];
     int tempVals[4];
     int cteVals[4];
-    int imageVals=3;
-
-    Function(int type, int resultAddress, int memoryOffset, int startQuad, int localInts, int localFloats, int localStrings, int tempInts, int tempFloats, int tempStrings, int cteInts, int cteFloats, int cteStrings) {
-        this->type = type;
-        this->resultAddress = resultAddress;
-        this->memoryOffset = memoryOffset;
-        this->startQuad = startQuad;
-        this->localVals[0] = localInts;
-        this->localVals[1] = localFloats;
-        this->localVals[2] = localStrings;
-        this->tempVals[0] = tempInts;
-        this->tempVals[1] = tempFloats;
-        this->tempVals[2] = tempStrings;
-        this->cteVals[0] = cteInts;
-        this->cteVals[1] = cteFloats;
-        this->cteVals[2] = cteStrings;
-    }
+    int imageVals;
 
     Function(string item[12]) {
         this->type = stoi(item[0]);
@@ -44,5 +28,6 @@ struct Function {
         this->cteVals[1] = stoi(item[13]);
         this->cteVals[2] = stoi(item[14]);
         this->cteVals[3] = stoi(item[15]);
+        this->imageVals = stoi(item[16]);
     }
 };

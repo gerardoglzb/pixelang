@@ -41,6 +41,10 @@ struct VMemory {
         this->memoryString->setValue(idx, value);
     }
 
+    void setValue(int idx, Image *value) {
+        this->memoryImage->setValue(idx, value);
+    }
+
     int getValueInt(int idx) {
         return this->memoryInt->getValue(idx);
     }

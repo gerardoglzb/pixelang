@@ -26,10 +26,10 @@ void buildConstant(string line, vector<Constant> *constants, int *type) {
 
 void buildFunction(string line, vector<Function> *functions) {
     stringstream stream(line);
-    string item[16];
+    string item[17];
     int idx = 0;
     while (getline(stream, item[idx++], ','));
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 17; i++) {
         item[i] = item[i].substr(0, item[i].length());
     }
     functions->push_back(Function(item));

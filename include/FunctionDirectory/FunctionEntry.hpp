@@ -26,7 +26,8 @@ struct FunctionEntry {
         file << type << "," << resultAddress << "," << memoryOffset << "," << currQuad << ",";
         file << localMemory->getSizeInt() << "," << localMemory->getSizeFloat() << "," << localMemory->getSizeString() << "," << localMemory->getSizeBool() << ",";
         file << tempMemory->getSizeInt() << "," << tempMemory->getSizeFloat() << "," << tempMemory->getSizeString() << "," << tempMemory->getSizeBool() << ",";
-        file << cteMemory->getSizeInt() << "," << cteMemory->getSizeFloat() << "," << cteMemory->getSizeString() << "," << cteMemory->getSizeBool() << endl;
+        file << cteMemory->getSizeInt() << "," << cteMemory->getSizeFloat() << "," << cteMemory->getSizeString() << "," << cteMemory->getSizeBool() << ",";
+        file << localMemory->getSizeImage() << endl;
     }
 
     void resetParamCount() {

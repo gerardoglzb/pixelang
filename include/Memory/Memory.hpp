@@ -24,6 +24,10 @@ struct Memory {
         return memoryBool->index;
     }
 
+    int getSizeImage() {
+        return memoryImage->index;
+    }
+
     Memory(int offset) {
         this->memoryInt = new MemoryFrame<int>(offset, getMemorySize(offset));
         this->memoryFloat = new MemoryFrame<float>(offset + getMemorySize(offset), getMemorySize(offset));
