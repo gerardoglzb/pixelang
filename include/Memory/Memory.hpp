@@ -6,6 +6,7 @@ struct Memory {
     MemoryFrame<float> *memoryFloat;
     MemoryFrame<string> *memoryString;
     MemoryFrame<bool> *memoryBool;
+    MemoryFrame<bool> *memoryImage;
 
     int getSizeInt() {
         return memoryInt->index;
@@ -24,11 +25,11 @@ struct Memory {
     }
 
     Memory(int offset) {
-        cout << "new mem" << endl;
         this->memoryInt = new MemoryFrame<int>(offset, getMemorySize(offset));
         this->memoryFloat = new MemoryFrame<float>(offset + getMemorySize(offset), getMemorySize(offset));
         this->memoryString = new MemoryFrame<string>(offset + getMemorySize(offset) * 2, getMemorySize(offset));
         this->memoryBool = new MemoryFrame<bool>(offset + getMemorySize(offset) * 3, getMemorySize(offset));
+        this->memoryImage = new MemoryFrame<bool>(offset == GLOBAL_INT ? GLOBAL_IMAGE : LOCAL_IMAGE, getMemorySize(offset == GLOBAL_INT ? GLOBAL_IMAGE : LOCAL_IMAGE));
     }
 
     int addValues(int type, int amount) {
@@ -52,6 +53,11 @@ struct Memory {
         if (type == BOOL_) {
             return memoryBool->addValue();
         }
+        if (type == IMAGE_) {
+            return memoryImage->addValue();
+        }
+        cout << "memory assignment error " << endl;
+        exit(-1);
         return -1;
     }
 

@@ -10,7 +10,6 @@ struct MemoryFrame {
     vector<T> values;
 
     MemoryFrame(int offset, int size) {
-        cout << "mem frame " << offset << " " << size << endl;
         this->size = size;
         this->index = 0;
         this->offset = offset;

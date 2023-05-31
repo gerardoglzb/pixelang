@@ -22,6 +22,7 @@
     bool bval;
     struct IDNode *nodeID;
     struct ArrayNode *arrNode;
+    struct ParamNode *paramNode;
     int chType;
     int ivar;
     int iparam;
@@ -87,6 +88,7 @@
 
 %type <nodeID> var_list
 %type <arrNode> array_list
+%type <paramNode> image_arguments
 %type <chType> type function_type
 %type <ivar> vars
 %type <iparam> params
@@ -397,17 +399,24 @@ open_image_function :
     } ;
 
 image_call :
-    ID ARROW simple_image_function LEFT_PAR RIGHT_PAR SEMICOLON {
-        
+    ID ARROW simple_image_function LEFT_PAR image_arguments RIGHT_PAR SEMICOLON {
+        performImageCall($1, $3, $5);
+    }
+    | ID ARROW simple_image_function LEFT_PAR RIGHT_PAR SEMICOLON {
+        performImageCall($1, $3, nullptr);
     } ;
 
 image_arguments :
-    expression image_arguments2
-    | ;
-
-image_arguments2 :
-    COMMA expression image_arguments2
-    | ;
+    expression_or_str {
+        int type = topOperandType();
+        ParamNode *node = new ParamNode(popOperand(), type);
+        $$ = node;
+    }
+    | expression_or_str COMMA image_arguments {
+        int type = topOperandType();
+        ParamNode *node = new ParamNode(popOperand(), type, $3);
+        $$ = node;
+    } ;
 
 assignment :
     assignee EQUAL {

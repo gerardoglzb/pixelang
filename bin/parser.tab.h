@@ -155,6 +155,7 @@ typedef union YYSTYPE
     bool bval;
     struct IDNode *nodeID;
     struct ArrayNode *arrNode;
+    struct ParamNode *paramNode;
     int chType;
     int ivar;
     int iparam;
@@ -162,7 +163,7 @@ typedef union YYSTYPE
     int imgFunc;
 }
 /* Line 1529 of yacc.c.  */
-#line 166 "./bin/parser.tab.h"
+#line 167 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

@@ -11,6 +11,8 @@
 #include "./VariableTable/VariableTable.hpp"
 #include "./VariableTable/IDNode.hpp"
 #include "./FunctionDirectory/FunctionDirectory.hpp"
+#include "./ImageProcessing/Image.hpp"
+#include "./ImageProcessing/ParamNode.hpp"
 
 static string programName;
 
@@ -83,6 +85,8 @@ void declareMainFunction(string name, int lineas, FunctionDirectory *directory);
 
 
 void pushOperand(int operand);
+
+int popOperand();
 
 void pushOperand(float operand);
 
@@ -190,3 +194,8 @@ void setProgramName(string name);
 void printOperators();
 
 void printOperands();
+
+
+void performImageCall(string id, int call, ParamNode *node);
+
+int topOperandType();

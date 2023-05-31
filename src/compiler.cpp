@@ -51,7 +51,7 @@ void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     quads.push_back(quad);
     // printOperators();
     // printOperands();
-    printf("%lu\t%s\t%i\t%i\t%i\n\n", quads.size(), operatorName(oper).c_str(), leftOperand, rightOperand, result);
+    // printf("%lu\t%s\t%i\t%i\t%i\n\n", quads.size(), operatorName(oper).c_str(), leftOperand, rightOperand, result);
 }
 
 void generateGosub(string name) {
@@ -219,6 +219,18 @@ string operatorName(int _oper) {
             break;
         case EXPO_:
             oper = "EXPO";
+            break;
+        case IPARAM_:
+            oper = "IPARAM";
+            break;
+        case OPEN_:
+            oper = "OPEN";
+            break;
+        case SAVE_:
+            oper = "SAVE";
+            break;
+        case GRAYSCALE_:
+            oper = "GRAYSCALE";
             break;
     }
     return oper;
@@ -680,4 +692,29 @@ void popReturnAddress() {
 
 void generateNewline() {
     generateQuad(PRINT_, -1, -1, -1);
+}
+
+void performImageCall(string id, int call, ParamNode *node) {
+    int imageAddress = funcDir->currentFunction()->findAddress(id);
+    queue<int> params;
+    queue<int> paramTypes;
+    if (node) {
+        node->getParams(&params, &paramTypes);
+    }
+    while (!params.empty()) {
+        int param = params.front(), type = paramTypes.front();
+        generateQuad(IPARAM_, -1, declareCte(INT_, type), param);
+        params.pop(); paramTypes.pop();
+    }
+    generateQuad(call, -1, -1, imageAddress);
+}
+
+int popOperand() {
+    int temp = operands.top(); operands.pop();
+    types.pop();
+    return temp;
+}
+
+int topOperandType() {
+    return types.top();
 }
