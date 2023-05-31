@@ -20,6 +20,8 @@ struct VirtualMachine {
     stack<VFunctionMemory*> eraStack;
     stack<int> returnStack;
 
+    queue<int> iparams;
+
     VirtualMachine(vector<Function> functions, vector<Constant> constants, vector<Quadruple> quads, string filename) {
         this->quads = vector<Quadruple>({Quadruple()});
         this->quads.insert(this->quads.end(), quads.begin(), quads.end());
@@ -152,6 +154,12 @@ struct VirtualMachine {
                 break;
             case LESSEQ_:
                 helper.executeLessEq();
+                break;
+            case IPARAM_:
+                helper.executeIParam(&iparams);
+                break;
+            case OPEN_:
+                helper.executeOpen(&iparams);
                 break;
         }
         return pid;

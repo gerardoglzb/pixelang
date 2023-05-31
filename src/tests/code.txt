@@ -9,5 +9,5 @@ var img2, img : image;
     b = -4;
     c = a + b;
     print(a, b, c);
-    img->save(1, "hi");
+    img->open("hi.txt");
 }

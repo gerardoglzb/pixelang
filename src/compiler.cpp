@@ -697,14 +697,13 @@ void generateNewline() {
 void performImageCall(string id, int call, ParamNode *node) {
     int imageAddress = funcDir->currentFunction()->findAddress(id);
     queue<int> params;
-    queue<int> paramTypes;
     if (node) {
-        node->getParams(&params, &paramTypes);
+        node->getParams(&params);
     }
     while (!params.empty()) {
-        int param = params.front(), type = paramTypes.front();
-        generateQuad(IPARAM_, -1, declareCte(INT_, type), param);
-        params.pop(); paramTypes.pop();
+        int param = params.front();
+        generateQuad(IPARAM_, -1, -1, param);
+        params.pop();
     }
     generateQuad(call, -1, -1, imageAddress);
 }

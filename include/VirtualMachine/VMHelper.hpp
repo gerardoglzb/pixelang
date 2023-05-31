@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 #include <string>
 using namespace std;
 
@@ -472,6 +473,18 @@ struct VMHelper {
             cout << "Index out of range" << endl;
             exit(-1);
         }
+    }
+
+    void executeIParam(queue<int> *iparams) {
+        iparams->push(resultAddress);
+    }
+
+    void executeOpen(queue<int> *iparams) {
+        cout << "opening ";
+        int filename = iparams->front(); iparams->pop();
+        cout << filename;
+        // int resultType = getType(resultAddress);
+        cout << endl;
     }
 
 };

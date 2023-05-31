@@ -93,7 +93,7 @@
 %type <ivar> vars
 %type <iparam> params
 %type <iarray> array_declaration
-%type <imgFunc> simple_image_function open_image_function
+%type <imgFunc> image_function
 
 %%
 
@@ -385,24 +385,22 @@ statement :
     | repetition
     | return ;
 
-simple_image_function :
+image_function :
     GRAYSCALE {
         $$ = GRAYSCALE_
     }
     | SAVE {
         $$ = SAVE_
-    } ;
-
-open_image_function :
-    OPEN {
+    }
+    | OPEN {
         $$ = OPEN_
     } ;
 
 image_call :
-    ID ARROW simple_image_function LEFT_PAR image_arguments RIGHT_PAR SEMICOLON {
+    ID ARROW image_function LEFT_PAR image_arguments RIGHT_PAR SEMICOLON {
         performImageCall($1, $3, $5);
     }
-    | ID ARROW simple_image_function LEFT_PAR RIGHT_PAR SEMICOLON {
+    | ID ARROW image_function LEFT_PAR RIGHT_PAR SEMICOLON {
         performImageCall($1, $3, nullptr);
     } ;
 

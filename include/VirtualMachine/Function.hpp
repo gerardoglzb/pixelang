@@ -9,6 +9,7 @@ struct Function {
     int localVals[4];
     int tempVals[4];
     int cteVals[4];
+    int imageVals=3;
 
     Function(int type, int resultAddress, int memoryOffset, int startQuad, int localInts, int localFloats, int localStrings, int tempInts, int tempFloats, int tempStrings, int cteInts, int cteFloats, int cteStrings) {
         this->type = type;

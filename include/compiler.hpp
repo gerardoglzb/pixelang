@@ -11,7 +11,6 @@
 #include "./VariableTable/VariableTable.hpp"
 #include "./VariableTable/IDNode.hpp"
 #include "./FunctionDirectory/FunctionDirectory.hpp"
-#include "./ImageProcessing/Image.hpp"
 #include "./ImageProcessing/ParamNode.hpp"
 
 static string programName;

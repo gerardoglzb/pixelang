@@ -1,5 +1,6 @@
 #include <iostream>
 #include "./VMemoryFrame.hpp"
+#include "../ImageProcessing/Image.hpp"
 using namespace std;
 
 struct VMemory {
@@ -7,12 +8,14 @@ struct VMemory {
     VMemoryFrame<float> *memoryFloat;
     VMemoryFrame<string> *memoryString;
     VMemoryFrame<bool> *memoryBool;
+    VMemoryFrame<Image*> *memoryImage;
 
-    VMemory(int intSize, int floatSize, int stringSize, int boolSize, int intOffset, int floatOffset, int stringOffset, int boolOffset) {
+    VMemory(int intSize, int floatSize, int stringSize, int boolSize, int imageSize, int intOffset, int floatOffset, int stringOffset, int boolOffset, int imageOffset) {
         this->memoryInt = new VMemoryFrame<int>(intSize, intOffset, INT_);
         this->memoryFloat = new VMemoryFrame<float>(floatSize, floatOffset, FLOAT_);
         this->memoryString = new VMemoryFrame<string>(stringSize, stringOffset, STRING_);
         this->memoryBool = new VMemoryFrame<bool>(boolSize, boolOffset, BOOL_);
+        this->memoryImage = new VMemoryFrame<Image*>(imageSize, imageOffset, IMAGE_);
     }
 
     int getType(int address) {
@@ -20,6 +23,7 @@ struct VMemory {
         intType = (intType == -1) ? memoryFloat->getType(address) : intType;
         intType = (intType == -1) ? memoryString->getType(address) : intType;
         intType = (intType == -1) ? memoryBool->getType(address) : intType;
+        intType = (intType == -1) ? memoryImage->getType(address) : intType;
         return intType;
     }
 

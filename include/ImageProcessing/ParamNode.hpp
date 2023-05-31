@@ -6,11 +6,10 @@ struct ParamNode {
     int type;
     ParamNode *next;
 
-    void getParams(queue<int> *params, queue<int> *paramTypes) {
+    void getParams(queue<int> *params) {
         params->push(value);
-        paramTypes->push(type);
         if (next)
-            next->getParams(params, paramTypes);
+            next->getParams(params);
     }
 
     ParamNode(int value, int type) {
