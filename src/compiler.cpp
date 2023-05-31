@@ -280,6 +280,8 @@ void printCtes(ofstream &file) {
     file << "%" << endl;
     printCtes(file, funcDir->main->cteMemory->memoryFloat->values, funcDir->main->cteMemory->memoryFloat->offset);
     file << "%" << endl;
+    printCtes(file, funcDir->main->cteMemory->memoryBool->values, funcDir->main->cteMemory->memoryBool->offset);
+    file << "%" << endl;
     printCtes(file, funcDir->main->cteMemory->memoryString->values, funcDir->main->cteMemory->memoryString->offset);
     file << "%%" << endl;
 }

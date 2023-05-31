@@ -46,6 +46,9 @@ struct VirtualMachine {
             } else if (cte.type == STRING_) {
                 string val = cte.value;
                 globalMemory->cteMemory->setValue(cte.address, val);
+            } else if (cte.type == BOOL_) {
+                bool val = cte.value != "0";
+                globalMemory->cteMemory->setValue(cte.address, val);
             }
         }
     }

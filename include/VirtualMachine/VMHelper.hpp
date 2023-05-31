@@ -56,6 +56,13 @@ struct VMHelper {
         return getVMemory(address)->getValueString(address);
     }
 
+    bool getValueBool(int address) {
+        if (address < -1) {
+            return getVMemory(address)->getValueBool(memory->getVMemory(-address)->getValueInt(-address));
+        }
+        return getVMemory(address)->getValueBool(address);
+    }
+
     VMemory *getVMemory(int address) {
         if (address < -1) {
             return this->memory->getVMemory(this->memory->getVMemory(-address)->getValueInt(-address));
@@ -100,6 +107,9 @@ struct VMHelper {
             setValue(resultAddress, float(rightOperand));
         } else if (rightType == STRING_) {
             string rightOperand = getValueString(rightOperandAddress);
+            setValue(resultAddress, rightOperand);
+        } else if (rightType == BOOL_) {
+            bool rightOperand = getValueBool(rightOperandAddress);
             setValue(resultAddress, rightOperand);
         }
     }
@@ -442,6 +452,9 @@ struct VMHelper {
         } else if (rightType == STRING_) {
             string rightOperand = getValueString(rightOperandAddress);
             rightOperand = rightOperand.substr(1, rightOperand.length() - 2);
+            cout << rightOperand << " ";
+        } else if (rightType == BOOL_) {
+            bool rightOperand = getValueBool(rightOperandAddress);
             cout << rightOperand << " ";
         }
     }

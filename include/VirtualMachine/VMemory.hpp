@@ -19,11 +19,14 @@ struct VMemory {
         int intType = memoryInt->getType(address);
         intType = (intType == -1) ? memoryFloat->getType(address) : intType;
         intType = (intType == -1) ? memoryString->getType(address) : intType;
+        intType = (intType == -1) ? memoryBool->getType(address) : intType;
         return intType;
     }
 
     void setValue(int idx, int value) {
-        this->memoryInt->setValue(idx, value);
+        if (this->memoryInt->setValue(idx, value) == -1) {
+            this->memoryBool->setValue(idx, value);
+        }
     }
 
     void setValue(int idx, float value) {
@@ -44,5 +47,9 @@ struct VMemory {
 
     string getValueString(int idx) {
         return this->memoryString->getValue(idx);
+    }
+
+    bool getValueBool(int idx) {
+        return this->memoryBool->getValue(idx);
     }
 };

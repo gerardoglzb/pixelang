@@ -298,6 +298,7 @@ var_cte :
         pushOperandOfType(declareCte(INT_, $1), INT_);
     }
     | CTE_BOOL {
+        cout << "cte bool  " << $1 << endl;
         pushOperandOfType(declareCte(BOOL_, $1), BOOL_);
     } ;
 

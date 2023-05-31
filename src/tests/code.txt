@@ -4,6 +4,6 @@ var a, b, c : int;
 var x : bool;
 
 {
-    x = 3;
-    print(b);
+    x = false;
+    print(x);
 }

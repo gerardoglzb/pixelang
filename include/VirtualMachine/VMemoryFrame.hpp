@@ -16,8 +16,11 @@ struct VMemoryFrame {
         this->frame = new T[size];
     }
 
-    void setValue(int idx, T value) {
+    int setValue(int idx, T value) {
+        if (offset > idx || (idx - offset) >= size)
+            return -1;
         frame[idx - offset] = value;
+        return (idx - offset);
     }
 
     T getValue(int idx) {

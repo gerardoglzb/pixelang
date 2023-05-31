@@ -48,11 +48,16 @@ struct Memory {
         if (type == STRING_) {
             return memoryFloat->addValue();
         }
+        if (type == BOOL_) {
+            return memoryBool->addValue();
+        }
         return -1;
     }
 
     int addValue(int type, int value) {
-        return memoryInt->addValue(value);
+        if (type == INT_)
+            return memoryInt->addValue(value);
+        return memoryBool->addValue(value);
     }
 
     int addValue(int type, float value) {
