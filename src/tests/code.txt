@@ -10,4 +10,5 @@ var img2, img : image;
     c = a + b;
     print(a, b, c);
     img->open("hi.txt");
+    img->save();
 }

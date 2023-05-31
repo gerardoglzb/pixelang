@@ -161,6 +161,9 @@ struct VirtualMachine {
             case OPEN_:
                 helper.executeOpen(&iparams);
                 break;
+            case SAVE_:
+                helper.executeSave();
+                break;
         }
         return pid;
     }

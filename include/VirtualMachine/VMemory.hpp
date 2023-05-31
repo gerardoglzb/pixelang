@@ -60,4 +60,8 @@ struct VMemory {
     bool getValueBool(int idx) {
         return this->memoryBool->getValue(idx);
     }
+
+    Image *getValueImage(int idx) {
+        return this->memoryImage->getValue(idx);
+    }
 };

@@ -50,6 +50,13 @@ struct VMHelper {
         return getVMemory(address)->getValueFloat(address);
     }
 
+    Image *getValueImage(int address) {
+        if (address < -1) {
+            return getVMemory(address)->getValueImage(memory->getVMemory(-address)->getValueInt(-address));
+        }
+        return getVMemory(address)->getValueImage(address);
+    }
+
     string getValueString(int address) {
         if (address < -1) {
             return getVMemory(address)->getValueString(memory->getVMemory(-address)->getValueInt(-address));
@@ -481,8 +488,13 @@ struct VMHelper {
 
     void executeOpen(queue<int> *iparams) {
         int filename = iparams->front(); iparams->pop();
-        Image *image = new Image();
+        Image *image = new Image(1, 2, 4);
         setValue(resultAddress, image);
+    }
+
+    void executeSave() {
+        Image *image = getValueImage(resultAddress);
+        cout << "saving " << image->w << " " << image->h << " " << image->channels << endl;
     }
 
 };

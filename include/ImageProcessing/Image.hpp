@@ -11,9 +11,12 @@ struct Image {
     // Image(string filename) {
     // }
 
-    // Image(int w, int h, int channels) {
+    Image(int w, int h, int channels) {
+        this->w = w;
+        this->h = h;
+        this->channels = channels;
 
-    // }
+    }
 
     // bool read(string filename) {
 
