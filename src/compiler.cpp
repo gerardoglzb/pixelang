@@ -490,6 +490,12 @@ void pushOperandResult(string name) {
 }
 
 int declareCte(int type, int value) {
+    if (value == -1)
+        return GLOBAL_CTE_INT;
+    if (value == 0)
+        return GLOBAL_CTE_INT + 1;
+    if (value == 1)
+        return GLOBAL_CTE_INT + 2;
     return funcDir->main->cteMemory->addValue(type, value);
 }
 
@@ -652,6 +658,9 @@ void declareMainFunction(string name, int lineas, FunctionDirectory *directory) 
 
     funcDir = directory;
     funcDir->main = entry;
+    for (int i = -1; i < 2; i++) {
+        funcDir->main->cteMemory->addValue(INT_, i);
+    }
 
     generateQuad(GOTO_, -1, -1, -1);
 }
