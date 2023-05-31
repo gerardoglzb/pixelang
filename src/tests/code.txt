@@ -1,15 +1,19 @@
-program test;
+program factorial_recursivo;
 
 var a, b, c : int;
-var x : bool;
+var arr : int[5];
+var i : int;
+
+function fact(x : int) : int {
+    var y : int;
+    if (x < 1 || x == 1) {
+        return(1);
+    }
+    y = x - 1;
+    return(x * fact(y));
+}
 
 {
-    x = true;
-    b = x;
-    print(b);
-    x = 8 % 5 == 1 + b;
-    print(x);
-    if (!x) {
-        print("HE");
-    }
+    print(fact(6-1));
+    print(-5.4);
 }

@@ -1,24 +1,24 @@
 program test;
 
-var matrixA : int[2][3];
-var matrixB : int[3][2];
-var result : int[2][2];
+var matrixA : float[2][3];
+var matrixB : float[3][2];
+var result : float[2][2];
 var i, j, k : int;
 
 {
     matrixA[0][0] = 1;
-    matrixA[0][1] = 3;
+    matrixA[0][1] = 3.4;
     matrixA[0][2] = 6;
-    matrixA[1][0] = 10;
-    matrixA[1][1] = 15;
+    matrixA[1][0] = -10;
+    matrixA[1][1] = 15.2;
     matrixA[1][2] = 21;
 
     matrixB[0][0] = 1;
-    matrixB[0][1] = 1;
-    matrixB[1][0] = 2;
+    matrixB[0][1] = 2;
+    matrixB[1][0] = -22.1;
     matrixB[1][1] = 3;
-    matrixB[2][0] = 4;
-    matrixB[2][1] = 5;
+    matrixB[2][0] = -4;
+    matrixB[2][1] = 58;
 
     for (i = 0 to 2) {
         for (j = 0 to 2) {
@@ -30,8 +30,6 @@ var i, j, k : int;
     }
 
     for (i = 0 to 2) {
-        for (j = 0 to 2) {
-            print(result[i][j]);
-        }
+        print(result[i][0], result[i][1]);
     }
 }

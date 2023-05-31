@@ -5,6 +5,7 @@
 
 #include "./Semantics/Operator.hpp"
 #include "./Semantics/Type.hpp"
+#include "./Semantics/SemanticCube.hpp"
 #include "./Quadruples/Quadruple.hpp"
 #include "./Memory/Memory.hpp"
 #include "./VariableTable/VariableTable.hpp"
@@ -80,8 +81,6 @@ void declareFunction(string name, int type, int lineas);
 
 void declareMainFunction(string name, int lineas, FunctionDirectory *directory);
 
-
-int semanticCube(int oper, int type1, int type2);
 
 void pushOperand(int operand);
 

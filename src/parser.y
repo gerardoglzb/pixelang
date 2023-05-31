@@ -263,9 +263,20 @@ exp2 :
     | ;
 
 term :
-    factor {
+    negation factor {
+        checkIfShouldDoOperation(vector<int>({MULTI_}));
         checkIfShouldDoOperation(vector<int>({MULTI_, DIV_, MOD_}));
     } term2 ;
+
+negation :
+    SUBSTRACTION {
+        pushOperator(MULTI_);
+        pushOperandOfType(declareCte(INT_, -1), INT_);
+    }
+    | {
+        pushOperator(MULTI_);
+        pushOperandOfType(declareCte(INT_, 1), INT_);
+    } ;
 
 term2 :
     MULTI {
@@ -298,7 +309,6 @@ var_cte :
         pushOperandOfType(declareCte(INT_, $1), INT_);
     }
     | CTE_BOOL {
-        cout << "cte bool  " << $1 << endl;
         pushOperandOfType(declareCte(BOOL_, $1), BOOL_);
     } ;
 
@@ -340,6 +350,7 @@ array :
 
 arguments :
     expression {
+        cout << "gen param" << endl;
         generateParam();
     } arguments2
     | ;
