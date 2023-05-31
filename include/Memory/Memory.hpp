@@ -95,7 +95,9 @@ struct Memory {
         if (frame == GLOBAL_CTE_STRING)
             return GLOBAL_CTE_BOOL - GLOBAL_CTE_STRING;
         if (frame == GLOBAL_CTE_BOOL)
-            return LOCAL_INT - GLOBAL_CTE_BOOL;
+            return GLOBAL_IMAGE - GLOBAL_CTE_BOOL;
+        if (frame == GLOBAL_IMAGE)
+            return LOCAL_INT - GLOBAL_IMAGE;
 
 
         if (frame == LOCAL_INT)
@@ -123,7 +125,9 @@ struct Memory {
         if (frame == LOCAL_CTE_STRING)
             return LOCAL_CTE_BOOL - LOCAL_CTE_STRING;
         if (frame == LOCAL_CTE_BOOL)
-            return END_MEMORY - LOCAL_CTE_BOOL;
+            return LOCAL_IMAGE - LOCAL_CTE_BOOL;
+        if (frame == LOCAL_IMAGE)
+            return END_MEMORY - LOCAL_IMAGE;
         cout << "Memory address error. Trying to look for " << frame << endl;
         exit(-1);
         return -1;

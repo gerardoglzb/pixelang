@@ -26,6 +26,7 @@
     int ivar;
     int iparam;
     int iarray;
+    int imgFunc;
 }
 
 %start program
@@ -41,6 +42,7 @@
 %token INT
 %token FLOAT
 %token BOOL
+%token IMAGE
 %token IF
 %token ELSE
 %token PRINT
@@ -77,6 +79,11 @@
 %token COLON
 %token SEMICOLON
 %token COMMA
+%token ARROW
+
+%token OPEN
+%token GRAYSCALE
+%token SAVE
 
 %type <nodeID> var_list
 %type <arrNode> array_list
@@ -84,6 +91,7 @@
 %type <ivar> vars
 %type <iparam> params
 %type <iarray> array_declaration
+%type <imgFunc> simple_image_function open_image_function
 
 %%
 
@@ -185,7 +193,8 @@ block :
 type :
     INT
     | FLOAT
-    | BOOL ;
+    | BOOL
+    | IMAGE ;
 
 params :
     ID COLON type COMMA params {
@@ -367,11 +376,38 @@ statements :
 
 statement :
     assignment SEMICOLON
+    | image_call
     | call
     | printing
     | conditional
     | repetition
     | return ;
+
+simple_image_function :
+    GRAYSCALE {
+        $$ = GRAYSCALE_
+    }
+    | SAVE {
+        $$ = SAVE_
+    } ;
+
+open_image_function :
+    OPEN {
+        $$ = OPEN_
+    } ;
+
+image_call :
+    ID ARROW simple_image_function LEFT_PAR RIGHT_PAR SEMICOLON {
+        
+    } ;
+
+image_arguments :
+    expression image_arguments2
+    | ;
+
+image_arguments2 :
+    COMMA expression image_arguments2
+    | ;
 
 assignment :
     assignee EQUAL {

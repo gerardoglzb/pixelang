@@ -6,6 +6,7 @@ enum Type {
     BOOL_,
     STRING_,
     VOID_,
+    IMAGE_,
 };
 
 enum Boolean {

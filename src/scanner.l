@@ -19,6 +19,7 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 "int"                           { yylval.chType = INT_; return INT; }
 "float"                         { yylval.chType = FLOAT_; return FLOAT; }
 "bool"                          { yylval.chType = BOOL_; return BOOL; }
+"image"                         { yylval.chType = IMAGE_; return IMAGE; }
 "if"                            { return IF; }
 "else"                          { return ELSE; }
 "print"                         { return PRINT; }
@@ -54,6 +55,11 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 ":"                             { return COLON; }
 ";"                             { return SEMICOLON; }
 ","                             { return COMMA; }
+"->"                            { return ARROW; }
+
+"open"                          { return OPEN; }
+"save"                          { return SAVE; }
+"grayscale"                     { return GRAYSCALE; }
 
 [\n]                            { lineas++; }
 [ \t\r]                         { ; }
