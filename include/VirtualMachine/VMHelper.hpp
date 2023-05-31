@@ -487,14 +487,23 @@ struct VMHelper {
     }
 
     void executeOpen(queue<int> *iparams) {
-        int filename = iparams->front(); iparams->pop();
-        Image *image = new Image(1, 2, 4);
-        setValue(resultAddress, image);
+        int filenameAddress = iparams->front(); iparams->pop();
+        if (getType(filenameAddress) == STRING_) {
+            string filename = getValueString(filenameAddress);
+            filename = filename.substr(1, filename.length() - 2);
+            Image *image = new Image(filename);
+            setValue(resultAddress, image);
+        }
     }
 
-    void executeSave() {
-        Image *image = getValueImage(resultAddress);
-        cout << "saving " << image->w << " " << image->h << " " << image->channels << endl;
+    void executeSave(queue<int> *iparams) {
+        int filenameAddress = iparams->front(); iparams->pop();
+        if (getType(filenameAddress) == STRING_) {
+            string filename = getValueString(filenameAddress);
+            filename = filename.substr(1, filename.length() - 2);
+            Image *image = getValueImage(resultAddress);
+            image->write(filename);
+        }
     }
 
 };

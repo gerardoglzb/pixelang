@@ -162,7 +162,7 @@ struct VirtualMachine {
                 helper.executeOpen(&iparams);
                 break;
             case SAVE_:
-                helper.executeSave();
+                helper.executeSave(&iparams);
                 break;
         }
         return pid;

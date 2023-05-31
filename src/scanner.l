@@ -55,7 +55,7 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 ":"                             { return COLON; }
 ";"                             { return SEMICOLON; }
 ","                             { return COMMA; }
-"->"                            { return ARROW; }
+"."                            { return ARROW; }
 
 "open"                          { return OPEN; }
 "save"                          { return SAVE; }
