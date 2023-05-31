@@ -14,7 +14,7 @@ struct FunctionEntry {
     Memory *localMemory;
     Memory *tempMemory;
     Memory *cteMemory;
-    int memoryOffset;
+    int memoryOffset = 0; // TODO: delete this
 
     int paramCount;
     int localVarCount;
@@ -60,39 +60,36 @@ struct FunctionEntry {
         return variableTable->findType(name);
     }
 
-    FunctionEntry() {
+    FunctionEntry() { // for head
         this->name = "";
-        this->variableTable = new VariableTable();
-        this->parameterTable = new VariableTable();
+        this->variableTable = nullptr;
+        this->parameterTable = nullptr;
         this->type = 7;
         this->next = nullptr;
-        this->memoryOffset = 8000;
-        this->localMemory = new Memory(1000, this->memoryOffset);
-        this->tempMemory = new Memory(3000, this->memoryOffset + 1000 * 3);
-        this->cteMemory = new Memory(1000, this->memoryOffset + 1000 * 3 + 3000 * 3);
+        this->localMemory = nullptr;
+        this->tempMemory = nullptr;
+        this->cteMemory = nullptr;
     };
 
-    FunctionEntry(string name, int type, VariableTable *variableTable) {
+    FunctionEntry(string name, int type, VariableTable *variableTable) { // for functions
         this->name = name;
         this->variableTable = variableTable;
         this->parameterTable = new VariableTable();
         this->type = type;
         this->next = nullptr;
-        this->memoryOffset = 8000 * 3;
-        this->localMemory = new Memory(1000, this->memoryOffset);
-        this->tempMemory = new Memory(3000, this->memoryOffset + 1000 * 3);
-        this->cteMemory = new Memory(1000, this->memoryOffset + 1000 * 3 + 3000 * 3);
+        this->localMemory = new Memory(LOCAL_INT);
+        this->tempMemory = new Memory(LOCAL_TEMP_INT);
+        this->cteMemory = new Memory(LOCAL_CTE_INT);
     };
 
-    FunctionEntry(string name, int type, VariableTable *variableTable, int localSize, int tempSize, int cteSize) {
+    FunctionEntry(string name, int type, VariableTable *variableTable, int localSize, int tempSize, int cteSize) { // for main
         this->name = name;
         this->variableTable = variableTable;
         this->parameterTable = new VariableTable();
         this->type = type;
         this->next = nullptr;
-        this->memoryOffset = 0;
-        this->localMemory = new Memory(localSize, 0);
-        this->tempMemory = new Memory(tempSize, 0 + localSize * 3);
-        this->cteMemory = new Memory(cteSize, 0 + localSize * 3 + tempSize * 3);
+        this->localMemory = new Memory(GLOBAL_INT);
+        this->tempMemory = new Memory(GLOBAL_TEMP_INT);
+        this->cteMemory = new Memory(GLOBAL_CTE_INT);
     };
 };
