@@ -4,9 +4,12 @@ var a, b, c : int;
 var x : bool;
 
 {
-    x = 3 == 2 + 2;
-    a = -4;
-    if (-2 > a) {
-        print(x);
+    x = true;
+    b = x;
+    print(b);
+    x = 8 % 5 == 1 + b;
+    print(x);
+    if (!x) {
+        print("HE");
     }
 }

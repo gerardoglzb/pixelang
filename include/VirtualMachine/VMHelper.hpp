@@ -63,6 +63,12 @@ struct VMHelper {
         return getVMemory(address)->getValueBool(address);
     }
 
+    int getValueIntOrBool(int address, int type) {
+        if (type == INT_)
+            return getValueInt(address);
+        return getValueBool(address);
+    }
+
     VMemory *getVMemory(int address) {
         if (address < -1) {
             return this->memory->getVMemory(this->memory->getVMemory(-address)->getValueInt(-address));
@@ -131,192 +137,108 @@ struct VMHelper {
     }
 
     void executeAdd() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand + rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, leftOperand + rightOperand);
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, float(leftOperand + rightOperand));
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand + rightOperand));
-            }
-        } else if (rightType == BOOL_) {
-            float rightOperand = getValueBool(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
-                setValue(resultAddress, leftOperand + rightOperand);
-            } else if (leftType == FLOAT_) {
-                float leftOperand = getValueFloat(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand + rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, leftOperand + rightOperand);
             }
         }
     }
 
     void executeSub() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand - rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand - rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, leftOperand - rightOperand);
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, float(leftOperand - rightOperand));
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand - rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand - rightOperand));
-            }
-        } else if (rightType == BOOL_) {
-            float rightOperand = getValueBool(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
-                setValue(resultAddress, leftOperand - rightOperand);
-            } else if (leftType == FLOAT_) {
-                float leftOperand = getValueFloat(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand - rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, leftOperand - rightOperand);
             }
         }
     }
 
     void executeMulti() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand * rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand * rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, leftOperand * rightOperand);
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, float(leftOperand * rightOperand));
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand * rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand * rightOperand));
-            }
-        } else if (rightType == BOOL_) {
-            float rightOperand = getValueBool(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
-                setValue(resultAddress, leftOperand * rightOperand);
-            } else if (leftType == FLOAT_) {
-                float leftOperand = getValueFloat(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand * rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, leftOperand * rightOperand);
             }
         }
     }
 
     void executeDiv() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand / rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand / rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand / rightOperand));
-            }
-        } else if (rightType == BOOL_) {
-            float rightOperand = getValueBool(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand / rightOperand));
-            } else if (leftType == FLOAT_) {
-                float leftOperand = getValueFloat(leftOperandAddress);
-                setValue(resultAddress, float(leftOperand / rightOperand));
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             }
         }
     }
 
     void executeMod() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
-                setValue(resultAddress, leftOperand % rightOperand);
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
-                setValue(resultAddress, leftOperand % rightOperand);
-            }
-        } else if (rightType == BOOL_) {
-            bool rightOperand = getValueBool(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
-                setValue(resultAddress, leftOperand % rightOperand);
-            } else if (leftType == BOOL_) {
-                bool leftOperand = getValueBool(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand % rightOperand);
             }
         }
     }
 
     void executeGreater() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand > rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -324,8 +246,8 @@ struct VMHelper {
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand > rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -335,10 +257,10 @@ struct VMHelper {
     }
 
     void executeLess() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand < rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -346,8 +268,8 @@ struct VMHelper {
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand < rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -357,10 +279,10 @@ struct VMHelper {
     }
 
     void executeGreaterEq() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand >= rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -368,8 +290,8 @@ struct VMHelper {
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand >= rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -379,10 +301,10 @@ struct VMHelper {
     }
 
     void executeLessEq() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand <= rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -390,8 +312,8 @@ struct VMHelper {
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand <= rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -401,10 +323,10 @@ struct VMHelper {
     }
 
     void executeEqualTo() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || rightType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, rightType);
                 setValue(resultAddress, leftOperand == rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -412,8 +334,8 @@ struct VMHelper {
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || rightType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, rightType);
                 setValue(resultAddress, leftOperand == rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -423,10 +345,10 @@ struct VMHelper {
     }
 
     void executeNotEqual() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand != rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -434,8 +356,8 @@ struct VMHelper {
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand != rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -445,8 +367,8 @@ struct VMHelper {
     }
 
     void executeNot() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
             setValue(resultAddress, !rightOperand);
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -455,10 +377,10 @@ struct VMHelper {
     }
 
     void executeAnd() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand && rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -466,8 +388,8 @@ struct VMHelper {
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand && rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -477,10 +399,10 @@ struct VMHelper {
     }
 
     void executeOr() {
-        if (rightType == INT_) {
-            int rightOperand = getValueInt(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+        if (rightType == INT_ || rightType == BOOL_) {
+            int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand || rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
@@ -488,8 +410,8 @@ struct VMHelper {
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
-            if (leftType == INT_) {
-                int leftOperand = getValueInt(leftOperandAddress);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand || rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);

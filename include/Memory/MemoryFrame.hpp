@@ -26,7 +26,6 @@ struct MemoryFrame {
         verifyEnoughSize();
         int temp = index;
         index++;
-        cout << "adding value " << temp << " " << offset << endl;
         return temp + offset;
     }
 
