@@ -506,4 +506,8 @@ struct VMHelper {
         }
     }
 
+    void executeGrayscale() {
+        Image *image = getValueImage(resultAddress);
+        image->grayscale();
+    }
 };

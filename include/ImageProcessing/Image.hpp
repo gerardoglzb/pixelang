@@ -30,6 +30,16 @@ struct Image {
         this->data = new uint8_t[this->size];
     }
 
+    Image& grayscale() {
+        if (channels >= 3) {
+            for (int i = 0; i < size; i += channels) {
+                int gray = (data[i] + data[i+1] + data[i+2]) / 3;
+                memset(data + i, gray, 3);
+            }
+        }
+        return *this;
+    }
+
     bool read(string _filename) {
         const char *filename = _filename.c_str();
         this->data = stbi_load(filename, &w, &h, &channels, 0);

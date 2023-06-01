@@ -322,8 +322,7 @@ var_cte :
     }
     | CTE_BOOL {
         pushOperandOfType(declareCte(BOOL_, $1), BOOL_);
-    }
-    | inputting ;
+    } ;
 
 array_or_func :
     {
@@ -389,13 +388,13 @@ statement :
 
 image_function :
     GRAYSCALE {
-        $$ = GRAYSCALE_
+        $$ = GRAYSCALE_;
     }
     | SAVE {
-        $$ = SAVE_
+        $$ = SAVE_;
     }
     | OPEN {
-        $$ = OPEN_
+        $$ = OPEN_;
     } ;
 
 image_call :

@@ -164,6 +164,9 @@ struct VirtualMachine {
             case SAVE_:
                 helper.executeSave(&iparams);
                 break;
+            case GRAYSCALE_:
+                helper.executeGrayscale();
+                break;
         }
         return pid;
     }

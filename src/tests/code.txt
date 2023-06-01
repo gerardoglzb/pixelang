@@ -10,5 +10,6 @@ var img2, img : image;
     c = a + b;
     print(a, b, c);
     img.open("src/images/test.png");
+    img.grayscale();
     img.save("src/images/new.png");
 }
