@@ -9,7 +9,7 @@ var img2, img : image;
     b = -4;
     c = a + b;
     print(a, b, c);
-    img.open("src/images/test.png");
-    img.grayscale();
-    img.save("src/images/new.png");
+    img.open("images/test.png");
+    img.black_and_white();
+    img.save("images/new.png");
 }

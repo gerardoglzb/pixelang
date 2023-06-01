@@ -35,4 +35,5 @@ enum Operator {
     OPEN_,
     SAVE_,
     GRAYSCALE_,
+    BANDW_,
 };

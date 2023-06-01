@@ -86,6 +86,7 @@
 %token OPEN
 %token GRAYSCALE
 %token SAVE
+%token BANDW
 
 %type <nodeID> var_list
 %type <arrNode> array_list
@@ -395,6 +396,9 @@ image_function :
     }
     | OPEN {
         $$ = OPEN_;
+    }
+    | BANDW {
+        $$ = BANDW_;
     } ;
 
 image_call :

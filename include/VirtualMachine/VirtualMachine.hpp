@@ -167,6 +167,9 @@ struct VirtualMachine {
             case GRAYSCALE_:
                 helper.executeGrayscale();
                 break;
+            case BANDW_:
+                helper.executeBlackAndWhite();
+                break;
         }
         return pid;
     }

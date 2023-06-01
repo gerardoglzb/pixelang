@@ -40,6 +40,17 @@ struct Image {
         return *this;
     }
 
+    Image& blackAndWhite() {
+        if (channels >= 3) {
+            for (int i = 0; i < size; i += channels) {
+                int avg = (data[i] + data[i+1] + data[i+2]) / 3;
+                int blackOrWhite = (avg < 128) ? 0 : 255;
+                memset(data + i, blackOrWhite, 3);
+            }
+        }
+        return *this;
+    }
+
     bool read(string _filename) {
         const char *filename = _filename.c_str();
         this->data = stbi_load(filename, &w, &h, &channels, 0);

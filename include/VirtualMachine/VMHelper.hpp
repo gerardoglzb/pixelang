@@ -510,4 +510,9 @@ struct VMHelper {
         Image *image = getValueImage(resultAddress);
         image->grayscale();
     }
+
+    void executeBlackAndWhite() {
+        Image *image = getValueImage(resultAddress);
+        image->blackAndWhite();
+    }
 };

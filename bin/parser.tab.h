@@ -88,7 +88,8 @@
      ARROW = 304,
      OPEN = 305,
      GRAYSCALE = 306,
-     SAVE = 307
+     SAVE = 307,
+     BANDW = 308
    };
 #endif
 /* Tokens.  */
@@ -142,6 +143,7 @@
 #define OPEN 305
 #define GRAYSCALE 306
 #define SAVE 307
+#define BANDW 308
 
 
 
@@ -165,7 +167,7 @@ typedef union YYSTYPE
     int imgFunc;
 }
 /* Line 1529 of yacc.c.  */
-#line 169 "./bin/parser.tab.h"
+#line 171 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
