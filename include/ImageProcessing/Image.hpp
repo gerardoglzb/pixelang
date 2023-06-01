@@ -91,7 +91,6 @@ struct Image {
     }
 
     Image &vFlip() {
-        cout << "vflip" << endl;
         uint8_t temp[4];
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h / 2; j++) {

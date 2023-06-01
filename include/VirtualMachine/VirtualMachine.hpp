@@ -30,7 +30,6 @@ struct VirtualMachine {
 
         this->globalMemory = new VFunctionMemory(&functions[0], nullptr, "main");
         this->subStack.push(this->globalMemory);
-        cout << filename << ":" << endl;
     }
 
     void createMemory(int id) {

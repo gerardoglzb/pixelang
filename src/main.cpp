@@ -1,4 +1,5 @@
 #include "../include/VirtualMachine/VirtualMachine.hpp"
+#include <chrono>
 using namespace std;
 
 void buildQuad(string line, vector<Quadruple> *quads) {
@@ -36,6 +37,8 @@ void buildFunction(string line, vector<Function> *functions) {
 }
 
 int main() {
+    auto start = chrono::high_resolution_clock::now();
+
     vector<Quadruple> quads;
     vector<Constant> constants;
     vector<Function> functions;
@@ -67,5 +70,10 @@ int main() {
     file.close();
 
     VirtualMachine vm = VirtualMachine(functions, constants, quads, filename);
+    cout << "Running '" << filename << "':" << endl;
     vm.run();
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> duration = end - start;
+    double milliseconds = duration.count() * 1000.0;
+    cout << "Execution time: " << milliseconds << " ms." << endl;
 }
