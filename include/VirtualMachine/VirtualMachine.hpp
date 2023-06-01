@@ -173,6 +173,9 @@ struct VirtualMachine {
             case CHANGECOLOR_:
                 helper.executeChangeColor(&iparams); // TODO: checar params
                 break;
+            case HFLIP_:
+                helper.executeHFlip();
+                break;
         }
         return pid;
     }

@@ -37,4 +37,5 @@ enum Operator {
     GRAYSCALE_,
     BANDW_,
     CHANGECOLOR_,
+    HFLIP_,
 };

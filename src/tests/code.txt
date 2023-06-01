@@ -10,6 +10,6 @@ var img2, img : image;
     c = a + b;
     print(a, b, c);
     img.open("images/test.png");
-    img.change_color("#FF0060");
+    img.hflip();
     img.save("images/new.png");
 }

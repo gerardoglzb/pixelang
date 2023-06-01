@@ -88,6 +88,7 @@
 %token SAVE
 %token BANDW
 %token CHANGE_COLOR
+%token HFLIP
 
 %type <nodeID> var_list
 %type <arrNode> array_list
@@ -403,6 +404,9 @@ image_function :
     }
     | CHANGE_COLOR {
         $$ = CHANGECOLOR_;
+    }
+    | HFLIP {
+        $$ = HFLIP_;
     } ;
 
 image_call :

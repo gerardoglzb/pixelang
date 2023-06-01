@@ -559,4 +559,9 @@ struct VMHelper {
         Image *image = getValueImage(resultAddress);
         image->changeColor(r, g, b);
     }
+
+    void executeHFlip() {
+        Image *image = getValueImage(resultAddress);
+        image->hFlip();
+    }
 };
