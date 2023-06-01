@@ -90,6 +90,7 @@
 %token CHANGE_COLOR
 %token HFLIP
 %token VFLIP
+%token CROP
 
 %type <nodeID> var_list
 %type <arrNode> array_list
@@ -411,6 +412,9 @@ image_function :
     }
     | VFLIP {
         $$ = VFLIP_;
+    }
+    | CROP {
+        $$ = CROP_;
     } ;
 
 image_call :

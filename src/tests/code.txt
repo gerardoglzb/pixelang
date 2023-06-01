@@ -10,7 +10,6 @@ var img2, img : image;
     c = a + b;
     print(a, b, c);
     img.open("images/test.png");
-    img.hflip();
-    img.vflip();
+    img.crop(25, 25, 100, 100);
     img.save("images/new.png");
 }

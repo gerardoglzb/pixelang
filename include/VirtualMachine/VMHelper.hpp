@@ -569,4 +569,26 @@ struct VMHelper {
         Image *image = getValueImage(resultAddress);
         image->vFlip();
     }
+
+    void executeCrop(queue<int> *iparams) {
+        int addresses[4];
+        for (int i = 0; i < 4; i++) {
+            addresses[i] = iparams->front(); iparams->pop();
+        }
+        float left, bottom, width, height;
+        if (getType(addresses[0]) == INT_) {
+            left = getValueInt(addresses[0]);
+        }
+        if (getType(addresses[1]) == INT_) {
+            bottom = getValueInt(addresses[1]);
+        }
+        if (getType(addresses[2]) == INT_) {
+            width = getValueInt(addresses[2]);
+        }
+        if (getType(addresses[2]) == INT_) {
+            height = getValueInt(addresses[2]);
+        }
+        Image *image = getValueImage(resultAddress);
+        image->crop(left, bottom, width, height);
+    }
 };

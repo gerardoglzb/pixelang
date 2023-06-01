@@ -51,6 +51,30 @@ struct Image {
         return *this;
     }
 
+    Image &crop(uint16_t left, uint16_t bottom, uint16_t width, uint16_t height) {
+        size = width * height * channels;
+        uint8_t *cropped = new uint8_t[size];
+        memset(cropped, 0, size);
+        for (uint16_t i = 0; i < height; i++) {
+            if (i + bottom >= h) {
+                break;
+            }
+            for (uint16_t j = 0; j < width; j++) {
+                if (j + left >= w) {
+                    break;
+                }
+                memcpy(&cropped[(j + i * width) * channels], &data[(j + left + (i + bottom) * w) * channels], channels);
+            }
+        }
+        w = width;
+        h = height;
+        size = w * h * channels;
+        delete[] data;
+        data = cropped;
+        cropped = nullptr;
+        return *this;
+    }
+
     Image &hFlip() {
         uint8_t temp[4];
         for (int i = 0; i < h; i++) {

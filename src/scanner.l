@@ -65,6 +65,7 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 "change_color"                  { return CHANGE_COLOR; }
 "hflip"                         { return HFLIP; }
 "vflip"                         { return VFLIP; }
+"crop"                          { return CROP; }
 
 [\n]                            { lineas++; }
 [ \t\r]                         { ; }

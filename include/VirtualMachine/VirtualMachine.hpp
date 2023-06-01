@@ -179,6 +179,9 @@ struct VirtualMachine {
             case VFLIP_:
                 helper.executeVFlip();
                 break;
+            case CROP_:
+                helper.executeCrop(&iparams);
+                break;
         }
         return pid;
     }

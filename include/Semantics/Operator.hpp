@@ -39,4 +39,5 @@ enum Operator {
     CHANGECOLOR_,
     HFLIP_,
     VFLIP_,
+    CROP_,
 };
