@@ -517,8 +517,27 @@ struct VMHelper {
     }
 
     void executeChangeColor(queue<int> *iparams) {
+        int firstAddress = iparams->front(); iparams->pop();
+        if (iparams->empty()) {
+            executeChangeColorHex(firstAddress);
+        } else {
+            executeChangeColorRGB(firstAddress, iparams);
+        }
+    }
+
+    void executeChangeColorHex(int firstAddress) {
+        if (getType(firstAddress) == STRING_) {
+            Image *image = getValueImage(resultAddress);
+            string hex = getValueString(firstAddress);
+            hex = hex.substr(1, hex.length() - 2);
+            image->changeColor(hex);
+        }
+    }
+
+    void executeChangeColorRGB(int firstAddress, queue<int> *iparams) {
         int addresses[3];
-        for (int i = 0; i < 3; i++) {
+        addresses[0] = firstAddress;
+        for (int i = 1; i < 3; i++) {
             addresses[i] = iparams->front(); iparams->pop();
         }
         float r, g, b;

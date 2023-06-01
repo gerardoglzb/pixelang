@@ -62,6 +62,27 @@ struct Image {
         return *this;
     }
 
+    Image& changeColor(const string hexValue) {
+        if (hexValue.size() != 7 || hexValue[0] != '#') {
+            return *this;
+        }
+
+        int intValue = stoi(hexValue.substr(1), nullptr, 16);
+
+        if (channels >= 3) {
+            int r = (intValue >> 16) & 0xFF;
+            int g = (intValue >> 8) & 0xFF;
+            int b = intValue & 0xFF;
+
+            for (int i = 0; i < size; i += channels) {
+                data[i] *= r;
+                data[i+1] *= g;
+                data[i+2] *= b;
+            }
+        }
+        return *this;
+    }
+
     bool read(string _filename) {
         const char *filename = _filename.c_str();
         this->data = stbi_load(filename, &w, &h, &channels, 0);
