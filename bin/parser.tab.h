@@ -91,7 +91,8 @@
      SAVE = 307,
      BANDW = 308,
      CHANGE_COLOR = 309,
-     HFLIP = 310
+     HFLIP = 310,
+     VFLIP = 311
    };
 #endif
 /* Tokens.  */
@@ -148,6 +149,7 @@
 #define BANDW 308
 #define CHANGE_COLOR 309
 #define HFLIP 310
+#define VFLIP 311
 
 
 
@@ -171,7 +173,7 @@ typedef union YYSTYPE
     int imgFunc;
 }
 /* Line 1529 of yacc.c.  */
-#line 175 "./bin/parser.tab.h"
+#line 177 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

@@ -89,6 +89,7 @@
 %token BANDW
 %token CHANGE_COLOR
 %token HFLIP
+%token VFLIP
 
 %type <nodeID> var_list
 %type <arrNode> array_list
@@ -407,6 +408,9 @@ image_function :
     }
     | HFLIP {
         $$ = HFLIP_;
+    }
+    | VFLIP {
+        $$ = VFLIP_;
     } ;
 
 image_call :

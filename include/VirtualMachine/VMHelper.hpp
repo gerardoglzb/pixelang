@@ -564,4 +564,9 @@ struct VMHelper {
         Image *image = getValueImage(resultAddress);
         image->hFlip();
     }
+
+    void executeVFlip() {
+        Image *image = getValueImage(resultAddress);
+        image->vFlip();
+    }
 };

@@ -176,6 +176,9 @@ struct VirtualMachine {
             case HFLIP_:
                 helper.executeHFlip();
                 break;
+            case VFLIP_:
+                helper.executeVFlip();
+                break;
         }
         return pid;
     }

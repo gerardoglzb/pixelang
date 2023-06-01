@@ -11,5 +11,6 @@ var img2, img : image;
     print(a, b, c);
     img.open("images/test.png");
     img.hflip();
+    img.vflip();
     img.save("images/new.png");
 }

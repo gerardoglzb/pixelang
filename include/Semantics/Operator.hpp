@@ -38,4 +38,5 @@ enum Operator {
     BANDW_,
     CHANGECOLOR_,
     HFLIP_,
+    VFLIP_,
 };

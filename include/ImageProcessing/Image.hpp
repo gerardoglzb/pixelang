@@ -53,11 +53,26 @@ struct Image {
 
     Image &hFlip() {
         uint8_t temp[4];
-
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w / 2; j++) {
                 uint8_t *pixel1 = &data[(j + i * w) * channels];
                 uint8_t *pixel2 = &data[((w - 1 - j) + i * w) * channels];
+
+                memcpy(temp, pixel1, channels);
+                memcpy(pixel1, pixel2, channels);
+                memcpy(pixel2, temp, channels);
+            }
+        }
+        return *this;
+    }
+
+    Image &vFlip() {
+        cout << "vflip" << endl;
+        uint8_t temp[4];
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h / 2; j++) {
+                uint8_t *pixel1 = &data[(i + j * w) * channels];
+                uint8_t *pixel2 = &data[(i + (h - 1 - j) * w) * channels];
 
                 memcpy(temp, pixel1, channels);
                 memcpy(pixel1, pixel2, channels);
