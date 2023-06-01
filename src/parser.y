@@ -87,6 +87,7 @@
 %token GRAYSCALE
 %token SAVE
 %token BANDW
+%token CHANGE_COLOR
 
 %type <nodeID> var_list
 %type <arrNode> array_list
@@ -399,6 +400,9 @@ image_function :
     }
     | BANDW {
         $$ = BANDW_;
+    }
+    | CHANGE_COLOR {
+        $$ = CHANGECOLOR_;
     } ;
 
 image_call :

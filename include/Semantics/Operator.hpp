@@ -36,4 +36,5 @@ enum Operator {
     SAVE_,
     GRAYSCALE_,
     BANDW_,
+    CHANGECOLOR_,
 };

@@ -170,6 +170,9 @@ struct VirtualMachine {
             case BANDW_:
                 helper.executeBlackAndWhite();
                 break;
+            case CHANGECOLOR_:
+                helper.executeChangeColor(&iparams); // TODO: checar params
+                break;
         }
         return pid;
     }

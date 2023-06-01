@@ -515,4 +515,29 @@ struct VMHelper {
         Image *image = getValueImage(resultAddress);
         image->blackAndWhite();
     }
+
+    void executeChangeColor(queue<int> *iparams) {
+        int addresses[3];
+        for (int i = 0; i < 3; i++) {
+            addresses[i] = iparams->front(); iparams->pop();
+        }
+        float r, g, b;
+        if (getType(addresses[0]) == FLOAT_) {
+            r = getValueFloat(addresses[0]);
+        } else if (getType(addresses[0]) == INT_) {
+            r = getValueInt(addresses[0]);
+        }
+        if (getType(addresses[1]) == FLOAT_) {
+            g = getValueFloat(addresses[1]);
+        } else if (getType(addresses[1]) == INT_) {
+            g = getValueInt(addresses[1]);
+        }
+        if (getType(addresses[2]) == FLOAT_) {
+            b = getValueFloat(addresses[2]);
+        } else if (getType(addresses[2]) == INT_) {
+            b = getValueInt(addresses[2]);
+        }
+        Image *image = getValueImage(resultAddress);
+        image->changeColor(r, g, b);
+    }
 };

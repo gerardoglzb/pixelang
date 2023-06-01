@@ -62,6 +62,7 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 "save"                          { return SAVE; }
 "grayscale"                     { return GRAYSCALE; }
 "black_and_white"               { return BANDW; }
+"change_color"                  { return CHANGE_COLOR; }
 
 [\n]                            { lineas++; }
 [ \t\r]                         { ; }
