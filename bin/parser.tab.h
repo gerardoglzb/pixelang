@@ -53,41 +53,42 @@
      IF = 269,
      ELSE = 270,
      PRINT = 271,
-     FOR = 272,
-     DO = 273,
-     WHILE = 274,
-     TO = 275,
-     FUNCTION = 276,
-     RETURN = 277,
-     VOID = 278,
-     ADDITION = 279,
-     SUBSTRACTION = 280,
-     MULTI = 281,
-     DIV = 282,
-     MOD = 283,
-     LESS_THAN = 284,
-     MORE_THAN = 285,
-     NOT_EQUAL = 286,
-     GREATEREQ = 287,
-     LESSEQ = 288,
-     EQUAL = 289,
-     EQUAL_TO = 290,
-     AND = 291,
-     OR = 292,
-     NOT = 293,
-     LEFT_PAR = 294,
-     RIGHT_PAR = 295,
-     LEFT_CURLY = 296,
-     RIGHT_CURLY = 297,
-     LEFT_BRACK = 298,
-     RIGHT_BRACK = 299,
-     COLON = 300,
-     SEMICOLON = 301,
-     COMMA = 302,
-     ARROW = 303,
-     OPEN = 304,
-     GRAYSCALE = 305,
-     SAVE = 306
+     INPUT = 272,
+     FOR = 273,
+     DO = 274,
+     WHILE = 275,
+     TO = 276,
+     FUNCTION = 277,
+     RETURN = 278,
+     VOID = 279,
+     ADDITION = 280,
+     SUBSTRACTION = 281,
+     MULTI = 282,
+     DIV = 283,
+     MOD = 284,
+     LESS_THAN = 285,
+     MORE_THAN = 286,
+     NOT_EQUAL = 287,
+     GREATEREQ = 288,
+     LESSEQ = 289,
+     EQUAL = 290,
+     EQUAL_TO = 291,
+     AND = 292,
+     OR = 293,
+     NOT = 294,
+     LEFT_PAR = 295,
+     RIGHT_PAR = 296,
+     LEFT_CURLY = 297,
+     RIGHT_CURLY = 298,
+     LEFT_BRACK = 299,
+     RIGHT_BRACK = 300,
+     COLON = 301,
+     SEMICOLON = 302,
+     COMMA = 303,
+     ARROW = 304,
+     OPEN = 305,
+     GRAYSCALE = 306,
+     SAVE = 307
    };
 #endif
 /* Tokens.  */
@@ -105,41 +106,42 @@
 #define IF 269
 #define ELSE 270
 #define PRINT 271
-#define FOR 272
-#define DO 273
-#define WHILE 274
-#define TO 275
-#define FUNCTION 276
-#define RETURN 277
-#define VOID 278
-#define ADDITION 279
-#define SUBSTRACTION 280
-#define MULTI 281
-#define DIV 282
-#define MOD 283
-#define LESS_THAN 284
-#define MORE_THAN 285
-#define NOT_EQUAL 286
-#define GREATEREQ 287
-#define LESSEQ 288
-#define EQUAL 289
-#define EQUAL_TO 290
-#define AND 291
-#define OR 292
-#define NOT 293
-#define LEFT_PAR 294
-#define RIGHT_PAR 295
-#define LEFT_CURLY 296
-#define RIGHT_CURLY 297
-#define LEFT_BRACK 298
-#define RIGHT_BRACK 299
-#define COLON 300
-#define SEMICOLON 301
-#define COMMA 302
-#define ARROW 303
-#define OPEN 304
-#define GRAYSCALE 305
-#define SAVE 306
+#define INPUT 272
+#define FOR 273
+#define DO 274
+#define WHILE 275
+#define TO 276
+#define FUNCTION 277
+#define RETURN 278
+#define VOID 279
+#define ADDITION 280
+#define SUBSTRACTION 281
+#define MULTI 282
+#define DIV 283
+#define MOD 284
+#define LESS_THAN 285
+#define MORE_THAN 286
+#define NOT_EQUAL 287
+#define GREATEREQ 288
+#define LESSEQ 289
+#define EQUAL 290
+#define EQUAL_TO 291
+#define AND 292
+#define OR 293
+#define NOT 294
+#define LEFT_PAR 295
+#define RIGHT_PAR 296
+#define LEFT_CURLY 297
+#define RIGHT_CURLY 298
+#define LEFT_BRACK 299
+#define RIGHT_BRACK 300
+#define COLON 301
+#define SEMICOLON 302
+#define COMMA 303
+#define ARROW 304
+#define OPEN 305
+#define GRAYSCALE 306
+#define SAVE 307
 
 
 
@@ -163,7 +165,7 @@ typedef union YYSTYPE
     int imgFunc;
 }
 /* Line 1529 of yacc.c.  */
-#line 167 "./bin/parser.tab.h"
+#line 169 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

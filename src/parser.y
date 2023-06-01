@@ -47,6 +47,7 @@
 %token IF
 %token ELSE
 %token PRINT
+%token INPUT
 %token FOR
 %token DO
 %token WHILE
@@ -321,7 +322,8 @@ var_cte :
     }
     | CTE_BOOL {
         pushOperandOfType(declareCte(BOOL_, $1), BOOL_);
-    } ;
+    }
+    | inputting ;
 
 array_or_func :
     {
@@ -476,6 +478,11 @@ printing_2 :
         pushOperator(PRINT_);
     } expression_or_str printing_2
     | ;
+
+inputting :
+    INPUT LEFT_PAR RIGHT_PAR SEMICOLON {
+        performInput();
+    } ;
 
 expression_or_str :
     expression

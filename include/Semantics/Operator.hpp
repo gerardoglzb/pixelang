@@ -30,6 +30,7 @@ enum Operator {
     VERIFY_,
     FAKEBOT_,
     EXPO_, // TODO: expo
+    INPUT_,
     IPARAM_,
     OPEN_,
     SAVE_,

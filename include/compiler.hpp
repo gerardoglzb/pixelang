@@ -198,3 +198,6 @@ void printOperands();
 void performImageCall(string id, int call, ParamNode *node);
 
 int topOperandType();
+
+
+void performInput();

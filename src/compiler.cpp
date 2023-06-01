@@ -717,3 +717,7 @@ int popOperand() {
 int topOperandType() {
     return types.top();
 }
+
+void performInput() {
+
+}
