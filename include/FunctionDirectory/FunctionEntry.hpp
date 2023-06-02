@@ -78,7 +78,6 @@ struct FunctionEntry {
         this->parameterTable = new VariableTable();
         this->type = type;
         this->next = nullptr;
-        cout << "func " << LOCAL_INT << endl;
         this->localMemory = new Memory(LOCAL_INT);
         this->tempMemory = new Memory(LOCAL_TEMP_INT);
         this->cteMemory = new Memory(LOCAL_CTE_INT);

@@ -367,7 +367,6 @@ array :
 
 arguments :
     expression {
-        cout << "gen param" << endl;
         generateParam();
     } arguments2
     | ;

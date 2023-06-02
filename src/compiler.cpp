@@ -531,7 +531,7 @@ void doOperation() {
             leftOperand = -1;
             leftType = rightType;
         }  else if (operands.size() == 1 && oper != EQUALS_ && operators.size() > 0 && operators.top() == EQUALS_) {
-            leftOperand = declareCte(INT_, 0); // TODO: this could be the same one every time
+            leftOperand = declareCte(INT_, 0);
             leftType = INT_;
         } else {
             leftOperand = operands.top(); operands.pop();

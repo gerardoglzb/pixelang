@@ -1,4 +1,4 @@
-program factorial_recursivo;
+program recursive_factorial;
 
 var a, b, c : int;
 var arr : int[5];

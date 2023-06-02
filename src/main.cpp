@@ -36,8 +36,15 @@ void buildFunction(string line, vector<Function> *functions) {
     functions->push_back(Function(item));
 }
 
+void printExecutionTime(chrono::high_resolution_clock::time_point start) {
+    chrono::high_resolution_clock::time_point end = chrono::high_resolution_clock::now();
+    chrono::duration<double> duration = end - start;
+    double milliseconds = duration.count() * 1000.0;
+    cout << "Execution time: " << milliseconds << " ms." << endl;
+}
+
 int main() {
-    auto start = chrono::high_resolution_clock::now();
+    chrono::high_resolution_clock::time_point start = chrono::high_resolution_clock::now();
 
     vector<Quadruple> quads;
     vector<Constant> constants;
@@ -72,8 +79,5 @@ int main() {
     VirtualMachine vm = VirtualMachine(functions, constants, quads, filename);
     cout << "Running '" << filename << "':" << endl;
     vm.run();
-    auto end = chrono::high_resolution_clock::now();
-    chrono::duration<double> duration = end - start;
-    double milliseconds = duration.count() * 1000.0;
-    cout << "Execution time: " << milliseconds << " ms." << endl;
+    printExecutionTime(start);
 }
