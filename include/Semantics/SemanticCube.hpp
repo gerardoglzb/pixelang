@@ -38,6 +38,9 @@ static int semanticCube(int oper, int type1, int type2) {
     if (oper == PRINT_ || oper == RETURN_)
         return 0;
 
+    if (type1 == VOID_ && type2 == VOID_)
+        return VOID_;
+
     if (oper > LESSEQ_ || type1 > 2 || type2 > 2) {
         cout << "Error in semantic cube." << endl;
         printf("%i %i %i\n", oper, type1, type2);

@@ -64,6 +64,8 @@ ArrayNode *getCurrentArrayNode();
 
 void verifyReturnType(int type);
 
+void verifyReturnType(int functionType, int returnType);
+
 int getCurrentFuncType();
 
 void setCurrentFuncType(int type);

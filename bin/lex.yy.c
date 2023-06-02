@@ -950,7 +950,7 @@ YY_RULE_SETUP
 case 17:
 YY_RULE_SETUP
 #line 33 "./src/scanner.l"
-{ yylval.chType = 5; return VOID; }
+{ yylval.chType = VOID_; return VOID; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP

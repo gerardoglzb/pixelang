@@ -488,6 +488,13 @@ void verifyReturnType(int functionType) {
     }
 }
 
+void verifyReturnType(int functionType, int returnType) {
+    if (semanticCube(EQUALS_, returnType, functionType) == -1) {
+        cout << "Function type and return value are not compatible." << lastResultType << " "  << functionType << endl;
+        exit(-1);
+    }
+}
+
 void popOperator(int oper) {
     if (operators.size() && operators.top() == oper) {
         operators.pop();

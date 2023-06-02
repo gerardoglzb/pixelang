@@ -195,6 +195,7 @@ return :
     }
     | RETURN {
         generateVoidReturn();
+        verifyReturnType(getCurrentFuncType(), VOID_);
     } SEMICOLON ;
 
 block :
