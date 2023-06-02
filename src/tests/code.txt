@@ -2,6 +2,10 @@ program test;
 
 var a : int;
 
+function main() : void {
+    print("H");
+}
+
 function myfun() : void {
     print("...");
     if (a == 3) {

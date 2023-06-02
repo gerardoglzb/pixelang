@@ -36,6 +36,34 @@ void buildFunction(string line, vector<Function> *functions) {
     functions->push_back(Function(item));
 }
 
+void printMemoryFrameUsed(int vals[4], ofstream &file, string frameName) {
+    file << frameName << " variables:" << endl;
+    file << "Integers: " << vals[0] << endl;
+    file << "Floats: " << vals[1] << endl;
+    file << "Strings: " << vals[2] << endl;
+    file << "Booleans: " << vals[3] << endl << endl;
+}
+
+void printMemoryUsed(Function* function, ofstream &file, string scope) {
+    printMemoryFrameUsed(function->localVals, file, scope);
+    printMemoryFrameUsed(function->tempVals, file, scope + " temp");
+    printMemoryFrameUsed(function->cteVals, file, scope + " const");
+    file << scope << " image variables: " << function->imageVals << endl << endl;
+}
+
+void printMemoryUsed(vector<Function> *functions, string filename) {
+    ofstream file(filename);
+    if (file.is_open()) {
+        file << "MAIN FUNCTION: " << endl << endl;
+        printMemoryUsed(&(*functions)[0], file, "Global");
+        for (int i = 1; i < functions->size(); i++) {
+            file << "FUNCTION " << i << ":" << endl << endl;
+            printMemoryUsed(&(*functions)[i], file, "Local");
+        }
+        file.close();
+    }
+}
+
 void printExecutionTime(chrono::high_resolution_clock::time_point start) {
     chrono::high_resolution_clock::time_point end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = end - start;
@@ -80,4 +108,5 @@ int main() {
     cout << "Running '" << filename << "':" << endl;
     vm.run();
     printExecutionTime(start);
+    printMemoryUsed(&functions, "./output/memory.txt");
 }
