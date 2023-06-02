@@ -1,18 +1,15 @@
 program test;
 
-var a, b, c : int;
-var arr : int[5];
-var i : int;
+var a : int;
 
-function fact(x : int) : int {
-    var result, i : int;
-    result = 1;
-    for (i = 1 to x+1) {
-        result = result * i; # this is a comment
+function myfun() : void {
+    if (a == 3) {
+        return;
     }
-    return(result);
+    print("Working");
 }
 
 {
-    print(fact(6));
+    a = 2;
+    myfun();
 }

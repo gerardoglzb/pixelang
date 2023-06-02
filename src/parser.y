@@ -193,7 +193,9 @@ return :
         setFunctionReturn();
         verifyReturnType(getCurrentFuncType());
     }
-    | RETURN SEMICOLON ;
+    | RETURN {
+        generateVoidReturn();
+    } SEMICOLON ;
 
 block :
     LEFT_CURLY statements RIGHT_CURLY ;

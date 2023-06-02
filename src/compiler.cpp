@@ -54,6 +54,10 @@ void generateQuad(int oper, int leftOperand, int rightOperand, int result) {
     // printf("%lu\t%s\t%i\t%i\t%i\n\n", quads.size(), operatorName(oper).c_str(), leftOperand, rightOperand, result);
 }
 
+void generateVoidReturn() {
+    generateQuad(RETURN_, -1, -1, -1);
+}
+
 void generateGosub(string name) {
     generateQuad(GOSUB_, -1, -1, funcDir->getFunctionID(name));
 }

@@ -107,6 +107,10 @@ void pushOperator(int oper);
 
 void generateIf();
 
+void generateQuad(int oper, int leftOperand, int rightOperand, int result);
+
+void generateVoidReturn();
+
 void generateVerify();
 
 void fillJumpFor();
