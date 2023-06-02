@@ -104,7 +104,7 @@ int main() {
     }
     file.close();
 
-    VirtualMachine vm = VirtualMachine(functions, constants, quads, filename);
+    VirtualMachine vm = VirtualMachine(functions, constants, quads, filename, "./output/execution.txt");
     cout << "Running '" << filename << "':" << endl;
     vm.run();
     printExecutionTime(start);

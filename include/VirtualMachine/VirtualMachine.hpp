@@ -21,8 +21,9 @@ struct VirtualMachine {
     stack<int> returnStack;
 
     queue<int> iparams;
+    ofstream executionFile;
 
-    VirtualMachine(vector<Function> functions, vector<Constant> constants, vector<Quadruple> quads, string filename) {
+    VirtualMachine(vector<Function> functions, vector<Constant> constants, vector<Quadruple> quads, string filename, string executionFilename) {
         this->quads = vector<Quadruple>({Quadruple()});
         this->quads.insert(this->quads.end(), quads.begin(), quads.end());
         this->functions = functions;
@@ -30,6 +31,12 @@ struct VirtualMachine {
 
         this->globalMemory = new VFunctionMemory(&functions[0], nullptr, "main");
         this->subStack.push(this->globalMemory);
+        this->executionFile = ofstream(executionFilename);
+        if (!executionFile.is_open()) {
+            cout << "Can't write to execution.txt" << endl;
+            exit(-1);
+        }
+        this->executionFile << "PID,Operator,LeftOperand,RightOperand,Result" << endl;
     }
 
     void createMemory(int id) {
@@ -61,10 +68,11 @@ struct VirtualMachine {
             cout << "Too long" << endl;
             exit(-1);
         }
-        // cout << "PID: " << pid << endl;
+        executionFile << pid << ",";
         pids.push_back(pid);
         Quadruple *quad = &quads[pid++];
         int oper = quad->oper, leftOperand = quad->leftOperand, rightOperand = quad->rightOperand, result = quad->result;
+        executionFile << quad->oper << "," << quad->leftOperand << "," << quad->rightOperand << "," << quad->result << endl;
         VFunctionMemory *currMemory = subStack.top();
         VMHelper helper(oper, leftOperand, rightOperand, result, currMemory);
         switch(oper) {
