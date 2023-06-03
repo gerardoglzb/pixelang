@@ -1,9 +1,5 @@
 program recursive_factorial;
 
-var a, b, c : int;
-var arr : int[5];
-var i : int;
-
 function fact(x : int) : int {
     if (x < 1 || x == 1) {
         return(1);

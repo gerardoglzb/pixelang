@@ -1,35 +1,46 @@
-program test;
+program matrix_multi;
 
-var matrixA : float[2][3];
-var matrixB : float[3][2];
-var result : float[2][2];
+var matrixA : float[3][3];
+var matrixB : float[3][3];
+var result : float[3][3];
 var i, j, k : int;
+var m, n, o : int;
 
 {
+    m = 3;
+    n = 3;
+    o = 3;
+    
     matrixA[0][0] = 1;
     matrixA[0][1] = 3.4;
     matrixA[0][2] = 6;
     matrixA[1][0] = -10;
     matrixA[1][1] = 15.2;
     matrixA[1][2] = 21;
+    matrixA[2][0] = 2;
+    matrixA[2][1] = 4;
+    matrixA[2][2] = -5;
 
     matrixB[0][0] = 1;
     matrixB[0][1] = 2;
+    matrixB[0][2] = 3;
     matrixB[1][0] = -22.1;
     matrixB[1][1] = 3;
+    matrixB[1][2] = 8;
     matrixB[2][0] = -4;
     matrixB[2][1] = 58;
+    matrixB[2][2] = 0.5;
 
-    for (i = 0 to 2) {
-        for (j = 0 to 2) {
+    for (i = 0 to m) {
+        for (j = 0 to o) {
             result[i][j] = 0;
-            for (k = 0 to 3) {
+            for (k = 0 to n) {
                 result[i][j] = result[i][j] + matrixA[i][k] * matrixB[k][j];
             }
         }
     }
 
-    for (i = 0 to 2) {
-        print(result[i][0], result[i][1]);
+    for (i = 0 to 3) {
+        print(result[i][0], result[i][1], result[i][2]);
     }
 }

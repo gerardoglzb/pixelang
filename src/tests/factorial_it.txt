@@ -1,7 +1,5 @@
 program iterative_factorial;
 
-var a, b, c : int;
-var arr : int[5];
 var i : int;
 
 function fact(x : int) : int {
