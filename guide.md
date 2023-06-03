@@ -13,9 +13,9 @@ This manual will help you quickly find your way around the project and get start
 - [Examples](#examples)
 
 ## Getting started
-To write your code, you will need to use the code.txt file you'll find in the root directory. If it doesn't exist, go ahead and create the file yourself! Just make sure it's in the same directory as this guide.
+To write your code, you will need to use the `code.txt` file you'll find in the root directory. If it doesn't exist, go ahead and create the file yourself! Just make sure it's in the same directory as this guide.
 
-Once your code.txt file is ready, you can start coding.
+Once your `code.txt` file is ready, you can start coding.
 
 Here's a template for a basic "HelloWorld" program.
 
@@ -25,7 +25,7 @@ Here's a template for a basic "HelloWorld" program.
         print("Hello World!");
     }
 
-You can open your terminal and type in the word "make" to run the program. You should see something like this:
+You can open your terminal and type in the word `make` to run the program. You should see something like this:
 
     Running 'HelloWorld':
     Hello World! 
@@ -427,3 +427,192 @@ The syntax requires a ```while``` keyword, followed by a ```condition``` enclose
 It's <b>important</b> to remember to change whatever `variable` or `variables` your `condition` depends on inside the loop. Otherwise, you'll find yourself in an endless loop and you'll have to terminate the program.
 
 Other than that, it works pretty much the same as a `for loop`. Think of the `while loop` as a `for loop` and an `if statement` put together.
+
+## Functions
+
+### Defining and calling a function
+
+You can actually define your own functions in your program. A program with a simple function (that does nothing) would look something like this:
+
+    program functions;
+
+    function myFunction() : void {
+
+    }
+
+    {
+        myFunction();
+    }
+
+The syntax consists of the keyword ```function```, followed by the ```name of your function``` (which follows the same rules as the variables names), a ```pair of parentheses```, then a ```colon (:)```, then the datatype of your function and finally a pair of ```curly brackets``` containing your function's functionality.
+
+We can also see an example of a `call`, which occurs by typing the name of the function, followed by the ```parentheses``` and a ```semicolon (;)```. Parameters/arguments can also be used inside of the parentheses of the function's definition and call, but we'll get into that a bit later.
+
+The functions also introduce a new datatype: `void`, which refers to a function that doesn't return anything. That's right! Functions can return values.
+
+### Returns
+
+The keyword `return` allows a function to end before it reaches the end of definition. It looks something like this:
+
+    program returns;
+
+    function myFunction() : void {
+        print("Start of function");
+        if (true) {
+            return;
+        }
+        print("End of function");
+    }
+
+    {
+        myFunction();
+    }
+
+This functions returns:
+
+    Start of function
+
+It doesn't print "End of function" because it returns earlier.
+
+The `return` statement can also return a value if it's followed by a ```pair of parenthesis``` containing an expression to be returned. It's worth noting in both cases (with or without a value to return), the return statement must be ended with a ```semicolon (;)```. Here's an example of a function that returns a value.
+
+    program functions;
+
+    function myFunction() : int {
+        return(3);
+    }
+
+    {
+        print(myFunction());
+    }
+
+This obviously returns:
+
+    3
+
+A difference is worth noting is that `void` functions cannot be assigned to anything. Functions with other datatypes do return a value and as such can be used in assignments.
+
+### Parameters
+
+We can also pass in parameters to functions through parameters, which are defined inside the ```parentheses``` of the function definition. These parameters are a ```list of comma-separated ids``` that follow the same rules as variable names (and actually are declared as variables inside the function!) followed by a ```colon (:)``` and a ```datatype```. It's worth mentioning arrays cannot be passed as parameters. Here's an example so you can understand it better.
+
+    program parameters;
+
+    function multiply(val : int, val2 : int) : int {
+        return(val * val2);
+    }
+
+    {
+        print(double(5, 3));
+    }
+
+This returns:
+
+    15
+
+Like I mentioned, parameters are essentially variables that only work inside of your function. You can actually also declare your own new variables for each function as well aside from the parameters. This is where scopes come into place.
+
+### Scopes
+
+There's essentially two different types of scopes in your programs: global and local scopes. Variables in the global scope can be accessed by any function. Variables in the local scope refer to those declared inside of a function (including parameters). They can only be accessed by the function that declared them. It's worth mentioning that a variable in the local scope can share the same name as one in the global scope. If that's the case, a function will always prioritize the one in the local scope.
+
+Declaring local variables is essentially the same as global ones, but they must written at the very top of the contents of your function.
+
+    program scopes;
+
+    var total : int;
+    var i : int;
+
+    function handmadeMultiply(val : int, val2 : int) : int {
+        var total : int;
+        total = 0;
+        for (i = 0 to val) {
+            total = total + val2;
+        }
+        return(total);
+    }
+
+    {
+        total = 0;
+        print("local total: ", handmadeMultiply(5, 3));
+        print("global total: ", total);
+        print("i: ", i);
+    }
+
+Let's analyze the output of this function:
+
+    local total:  15 
+    global total:  0 
+    i:  5
+
+The function accesses the `total` variable. Since there's one in the global scope and another one in the local one, it prioritizes the latter and uses it. That's why at the end we can see the global `total` is left untouched. The `i`, however, was uesd in the loop and as cuh, ends up as the same value as it was in the function.
+
+This is now a good moment to menetion all of your functions must be written after all your global variables have been declared and before your main function.
+
+### Recursion
+
+Finally, one thing that's also worth mentioning is that you can actually call functions inside another function! This looks a little like this:
+
+    program scopes;
+
+    var i : int;
+
+    function handmadeSum(val : int, val2: int) : int {
+        return(val + val2);
+    }
+
+    function handmadeMultiply(val : int, val2 : int) : int {
+        var total : int;
+        total = 0;
+        for (i = 0 to val) {
+            total = handmadeSum(total, val2);
+        }
+        return(total);
+    }
+
+    {
+        print("total: ", handmadeMultiply(5, 3));
+    }
+
+This also allows for a fun little thing known as `recursion`: calling a function inside itself. You just need to remember to include a base case that terminates the recursion. Otherwise, you'll run out of memory fairly quickly.
+
+Here's a fun little example:
+
+    program recursion;
+
+    function fact(x : int) : int {
+        if (x < 1 || x == 1) {
+            return(1);
+        }
+        return(x * fact(x-1));
+    }
+
+    {
+        print(fact(6));
+    }
+
+## Output
+
+One last thing that we probably should've mentioned earlier is the `print` statement, but by now you should be pretty familiar with it.
+
+Syntax is simple: ```print``` keyword, followed by a ```pair of parentheses``` and a ```semicolon (;)```. Inside these parentheses, you may write a list of comma separated expressions. These can be integers, floats, Booleans or even strings! When printing multiple values inside a single `print` statement, they'll show up in the same line, separated by a white space. A `print` statement will always end on a newline.
+
+
+
+## Running tests
+
+Once you're done writing a program in your code.txt file, you can actually move it into the src/tests/ folder. If it doesn't exist, you can create it. You can use this folder to save your scripts and if the folder already existed, there should be some fun scripts you can try out yourself. To do this, type `make SRC={filename}` where `{filename}` is the filename of whatever script you want to run, without the `.txt` extension.
+
+## Extra information
+
+### Execution time
+
+When running your programs, you may notice at the bottom of the output, there's a line that says `Execution time`. This is exactly what it says it is: the time in miliseconds it took for your program to be executed by the virtual machine.
+
+### Execution
+
+If you head over to the `output/` folder on your project, you'll find an `execution.txt` file. If you take a look at it, you'll actually find all the instructions, in order, that were executed by the virtual machine in order to run your program.
+
+### Memory
+
+In the same `output/` folder, you'll find a `memory.txt` file, which contains the number of variables of each type that were stored in your virtual machine in both global scope and the local scopes of each function you defined.
