@@ -50,17 +50,69 @@ Inserts a single variable into the current variable table (current scope).
 Parameters:
     name: name of the variable.
     type: data type of the variable.
+    arrayNodes: first ArrayNode in linked list of ArrayNode instances if the variable is an array. Otherwise, it's a nullptr.
+    lineas: line number.
+Returns:
+    A pointer to the VariableEntry instance that was created.
+Used by:
+    declareVariables().
+    Parser.
 */
 VariableEntry *declareVariable(string name, int type, ArrayNode *arrayNodes, int lineas);
 
+/*
+Inserts multiple variables of the same type.
+Parameters:
+    variable: pointer to the first IDNode in a linked list of IDNode instances containing all the variables to be declared.
+    type: data type of the variables.
+    arrayNodes: first ArrayNode in linked list of ArrayNode instances if the variables are arrays. Otherwise, it's a nullptr.
+    lineas: line number.
+Used by:
+    Parser.
+*/
 void declareVariables(IDNode *variable, int type, ArrayNode *arrayNodes, int lineas);
 
+/*
+Inserts a parameter into the parameter table for the current function that is being defined.
+Parameters:
+    name: name of the parameter.
+    type: data type of the parameter.
+    lineas: line number.
+    address: address of the 'sibling' variable that is also declared in the variable table.
+Returns:
+    Pointer to the VariableEntry instance created.
+Used by:
+    Parser.
+*/
 VariableEntry *declareParameter(string name, int type, int lineas, int address);
 
+/*
+Gets the next parameter in the function's parameter table.
+Parameters:
+    function: FunctionEntry instance containing the parameter table.
+Returns:
+    Pointer to the VariableEntry instance of the next parameter.
+Used by:
+    generateParam().
+*/
 VariableEntry *nextParameter(FunctionEntry *function);
 
+/*
+Raises an error if not enough arguments have been passed to a function.
+Parameters:
+    name: name of the function.
+Used by:
+    Parser.
+*/
 void verifyParameters(string name);
 
+/*
+Resets currentParam to 0 in a FunctionEntry.
+Parameters:
+    name: name of the function.
+Used by:
+    Parser.
+*/
 void resetParameterCount(string name);
 
 void verifyIsArray(string id);
