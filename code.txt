@@ -1,0 +1,11 @@
+program whileLoops;
+
+var i : int;
+
+{
+    i = 0;
+    while (i < 3) do {
+        print("Hello!");
+        i = i + 1;
+    }
+}

@@ -10,7 +10,6 @@ the main function.
 Some relevant methods this struct are methods for finding a variable in the table in either just the current scope or the global scope
 too, finding the address or type of a variable, and inserting a new VariableEntry into the list.
 */
-struc
 struct VariableTable {
     VariableEntry *head;
     VariableTable *parent;

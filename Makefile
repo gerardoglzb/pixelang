@@ -1,5 +1,4 @@
 ifndef SRC
-SRC = code
 endif
 
 all: Code Main

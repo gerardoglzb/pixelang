@@ -565,7 +565,11 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
     string filename = argv[1];
-    filename = "./src/tests/" + filename + ".txt";
+    if (filename == "") {
+        filename = "code.txt";
+    } else {
+        filename = "./src/tests/" + filename + ".txt";
+    }
     FILE *myfile = fopen(filename.c_str(), "r");
     if (!myfile) {
         cout << "No file found for source code." << endl;
