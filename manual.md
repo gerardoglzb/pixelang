@@ -6,11 +6,16 @@ Pixelang is a basic programming language with simple built-in image manipulation
 This manual will help you quickly find your way around the project and get started writing your own programs!
 
 ## Table of Contents
-- [Syntax Overview](#syntax-overview)
-- [Command-Line Options](#command-line-options)
-- [Constructs](#constructs)
+- [Getting started](#getting-started)
+- [Data Types](#data-types)
+- [Variables](#variables)
+- [Operators](#operators)
+- [Control flow](#control-flow)
 - [Functions](#functions)
-- [Examples](#examples)
+- [Output](#output)
+- [Image processing](#image-processing)
+- [Running tests](#running-tests)
+- [Extra information](#extra-information)
 
 ## Getting started
 To write your code, you will need to use the `code.txt` file you'll find in the root directory. If it doesn't exist, go ahead and create the file yourself! Just make sure it's in the same directory as this guide.
