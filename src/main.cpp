@@ -2,6 +2,18 @@
 #include <chrono>
 using namespace std;
 
+/*
+This file contains the main script of the project.
+
+This script does the following:
+1. Read the quads.txt object file.
+2. Get the constants, functions and quads out of it.
+3. Initializes a VM with the previous data.
+4. Runs the VM..
+
+It can aditionally print some data, like the execution time and memory used for each program.
+*/
+
 void buildQuad(string line, vector<Quadruple> *quads) {
     stringstream stream(line);
     string item[4];

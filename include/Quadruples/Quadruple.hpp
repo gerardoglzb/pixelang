@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+/*
+This struct represents a quadruple, containing its operator, left and right operand, and result.
+It's worth noting the operands are the addresses, not the values.
+*/
 struct Quadruple {
     int oper;
     int leftOperand;

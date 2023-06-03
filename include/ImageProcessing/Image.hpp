@@ -6,6 +6,12 @@
 #include "stb_image_write.h"
 #include "./ImageType.hpp"
 
+/*
+The Image struct is the datatype for images. It contains the width and height of the image, the amount of channels it has, the size
+and the value of each pixel, basically all the relevant data of an image.
+
+It has a bunch of functions that manipulate this data to alter the image, as well as read (open) or write (save) images.
+*/
 struct Image {
     uint8_t *data = NULL;
     size_t size = 0;

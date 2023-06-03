@@ -1,6 +1,15 @@
 #include <iostream>
 #include "./ArrayNode.hpp"
 
+/*
+This struct represents a variable and contains all of its relevant data: type and address.
+The name of the variable works as an ID of sorts to access it through a variable table and make sure the name is not repeated inside
+the corresponding scope.
+
+It also contains pointers to the next entry, since it works as a linked list, as well as an ArrayNode instance that represents the head
+of a possible linked list with the details of each dimension if this variable is an array. If it's not an array, then this pointer will
+point to null.
+*/
 struct VariableEntry {
     string name;
     int type;

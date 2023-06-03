@@ -1,6 +1,20 @@
 #include <iostream>
 #include <fstream>
 
+/*
+This struct represents a function and contains all of its relevant data, most of which will be written into the object file.
+The name of the function works as an ID of sorts to access it through the directory and make sure the name is not repeated.
+
+It also contains a variable table and a parameter table, containing the variables and parameters of the functions. It's worth noting
+the parameters are also stored in the variable table. "paramaterTable" is just to keep track of them during calls. It also helps
+calculate "paramCount", the parameterCount.
+
+Each function has three instances of Memory, representing local, temporary and constant memory spaces. These help calculate
+"localVarCount" and "tempVarCount", the local variable count and temporary variable count.
+
+Other relevant information is the type of the function, the address where the result of the function (if there is one) will be placed,
+the quad where the function starts and the memory offset.
+*/
 struct FunctionEntry {
     string name;
     VariableTable *variableTable;

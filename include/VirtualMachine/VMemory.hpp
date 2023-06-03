@@ -3,6 +3,12 @@
 #include "../ImageProcessing/Image.hpp"
 using namespace std;
 
+/*
+This struct contains five VMemoryFrame instances, each representing a memory space containing values of each type: integer, float,
+string, Boolean or Image. Unlike the Memory instance, these ones actually always contain the real values.
+
+This struct has methods for getting and setting values of any given address.
+*/
 struct VMemory {
     VMemoryFrame<int> *memoryInt;
     VMemoryFrame<float> *memoryFloat;

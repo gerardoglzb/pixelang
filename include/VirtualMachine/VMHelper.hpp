@@ -3,6 +3,12 @@
 #include <string>
 using namespace std;
 
+/*
+This struct is designed purely to help execute all the quads in the VM.
+It contains the operator, left operand address, right operand address and result address, with which it obtains the types for
+the operands and the values as well if needed.
+Of course, it can also get and set any value by address.
+*/
 struct VMHelper {
     int oper, leftOperandAddress, rightOperandAddress, resultAddress;
     int leftType, rightType;

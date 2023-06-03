@@ -2,6 +2,10 @@
 #include <fstream>
 #include "../include/compiler.hpp"
 
+/*
+This file contains all of the functions that are used by the parser.
+*/
+
 void verifyFunctionExists(string name, int lineas) {
     if (!funcDir->has(name)) {
         cout << "Function " << name << " doesn't exist in line " << lineas << endl;

@@ -1,5 +1,8 @@
 #include <iostream>
 
+/*
+Contains all the memory addresses.
+*/
 enum MemoryAddresses {
     GLOBAL_INT=0,
     GLOBAL_FLOAT=2000,

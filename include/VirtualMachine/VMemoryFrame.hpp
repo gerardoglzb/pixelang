@@ -2,6 +2,13 @@
 #include "../Semantics/Type.hpp"
 using namespace std;
 
+/*
+This struct represents a memory frame of a specific type T. It contains the offset and size of the frame to make sure the address of
+the value exists in this specific frame. It can also return the type of it.
+
+Finally, it contains a pointer to "frame", which is initialized with the real size of the frame so that instead of having a frame that's
+the full size, it only has to be the minimum size necessary for the program to work.
+*/
 template<typename T>
 struct VMemoryFrame {
     int offset;

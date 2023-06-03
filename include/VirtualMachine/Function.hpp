@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+/*
+Used to store the type, address, offset, start quad and sizes of each memory frame for each function after they're read from the =
+object file.
+*/
 struct Function {
     int type;
     int resultAddress;

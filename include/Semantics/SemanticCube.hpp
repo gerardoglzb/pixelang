@@ -1,6 +1,11 @@
 #include <iostream>
 using namespace std;
 
+/*
+This method represents the use of a semantic cube, to determine whether an operation is valid.
+It takes the operator and the types of the two operands involved, then returns the type of the result.
+If the operation is not valid, it'll return a -1.
+*/
 static int semanticCube(int oper, int type1, int type2) {
     int cube[6][3][3] = {
         {

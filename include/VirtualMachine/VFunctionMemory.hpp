@@ -4,6 +4,13 @@
 #include "../Memory/MemoryAddresses.hpp"
 using namespace std;
 
+/*
+This struct contains pointers to three VMemory instances representing local, temporary and constant memory spaces, alongside methods
+that allow to get the type and frame of any given address, as well as set the value of an address to a certain given value.
+
+All functions (with the exception of the main one) also have a pointer pointing to the global memory since functions have access to
+global variables.
+*/
 struct VFunctionMemory {
     VMemory *localMemory;
     VMemory *tempMemory;

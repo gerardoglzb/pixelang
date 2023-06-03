@@ -1,5 +1,12 @@
 #include <iostream>
 
+/*
+Node used by parser to keep track of all the dimensions of an array that is being declared.
+It also contains all the methods necessary to calculate all the key values that allow for array indexing: size, r, offset and
+MOrK, which contains the value of K if this node is the last dimension of the array or the corresponding M if not.
+
+It contains a pointer to the next node since it works as part of a linked list.
+*/
 struct ArrayNode {
     int size;
     int mOrK;

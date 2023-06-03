@@ -1,6 +1,11 @@
 #include <iostream>
 #include "./FunctionEntry.hpp"
 
+/*
+This struct contains all of the FunctionEntry instances that have been created (each representing a function of the program).
+"head" points to the head of the linked list that contains all these instances, with the head having just some dummy data.
+The main function exists on its own and can be accessed through the "main" pointer.
+*/
 struct FunctionDirectory {
     FunctionEntry *head;
     FunctionEntry *main;

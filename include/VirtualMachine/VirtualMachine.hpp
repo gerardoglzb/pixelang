@@ -9,6 +9,20 @@
 #include "./VMHelper.hpp"
 #include "../Semantics/Operator.hpp"
 
+/*
+This struct is the virtual machine that executes all the instructions provided by the quads.txt object using the functions data and
+constants provided by this same object file.
+
+The "run" method essentially starts executing every given quadruple starting from quad 1 until it gets to the END_ quad.
+Execution depends on the operator and uses the VMHelper struct to execute it.s
+
+The VM contains data of all of the functions and constants, as well as all of the quads in a vector since it's accessed by index.
+
+It also contains stacks for the functions since the scope of a function depends on the scope of the function that called it.
+
+Other relevant methods are "createMemory" for creating a VFunctionMemory, one of which is needed for each function.
+Also "storeConstants", which store all the constant values into the global constant frame.
+*/
 struct VirtualMachine {
     VFunctionMemory *globalMemory;
 

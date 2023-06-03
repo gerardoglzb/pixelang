@@ -1,6 +1,14 @@
 #include <iostream>
 #include "./MemoryFrame.hpp"
 
+/*
+This struct represents a memory space that contains pointers to MemoryFrame instances of all types: int, float, string, bool and image.
+Image has a boolean type because there is no need to actually store any images on the compiler because Images can't be constants.
+
+The most relevant method of this struct is "addValue", which "adds" a value of whatever type is indicated to the corresponding
+MemoryFrame. In reality, it's increasing the index of the frame and returning the address for this value. This method can optionally
+received a real value, in which case it'll  be stored properly. This is designed for constant values.
+*/
 struct Memory {
     MemoryFrame<int> *memoryInt;
     MemoryFrame<float> *memoryFloat;

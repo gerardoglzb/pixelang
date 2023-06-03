@@ -41,6 +41,10 @@ static FunctionDirectory *funcDir;
 static ArrayNode *currentArrayNode;
 
 
+/*
+This file contains all of the functions that are used by the parser.
+*/
+
 VariableEntry *declareVariable(string name, int type, ArrayNode *arrayNodes, int lineas);
 
 void declareVariables(IDNode *variable, int type, ArrayNode *arrayNodes, int lineas);

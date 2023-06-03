@@ -1,5 +1,8 @@
 #include <iostream>
 
+/*
+Represents all possible operators.
+*/
 enum Operator {
     EQUALS_,
     ADD_,
