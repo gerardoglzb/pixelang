@@ -1,20 +1,8 @@
-program scsopes;
+program image_manipulation;
 
-var i : int;
-
-function handmadeSum(val : int, val2: int) : int {
-    return(val + val2);
-}
-
-function handmadeMultiply(val : int, val2 : int) : int {
-    var total : int;
-    total = 0;
-    for (i = 0 to val) {
-        total = handmadeSum(total, val2);
-    }
-    return(total);
-}
+var img : image;
 
 {
-    print("");
+    img.open("images/test.png");
+    img.save("images/new.png");
 }

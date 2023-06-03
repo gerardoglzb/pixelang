@@ -597,7 +597,55 @@ One last thing that we probably should've mentioned earlier is the `print` state
 
 Syntax is simple: ```print``` keyword, followed by a ```pair of parentheses``` and a ```semicolon (;)```. Inside these parentheses, you may write a list of comma separated expressions. These can be integers, floats, Booleans or even strings! When printing multiple values inside a single `print` statement, they'll show up in the same line, separated by a white space. A `print` statement will always end on a newline.
 
+## Image Processing
 
+Now we're getting into the good stuff.
+
+There is one final datatype we haven't dived into: `image`.
+
+`image` cannot be a constant and it cannot be used with any operators. It exists only to be declared as a variable and then used by calling its different methods. Here's an example.
+
+    program image_manipulation;
+
+    var img : image;
+
+    {
+        img.open("images/test.png");
+        img.save("images/new.png");
+    }
+
+This very simple program opens (`open`) an image found in `images/test.png` and then saves (`save`) that same image as a new one `images/new.png`. So essentially images exist as virtual images that can be obtained from a local file and also converted into a local file.
+
+Parameters work the same way they do for normal function calling.
+
+To call an image manipulation method, the call must always be preceded by your ```image variable``` and a ```dot (.)```.
+
+Here's a description of each method:
+
+- open(filename: string): Reads an image file and stores its data into the image variable that called it.
+    - Parameters:
+        - filename: Filename of the image to read.
+- save(filename: string): Saves the data of your image variable into a new image file.
+    - Parameters:
+        - filename: filename of the new image file to be saved.
+- grayscale(): Turns the image into a grayscale one, meaning it only uses shades of gray.
+- bandw(): Turns the image into a black-and-white one.
+- change_color(r: float, g: float, b: float): Changes the color of the image to the one indicated by the parameters.
+    - Parameters:
+        - r: intensity of red color.
+        - g: intensity of green color.
+        - b: intensity of blue color.
+- change_color(hex: string): Changes the color of the image to the one indicated by the parameter.
+    - Parameters:
+        - hex: hexadecimal value of color.
+- hflip(): Flips the image horizontally.
+- hflip(): Flips the image vertically.
+- crop(x: int, y: int, width: int, height: int): Crops the image based on the parameters given.
+    - Parameters.
+        - x: horizontal start of the crop.
+        - y: vertical start of the crop.
+        - width: width of the crop.
+        - height: height of the crop.
 
 ## Running tests
 

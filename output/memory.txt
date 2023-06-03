@@ -1,13 +1,13 @@
 MAIN FUNCTION: 
 
 Global variables:
-Integers: 1
+Integers: 0
 Floats: 0
 Strings: 0
 Booleans: 0
 
 Global temp variables:
-Integers: 2
+Integers: 0
 Floats: 0
 Strings: 0
 Booleans: 0
@@ -15,52 +15,8 @@ Booleans: 0
 Global const variables:
 Integers: 3
 Floats: 0
-Strings: 1
+Strings: 2
 Booleans: 0
 
-Global image variables: 0
-
-FUNCTION 1:
-
-Local variables:
-Integers: 2
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local temp variables:
-Integers: 3
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local const variables:
-Integers: 0
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local image variables: 0
-
-FUNCTION 2:
-
-Local variables:
-Integers: 3
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local temp variables:
-Integers: 9
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local const variables:
-Integers: 0
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local image variables: 0
+Global image variables: 1
 
