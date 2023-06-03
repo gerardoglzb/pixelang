@@ -48,11 +48,11 @@ But more often than not, you will want to write statements, as well as variables
 
 ## Data Types
 
-Pixelang supports integers (int), floats (float) and booleans (bool) as datatypes acceptable for both variables and functions. They can also all be used in most operations.
+Pixelang supports integers (int), floats (float) and booleans (bool) as data types acceptable for both variables and functions. They can also all be used in most operations.
 
 Strings are also supported, but only as constants typed in by the user. They cannot be stored as variables. They are mostly used for print statements, as you have seen already.
 
-A custom datatype "Image" (image) is also included, which can be used to open and create new images in your system. We'll talk more about that later, but keep in mind that while you can have variables of type Image, they can't be used in any operations.
+A custom data type "Image" (image) is also included, which can be used to open and create new images in your system. We'll talk more about that later, but keep in mind that while you can have variables of type Image, they can't be used in any operations.
 
 ## Variables
 
@@ -66,7 +66,7 @@ Global variables are exclusively declared at the beginning of the program, right
 
     {}
 
-To declare a variable, you must first write the keyword ```var``` followed by the ```name of your variable```, then a ```colon (:)```, the ```datatype of your variable``` and a ```semicolon (;)```.
+To declare a variable, you must first write the keyword ```var``` followed by the ```name of your variable```, then a ```colon (:)```, the ```data type of your variable``` and a ```semicolon (;)```.
 
 ### Naming a variable.
 
@@ -74,7 +74,7 @@ Your variable <b>must</b> start with a ```letter``` and can be then followed by 
 
 ### Declaring multiple variables
 
-You can also declare multiple variables at once, as long as they're all of the same datatype.
+You can also declare multiple variables at once, as long as they're all of the same data type.
 
     program variables;
 
@@ -84,7 +84,7 @@ You can also declare multiple variables at once, as long as they're all of the s
 
 To do this, just write multiple variable names in between the ```var``` keyword and the ```colon```, while separating them with a ```comma```.
 
-If you want variables of different datatypes, you can always write more lines.
+If you want variables of different data types, you can always write more lines.
 
     program variables;
 
@@ -110,7 +110,7 @@ While you cannot initialize variables to have any sort of value, you can assign 
         f = 1.5;
     }
 
-You can also assign a variable's value to another one, as long as their datatype is compatible.
+You can also assign a variable's value to another one, as long as their data type is compatible.
 
     program assignments;
 
@@ -134,7 +134,7 @@ Booleans also have special ```true``` and ```false``` keywords you can use.
 
 ### Declaring an array
 
-Another type of variable we haven't mentioned is arrays. You can have arrays of any datatype you can declare a variable of.
+Another type of variable we haven't mentioned is arrays. You can have arrays of any data type you can declare a variable of.
 
     program arrays;
 
@@ -143,7 +143,7 @@ Another type of variable we haven't mentioned is arrays. You can have arrays of 
 
     {}
 
-Arrays follow a similar syntax to normal variables, with the one difference being that the datatype is followed by an ```opening bracket ([)```, then a ```constant integer```, a ```closing bracket (])```, and a ```semicolon (;)```. The integer inside of the brackets represents the length of the array. Please keep in mind it can only be a constant integer, not another variable.
+Arrays follow a similar syntax to normal variables, with the one difference being that the data type is followed by an ```opening bracket ([)```, then a ```constant integer```, a ```closing bracket (])```, and a ```semicolon (;)```. The integer inside of the brackets represents the length of the array. Please keep in mind it can only be a constant integer, not another variable.
 
 It's also worth mentioning that all the arrays declared in a single line will share the same lengths and dimensions. That's right, arrays can also have more than one dimension.
 
@@ -449,11 +449,11 @@ You can actually define your own functions in your program. A program with a sim
         myFunction();
     }
 
-The syntax consists of the keyword ```function```, followed by the ```name of your function``` (which follows the same rules as the variables names), a ```pair of parentheses```, then a ```colon (:)```, then the datatype of your function and finally a pair of ```curly brackets``` containing your function's functionality.
+The syntax consists of the keyword ```function```, followed by the ```name of your function``` (which follows the same rules as the variables names), a ```pair of parentheses```, then a ```colon (:)```, then the data type of your function and finally a pair of ```curly brackets``` containing your function's functionality.
 
 We can also see an example of a `call`, which occurs by typing the name of the function, followed by the ```parentheses``` and a ```semicolon (;)```. Parameters/arguments can also be used inside of the parentheses of the function's definition and call, but we'll get into that a bit later.
 
-The functions also introduce a new datatype: `void`, which refers to a function that doesn't return anything. That's right! Functions can return values.
+The functions also introduce a new data type: `void`, which refers to a function that doesn't return anything. That's right! Functions can return values.
 
 ### Returns
 
@@ -495,11 +495,11 @@ This obviously returns:
 
     3
 
-A difference is worth noting is that `void` functions cannot be assigned to anything. Functions with other datatypes do return a value and as such can be used in assignments.
+A difference is worth noting is that `void` functions cannot be assigned to anything. Functions with other data types do return a value and as such can be used in assignments.
 
 ### Parameters
 
-We can also pass in parameters to functions through parameters, which are defined inside the ```parentheses``` of the function definition. These parameters are a ```list of comma-separated ids``` that follow the same rules as variable names (and actually are declared as variables inside the function!) followed by a ```colon (:)``` and a ```datatype```. It's worth mentioning arrays cannot be passed as parameters. Here's an example so you can understand it better.
+We can also pass in parameters to functions through parameters, which are defined inside the ```parentheses``` of the function definition. These parameters are a ```list of comma-separated ids``` that follow the same rules as variable names (and actually are declared as variables inside the function!) followed by a ```colon (:)``` and a ```data type```. It's worth mentioning arrays cannot be passed as parameters. Here's an example so you can understand it better.
 
     program parameters;
 
@@ -606,7 +606,7 @@ Syntax is simple: ```print``` keyword, followed by a ```pair of parentheses``` a
 
 Now we're getting into the good stuff.
 
-There is one final datatype we haven't dived into: `image`.
+There is one final data type we haven't dived into: `image`.
 
 `image` cannot be a constant and it cannot be used with any operators. It exists only to be declared as a variable and then used by calling its different methods. Here's an example.
 

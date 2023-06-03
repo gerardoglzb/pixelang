@@ -1,7 +1,7 @@
 #include <iostream>
 
 /*
-All the possible datatypes.
+All the possible data types.
 */
 enum Type {
     INT_,

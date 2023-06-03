@@ -45,6 +45,12 @@ static ArrayNode *currentArrayNode;
 This file contains all of the functions that are used by the parser.
 */
 
+/*
+Inserts a single variable into the current variable table (current scope).
+Parameters:
+    name: name of the variable.
+    type: data type of the variable.
+*/
 VariableEntry *declareVariable(string name, int type, ArrayNode *arrayNodes, int lineas);
 
 void declareVariables(IDNode *variable, int type, ArrayNode *arrayNodes, int lineas);
