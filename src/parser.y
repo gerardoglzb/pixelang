@@ -421,9 +421,11 @@ image_function :
 
 image_call :
     ID ARROW image_function LEFT_PAR image_arguments RIGHT_PAR SEMICOLON {
+        verifyImageParameterCount($3, $5->count);
         performImageCall($1, $3, $5);
     }
     | ID ARROW image_function LEFT_PAR RIGHT_PAR SEMICOLON {
+        verifyImageParameterCount($3, 0);
         performImageCall($1, $3, nullptr);
     } ;
 

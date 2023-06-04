@@ -6,6 +6,17 @@
 This file contains all of the functions that are used by the parser.
 */
 
+
+void verifyImageParameterCount(int oper, int count) {
+    vector<vector<int>> counts = {{{1}, {1}, {0}, {0}, {3, 1}, {0}, {0}, {4}}};
+    for (int i : counts[oper - OPEN_]) {
+        if (count == i)
+            return;
+    }
+    cout << "Incorrect number of parameters provided for " << operatorName(oper, true) << " function." << endl;
+    exit(-1);
+}
+
 void verifyFunctionExists(string name, int lineas) {
     if (!funcDir->has(name)) {
         cout << "Function " << name << " doesn't exist in line " << lineas << endl;
@@ -240,6 +251,31 @@ string operatorName(int _oper) {
         case GRAYSCALE_:
             oper = "GRAYSCALE";
             break;
+        case BANDW_:
+            oper = "BANDW";
+            break;
+        case HFLIP_:
+            oper = "HFLIP";
+            break;
+        case VFLIP_:
+            oper = "VFLIP";
+            break;
+        case CROP_:
+            oper = "CROP";
+            break;
+    }
+    return oper;
+}
+
+string operatorName(int _oper, bool longVersion) {
+    string oper = operatorName(_oper);
+    if (!longVersion)
+        return oper;
+    
+    switch(_oper) {
+        case BANDW_:
+            oper = "BLACK_AND_WHITE";
+        break;
     }
     return oper;
 }

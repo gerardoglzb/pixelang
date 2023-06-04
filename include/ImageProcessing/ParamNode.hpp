@@ -11,6 +11,7 @@ struct ParamNode {
     int value;
     int type;
     ParamNode *next;
+    int count;
 
     void getParams(queue<int> *params) {
         params->push(value);
@@ -22,11 +23,13 @@ struct ParamNode {
         this->value = value;
         this->type = type;
         this->next = nullptr;
+        this->count = 1;
     };
 
     ParamNode(int value, int type, ParamNode *next) {
         this->value = value;
         this->type = type;
         this->next = next;
+        this->count = 1 + this->next->count;
     };
 };

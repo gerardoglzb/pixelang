@@ -684,6 +684,8 @@ Used by:
 */
 string operatorName(int _oper);
 
+string operatorName(int _oper, bool longVersion);
+
 /*
 Creates the quads.txt object file.
 Used by:
@@ -710,6 +712,8 @@ Prints operands in stack to the terminal.
 */
 void printOperands();
 
+
+void verifyImageParameterCount(int oper, int count);
 
 /*
 Generates quad of an image call and IPARAM quads.
