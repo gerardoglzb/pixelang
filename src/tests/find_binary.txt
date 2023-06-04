@@ -5,17 +5,18 @@ var arr: int[5];
 var elementToFind: int;
 var index: int;
 
-function bubblesort(n : int) : void {
-    var i, j : int;
-    var temp : int;
+function selectionSort(n : int) : void {
+    var i, j, minIndex, temp : int;
     for (i = 0 to n - 1) {
-        for (j = 0 to n - i - 1) {
-            if (arr[j] > arr[j+1]) {
-                temp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = temp;
+        minIndex = i;
+        for (j = i + 1 to n) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
             }
         }
+        temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
     }
 }
 
@@ -44,7 +45,7 @@ function binarySearch(element: int, low: int, high: int): int {
     arr[3] = 4;
     arr[4] = 2;
     elementToFind = 4;
-    bubblesort(n);
+    selectionSort(n);
     index = binarySearch(elementToFind, 0, n-1);
     if (index != -1) {
         print("Element", elementToFind, "found at index", index);
