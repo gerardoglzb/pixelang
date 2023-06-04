@@ -5,12 +5,12 @@ var x : int;
 var z : float;
 var arr : int[3];
 
-function func(a : int) : int {
-    return(7.1);
+function func(a : int) : float {
+    return(false);
 }
 
-function func() : float {}
-
 {
-    x = func(3);
+    if (func(3)) {
+        print("HI");
+    }
 }

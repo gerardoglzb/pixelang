@@ -520,13 +520,13 @@ void generateAccess() {
 }
 
 void verifyReturnType(int functionType) {
-    if (semanticCube(EQUALS_, lastResultType, functionType) == -1) {
+    if (semanticCube(EQUALS_, functionType, lastResultType) == -1) {
         raiseError("Function type and return value are not compatible.");
     }
 }
 
 void verifyReturnType(int functionType, int returnType) {
-    if (semanticCube(EQUALS_, returnType, functionType) == -1) {
+    if (semanticCube(EQUALS_, functionType, returnType) == -1) {
         raiseError("Function type and return value are not compatible.");
     }
 }

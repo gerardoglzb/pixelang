@@ -7,15 +7,15 @@ Strings: 0
 Booleans: 0
 
 Global temp variables:
-Integers: 1
+Integers: 4
 Floats: 0
 Strings: 0
 Booleans: 0
 
 Global const variables:
-Integers: 3
-Floats: 1
-Strings: 0
+Integers: 4
+Floats: 0
+Strings: 1
 Booleans: 0
 
 Global image variables: 1
@@ -29,8 +29,8 @@ Strings: 0
 Booleans: 0
 
 Local temp variables:
-Integers: 0
-Floats: 1
+Integers: 1
+Floats: 0
 Strings: 0
 Booleans: 0
 
