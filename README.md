@@ -1,6 +1,6 @@
 # pixelang
 
-El avance incluye básicamente todo lo anterior: análisis léxico y sintáctico, variables, funciones, expresiones aritméticas y estatutos secuenciales (tanto la generación de quads como la ejecución de la máquina virtual y manejo de memoria para todo). También funcionan los arreglos, pero solo de una dimensión, no matrices.
+El avance está basicamente al corriente. Sólo me falta pulir el proyecto y quiero agregar más funciones específicas.
 
 // Memorias
 
