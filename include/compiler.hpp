@@ -428,16 +428,6 @@ Used by:
 void validateLastOperand(int type);
 
 /*
-Raises an error if type of a variable isn't the same as the type passed.
-Parameters:
-    name: name of the variable.
-    type: data type to compare to.
-Used by:
-    Parser.
-*/
-void validateID(string name, int type);
-
-/*
 Raises an error if lastAssignmentType isn't the same as the type passed.
 Parameters:
     type: data type to compare to.
@@ -459,14 +449,6 @@ Used by:
     Parser.
 */
 void saveForVariable();
-
-/*
-Generates GOTOF quad for the start of the for loop and pushes the current quad into the jumps stack so it can be used to add the
-destination of the GOTOF operation later.
-Used by:
-    Parser.
-*/
-void generateFor();
 
 /*
 Fills the GOTOF at the start of the loop with the current quad and generates a GOTO quad to the top of the jumps stack.

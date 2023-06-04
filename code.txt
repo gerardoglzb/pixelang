@@ -1,13 +1,16 @@
 program test;
 
+var img : image;
 var x : int;
+var z : float;
+var arr : int[3];
 
-function func() : int {
-    return(5);
+function func(a : int) : int {
+    return(7.1);
 }
 
+function func() : float {}
+
 {
-    x = func();
-    x = 3 + 3;
-    print(x);
+    x = func(3);
 }

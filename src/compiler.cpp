@@ -6,6 +6,35 @@
 This file contains all of the functions that are used by the parser.
 */
 
+void raiseError(string msg) {
+    cout << "ERROR: " << msg << endl;
+    exit(-1);
+}
+
+string dataTypeName(int type) {
+    string name = "";
+    switch(type) {
+        case INT_:
+            name = "int";
+            break;
+        case FLOAT_:
+            name = "float";
+            break;
+        case BOOL_:
+            name = "bool";
+            break;
+        case STRING_:
+            name = "string";
+            break;
+        case VOID_:
+            name = "void";
+            break;
+        case IMAGE_:
+            name = "image";
+            break;
+    }
+    return name;
+}
 
 void verifyImageParameterCount(int oper, int count) {
     vector<vector<int>> counts = {{{1}, {1}, {0}, {0}, {3, 1}, {0}, {0}, {4}}};
@@ -13,21 +42,18 @@ void verifyImageParameterCount(int oper, int count) {
         if (count == i)
             return;
     }
-    cout << "Incorrect number of parameters provided for " << operatorName(oper, true) << " function." << endl;
-    exit(-1);
+    raiseError("Incorrect number of parameters provided for " + operatorName(oper, true) + " function.");
 }
 
 void verifyFunctionExists(string name, int lineas) {
     if (!funcDir->has(name)) {
-        cout << "Function " << name << " doesn't exist in line " << lineas << endl;
-        exit(-1);
+        raiseError("Function " + name + " doesn't exist in line " + to_string(lineas) + ".");
     }
 }
 
 void verifyParameters(string name) {
     if (funcDir->find(name)->nextCurrentParameter()) {
-        printf("Too few parameters %s.\n", name.c_str());
-        exit(-1);
+        raiseError("Too few parameters for " + name + ".");
     }
 }
 
@@ -80,8 +106,7 @@ void generateGosub(string name) {
 VariableEntry *nextParameter(FunctionEntry *function) {
     VariableEntry *param = function->nextCurrentParameter();
     if (!param) {
-        printf("Too many parameters.\n");
-        exit(-1);
+        raiseError("Too many parameters for " + function->name + ".");
     }
     return param;
 }
@@ -89,8 +114,7 @@ VariableEntry *nextParameter(FunctionEntry *function) {
 void verifyIsArray(string id) {
     VariableEntry *entry = funcDir->currentVariableTable()->fullFind(id);
     if (entry->arrNode == nullptr) {
-        cout << "Trying to access a non-array." << endl;
-        exit(-1);
+        raiseError(id + " is not an array.");
     }
     entry->resetArrayNode();
     arrayAccesses.push(entry);
@@ -98,8 +122,7 @@ void verifyIsArray(string id) {
 
 void generateVerify() {
     if (types.top() != INT_) {
-        cout << "Accessing arrays can only be integers." << endl;
-        exit(-1);
+        raiseError("You can only access arrays using integers.");
     }
     generateQuad(VERIFY_, operands.top(), 0, arrayAccesses.top()->currArrNode->size - 1);
 }
@@ -129,13 +152,13 @@ void resetParameterCount(string name) {
 void generateParam() {
     int arg = operands.top(); operands.pop();
     int type = types.top(); types.pop();
-    if (!currentCall)
+    if (!currentCall) {
         exit(-1);
+    }
     VariableEntry *param = nextParameter(currentCall);
 
     if (semanticCube(EQUALS_, param->type, type) == -1) {
-        cout << "Parameter is not the same " << type << " " << param->type << endl;
-        exit(-1);
+        raiseError("Trying to pass " + dataTypeName(type) + " to parameter " + param->name + " of type " + dataTypeName(param->type) + ".");
     }
 
     generateQuad(PARAM_, arg, -1, param->address);
@@ -298,12 +321,10 @@ void generateObject() {
     printCtes(file);
     printQuads(file);
     if (operands.size()) {
-        cout << "Operands not empty." << endl;
-        exit(-1);
+        raiseError("(INTERNAL) Operands not empty.");
     }
     if (operators.size()) {
-        cout << "Operators not empty." << endl;
-        exit(-1);
+        raiseError("(INTERNAL) Operators not empty.");
     }
     file.close();
 }
@@ -359,8 +380,7 @@ void printQuads(ofstream &file) {
 void generateWhile() {
     int type = types.top(); types.pop();
     if (type != INT_) {
-        cout << "Error: Expression in cycle not a boolean." << endl;
-        exit(-1);
+        raiseError("Expression in while loop not a boolean.");
     }
     int result = operands.top(); operands.pop();
     generateQuad(GOTOF_, result, -1, -1);
@@ -369,8 +389,7 @@ void generateWhile() {
 
 void validateLastOperand(int type) {
     if (types.top() != type) {
-        printf("Type validation error!");
-        exit(-1);
+        raiseError("Target value in for loop must be an integer!");
     }
 }
 
@@ -385,28 +404,8 @@ void saveForVariable() {
 
 void validateLastAssignment(int type) {
     if (lastAssignmentType != type) {
-        printf("Type validation error (assignment)!\n");
-        cout << type << " " << lastAssignmentType << endl;
-        exit(-1);
+        raiseError("Control variable in for loop must be an integer!");
     }
-}
-
-void validateID(string name, int type) {
-    if (funcDir->currentFunction()->findType(name) != type) {
-        printf("Type validation error (ID)!");
-        exit(-1);
-    }
-}
-
-void generateFor() {
-    int type = types.top(); types.pop();
-    if (type != INT_) {
-        cout << "Error: Expression in cycle not a boolean." << endl;
-        exit(-1);
-    }
-    int result = operands.top(); operands.pop();
-    generateQuad(GOTOF_, result, -1, -1);
-    jumps.push(quads.size() - 1);
 }
 
 void fillMain() {
@@ -452,8 +451,7 @@ void fillJumpIf() {
 void generateIf() {
     int type = types.top(); types.pop();
     if (type != INT_) {
-        cout << "Error: Expression in conditional not a boolean." << endl;
-        exit(-1);
+        raiseError("Expression in conditional not a boolean.");
     }
     int result = operands.top(); operands.pop();
     generateQuad(GOTOF_, result, -1, -1);
@@ -523,15 +521,13 @@ void generateAccess() {
 
 void verifyReturnType(int functionType) {
     if (semanticCube(EQUALS_, lastResultType, functionType) == -1) {
-        cout << "Function type and return value are not compatible." << lastResultType << " "  << functionType << endl;
-        exit(-1);
+        raiseError("Function type and return value are not compatible.");
     }
 }
 
 void verifyReturnType(int functionType, int returnType) {
     if (semanticCube(EQUALS_, returnType, functionType) == -1) {
-        cout << "Function type and return value are not compatible." << lastResultType << " "  << functionType << endl;
-        exit(-1);
+        raiseError("Function type and return value are not compatible.");
     }
 }
 
@@ -544,8 +540,7 @@ void popOperator(int oper) {
 void pushOperandResult(string name) {
     int functionType = funcDir->find(name)->type;
     if (semanticCube(EQUALS_, currentCall->type, functionType) == -1) {
-        cout << "Function type and return value are not compatible." << endl;
-        exit(-1);
+        raiseError("Function type and return value are not compatible.");
     }
     int callAddress = declareTemp(functionType);
     generateQuad(EQUALS_, -1, currentCall->resultAddress, callAddress);
@@ -602,8 +597,7 @@ void doOperation() {
             } else if (oper == RETURN_) {
                 result = returnAddresses.top();
                 if (result == -1) {
-                    cout << "Trying to return to a void function" << endl;
-                    exit(-1);
+                    raiseError("Trying to return to a void function!");
                 }
                 lastResult = result;
                 lastResultType = rightType;
@@ -614,8 +608,7 @@ void doOperation() {
             if (oper != EQUALS_ && oper != PRINT_ && oper != RETURN_) // TODO: if there were, a = b = c then this is wrong
                 pushOperandOfType(result, resultType);
         } else {
-            cout << "Type mismatch." << endl;;
-            exit(-1);
+            raiseError("Type mismatch.");
         }
     } else {
         cout << "Whoops. error for the time being. " << endl;
@@ -662,8 +655,7 @@ void pushOperandOfType(int address, int type) {
 VariableEntry *declareVariable(string name, int type, ArrayNode *arrayNodes, int lineas) {
     VariableTable *table = funcDir->currentVariableTable();
     if (table->has(name)) {
-        cout << "Error: Redefinition of var " << name << " on line "  << lineas << ".\n";
-        exit(-1);
+        raiseError("Redefinition of var " + name + " on line " + to_string(lineas) + ".");
     }
     int size = arrayNodes ? arrayNodes->getFullSize() : 1;
     VariableEntry *entry = new VariableEntry(name, type, declareLocal(type, size), arrayNodes);
@@ -674,8 +666,7 @@ VariableEntry *declareVariable(string name, int type, ArrayNode *arrayNodes, int
 VariableEntry *declareParameter(string name, int type, int lineas, int address) {
     VariableTable *table = funcDir->currentParameterTable();
     if (table->has(name)) {
-        cout << "Error: Redefinition of parameter " << name << " on line "  << lineas << ".\n";
-        exit(-1);
+        raiseError("Redefinition of parameter " + name + " on line " + to_string(lineas) + ".");
     }
     VariableEntry *entry = new VariableEntry(name, type);
     entry->address = address;
@@ -698,8 +689,7 @@ void declareFunction(string name, int type, int lineas) {
     FunctionEntry *entry = new FunctionEntry(name, type, table);
 
     if (funcDir->has(name)) {
-        cout << "Error: Redefinition of function " << entry->name << " on line "  << lineas << ".\n";
-        exit(-1);
+        raiseError("Redefinition of function " + entry->name + " on line "  + to_string(lineas) + ".");
     } else {
         funcDir->insert(entry);
     }
