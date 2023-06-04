@@ -1,9 +1,10 @@
 program test;
 
-var img : image;
-var x : int;
-var z : float;
+var a, b, c : int;
+var x, y, z : float;
 
 {
-    img.open("hi");
+    a = 6; b = 3; c = 4;
+    c = a / b;
+    print(c);
 }

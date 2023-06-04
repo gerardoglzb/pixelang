@@ -29,9 +29,9 @@ static int semanticCube(int oper, int type1, int type2) {
             {INT_, FLOAT_, INT_},
         },
         {
+            {INT_, FLOAT_, INT_},
             {FLOAT_, FLOAT_, FLOAT_},
-            {FLOAT_, FLOAT_, FLOAT_},
-            {FLOAT_, FLOAT_, FLOAT_},
+            {INT_, FLOAT_, INT_},
         },
         {
             {INT_, -1, INT_},

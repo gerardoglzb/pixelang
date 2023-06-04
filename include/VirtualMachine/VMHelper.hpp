@@ -248,7 +248,11 @@ struct VMHelper {
             int rightOperand = getValueIntOrBool(rightOperandAddress, rightType);
             if (leftType == INT_ || leftType == BOOL_) {
                 int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
-                setValue(resultAddress, float(leftOperand / rightOperand));
+                if (getType(resultAddress) == FLOAT_) {
+                    setValue(resultAddress, float(leftOperand / rightOperand));
+                } else {
+                    setValue(resultAddress, leftOperand / rightOperand);
+                }
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
