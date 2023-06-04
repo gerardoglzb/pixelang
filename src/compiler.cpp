@@ -623,14 +623,6 @@ void pushOperandOfType(int address, int type) {
     types.push(type);
 }
 
-void setCurrentArrayNode(ArrayNode *node) {
-    currentArrayNode = node;
-}
-
-ArrayNode *getCurrentArrayNode() {
-    return currentArrayNode;
-}
-
 VariableEntry *declareVariable(string name, int type, ArrayNode *arrayNodes, int lineas) {
     VariableTable *table = funcDir->currentVariableTable();
     if (table->has(name)) {

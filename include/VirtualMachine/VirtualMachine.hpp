@@ -78,10 +78,6 @@ struct VirtualMachine {
     vector<int> pids;
     int executions = 0;
     int executeQuad(int pid) {
-        if (executions++ > 10000) {
-            cout << "Too long" << endl;
-            exit(-1);
-        }
         executionFile << pid << ",";
         pids.push_back(pid);
         Quadruple *quad = &quads[pid++];

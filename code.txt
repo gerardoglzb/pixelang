@@ -1,9 +1,12 @@
 program test;
 
-var img : image;
+var arr : int[3];
+var matrix : int[3][5];
 
 {
-    img.open("images/test.png");
-    img.crop(50, 50, 150, 20);
-    img.save("images/new.png");
+    arr[0] = 5; arr[1] = 8; arr[2] = 10;
+    matrix[0][0] = 12;
+    matrix[0][1] = arr[2];
+    matrix[2][4] = matrix[0][0] * 3;
+    print(matrix[2][4] - 1);
 }

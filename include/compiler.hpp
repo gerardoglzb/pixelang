@@ -13,32 +13,31 @@
 #include "./FunctionDirectory/FunctionDirectory.hpp"
 #include "./ImageProcessing/ParamNode.hpp"
 
-static string programName;
+static string programName; // Name of the program
 
-static stack<int> operators; // 0 equal, 1 add, 2 sub, 3 multi, 4 div, 5 greater, 6 less, 7 equal to, 8 not equal, 9 and, 10 or,
-                            // 11 leftpar, 12 rightpar, 13 gotoF, 14 goto, 15 gosub, 16 era, 17 param, 18 endfunc, 19 print 20 return
-static stack<int> types;
-static stack<int> operands;
-static stack<int> jumps;
-static stack<VariableEntry*> arrayAccesses;
+static stack<int> operators; // Stack of operators
+static stack<int> types; // Stack of types
+static stack<int> operands; // Stack of operands
+static stack<int> jumps; // Stack of jumps
 
-static string IDExpression;
-static int lastResult;
-static int lastResultType;
-static int lastAssignmentType;
-static int lastAssignment;
-static stack<int> forVariables;
-static stack<int> returnAddresses;
-static int currentFuncType;
+static stack<VariableEntry*> arrayAccesses; // Stores arrays that are being accessed
+static stack<int> forVariables; // Stores control variables for for loops that are being used
+static stack<int> returnAddresses; // Stores address that will receive the value returned by the next function
 
-static vector<Quadruple> quads;
+static string IDExpression; // Stores variable that is being used or function that is being called
+static int lastResult; // Stores address of the last value that was returned by a function
+static int lastResultType; // Stores value of the last value that was returned by a function
+static int lastAssignmentType; // Stores type of the last value that was assigned a value
+static int lastAssignment; // Stores address of the last value that was assigned a value
 
-static FunctionEntry *currentCall;
-static FunctionEntry *currentFunc;
+static int currentFuncType; // Stores the current function's type
 
-static FunctionDirectory *funcDir;
+static vector<Quadruple> quads; // Stores all the quads
 
-static ArrayNode *currentArrayNode;
+static FunctionEntry *currentCall; // Stores the current function that is being called
+static FunctionEntry *currentFunc; // Stores the current function that is being defined
+
+static FunctionDirectory *funcDir; // Function directory
 
 
 /*
