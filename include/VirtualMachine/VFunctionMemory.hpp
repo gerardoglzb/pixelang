@@ -67,7 +67,7 @@ struct VFunctionMemory {
             return tempMemory;
         if (address < END_MEMORY)
             return cteMemory;
-        cout << "ERROR: Memory error!" << endl;
+        cout << "ERROR (Internal): Memory error!" << endl;
         exit(-1);
         return nullptr;
     }

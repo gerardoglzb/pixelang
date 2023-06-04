@@ -114,7 +114,7 @@ VariableEntry *nextParameter(FunctionEntry *function) {
 void verifyIsArray(string id) {
     VariableEntry *entry = funcDir->currentVariableTable()->fullFind(id);
     if (entry->arrNode == nullptr) {
-        raiseError(id + " is not an array.");
+        raiseError(id + " is not an array!");
     }
     entry->resetArrayNode();
     arrayAccesses.push(entry);
@@ -611,7 +611,8 @@ void doOperation() {
             raiseError("Type mismatch.");
         }
     } else {
-        cout << "Whoops. error for the time being. " << endl;
+        cout << "ERROR (Internal): Operations handling error." << endl;
+        exit(-1);
     }
 }
 

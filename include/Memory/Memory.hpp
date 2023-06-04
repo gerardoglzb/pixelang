@@ -68,7 +68,7 @@ struct Memory {
         if (type == IMAGE_) {
             return memoryImage->addValue();
         }
-        cout << "ERROR: Memory assignment error!" << endl;
+        cout << "ERROR (Internal): Memory assignment error!" << endl;
         exit(-1);
         return -1;
     }
@@ -146,7 +146,7 @@ struct Memory {
             return LOCAL_IMAGE - LOCAL_CTE_BOOL;
         if (frame == LOCAL_IMAGE)
             return END_MEMORY - LOCAL_IMAGE;
-        cout << "ERROR: Memory address error for frame " << frame << endl;
+        cout << "ERROR (Internal): Memory address error for frame " << frame << endl;
         exit(-1);
         return -1;
     }

@@ -137,7 +137,7 @@ struct VMHelper {
             bool rightOperand = getValueBool(rightOperandAddress);
             setValue(resultAddress, rightOperand);
         } else {
-            raiseError("ERROR: Invalid arithmeic operation! (=)");
+            raiseError("ERROR: Invalid arithmetic operation! (=)");
         }
     }
 
@@ -169,7 +169,7 @@ struct VMHelper {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
             } else {
-                raiseError("ERROR: Invalid arithmeic operation! (+)");
+                raiseError("ERROR: Invalid arithmetic operation! (+)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -180,10 +180,10 @@ struct VMHelper {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
             } else {
-                raiseError("ERROR: Invalid arithmeic operation! (+)");
+                raiseError("ERROR: Invalid arithmetic operation! (+)");
             }
         } else {
-            raiseError("ERROR: Invalid arithmeic operation! (+)");
+            raiseError("ERROR: Invalid arithmetic operation! (+)");
         }
     }
 
@@ -197,7 +197,7 @@ struct VMHelper {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand - rightOperand));
             } else {
-                raiseError("ERROR: Invalid arithmeic operation! (-)");
+                raiseError("ERROR: Invalid arithmetic operation! (-)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -208,10 +208,10 @@ struct VMHelper {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand - rightOperand));
             } else {
-                raiseError("ERROR: Invalid arithmeic operation! (-)");
+                raiseError("ERROR: Invalid arithmetic operation! (-)");
             }
         } else {
-            raiseError("ERROR: Invalid arithmeic operation! (-)");
+            raiseError("ERROR: Invalid arithmetic operation! (-)");
         }
     }
 
@@ -225,7 +225,7 @@ struct VMHelper {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand * rightOperand));
             } else {
-                raiseError("ERROR: Invalid arithmeic operation! (*)");
+                raiseError("ERROR: Invalid arithmetic operation! (*)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -236,10 +236,10 @@ struct VMHelper {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand * rightOperand));
             } else {
-                raiseError("ERROR: Invalid arithmeic operation! (*)");
+                raiseError("ERROR: Invalid arithmetic operation! (*)");
             }
         } else {
-            raiseError("ERROR: Invalid arithmeic operation! (*)");
+            raiseError("ERROR: Invalid arithmetic operation! (*)");
         }
     }
 
@@ -253,7 +253,7 @@ struct VMHelper {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             } else {
-                raiseError("ERROR: Invalid arithmeic operation! (/)");
+                raiseError("ERROR: Invalid arithmetic operation! (/)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -264,10 +264,10 @@ struct VMHelper {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
             } else {
-                raiseError("ERROR: Invalid arithmeic operation! (/)");
+                raiseError("ERROR: Invalid arithmetic operation! (/)");
             }
         } else {
-            raiseError("ERROR: Invalid arithmeic operation! (/)");
+            raiseError("ERROR: Invalid arithmetic operation! (/)");
         }
     }
 
@@ -278,10 +278,10 @@ struct VMHelper {
                 int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand % rightOperand);
             } else {
-                raiseError("ERROR: Invalid arithmeic operation! (%)");
+                raiseError("ERROR: Invalid arithmetic operation! (%)");
             }
         } else {
-            raiseError("ERROR: Invalid arithmeic operation! (%)");
+            raiseError("ERROR: Invalid arithmetic operation! (%)");
         }
     }
 

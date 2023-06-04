@@ -41,7 +41,7 @@ struct MemoryFrame {
 
     int addValue(T val) {
         if (index != values.size()) {
-            cout << "ERROR: Memory frame inconsistent!"  << endl;
+            cout << "ERROR (Internal): Memory frame inconsistent!"  << endl;
             exit(-1);
         }
         verifyEnoughSize();
