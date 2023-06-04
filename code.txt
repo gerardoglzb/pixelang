@@ -1,8 +1,9 @@
-program image_manipulation;
+program test;
 
 var img : image;
 
 {
     img.open("images/test.png");
+    img.crop(50, 50, 150, 20);
     img.save("images/new.png");
 }

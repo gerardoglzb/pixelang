@@ -7,13 +7,13 @@ Strings: 0
 Booleans: 0
 
 Global temp variables:
-Integers: 0
+Integers: 4
 Floats: 0
 Strings: 0
 Booleans: 0
 
 Global const variables:
-Integers: 3
+Integers: 7
 Floats: 0
 Strings: 2
 Booleans: 0

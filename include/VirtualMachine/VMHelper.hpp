@@ -24,6 +24,11 @@ struct VMHelper {
         this->rightType = getType(rightOperandAddress);
     }
 
+    void raiseError(string msg) {
+        cout << msg << endl;
+        exit(-1);
+    }
+
     void printValues() {
         cout << oper << " " << leftOperandAddress << " " << rightOperandAddress << " " << resultAddress << endl;
     }
@@ -131,6 +136,8 @@ struct VMHelper {
         } else if (rightType == BOOL_) {
             bool rightOperand = getValueBool(rightOperandAddress);
             setValue(resultAddress, rightOperand);
+        } else {
+            raiseError("ERROR: Invalid arithmeic operation! (=)");
         }
     }
 
@@ -147,6 +154,8 @@ struct VMHelper {
         } else if (leftType == STRING_) {
             string leftOperand = getValueString(leftOperandAddress);
             setValue(resultAddress, leftOperand, functionMemory);
+        } else {
+            raiseError("ERROR: Invalid parameter type passed!");
         }
     }
 
@@ -159,6 +168,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
+            } else {
+                raiseError("ERROR: Invalid arithmeic operation! (+)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -168,7 +179,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
+            } else {
+                raiseError("ERROR: Invalid arithmeic operation! (+)");
             }
+        } else {
+            raiseError("ERROR: Invalid arithmeic operation! (+)");
         }
     }
 
@@ -181,6 +196,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand - rightOperand));
+            } else {
+                raiseError("ERROR: Invalid arithmeic operation! (-)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -190,7 +207,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand - rightOperand));
+            } else {
+                raiseError("ERROR: Invalid arithmeic operation! (-)");
             }
+        } else {
+            raiseError("ERROR: Invalid arithmeic operation! (-)");
         }
     }
 
@@ -203,6 +224,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand * rightOperand));
+            } else {
+                raiseError("ERROR: Invalid arithmeic operation! (*)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -212,7 +235,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand * rightOperand));
+            } else {
+                raiseError("ERROR: Invalid arithmeic operation! (*)");
             }
+        } else {
+            raiseError("ERROR: Invalid arithmeic operation! (*)");
         }
     }
 
@@ -225,6 +252,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
+            } else {
+                raiseError("ERROR: Invalid arithmeic operation! (/)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -234,7 +263,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand / rightOperand));
+            } else {
+                raiseError("ERROR: Invalid arithmeic operation! (/)");
             }
+        } else {
+            raiseError("ERROR: Invalid arithmeic operation! (/)");
         }
     }
 
@@ -244,7 +277,11 @@ struct VMHelper {
             if (leftType == INT_ || leftType == BOOL_) {
                 int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
                 setValue(resultAddress, leftOperand % rightOperand);
+            } else {
+                raiseError("ERROR: Invalid arithmeic operation! (%)");
             }
+        } else {
+            raiseError("ERROR: Invalid arithmeic operation! (%)");
         }
     }
 
@@ -257,6 +294,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand > rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (>)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -266,7 +305,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand > rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (>)");
             }
+        } else {
+            raiseError("ERROR: Invalid comparison operation! (>)");
         }
     }
 
@@ -279,6 +322,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand < rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (<)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -288,7 +333,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand < rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (<)");
             }
+        } else {
+            raiseError("ERROR: Invalid comparison operation! (<)");
         }
     }
 
@@ -301,6 +350,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand >= rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (>=)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -310,7 +361,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand >= rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (>=)");
             }
+        } else {
+            raiseError("ERROR: Invalid comparison operation! (>=)");
         }
     }
 
@@ -323,6 +378,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand <= rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (<=)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -332,7 +389,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand <= rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (<=)");
             }
+        } else {
+            raiseError("ERROR: Invalid comparison operation! (<=)");
         }
     }
 
@@ -345,6 +406,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand == rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (==)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -354,7 +417,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand == rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (==)");
             }
+        } else {
+            raiseError("ERROR: Invalid comparison operation! (==)");
         }
     }
 
@@ -367,6 +434,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand != rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (!=)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -376,7 +445,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand != rightOperand);
+            } else {
+                raiseError("ERROR: Invalid comparison operation! (!=)");
             }
+        } else {
+            raiseError("ERROR: Invalid comparison operation! (!=)");
         }
     }
 
@@ -387,7 +460,9 @@ struct VMHelper {
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
             setValue(resultAddress, !rightOperand);
-        } // TODO : else para todos con error
+        } else {
+            raiseError("ERROR: Invalid logical operation! (!)");
+        }
     }
 
     void executeAnd() {
@@ -399,6 +474,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand && rightOperand);
+            } else {
+                raiseError("ERROR: Invalid logical operation! (&&)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -408,7 +485,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand && rightOperand);
+            } else {
+                raiseError("ERROR: Invalid logical operation! (&&)");
             }
+        } else {
+            raiseError("ERROR: Invalid logical operation! (&&)");
         }
     }
 
@@ -421,6 +502,8 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand || rightOperand);
+            } else {
+                raiseError("ERROR: Invalid logical operation! (||)");
             }
         } else if (rightType == FLOAT_) {
             float rightOperand = getValueFloat(rightOperandAddress);
@@ -430,7 +513,11 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, leftOperand || rightOperand);
+            } else {
+                raiseError("ERROR: Invalid logical operation! (||)");
             }
+        } else {
+            raiseError("ERROR: Invalid logical operation! (||)");
         }
     }
 
@@ -441,6 +528,8 @@ struct VMHelper {
         } else if (leftType == FLOAT_) {
             float leftOperand = getValueFloat(leftOperandAddress);
             return leftOperand ? pid : resultAddress;
+        } else {
+            raiseError("ERROR: Invalid GotoF value.");
         }
         return -1;
     }
@@ -455,6 +544,8 @@ struct VMHelper {
         } else if (rightType == STRING_) {
             string rightOperand = getValueString(rightOperandAddress);
             setValue(resultAddress, rightOperand, parentMemory);
+        } else {
+            raiseError("ERROR: Invalid value returned by function.");
         }
     }
 
@@ -476,14 +567,15 @@ struct VMHelper {
         } else if (rightType == BOOL_) {
             bool rightOperand = getValueBool(rightOperandAddress);
             cout << (rightOperand ? "true" : "false") << " ";
+        } else {
+            raiseError("ERROR: Invalid value being printed.");
         }
     }
 
     void executeVerify() {
         int leftOperand = getValueInt(leftOperandAddress);
         if (leftOperand < rightOperandAddress || leftOperand > resultAddress) {
-            cout << "Index out of range" << endl;
-            exit(-1);
+            raiseError("ERROR: Index out of range.");
         }
     }
 
@@ -498,6 +590,8 @@ struct VMHelper {
             filename = filename.substr(1, filename.length() - 2);
             Image *image = new Image(filename);
             setValue(resultAddress, image);
+        } else {
+            raiseError("ERROR: filename for open() must be a string!");
         }
     }
 
@@ -508,6 +602,8 @@ struct VMHelper {
             filename = filename.substr(1, filename.length() - 2);
             Image *image = getValueImage(resultAddress);
             image->write(filename);
+        } else {
+            raiseError("ERROR: filename for save() must be a string!");
         }
     }
 
@@ -536,6 +632,8 @@ struct VMHelper {
             string hex = getValueString(firstAddress);
             hex = hex.substr(1, hex.length() - 2);
             image->changeColor(hex);
+        } else {
+            raiseError("ERROR: hex for change_color() must be a string!");
         }
     }
 
@@ -550,16 +648,22 @@ struct VMHelper {
             r = getValueFloat(addresses[0]);
         } else if (getType(addresses[0]) == INT_) {
             r = getValueInt(addresses[0]);
+        } else {
+            raiseError("ERROR: r value for change_color() must be a float!");
         }
         if (getType(addresses[1]) == FLOAT_) {
             g = getValueFloat(addresses[1]);
         } else if (getType(addresses[1]) == INT_) {
             g = getValueInt(addresses[1]);
+        } else {
+            raiseError("ERROR: g value for change_color() must be a float!");
         }
         if (getType(addresses[2]) == FLOAT_) {
             b = getValueFloat(addresses[2]);
         } else if (getType(addresses[2]) == INT_) {
             b = getValueInt(addresses[2]);
+        } else {
+            raiseError("ERROR: b value for change_color() must be a float!");
         }
         Image *image = getValueImage(resultAddress);
         image->changeColor(r, g, b);
@@ -580,18 +684,26 @@ struct VMHelper {
         for (int i = 0; i < 4; i++) {
             addresses[i] = iparams->front(); iparams->pop();
         }
-        float left, bottom, width, height;
+        int left, bottom, width, height;
         if (getType(addresses[0]) == INT_) {
             left = getValueInt(addresses[0]);
+        } else {
+            raiseError("ERROR: left value for crop() must be an integer!");
         }
         if (getType(addresses[1]) == INT_) {
             bottom = getValueInt(addresses[1]);
+        } else {
+            raiseError("ERROR: bottom value for crop() must be an integer!");
         }
         if (getType(addresses[2]) == INT_) {
             width = getValueInt(addresses[2]);
+        } else {
+            raiseError("ERROR: width value for crop() must be an integer!");
         }
-        if (getType(addresses[2]) == INT_) {
-            height = getValueInt(addresses[2]);
+        if (getType(addresses[3]) == INT_) {
+            height = getValueInt(addresses[3]);
+        } else {
+            raiseError("ERROR: height value for crop() must be an integer!");
         }
         Image *image = getValueImage(resultAddress);
         image->crop(left, bottom, width, height);
