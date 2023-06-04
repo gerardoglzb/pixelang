@@ -24,7 +24,7 @@ struct VariableEntry {
 
     void nextNode() {
         if (!currArrNode) {
-            cout << "Array doesn't have enough dimensions for indexing." << endl;
+            cout << "ERROR: Array doesn't have enough dimensions for indexing!" << endl;
             exit(-1);
         }
         this->currArrNode = currArrNode->next;

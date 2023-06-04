@@ -27,7 +27,7 @@ struct MemoryFrame {
 
     void verifyEnoughSize() {
         if (index >= size) {
-            cout << "Segmentation fault." << endl;
+            cout << "ERROR: Segmentation fault." << endl;
             exit(-1);
         }
     }
@@ -41,7 +41,7 @@ struct MemoryFrame {
 
     int addValue(T val) {
         if (index != values.size()) {
-            cout << "Memory frame inconsistent."  << endl;
+            cout << "ERROR: Memory frame inconsistent!"  << endl;
             exit(-1);
         }
         verifyEnoughSize();

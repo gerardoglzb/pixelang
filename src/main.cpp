@@ -92,7 +92,7 @@ int main() {
 
     ifstream file("./bin/quads.txt");
     if (!file.is_open()) {
-        cout << "No quads.txt file found" << endl;
+        cout << "ERROR: No quads.txt file found" << endl;
         exit(-1);
     }
 

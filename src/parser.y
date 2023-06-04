@@ -563,7 +563,7 @@ rep_no_cond :
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        cout << "Need source code filename." << endl;
+        cout << "ERROR: Need source code filename." << endl;
         exit(-1);
     }
     string filename = argv[1];

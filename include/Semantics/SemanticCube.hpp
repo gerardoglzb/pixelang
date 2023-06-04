@@ -47,8 +47,7 @@ static int semanticCube(int oper, int type1, int type2) {
         return VOID_;
 
     if (oper > LESSEQ_ || type1 > 2 || type2 > 2) {
-        cout << "You're trying to perform an operation with operands that are not compatible." << endl;
-        printf("%i %i %i\n", oper, type1, type2);
+        cout << "ERROR: You're trying to perform an operation with operands that are not compatible." << endl;
         exit(-1);
     }
 

@@ -1,8 +1,13 @@
 program test;
 
-var img : image;
+var x : int;
+
+function func() : int {
+    return(5);
+}
 
 {
-    img.open("images/test.png");
-    img.black_and_white(3);
+    x = func();
+    x = 3 + 3;
+    print(x);
 }

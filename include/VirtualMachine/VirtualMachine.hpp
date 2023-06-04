@@ -47,7 +47,7 @@ struct VirtualMachine {
         this->subStack.push(this->globalMemory);
         this->executionFile = ofstream(executionFilename);
         if (!executionFile.is_open()) {
-            cout << "Can't write to execution.txt" << endl;
+            cout << "ERROR: Can't write to execution.txt" << endl;
             exit(-1);
         }
         this->executionFile << "PID,Operator,LeftOperand,RightOperand,Result" << endl;

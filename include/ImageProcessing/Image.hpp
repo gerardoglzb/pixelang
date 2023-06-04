@@ -22,7 +22,7 @@ struct Image {
     Image(string _filename) {
         const char *filename = _filename.c_str();
         if (!read(filename)) {
-            cout << "Failed to open " << filename << endl;
+            cout << "ERROR: Failed to open " << filename << endl;
             exit(-1);
         }
         this->size = w * h * channels;

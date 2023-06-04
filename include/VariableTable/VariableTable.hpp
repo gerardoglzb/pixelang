@@ -41,7 +41,7 @@ struct VariableTable {
             result = parent->find(name);
         }
         if (!result) {
-            cout << "Error: Variable " << name << " is not defined." << endl;
+            cout << "ERROR: Variable " << name << " is not defined." << endl;
             exit(-1);
         }
         return result;

@@ -52,8 +52,9 @@ struct FunctionEntry {
         currentParameter = parameterTable->head;
         int paramIdx = currentParam++;
         while (paramCount - paramIdx++ > 0) {
-            if (!currentParameter->next)
+            if (!currentParameter->next) {
                 exit(-1);
+            }
             currentParameter = currentParameter->next;
         }
         return currentParam > paramCount ? nullptr : currentParameter;
