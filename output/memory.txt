@@ -7,42 +7,20 @@ Strings: 0
 Booleans: 0
 
 Global temp variables:
-Integers: 37
+Integers: 33
 Floats: 0
 Strings: 0
 Booleans: 0
 
 Global const variables:
-Integers: 13
+Integers: 12
 Floats: 0
-Strings: 4
+Strings: 0
 Booleans: 0
 
 Global image variables: 0
 
 FUNCTION 1:
-
-Local variables:
-Integers: 5
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local temp variables:
-Integers: 36
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local const variables:
-Integers: 0
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local image variables: 0
-
-FUNCTION 2:
 
 Local variables:
 Integers: 4
@@ -51,7 +29,7 @@ Strings: 0
 Booleans: 0
 
 Local temp variables:
-Integers: 29
+Integers: 42
 Floats: 0
 Strings: 0
 Booleans: 0

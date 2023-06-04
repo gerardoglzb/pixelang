@@ -8,7 +8,7 @@ function isPrime(num: int): bool {
     if (num < 2) {
         return(false);
     }
-    for (i = 2 to num/2) {
+    for (i = 2 to num/2+1) {
         if (num % i == 0) {
             return(false);
         }
@@ -21,7 +21,7 @@ function isPrime(num: int): bool {
     count = 0;
     num = 2;
 
-    while (count < N) {
+    while (count < N) do {
         if (isPrime(num)) {
             print(num);
             count = count + 1;
