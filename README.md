@@ -717,10 +717,10 @@ Here's a description of each method:
 - hflip(): Flips the image vertically.
 - crop(x: int, y: int, width: int, height: int): Crops the image based on the parameters given.
     - Parameters.
-        - x: horizontal start of the crop.
-        - y: vertical start of the crop.
-        - width: width of the crop.
-        - height: height of the crop.
+        - x: horizontal start pixel of the crop.
+        - y: vertical start pixel of the crop.
+        - width: width in pixels of the crop.
+        - height: height in pixels of the crop.
 
 ## Running tests
 
