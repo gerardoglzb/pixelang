@@ -5,10 +5,23 @@ var filename, decision, folder : string;
 var rgb : float[3];
 
 {
-
-    if ("Y" == "Y") {
-        rgb[0] = 0.5;
-
+    folder = sinput("What folder are your images located in? (Leave blank for root directory)");
+    filename = sinput("What image would you like to add filters to?");
+    original.open(folder + filename);
+    decision = sinput("Would you like to flip your image horizontally? (Type 'Y' for yes)");
+    if (decision == "Y") {
+        original.hflip();
     }
-
+    decision = sinput("Would you like to flip your image vertically? (Type 'Y' for yes)");
+    if (decision == "Y") {
+        original.vflip();
+    }
+    decision = sinput("Would you like to change your image's color? (Type 'Y' for yes)");
+    if (decision == "Y") {
+        rgb[0] = finput("Intensity of red: (0 to 1)");
+        rgb[1] = finput("Intensity of green: (0 to 1)");
+        rgb[2] = finput("Intensity of blue: (0 to 1)");
+        original.change_color(rgb[0], rgb[1], rgb[2]);
+    }
+    original.save(folder + "filtered_" + filename);
 }
