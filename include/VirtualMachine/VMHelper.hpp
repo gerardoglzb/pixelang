@@ -162,6 +162,9 @@ struct VMHelper {
         } else if (leftType == STRING_) {
             string leftOperand = getValueString(leftOperandAddress);
             setValue(resultAddress, leftOperand, functionMemory);
+        } else if (leftType == BOOL_) {
+            bool leftOperand = getValueBool(leftOperandAddress);
+            setValue(resultAddress, leftOperand, functionMemory);
         } else {
             raiseError("ERROR: Invalid parameter type passed!");
         }

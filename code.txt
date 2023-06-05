@@ -2,9 +2,18 @@ program crop_unlimited;
 
 var b : bool;
 
+function fun(bo : bool) : bool {
+    if (bo) {
+        print("HI");
+    }
+    return(false);
+}
+
 {
     b = true;
-    if (b) {
-        print("HI");
+    if (fun(b)) {
+        print("Fail");
+    } else {
+        print("Success");
     }
 }
