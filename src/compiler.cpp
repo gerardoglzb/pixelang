@@ -277,6 +277,9 @@ string operatorName(int _oper) {
         case GRAYSCALE_:
             oper = "GRAYSCALE";
             break;
+        case CHANGECOLOR_:
+            oper = "CCOLOR";
+            break;
         case BANDW_:
             oper = "BANDW";
             break;
@@ -301,7 +304,10 @@ string operatorName(int _oper, bool longVersion) {
     switch(_oper) {
         case BANDW_:
             oper = "BLACK_AND_WHITE";
-        break;
+            break;
+        case CHANGECOLOR_:
+            oper = "CHANGE_COLOR";
+            break;
     }
     return oper;
 }

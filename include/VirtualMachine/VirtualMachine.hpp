@@ -7,7 +7,6 @@
 #include "../Quadruples/Quadruple.hpp"
 #include "./Constant.hpp"
 #include "./VMHelper.hpp"
-#include "../Semantics/Operator.hpp"
 
 /*
 This struct is the virtual machine that executes all the instructions provided by the quads.txt object using the functions data and

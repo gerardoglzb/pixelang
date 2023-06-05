@@ -48,15 +48,15 @@ static int semanticCube(int oper, int type1, int type2) {
     };
 
     if (oper == PRINT_ || oper == RETURN_)
-        return 0;
+        return INT_;
 
     if (type1 == VOID_ && type2 == VOID_)
         return VOID_;
 
-    if (oper > LESSEQ_ || type1 > 3 || type2 > 3) {
+    if (oper > LESSEQ_ || type1 > STRING_ || type2 > STRING_) {
         cout << "ERROR: You're trying to perform an operation with operands that are not compatible." << endl;
         exit(-1);
     }
 
-    return oper < 5 ? cube[oper][type1][type2] : 0;
+    return oper < GREATER_ ? cube[oper][type1][type2] : INT_;
 }

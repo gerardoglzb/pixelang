@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <string>
+#include "../Semantics/Operator.hpp"
 using namespace std;
 
 /*
@@ -20,8 +21,15 @@ struct VMHelper {
         this->rightOperandAddress = rightOperandAddress;
         this->resultAddress = resultAddress;
         this->memory = memory;
-        this->leftType = getType(leftOperandAddress);
-        this->rightType = getType(rightOperandAddress);
+        this->leftType = hasRealAddress(oper, true) ? getType(leftOperandAddress) : -1;
+        this->rightType = hasRealAddress(oper, false) ? getType(rightOperandAddress) : -1;
+    }
+
+    bool hasRealAddress(int oper, bool forLeftType) {
+        if (!forLeftType && oper == VERIFY_) {
+            return false;
+        }
+        return true;
     }
 
     void raiseError(string msg) {
@@ -444,17 +452,14 @@ struct VMHelper {
                 setValue(resultAddress, leftOperand == rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
-                cout << leftOperand << "  " << rightOperand << endl;
                 setValue(resultAddress, leftOperand == rightOperand);
             } else {
                 raiseError("ERROR: Invalid comparison operation! (==)");
             }
         } else if (rightType == STRING_) {
-            cout << "Exe " << rightType << " " << leftType << endl;
             string rightOperand = getValueString(rightOperandAddress);
             if (leftType == STRING_) {
                 string leftOperand = getValueString(leftOperandAddress);
-                cout << "Exe " << rightType << " " << leftType << " " << leftOperand << "/" << rightOperand << endl;
                 setValue(resultAddress, leftOperand == rightOperand);
             }
         } else {
