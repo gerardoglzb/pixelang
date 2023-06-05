@@ -440,12 +440,12 @@ image_call :
     } ;
 
 image_arguments :
-    expression_or_str {
+    expression {
         int type = topOperandType();
         ParamNode *node = new ParamNode(popOperand(), type);
         $$ = node;
     }
-    | expression_or_str COMMA image_arguments {
+    | expression COMMA image_arguments {
         int type = topOperandType();
         ParamNode *node = new ParamNode(popOperand(), type, $3);
         $$ = node;
@@ -498,7 +498,7 @@ call3 :
 printing :
     PRINT {
         pushOperator(PRINT_);
-    } LEFT_PAR expression_or_str printing_2 RIGHT_PAR SEMICOLON {
+    } LEFT_PAR expression printing_2 RIGHT_PAR SEMICOLON {
         checkIfShouldDoOperation(vector<int>({PRINT_}));
         generateNewline();
     } ;
@@ -509,7 +509,7 @@ printing_2 :
     }
     COMMA {
         pushOperator(PRINT_);
-    } expression_or_str printing_2
+    } expression printing_2
     | ;
 
 inputting :
@@ -526,16 +526,10 @@ inputting :
 input_message :
     LEFT_PAR {
         pushOperator(PRINT_);
-    } expression_or_str printing_2 RIGHT_PAR {
+    } expression printing_2 RIGHT_PAR {
         checkIfShouldDoOperation(vector<int>({PRINT_}));
     }
     | LEFT_PAR RIGHT_PAR ;
-
-expression_or_str :
-    expression
-    | CTE_STRING {
-        pushOperandOfType(declareCte(STRING_, $1), STRING_);
-    } ;
 
 conditional :
     conditional_if ELSE {
