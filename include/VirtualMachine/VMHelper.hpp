@@ -444,9 +444,18 @@ struct VMHelper {
                 setValue(resultAddress, leftOperand == rightOperand);
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
+                cout << leftOperand << "  " << rightOperand << endl;
                 setValue(resultAddress, leftOperand == rightOperand);
             } else {
                 raiseError("ERROR: Invalid comparison operation! (==)");
+            }
+        } else if (rightType == STRING_) {
+            cout << "Exe " << rightType << " " << leftType << endl;
+            string rightOperand = getValueString(rightOperandAddress);
+            if (leftType == STRING_) {
+                string leftOperand = getValueString(leftOperandAddress);
+                cout << "Exe " << rightType << " " << leftType << " " << leftOperand << "/" << rightOperand << endl;
+                setValue(resultAddress, leftOperand == rightOperand);
             }
         } else {
             raiseError("ERROR: Invalid comparison operation! (==)");
@@ -590,7 +599,7 @@ struct VMHelper {
         } else if (resultType == STRING_) {
             string input;
             cin >> input;
-            setValue(resultAddress, "'" + input + "'");
+            setValue(resultAddress, "\"" + input + "\"");
         } else {
             raiseError("ERROR (INTERNAL): Input type error.");
         }

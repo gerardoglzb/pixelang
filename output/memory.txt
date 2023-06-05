@@ -3,19 +3,19 @@ MAIN FUNCTION:
 Global variables:
 Integers: 2
 Floats: 0
-Strings: 1
+Strings: 3
 Booleans: 0
 
 Global temp variables:
-Integers: 3
+Integers: 1
 Floats: 0
-Strings: 3
+Strings: 6
 Booleans: 0
 
 Global const variables:
 Integers: 3
 Floats: 0
-Strings: 4
+Strings: 6
 Booleans: 0
 
 Global image variables: 1

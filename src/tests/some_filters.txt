@@ -2,22 +2,16 @@ program clones;
 
 var original : image;
 var i, n : int;
-var filename, decision, folder : string;
+var filename, decision : string;
 
 {
     folder = sinput("What folder are your images located in? (Leave blank for root directory)");
     filename = sinput("What image would you like to add filters to?");
     original.open(folder + filename);
-    decision = sinput("Would you like to apply 'grayscale' effect? (Type 'Y' for yes)");
+    decision = sinput("Would you like to apply 'grayscale' effect?" (Type 'Y' for yes));
     if (decision == "Y") {
         original.grayscale();
-    } else {
-        decision = sinput("Would you like to apply 'black and white' effect? (Type 'Y' for yes)");
-        if (decision == "Y") {
-            original.black_and_white();
-        }
     }
-    
     filename = sinput("What would you like to save your new image as?");
-    original.save(folder + filename);
+    ooriginal.save(folder + filename);
 }

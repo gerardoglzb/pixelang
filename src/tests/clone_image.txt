@@ -1,0 +1,14 @@
+program clones;
+
+var original : image;
+var i, n : int;
+var filename : string;
+
+{
+    filename = sinput("What image would you like to clone?");
+    original.open(filename);
+    n = input("How many clones do you want?");
+    for (i = 1 to n + 1) {
+        original.save("images/clone" + i + ".png");
+    }
+}
