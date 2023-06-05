@@ -7,7 +7,7 @@ It takes the operator and the types of the two operands involved, then returns t
 If the operation is not valid, it'll return a -1.
 */
 static int semanticCube(int oper, int type1, int type2) {
-    cout << oper << " " << type1 << " " << type2 << endl;
+    // cout << oper << " " << type1 << " " << type2 << endl;
     int cube[6][4][4] = {
         {
             {INT_, -1, INT_, -1},

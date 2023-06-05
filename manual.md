@@ -48,9 +48,7 @@ But more often than not, you will want to write statements, as well as variables
 
 ## Data Types
 
-Pixelang supports integers (int), floats (float) and booleans (bool) as data types acceptable for both variables and functions. They can also all be used in most operations.
-
-Strings are also supported, but only as constants typed in by the user. They cannot be stored as variables. They are mostly used for print statements, as you have seen already.
+Pixelang supports integers (int), floats (float), strings (string) and booleans (bool) as data types acceptable for both variables and functions. They can also all be used in most operations, with the exception of strings, which are more limited.
 
 A custom data type "Image" (image) is also included, which can be used to open and create new images in your system. We'll talk more about that later, but keep in mind that while you can have variables of type Image, they can't be used in any operations.
 
@@ -655,6 +653,7 @@ Finally, you can also use similar functions to get float and string inputs from 
 
     {
         f = finput();
+        print(sinput());
     }
 
 ## Output

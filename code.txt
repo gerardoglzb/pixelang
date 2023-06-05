@@ -1,7 +1,8 @@
 program inputting;
 
-var f : float;
+var s: string;
 
 {
-    print(sinput());
+    s = "I can do this";
+    print(s);
 }
