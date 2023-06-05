@@ -1,22 +1,22 @@
 MAIN FUNCTION: 
 
 Global variables:
-Integers: 1
+Integers: 2
 Floats: 0
-Strings: 4
+Strings: 1
 Booleans: 0
 
 Global temp variables:
-Integers: 10
+Integers: 0
 Floats: 0
 Strings: 2
 Booleans: 0
 
 Global const variables:
-Integers: 9
+Integers: 3
 Floats: 0
 Strings: 3
 Booleans: 0
 
-Global image variables: 0
+Global image variables: 1
 

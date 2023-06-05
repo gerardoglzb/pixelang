@@ -1,18 +1,10 @@
-program inputting;
+program copies;
 
-var s: string[4];
-var i : int;
+var original : image;
+var i, n : int;
+var filename : string;
 
 {
-    for (i = 0 to 4) {
-        if (i % 2 == 0) {
-            s[i] = sinput("String:");
-        } else {
-            s[i] = sinput("Float:");
-        }
-    }
-    print("");
-    for (i = 0 to 4) {
-        print(s[i]);
-    }
+    filename = "hello" + " " + "world";
+    print(filename);
 }

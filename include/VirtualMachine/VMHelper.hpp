@@ -168,6 +168,10 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
+            } else if (leftType == STRING_) {
+                string leftOperand = getValueString(leftOperandAddress);
+                leftOperand = leftOperand.substr(1, leftOperand.length() - 2);
+                setValue(resultAddress, "\"" + leftOperand + to_string(rightOperand) + "\"");
             } else {
                 raiseError("ERROR: Invalid arithmetic operation! (+)");
             }
@@ -179,6 +183,26 @@ struct VMHelper {
             } else if (leftType == FLOAT_) {
                 float leftOperand = getValueFloat(leftOperandAddress);
                 setValue(resultAddress, float(leftOperand + rightOperand));
+            } else if (leftType == STRING_) {
+                string leftOperand = getValueString(leftOperandAddress);
+                leftOperand = leftOperand.substr(1, leftOperand.length() - 2);
+                setValue(resultAddress, "\"" + leftOperand + to_string(rightOperand) + "\"");
+            } else {
+                raiseError("ERROR: Invalid arithmetic operation! (+)");
+            }
+        } else if (rightType == STRING_) {
+            string rightOperand = getValueString(rightOperandAddress);
+            rightOperand = rightOperand.substr(1, rightOperand.length() - 2);
+            if (leftType == INT_ || leftType == BOOL_) {
+                int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
+                setValue(resultAddress, "\"" + to_string(leftOperand) + rightOperand + "\"");
+            } else if (leftType == FLOAT_) {
+                float leftOperand = getValueFloat(leftOperandAddress);
+                setValue(resultAddress, "\"" + to_string(leftOperand) + rightOperand + "\"");
+            } else if (leftType == STRING_) {
+                string leftOperand = getValueString(leftOperandAddress);
+                leftOperand = leftOperand.substr(1, leftOperand.length() - 2);
+                setValue(resultAddress, "\"" + leftOperand + rightOperand + "\"");
             } else {
                 raiseError("ERROR: Invalid arithmetic operation! (+)");
             }

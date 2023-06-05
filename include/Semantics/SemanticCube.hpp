@@ -19,7 +19,7 @@ static int semanticCube(int oper, int type1, int type2) {
             {INT_, FLOAT_, INT_, -1},
             {FLOAT_, FLOAT_, FLOAT_, -1},
             {INT_, FLOAT_, INT_, -1},
-            {-1, -1, -1, -1},
+            {STRING_, STRING_, STRING_, STRING_},
         },
         {
             {INT_, FLOAT_, INT_, -1},
