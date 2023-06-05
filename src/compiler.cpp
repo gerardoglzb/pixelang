@@ -559,9 +559,9 @@ void pushOperandResult(string name) {
 int declareCte(int type, int value) {
     if (value == -1)
         return GLOBAL_CTE_INT;
-    if (value == 0)
+    if (value == 0 && type == INT_)
         return GLOBAL_CTE_INT + 1;
-    if (value == 1)
+    if (value == 1 && type == INT_)
         return GLOBAL_CTE_INT + 2;
     return funcDir->main->cteMemory->addValue(type, value);
 }

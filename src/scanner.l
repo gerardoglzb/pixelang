@@ -72,8 +72,8 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 
 [\n]                            { lineas++; }
 [ \t\r]                         { ; }
-"false"                         { yylval.bval = FALSE_; return CTE_BOOL; }
-"true"                          { yylval.bval = TRUE_; return CTE_BOOL; }
+"false"                         { yylval.bval = false; return CTE_BOOL; }
+"true"                          { yylval.bval = true; return CTE_BOOL; }
 [a-zA-Z](_?([a-zA-Z]|[0-9]))*   { yylval.sval = strdup(yytext); return ID; }
 [0-9]+                          { yylval.ival = atoi(yytext); return CTE_INT; }
 [0-9]+\.[0-9]+                  { yylval.fval = atof(yytext); return CTE_FLOAT; }

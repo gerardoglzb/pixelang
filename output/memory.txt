@@ -16,7 +16,7 @@ Global const variables:
 Integers: 3
 Floats: 0
 Strings: 3
-Booleans: 0
+Booleans: 2
 
 Global image variables: 0
 

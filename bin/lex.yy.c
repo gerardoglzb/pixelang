@@ -1161,12 +1161,12 @@ YY_RULE_SETUP
 case 56:
 YY_RULE_SETUP
 #line 75 "./src/scanner.l"
-{ yylval.bval = FALSE_; return CTE_BOOL; }
+{ yylval.bval = false; return CTE_BOOL; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 76 "./src/scanner.l"
-{ yylval.bval = TRUE_; return CTE_BOOL; }
+{ yylval.bval = true; return CTE_BOOL; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP

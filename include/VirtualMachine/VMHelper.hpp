@@ -589,6 +589,9 @@ struct VMHelper {
         } else if (rightType == STRING_) {
             string rightOperand = getValueString(rightOperandAddress);
             setValue(resultAddress, rightOperand, parentMemory);
+        } else if (rightType == BOOL_) {
+            bool rightOperand = getValueBool(rightOperandAddress);
+            setValue(resultAddress, rightOperand, parentMemory);
         } else {
             raiseError("ERROR: Invalid value returned by function.");
         }
