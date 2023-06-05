@@ -1,8 +1,18 @@
 program inputting;
 
-var s: string;
+var s: string[4];
+var i : int;
 
 {
-    s = "I can do this";
-    print(s);
+    for (i = 0 to 4) {
+        if (i % 2 == 0) {
+            s[i] = sinput("String:");
+        } else {
+            s[i] = sinput("Float:");
+        }
+    }
+    print("");
+    for (i = 0 to 4) {
+        print(s[i]);
+    }
 }
