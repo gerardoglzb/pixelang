@@ -459,7 +459,7 @@ void fillJumpIf() {
 
 void generateIf() {
     int type = types.top(); types.pop();
-    if (type != INT_) {
+    if (type != INT_ && type != BOOL_) {
         raiseError("Expression in conditional not a boolean.");
     }
     int result = operands.top(); operands.pop();

@@ -1,24 +1,10 @@
 program crop_unlimited;
 
-var filename, folder : string;
-var decision : string;
-var keep_cropping : bool;
-var img : image;
-var x, y, width, height : int;
+var b : bool;
 
 {
-    folder = sinput("What folder are your images located in? (Leave blank for root directory)");
-    keep_cropping = true;
-    while (keep_cropping) do {
-        filename = sinput("What file would you like to crop next?");
-        img.open(folder + filename);
-        x = input("Horizontal start:");
-        y = input("Vertical start:");
-        width = input("Crop width:");
-        height = input("Crop height:");
-        img.crop(x, y, width, height);
-        img.save(folder + sinput("What do we call it?"));
-        decision = sinput("Do you want to keep cropping? (Type 'Y' for yes)");
-        keep_cropping = decision == "Y";
+    b = true;
+    if (b) {
+        print("HI");
     }
 }
