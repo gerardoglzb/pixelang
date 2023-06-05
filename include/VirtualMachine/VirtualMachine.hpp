@@ -190,7 +190,7 @@ struct VirtualMachine {
                 helper.executeBlackAndWhite();
                 break;
             case CHANGECOLOR_:
-                helper.executeChangeColor(&iparams); // TODO: checar params
+                helper.executeChangeColor(&iparams);
                 break;
             case HFLIP_:
                 helper.executeHFlip();

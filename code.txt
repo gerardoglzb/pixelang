@@ -1,19 +1,15 @@
-program crop_unlimited;
+program test;
 
-var b : bool;
+var hello, world : string;
 
-function fun(bo : bool) : bool {
-    if (bo) {
-        print("HI");
-    }
-    return(false);
+function helloWorld() : string {
+
+
+    return(hello + " " + world);
 }
 
 {
-    b = true;
-    if (fun(b)) {
-        print("Fail");
-    } else {
-        print("Success");
-    }
+    hello = "Hello";
+    world = "";
+    print(helloWorld());
 }

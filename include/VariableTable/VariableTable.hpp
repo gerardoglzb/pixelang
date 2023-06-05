@@ -37,7 +37,7 @@ struct VariableTable {
 
     VariableEntry *fullFind(string name) {
         VariableEntry *result = find(name);
-        if (!result && parent) { // TODO: make sure there's a parent bf trying something funnny
+        if (!result && parent) {
             result = parent->find(name);
         }
         if (!result) {

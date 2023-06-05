@@ -13,12 +13,13 @@ and the value of each pixel, basically all the relevant data of an image.
 It has a bunch of functions that manipulate this data to alter the image, as well as read (open) or write (save) images.
 */
 struct Image {
-    uint8_t *data = NULL;
-    size_t size = 0;
-    int w;
-    int h;
-    int channels;
+    uint8_t *data = NULL; // Image data (value of each pixel)
+    size_t size = 0; // Size of data
+    int w; // Width of image
+    int h; // Height of image
+    int channels; // Number of channels in image
 
+    // Gets data from image file
     Image(string _filename) {
         const char *filename = _filename.c_str();
         if (!read(filename)) {
@@ -36,6 +37,7 @@ struct Image {
         this->data = new uint8_t[this->size];
     }
 
+    // Sets each pixel to the average of its three color channels to make it a grayscale image
     Image& grayscale() {
         if (channels >= 3) {
             for (int i = 0; i < size; i += channels) {
@@ -46,6 +48,7 @@ struct Image {
         return *this;
     }
 
+    // Sets each pixel to either black or white by comparing its rgb average to a threshold
     Image& blackAndWhite() {
         if (channels >= 3) {
             for (int i = 0; i < size; i += channels) {
@@ -57,6 +60,7 @@ struct Image {
         return *this;
     }
 
+    // Crops the image by creating a new array of data and filling it with only the piece of data indicaated by the parameters.
     Image &crop(uint16_t left, uint16_t bottom, uint16_t width, uint16_t height) {
         size = width * height * channels;
         uint8_t *cropped = new uint8_t[size];
@@ -81,6 +85,7 @@ struct Image {
         return *this;
     }
 
+    // Flips the image horizontally by placing each pixel in its mirrored horizontal position
     Image &hFlip() {
         uint8_t temp[4];
         for (int i = 0; i < h; i++) {
@@ -96,6 +101,7 @@ struct Image {
         return *this;
     }
 
+    // Flips the image horizontally by placing each pixel in its mirrored vertical position
     Image &vFlip() {
         uint8_t temp[4];
         for (int i = 0; i < w; i++) {
@@ -111,6 +117,7 @@ struct Image {
         return *this;
     }
 
+    // Applies a color obtained from rgb parameters to an image by multiplying each pixel by the corresponding intensity.
     Image &changeColor(float r, float g, float b) {
         if (channels >= 3) {
             for (int i = 0; i < size; i += channels) {
@@ -122,6 +129,7 @@ struct Image {
         return *this;
     }
 
+    // Applies a color obtained from a hex value to an image by multiplying each pixel by the corresponding intensity.
     Image& changeColor(const string hexValue) {
         if (hexValue.size() != 7 || hexValue[0] != '#') {
             return *this;
@@ -143,12 +151,14 @@ struct Image {
         return *this;
     }
 
+    // Reads the pixel data from an image
     bool read(string _filename) {
         const char *filename = _filename.c_str();
         this->data = stbi_load(filename, &w, &h, &channels, 0);
         return this->data != NULL;
     }
 
+    // Writes the pixel data to an image
     bool write(string _filename) {
         const char *filename = _filename.c_str();
         ImageType type = getImageType(filename);
@@ -163,6 +173,7 @@ struct Image {
         return response != 0;
     }
 
+    // Gets the image type
     ImageType getImageType(const char *filename) {
         const char *ext = strrchr(filename, '.');
         if (ext != nullptr) {

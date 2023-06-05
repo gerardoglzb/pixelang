@@ -518,7 +518,7 @@ void generateAccess() {
         int baseAddress = declareCte(INT_, arrayAccesses.top()->address);
         int resultAddress = declareTemp(INT_);
         int pointerAddress = declareTemp(INT_);
-        generateQuad(ADD_, operands.top(), declareCte(INT_, node->mOrK), resultAddress); // TODO: opcional porque siempre es 0
+        generateQuad(ADD_, operands.top(), declareCte(INT_, node->mOrK), resultAddress); // TODO: optional since it's always 0
         operands.pop(); types.pop();
         generateQuad(ADD_, resultAddress, baseAddress, pointerAddress);
         pushOperandOfType(-pointerAddress, arrayAccesses.top()->type);

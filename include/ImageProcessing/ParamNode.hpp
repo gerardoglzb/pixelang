@@ -13,6 +13,7 @@ struct ParamNode {
     ParamNode *next;
     int count;
 
+    // Used to recursively created parameter queue
     void getParams(queue<int> *params) {
         params->push(value);
         if (next)

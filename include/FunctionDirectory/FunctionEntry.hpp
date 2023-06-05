@@ -16,26 +16,26 @@ Other relevant information is the type of the function, the address where the re
 the quad where the function starts and the memory offset.
 */
 struct FunctionEntry {
-    string name;
+    string name; // Function ID
     VariableTable *variableTable;
     VariableTable *parameterTable;
-    VariableEntry *currentParameter;
-    stack<int> paramTypes;
+    VariableEntry *currentParameter; // Helps traverse the parameters
     int type;
-    int resultAddress;
-    FunctionEntry *next;
+    int resultAddress; // Address where the value returned by the address will be stored
+    FunctionEntry *next; // Next FunctionEntry since directory is a linked list
 
     Memory *localMemory;
     Memory *tempMemory;
     Memory *cteMemory;
     int memoryOffset = 0; // TODO: delete this
 
-    int paramCount;
-    int localVarCount;
-    int tempVarCount;
-    int currQuad = 1;
-    int currentParam;
+    int paramCount; // Number of parameters in function
+    int localVarCount; // Number of local variables in table
+    int tempVarCount; // Number of temporary variables used in function
+    int currQuad = 1; // Quad in which the function starts
+    int currentParam; // Helps traverse the parameter
 
+    // Prints function's data to a file
     void printFunction(ofstream &file) {
         file << type << "," << resultAddress << "," << memoryOffset << "," << currQuad << ",";
         file << localMemory->getSizeInt() << "," << localMemory->getSizeFloat() << "," << localMemory->getSizeString() << "," << localMemory->getSizeBool() << ",";
@@ -44,10 +44,12 @@ struct FunctionEntry {
         file << localMemory->getSizeImage() << endl;
     }
 
+    // Sets currentParam to 0
     void resetParamCount() {
         currentParam = 0;
     }
 
+    // Gets next parameter in parameter table
     VariableEntry *nextCurrentParameter() {
         currentParameter = parameterTable->head;
         int paramIdx = currentParam++;
@@ -63,15 +65,14 @@ struct FunctionEntry {
     void removeVariableTable() {
         if (!variableTable)
             return;
-        // variableTable->clean();
-        // delete variableTable;
-        // variableTable = nullptr;
     }
 
+    // Finds address of variable
     int findAddress(string name) {
         return variableTable->findAddress(name);
     }
 
+    // Finds type of variable
     int findType(string name) {
         return variableTable->findType(name);
     }

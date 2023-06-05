@@ -10,28 +10,33 @@ MemoryFrame. In reality, it's increasing the index of the frame and returning th
 received a real value, in which case it'll  be stored properly. This is designed for constant values.
 */
 struct Memory {
-    MemoryFrame<int> *memoryInt;
-    MemoryFrame<float> *memoryFloat;
-    MemoryFrame<string> *memoryString;
-    MemoryFrame<bool> *memoryBool;
-    MemoryFrame<bool> *memoryImage;
+    MemoryFrame<int> *memoryInt; // Memory frame for integers
+    MemoryFrame<float> *memoryFloat; // Memory frame for floats
+    MemoryFrame<string> *memoryString; // Memory frame for strings
+    MemoryFrame<bool> *memoryBool; // Memory frame for Booleans
+    MemoryFrame<bool> *memoryImage; // Memory frame for images
 
+    // Returns current size of integer memory frame
     int getSizeInt() {
         return memoryInt->index;
     }
 
+    // Returns current size of float memory frame
     int getSizeFloat() {
         return memoryFloat->index;
     }
 
+    // Returns current size of string memory frame
     int getSizeString() {
         return memoryString->index;
     }
 
+    // Returns current size of Boolean memory frame
     int getSizeBool() {
         return memoryBool->index;
     }
 
+    // Returns current size of image memory frame
     int getSizeImage() {
         return memoryImage->index;
     }
@@ -44,6 +49,7 @@ struct Memory {
         this->memoryImage = new MemoryFrame<bool>(offset == GLOBAL_INT ? GLOBAL_IMAGE : LOCAL_IMAGE, getMemorySize(offset == GLOBAL_INT ? GLOBAL_IMAGE : LOCAL_IMAGE));
     }
 
+    // Used to reserve addresses for arrays
     int addValues(int type, int amount) {
         int address = addValue(type);
         for (int i = 1; i < amount; i++) {
@@ -52,6 +58,7 @@ struct Memory {
         return address;
     }
 
+    // Reserves and returns an address in the correct memory space for a certain type
     int addValue(int type) {
         if (type == INT_) {
             return memoryInt->addValue();
@@ -73,20 +80,24 @@ struct Memory {
         return -1;
     }
 
+    // Stores a value in and returns an address in the correct memory space for an integer, used only for constants
     int addValue(int type, int value) {
         if (type == INT_)
             return memoryInt->addValue(value);
         return memoryBool->addValue(value);
     }
 
+    // Stores a value in and returns an address in the correct memory space for a float, used only for constants
     int addValue(int type, float value) {
         return memoryFloat->addValue(value);
     }
 
+    // Stores a value in and returns an address in the correct memory space for a string, used only for constants
     int addValue(int type, string value) {
         return memoryString->addValue(value);
     }
 
+    // Returns size of a specific memory frame
     int getMemorySize(int frame) {
         if (frame == GLOBAL_INT)
             return GLOBAL_FLOAT - GLOBAL_INT;

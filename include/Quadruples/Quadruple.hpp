@@ -6,10 +6,10 @@ This struct represents a quadruple, containing its operator, left and right oper
 It's worth noting the operands are the addresses, not the values.
 */
 struct Quadruple {
-    int oper;
-    int leftOperand;
-    int rightOperand;
-    int result;
+    int oper; // Operator
+    int leftOperand; // Left operand address
+    int rightOperand; // Right operand address
+    int result; // Result address
 
     Quadruple(int oper, int leftOperand, int rightOperand, int result) {
         this->oper = oper;

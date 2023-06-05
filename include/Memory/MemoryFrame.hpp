@@ -14,10 +14,10 @@ The struct also contains the offset of the frame, so it can be accessed properly
 */
 template<typename T>
 struct MemoryFrame {
-    int size;
-    int index;
-    int offset;
-    vector<T> values;
+    int size; // Limit size of frame
+    int index; // Real current size of frame
+    int offset; // Offset of frame for addresses
+    vector<T> values; // For constant memory spaces, holds the constant values of addresses
 
     MemoryFrame(int offset, int size) {
         this->size = size;
@@ -25,6 +25,7 @@ struct MemoryFrame {
         this->offset = offset;
     }
 
+    // Verify that the real size hasn't surpassed the limit
     void verifyEnoughSize() {
         if (index >= size) {
             cout << "ERROR: Segmentation fault." << endl;
@@ -32,6 +33,7 @@ struct MemoryFrame {
         }
     }
 
+    // Increases real size by 1 and returns the address
     int addValue() {
         verifyEnoughSize();
         int temp = index;
@@ -39,6 +41,7 @@ struct MemoryFrame {
         return temp + offset;
     }
 
+    // Increases real size by 1, stores the value and returns the address
     int addValue(T val) {
         if (index != values.size()) {
             cout << "ERROR (Internal): Memory frame inconsistent!"  << endl;

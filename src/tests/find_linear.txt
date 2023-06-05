@@ -6,7 +6,7 @@ var index: int;
 
 function linearSearch(element: int): int {
     var i: int;
-    for (i = 0 to 4) {
+    for (i = 0 to 5) {
         if (arr[i] == element) {
             return(i);
         }
