@@ -596,6 +596,67 @@ Here's a fun little example:
         print(fact(6));
     }
 
+## Input
+
+Another cool thing you can do is ask the user for a value by using the `input()` function, which looks a little something like this:
+
+    program inputting;
+
+    var a : int;
+
+    {
+        a = input();
+        print(a);
+    }
+
+This program will wait for the user to enter a value into the terminal, assign that value to `a` and then print it. It's worth mentioning `input()` will always have an integer value.
+
+### Input messages
+
+You can also print messages to your terminal right before asking for a value by adding these inside of the ```parentheses```.
+
+    program inputting;
+
+    var a : int;
+
+    {
+        a = input("Your input:");
+        print(a);
+    }
+
+You can also use `integers`, `floats` and `booleans` inside of your `input()` functions, and even multiple of these by separating them with a comma.
+
+    program inputting;
+
+    var arr : int[3];
+    var i : int;
+
+    {
+        for (i = 0 to 3) {
+            arr[i] = input("Value", i+1, ":");
+        }
+    }
+
+This program prints the following:
+
+    Value 1 : 
+    Value 2 : 
+    Value 3 : 
+
+After each line, the program will wait for you to input some value and then use those values to populate the array. Pretty neat!
+
+### Other data types
+
+Finally, you can also use similar functions to get float and string inputs from your users. The functions `finput()` (for floats) and `sinput()` (for strings) will help you do that. They work exactly the same as `input()`!
+
+    program inputting;
+
+    var f : float;
+
+    {
+        f = finput();
+    }
+
 ## Output
 
 One last thing that we probably should've mentioned earlier is the `print` statement, but by now you should be pretty familiar with it.

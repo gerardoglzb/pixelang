@@ -1,8 +1,7 @@
-program test;
+program inputting;
 
-var a : int;
+var f : float;
 
 {
-    a = input("Fuck", a);
-    a = input();
+    f = finput();
 }
