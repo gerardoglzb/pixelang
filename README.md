@@ -13,6 +13,7 @@ This manual will help you quickly find your way around the project and get start
 - [Operators](#operators)
 - [Control flow](#control-flow)
 - [Functions](#functions)
+- [Input](#input)
 - [Output](#output)
 - [Image processing](#image-processing)
 - [Running tests](#running-tests)
