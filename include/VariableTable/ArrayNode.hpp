@@ -8,21 +8,24 @@ MOrK, which contains the value of K if this node is the last dimension of the ar
 It contains a pointer to the next node since it works as part of a linked list.
 */
 struct ArrayNode {
-    int size;
-    int mOrK;
+    int size; // Size of array dimension
+    int mOrK; // Mn or K, depending of dimension
     int r;
     int offset;
-    ArrayNode *prev;
-    ArrayNode *next;
+    ArrayNode *prev; // Previous node in linked list
+    ArrayNode *next; // Nextnode in linked list
 
+    // Returns full size of linked list
     int getFullSize() {
         return next ? this->size * next->getFullSize() : this->size;
     }
 
+    // Gets the next node's M0 if there is one. Otherwise, this is the last dimension and thus, M0 is r.
     int getM0() {
         return next ? next->getM0() : r;
     }
 
+    // Calculates K for final node.
     void calculateK() {
         int m = prev ? prev->mOrK / size : getM0() / size;
         this->mOrK = next ? m : -offset;
@@ -30,6 +33,7 @@ struct ArrayNode {
             next->calculateK();
     }
     
+    // Calculates Rs for all nodes.
     void calculateRs() {
         if (next) {
             next->calculateRs();
@@ -38,6 +42,7 @@ struct ArrayNode {
         }
     }
 
+    // Returns r and sets it for all previous nodes.
     int getRs() {
         this->r = prev ? r * prev->getRs() : r;
         return this->r;

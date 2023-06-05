@@ -11,19 +11,20 @@ Some relevant methods this struct are methods for finding a variable in the tabl
 too, finding the address or type of a variable, and inserting a new VariableEntry into the list.
 */
 struct VariableTable {
-    VariableEntry *head;
-    VariableTable *parent;
+    VariableEntry *head; // Dummy head for linked list
+    VariableTable *parent; // Global variable table
 
+    // Cleans svariable table after it's no longer needed
     void clean() {
         VariableEntry *entry = head;
         while (entry) {
             VariableEntry *next = entry->next;
             entry->next = nullptr;
-            // delete entry;
             entry = next;
         }
     }
 
+    // Finds variable in table by traversing linked list
     VariableEntry *find(string name) {
         VariableEntry *entry = head;
         while (entry) {
@@ -35,6 +36,7 @@ struct VariableTable {
         return NULL;
     }
 
+    // Finds variable in table or parent table by traversing both lists
     VariableEntry *fullFind(string name) {
         VariableEntry *result = find(name);
         if (!result && parent) {
@@ -47,14 +49,17 @@ struct VariableTable {
         return result;
     }
 
+    // Finds address of variable by name
     int findAddress(string name) {
         return fullFind(name)->address;
     }
 
+    // Finds type of variable by name
     int findType(string name) {
         return fullFind(name)->type;
     }
 
+    // Inserts new variable into table by appending it at the end of the linked list
     void insert(VariableEntry *newEntry) {
         VariableEntry *entry = head;
         while (entry->next) {
@@ -63,10 +68,12 @@ struct VariableTable {
         entry->next = newEntry;
     }
 
+    // Checks if table has a certain variable by seeing if it can be found
     bool has(string name) {
         return find(name) != NULL;
     }
 
+    // Checks if table has a certain variable by seeing if it can be found in its table or the global one
     bool fullHas(string name) {
         return fullFind(name) != NULL;
     }

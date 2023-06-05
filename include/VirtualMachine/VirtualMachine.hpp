@@ -29,12 +29,12 @@ struct VirtualMachine {
     vector<Function> functions;
     vector<Constant> constants;
 
-    stack<VFunctionMemory*> subStack;
-    stack<VFunctionMemory*> eraStack;
-    stack<int> returnStack;
+    stack<VFunctionMemory*> subStack; // Stack for functions that have been called
+    stack<VFunctionMemory*> eraStack; // Stack for functions that have been invoked but not yet called
+    stack<int> returnStack; // Stack for pids to return to after a function call
 
-    queue<int> iparams;
-    ofstream executionFile;
+    queue<int> iparams; // Stores valuaes of parameters for image methods
+    ofstream executionFile; // execution.txt file
 
     VirtualMachine(vector<Function> functions, vector<Constant> constants, vector<Quadruple> quads, string filename, string executionFilename) {
         this->quads = vector<Quadruple>({Quadruple()});
@@ -52,10 +52,12 @@ struct VirtualMachine {
         this->executionFile << "PID,Operator,LeftOperand,RightOperand,Result" << endl;
     }
 
+    // Creates a VFunctionMemory instance after an ERA and stores it in the stack
     void createMemory(int id) {
         eraStack.push(new VFunctionMemory(&functions[id], globalMemory));
     }
 
+    // Goes through all the constants and stores them in their corresponding real memory spaces
     void storeConstants() {
         for (Constant cte : constants) {
             if (cte.type == INT_) {

@@ -25,6 +25,7 @@ struct VMHelper {
         this->rightType = hasRealAddress(oper, false) ? getType(rightOperandAddress) : -1;
     }
 
+    // Checks if a value is a real address or just an integer
     bool hasRealAddress(int oper, bool forLeftType) {
         if (!forLeftType && oper == VERIFY_) {
             return false;
@@ -32,15 +33,18 @@ struct VMHelper {
         return true;
     }
 
+    // Prints an error message and exits the program.
     void raiseError(string msg) {
         cout << msg << endl;
         exit(-1);
     }
 
+    // Prints the quadruple's values.
     void printValues() {
         cout << oper << " " << leftOperandAddress << " " << rightOperandAddress << " " << resultAddress << endl;
     }
 
+    // Returns type for value at a certain address
     int getType(int address) {
         if (address < -1) { // TODO: space for pointers
             return memory->getType(memory->getVMemory(-address)->getValueInt(-address));
@@ -48,6 +52,7 @@ struct VMHelper {
         return memory->getType(address);
     }
 
+    // Returns type for value at a certain address in a specific VFunctionMemory instance
     int getType(int address, VFunctionMemory *functionMemory) {
         if (address < -1) {
             return functionMemory->getType(functionMemory->getVMemory(-address)->getValueInt(-address));
@@ -55,6 +60,7 @@ struct VMHelper {
         return functionMemory->getType(address);
     }
 
+    // Returns value of integer at a certain address
     int getValueInt(int address) {
         if (address < -1) {
             return getVMemory(address)->getValueInt(memory->getVMemory(-address)->getValueInt(-address));
@@ -62,6 +68,7 @@ struct VMHelper {
         return getVMemory(address)->getValueInt(address);
     }
 
+    // Returns value of float at a certain address
     float getValueFloat(int address) {
         if (address < -1) {
             return getVMemory(address)->getValueFloat(memory->getVMemory(-address)->getValueInt(-address));
@@ -69,6 +76,7 @@ struct VMHelper {
         return getVMemory(address)->getValueFloat(address);
     }
 
+    // Returns value of Image at a certain address
     Image *getValueImage(int address) {
         if (address < -1) {
             return getVMemory(address)->getValueImage(memory->getVMemory(-address)->getValueInt(-address));
@@ -76,6 +84,7 @@ struct VMHelper {
         return getVMemory(address)->getValueImage(address);
     }
 
+    // Returns value of string at a certain address
     string getValueString(int address) {
         if (address < -1) {
             return getVMemory(address)->getValueString(memory->getVMemory(-address)->getValueInt(-address));
@@ -83,6 +92,7 @@ struct VMHelper {
         return getVMemory(address)->getValueString(address);
     }
 
+    // Returns value of Boolean at a certain address
     bool getValueBool(int address) {
         if (address < -1) {
             return getVMemory(address)->getValueBool(memory->getVMemory(-address)->getValueInt(-address));
@@ -90,12 +100,14 @@ struct VMHelper {
         return getVMemory(address)->getValueBool(address);
     }
 
+    // Returns value of integer or boolean at a certain address
     int getValueIntOrBool(int address, int type) {
         if (type == INT_)
             return getValueInt(address);
         return getValueBool(address);
     }
 
+    // Gets correct VMemory, taking into consideration cases where the address might be a pointer (a number below -1)
     VMemory *getVMemory(int address) {
         if (address < -1) {
             return this->memory->getVMemory(this->memory->getVMemory(-address)->getValueInt(-address));
@@ -103,6 +115,7 @@ struct VMHelper {
         return this->memory->getVMemory(address);
     }
 
+    // Gets correct VMemory in VFunctionMemory instance, taking into consideration cases where the address might be a pointer
     VMemory *getVMemory(int address, VFunctionMemory *functionMemory) {
         if (address < -1) {
             return functionMemory->getVMemory(this->memory->getVMemory(-address)->getValueInt(-address));
@@ -110,6 +123,7 @@ struct VMHelper {
         return functionMemory->getVMemory(address);
     }
 
+    // Sets value of an address
     template<typename T>
     void setValue(int address, T value) {
         if (address < -1) {
@@ -119,6 +133,7 @@ struct VMHelper {
         this->memory->setValue(address, value);
     }
 
+    // Sets value of an address at a specific VFunctionMemory instance
     template<typename T>
     void setValue(int address, T value, VFunctionMemory *functionMemory) {
         if (address < -1) {

@@ -12,8 +12,8 @@ the full size, it only has to be the minimum size necessary for the program to w
 template<typename T>
 struct VMemoryFrame {
     int offset;
-    int size;
-    T *frame;
+    int size; // Real size
+    T *frame; // Pointer initialized as an array that can be used to store all the values in the addresses
     int type;
 
     VMemoryFrame(int size, int offset, int type) {
@@ -23,6 +23,7 @@ struct VMemoryFrame {
         this->frame = new T[size];
     }
 
+    // Sets value at address if it's within the frame's range.
     int setValue(int idx, T value) {
         if (offset > idx || (idx - offset) >= size)
             return -1;
@@ -30,10 +31,12 @@ struct VMemoryFrame {
         return (idx - offset);
     }
 
+    // Returns value at address if it's within the frame's range.
     T getValue(int idx) {
         return frame[idx - offset];
     }
 
+    // Gets value's type at address if it's within the frame's range.
     int getType(int address) {
         if (address >= offset && address < offset + size) {
             return type;

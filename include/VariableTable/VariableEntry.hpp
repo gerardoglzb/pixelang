@@ -14,14 +14,16 @@ struct VariableEntry {
     string name;
     int type;
     int address;
-    ArrayNode *arrNode;
-    ArrayNode *currArrNode;
-    VariableEntry *next;
+    ArrayNode *arrNode; // Node with relevant data if variable is array, otherwise it's nullptr
+    ArrayNode *currArrNode; // Helps traverse the array linked list if there is one
+    VariableEntry *next; // Next VariableEntry instance in linked list
 
+    // Sets currArrNode to arrNode
     void resetArrayNode() {
         currArrNode = arrNode;
     }
 
+    // Tries to get the next node in the linked list if there is one
     void nextNode() {
         if (!currArrNode) {
             cout << "ERROR: Array doesn't have enough dimensions for indexing!" << endl;

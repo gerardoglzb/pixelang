@@ -34,6 +34,7 @@ struct VFunctionMemory {
         this->name = name;
     }
 
+    // Gets type of address by attempting to get the type from all frames
     int getType(int address) {
         if (address == -1)
             return -1;
@@ -46,11 +47,13 @@ struct VFunctionMemory {
         return intType;
     }
 
+    // Sets value of corresponding address to value
     template<typename T>
     void setValue(int address, T value) {
         getVMemory(address)->setValue(address, value);
     }
 
+    // Gets correct frame from address based on known addresses
     VMemory *getVMemory(int address) {
         if (address < LOCAL_INT) {
             if (globalMemory)
