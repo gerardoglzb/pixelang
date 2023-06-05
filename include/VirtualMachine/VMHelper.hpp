@@ -564,8 +564,8 @@ struct VMHelper {
     }
 
     int executeGotoF(int pid) {
-        if (leftType == INT_) {
-            int leftOperand = getValueInt(leftOperandAddress);
+        if (leftType == INT_ || leftType == BOOL_) {
+            int leftOperand = getValueIntOrBool(leftOperandAddress, leftType);
             return leftOperand ? pid : resultAddress;
         } else if (leftType == FLOAT_) {
             float leftOperand = getValueFloat(leftOperandAddress);

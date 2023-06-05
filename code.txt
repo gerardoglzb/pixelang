@@ -1,27 +1,24 @@
-program filters;
+program crop_unlimited;
 
-var original : image;
-var filename, decision, folder : string;
-var rgb : float[3];
+var filename, folder : string;
+var decision : string;
+var keep_cropping : bool;
+var img : image;
+var x, y, width, height : int;
 
 {
     folder = sinput("What folder are your images located in? (Leave blank for root directory)");
-    filename = sinput("What image would you like to add filters to?");
-    original.open(folder + filename);
-    decision = sinput("Would you like to flip your image horizontally? (Type 'Y' for yes)");
-    if (decision == "Y") {
-        original.hflip();
+    keep_cropping = true;
+    while (keep_cropping) do {
+        filename = sinput("What file would you like to crop next?");
+        img.open(folder + filename);
+        x = input("Horizontal start:");
+        y = input("Vertical start:");
+        width = input("Crop width:");
+        height = input("Crop height:");
+        img.crop(x, y, width, height);
+        img.save(folder + sinput("What do we call it?"));
+        decision = sinput("Do you want to keep cropping? (Type 'Y' for yes)");
+        keep_cropping = decision == "Y";
     }
-    decision = sinput("Would you like to flip your image vertically? (Type 'Y' for yes)");
-    if (decision == "Y") {
-        original.vflip();
-    }
-    decision = sinput("Would you like to change your image's color? (Type 'Y' for yes)");
-    if (decision == "Y") {
-        rgb[0] = finput("Intensity of red: (0 to 1)");
-        rgb[1] = finput("Intensity of green: (0 to 1)");
-        rgb[2] = finput("Intensity of blue: (0 to 1)");
-        original.change_color(rgb[0], rgb[1], rgb[2]);
-    }
-    original.save(folder + "filtered_" + filename);
 }

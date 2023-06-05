@@ -388,7 +388,7 @@ void printQuads(ofstream &file) {
 
 void generateWhile() {
     int type = types.top(); types.pop();
-    if (type != INT_) {
+    if (type != INT_ && type != BOOL_) {
         raiseError("Expression in while loop not a boolean.");
     }
     int result = operands.top(); operands.pop();
