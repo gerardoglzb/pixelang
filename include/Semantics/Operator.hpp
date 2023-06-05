@@ -11,7 +11,7 @@ enum Operator {
     DIV_,
     MOD_,
     GREATER_,
-    LESS_, // TODO: no strings for this
+    LESS_,
     EQUALTO_,
     NOTEQUAL_,
     AND_,

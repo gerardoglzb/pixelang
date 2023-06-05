@@ -7,8 +7,8 @@ It takes the operator and the types of the two operands involved, then returns t
 If the operation is not valid, it'll return a -1.
 */
 static int semanticCube(int oper, int type1, int type2) {
-    cout << oper << " " << type1 << " " << type2 << endl;
-    int cube[6][4][4] = {
+    // cout << oper << " " << type1 << " " << type2 << endl;
+    int cube[15][4][4] = {
         {
             {INT_, -1, INT_, -1},
             {FLOAT_, FLOAT_, FLOAT_, -1},
@@ -45,6 +45,60 @@ static int semanticCube(int oper, int type1, int type2) {
             {INT_, -1, INT_, -1},
             {-1, -1, -1, -1},
         },
+        {
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {-1, -1, -1, -1},
+        },
+        {
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {-1, -1, -1, -1},
+        },
+        {
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {-1, -1, -1, BOOL_},
+        },
+        {
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {-1, -1, -1, -1},
+        },
+        {
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {-1, -1, -1, -1},
+        },
+        {
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {-1, -1, -1, -1},
+        },
+        {
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {-1, -1, -1, -1},
+        },
+        {
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {-1, -1, -1, -1},
+        },
+        {
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {BOOL_, BOOL_, BOOL_, -1},
+            {-1, -1, -1, -1},
+        },
     };
 
     if (oper == PRINT_ || oper == RETURN_)
@@ -58,5 +112,5 @@ static int semanticCube(int oper, int type1, int type2) {
         exit(-1);
     }
 
-    return oper < GREATER_ ? cube[oper][type1][type2] : BOOL_;
+    return oper < LEFTPAR_ ? cube[oper][type1][type2] : BOOL_;
 }
