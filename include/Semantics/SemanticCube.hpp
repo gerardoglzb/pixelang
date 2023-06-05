@@ -58,5 +58,5 @@ static int semanticCube(int oper, int type1, int type2) {
         exit(-1);
     }
 
-    return oper < GREATER_ ? cube[oper][type1][type2] : INT_;
+    return oper < GREATER_ ? cube[oper][type1][type2] : BOOL_;
 }

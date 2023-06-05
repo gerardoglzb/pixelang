@@ -12,5 +12,5 @@ function fact(x : int) : int {
 }
 
 {
-    print(fact(input("Calculate factorial of:", "xd")));
+    print(fact(6));
 }
