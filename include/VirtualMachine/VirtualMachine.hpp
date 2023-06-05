@@ -172,6 +172,9 @@ struct VirtualMachine {
             case LESSEQ_:
                 helper.executeLessEq();
                 break;
+            case INPUT_:
+                helper.executeInput();
+                break;
             case IPARAM_:
                 helper.executeIParam(&iparams);
                 break;

@@ -24,6 +24,8 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 "else"                          { return ELSE; }
 "print"                         { return PRINT; }
 "input"                         { return INPUT; }
+"finput"                        { return FINPUT; }
+"sinput"                        { return SINPUT; }
 "while"                         { return WHILE; }
 "do"                            { return DO; }
 "for"                           { return FOR; }

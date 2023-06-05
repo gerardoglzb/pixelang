@@ -718,4 +718,11 @@ Used by:
 int topOperandType();
 
 
-void performInput();
+/*
+Generates an INPUT quad with a new address.
+Parameters:
+    type: type of new input value.
+Used by:
+    Parser.
+*/
+void generateInput(int type);

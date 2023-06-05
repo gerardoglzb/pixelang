@@ -1,19 +1,19 @@
 MAIN FUNCTION: 
 
 Global variables:
-Integers: 8
+Integers: 1
 Floats: 0
 Strings: 0
 Booleans: 0
 
 Global temp variables:
-Integers: 33
+Integers: 5
 Floats: 0
 Strings: 0
 Booleans: 0
 
 Global const variables:
-Integers: 12
+Integers: 3
 Floats: 0
 Strings: 0
 Booleans: 0
@@ -23,13 +23,13 @@ Global image variables: 0
 FUNCTION 1:
 
 Local variables:
-Integers: 4
+Integers: 3
 Floats: 0
 Strings: 0
 Booleans: 0
 
 Local temp variables:
-Integers: 42
+Integers: 10
 Floats: 0
 Strings: 0
 Booleans: 0

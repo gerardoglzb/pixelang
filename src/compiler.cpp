@@ -262,6 +262,9 @@ string operatorName(int _oper) {
         case EXPO_:
             oper = "EXPO";
             break;
+        case INPUT_:
+            oper = "INPUT";
+            break;
         case IPARAM_:
             oper = "IPARAM";
             break;
@@ -752,6 +755,8 @@ int topOperandType() {
     return types.top();
 }
 
-void performInput() {
-
+void generateInput(int type) {
+    int address = declareTemp(type);
+    generateQuad(INPUT_, -1, -1, address);
+    pushOperandOfType(address, type);
 }

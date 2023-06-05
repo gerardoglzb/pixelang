@@ -553,6 +553,26 @@ struct VMHelper {
         }
     }
 
+    void executeInput() {
+        int resultType = getType(resultAddress);
+        if (resultType == INT_) {
+            int input;
+            cin >> input;
+            cout << input << endl;
+            setValue(resultAddress, input);
+        } else if (resultType == FLOAT_) {
+            float input;
+            cin >> input;
+            setValue(resultAddress, input);
+        } else if (resultType == STRING_) {
+            string input;
+            cin >> input;
+            setValue(resultAddress, input);
+        } else {
+            raiseError("ERROR (INTERNAL): Input type error.");
+        }
+    }
+
     void executePrint() {
         if (rightOperandAddress == -1) {
             cout << endl;

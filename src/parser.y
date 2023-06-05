@@ -48,6 +48,8 @@
 %token ELSE
 %token PRINT
 %token INPUT
+%token FINPUT
+%token SINPUT
 %token FOR
 %token DO
 %token WHILE
@@ -319,7 +321,8 @@ factor :
     } expression RIGHT_PAR {
         pushOperator(RIGHTPAR_);
     }
-    | var_cte ;
+    | var_cte
+    | inputting ;
 
 var_cte :
     CTE_FLOAT {
@@ -503,8 +506,14 @@ printing_2 :
     | ;
 
 inputting :
-    INPUT LEFT_PAR RIGHT_PAR SEMICOLON {
-        performInput();
+    INPUT LEFT_PAR RIGHT_PAR {
+        generateInput(INT_);
+    }
+    | FINPUT LEFT_PAR RIGHT_PAR {
+        generateInput(FLOAT_);
+    }
+    | SINPUT LEFT_PAR RIGHT_PAR {
+        generateInput(STRING_);
     } ;
 
 expression_or_str :

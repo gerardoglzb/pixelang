@@ -1,4 +1,7 @@
 program test;
 
+var a : int;
+
 {
+    a = input();
 }
