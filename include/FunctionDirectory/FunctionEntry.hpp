@@ -63,8 +63,9 @@ struct FunctionEntry {
     }
 
     void removeVariableTable() {
-        if (!variableTable)
-            return;
+        if (variableTable) {
+            variableTable = nullptr;
+        }
     }
 
     // Finds address of variable
