@@ -3,36 +3,36 @@ MAIN FUNCTION:
 Global variables:
 Integers: 4
 Floats: 0
-Strings: 0
-Booleans: 0
+Strings: 3
+Booleans: 1
 
 Global temp variables:
-Integers: 2
+Integers: 0
 Floats: 0
-Strings: 0
-Booleans: 3
+Strings: 1
+Booleans: 0
 
 Global const variables:
-Integers: 8
+Integers: 3
 Floats: 0
-Strings: 0
-Booleans: 3
+Strings: 9
+Booleans: 1
 
-Global image variables: 0
+Global image variables: 1
 
 FUNCTION 1:
 
 Local variables:
-Integers: 2
+Integers: 0
 Floats: 0
 Strings: 0
 Booleans: 0
 
 Local temp variables:
-Integers: 3
+Integers: 4
 Floats: 0
-Strings: 0
-Booleans: 3
+Strings: 5
+Booleans: 1
 
 Local const variables:
 Integers: 0

@@ -3,16 +3,16 @@ program diff_colors;
 var original : image;
 var filename, decision, folder : string;
 
+function create_diff_color_image(folder: string, filename : string, prefix : string) : void {
+    original.open(folder + filename);
+    original.change_color(prefix == "red_", prefix == "green_", prefix == "blue_");
+    original.save(folder + prefix + filename);
+}
+
 {
     folder = sinput("What folder are your images located in? (Leave blank for root directory)");
     filename = sinput("What image would you like to create different color versions of?");
-    original.open(folder + filename);
-    original.change_color(1, 0, 0);
-    original.save(folder + "red_" + filename);
-    original.open(folder + filename);
-    original.change_color(0, 1, 0);
-    original.save(folder + "green_" + filename);
-    original.open(folder + filename);
-    original.change_color(0, 0, 1);
-    original.save(folder + "blue_" + filename);
+    create_diff_color_image(folder, filename, "red_");
+    create_diff_color_image(folder, filename, "green_");
+    create_diff_color_image(folder, filename, "blue_");
 }

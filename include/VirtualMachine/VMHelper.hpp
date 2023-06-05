@@ -713,22 +713,22 @@ struct VMHelper {
         float r, g, b;
         if (getType(addresses[0]) == FLOAT_) {
             r = getValueFloat(addresses[0]);
-        } else if (getType(addresses[0]) == INT_) {
-            r = getValueInt(addresses[0]);
+        } else if (getType(addresses[0]) == INT_ || getType(addresses[0]) == BOOL_) {
+            r = getValueIntOrBool(addresses[0], getType(addresses[0]));
         } else {
             raiseError("ERROR: r value for change_color() must be a float!");
         }
         if (getType(addresses[1]) == FLOAT_) {
             g = getValueFloat(addresses[1]);
-        } else if (getType(addresses[1]) == INT_) {
-            g = getValueInt(addresses[1]);
+        } else if (getType(addresses[1]) == INT_ || getType(addresses[1]) == BOOL_) {
+            g = getValueIntOrBool(addresses[1], getType(addresses[1]));
         } else {
             raiseError("ERROR: g value for change_color() must be a float!");
         }
         if (getType(addresses[2]) == FLOAT_) {
             b = getValueFloat(addresses[2]);
-        } else if (getType(addresses[2]) == INT_) {
-            b = getValueInt(addresses[2]);
+        } else if (getType(addresses[2]) == INT_ || getType(addresses[2]) == BOOL_) {
+            b = getValueIntOrBool(addresses[2], getType(addresses[2]));
         } else {
             raiseError("ERROR: b value for change_color() must be a float!");
         }

@@ -2,13 +2,18 @@ program clones;
 
 var original : image;
 var i, n : int;
-var filename : string;
+var filename, folder : string;
+
+function getCloneName(filename : string) : string {
+    return(folder + "clone" + i + "_" + filename);
+}
 
 {
+    folder = sinput("What folder are your images located in? (Leave blank for root directory)");
     filename = sinput("What image would you like to clone?");
-    original.open(filename);
+    original.open(folder + filename);
     n = input("How many clones do you want?");
     for (i = 1 to n + 1) {
-        original.save("images/clone" + i + ".png");
+        original.save(getCloneName(filename));
     }
 }
