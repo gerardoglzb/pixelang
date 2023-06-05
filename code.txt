@@ -3,5 +3,6 @@ program test;
 var a : int;
 
 {
+    a = input("Fuck", a);
     a = input();
 }

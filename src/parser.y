@@ -506,15 +506,23 @@ printing_2 :
     | ;
 
 inputting :
-    INPUT LEFT_PAR RIGHT_PAR {
+    INPUT input_message {
         generateInput(INT_);
     }
-    | FINPUT LEFT_PAR RIGHT_PAR {
+    | FINPUT input_message {
         generateInput(FLOAT_);
     }
-    | SINPUT LEFT_PAR RIGHT_PAR {
+    | SINPUT input_message {
         generateInput(STRING_);
     } ;
+
+input_message :
+    LEFT_PAR {
+        pushOperator(PRINT_);
+    } expression_or_str printing_2 RIGHT_PAR {
+        checkIfShouldDoOperation(vector<int>({PRINT_}));
+    }
+    | LEFT_PAR RIGHT_PAR ;
 
 expression_or_str :
     expression

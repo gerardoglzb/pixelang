@@ -15,30 +15,8 @@ Booleans: 0
 Global const variables:
 Integers: 3
 Floats: 0
-Strings: 0
+Strings: 1
 Booleans: 0
 
 Global image variables: 0
-
-FUNCTION 1:
-
-Local variables:
-Integers: 3
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local temp variables:
-Integers: 10
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local const variables:
-Integers: 0
-Floats: 0
-Strings: 0
-Booleans: 0
-
-Local image variables: 0
 

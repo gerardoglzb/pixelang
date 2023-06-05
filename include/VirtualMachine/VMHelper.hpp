@@ -558,7 +558,6 @@ struct VMHelper {
         if (resultType == INT_) {
             int input;
             cin >> input;
-            cout << input << endl;
             setValue(resultAddress, input);
         } else if (resultType == FLOAT_) {
             float input;
