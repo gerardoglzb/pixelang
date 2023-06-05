@@ -60,7 +60,7 @@ struct Memory {
             return memoryFloat->addValue();
         }
         if (type == STRING_) {
-            return memoryFloat->addValue();
+            return memoryString->addValue();
         }
         if (type == BOOL_) {
             return memoryBool->addValue();

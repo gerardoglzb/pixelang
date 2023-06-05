@@ -3,5 +3,5 @@ program inputting;
 var f : float;
 
 {
-    f = finput();
+    print(sinput());
 }

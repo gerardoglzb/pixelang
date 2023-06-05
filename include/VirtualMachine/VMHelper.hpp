@@ -566,7 +566,7 @@ struct VMHelper {
         } else if (resultType == STRING_) {
             string input;
             cin >> input;
-            setValue(resultAddress, input);
+            setValue(resultAddress, "'" + input + "'");
         } else {
             raiseError("ERROR (INTERNAL): Input type error.");
         }

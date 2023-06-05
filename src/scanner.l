@@ -19,6 +19,7 @@ FunctionDirectory functionDirectory = FunctionDirectory();
 "int"                           { yylval.chType = INT_; return INT; }
 "float"                         { yylval.chType = FLOAT_; return FLOAT; }
 "bool"                          { yylval.chType = BOOL_; return BOOL; }
+"string"                        { yylval.chType = STRING_; return STRING; }
 "image"                         { yylval.chType = IMAGE_; return IMAGE; }
 "if"                            { return IF; }
 "else"                          { return ELSE; }

@@ -49,53 +49,54 @@
      INT = 265,
      FLOAT = 266,
      BOOL = 267,
-     IMAGE = 268,
-     IF = 269,
-     ELSE = 270,
-     PRINT = 271,
-     INPUT = 272,
-     FINPUT = 273,
-     SINPUT = 274,
-     FOR = 275,
-     DO = 276,
-     WHILE = 277,
-     TO = 278,
-     FUNCTION = 279,
-     RETURN = 280,
-     VOID = 281,
-     ADDITION = 282,
-     SUBSTRACTION = 283,
-     MULTI = 284,
-     DIV = 285,
-     MOD = 286,
-     LESS_THAN = 287,
-     MORE_THAN = 288,
-     NOT_EQUAL = 289,
-     GREATEREQ = 290,
-     LESSEQ = 291,
-     EQUAL = 292,
-     EQUAL_TO = 293,
-     AND = 294,
-     OR = 295,
-     NOT = 296,
-     LEFT_PAR = 297,
-     RIGHT_PAR = 298,
-     LEFT_CURLY = 299,
-     RIGHT_CURLY = 300,
-     LEFT_BRACK = 301,
-     RIGHT_BRACK = 302,
-     COLON = 303,
-     SEMICOLON = 304,
-     COMMA = 305,
-     ARROW = 306,
-     OPEN = 307,
-     GRAYSCALE = 308,
-     SAVE = 309,
-     BANDW = 310,
-     CHANGE_COLOR = 311,
-     HFLIP = 312,
-     VFLIP = 313,
-     CROP = 314
+     STRING = 268,
+     IMAGE = 269,
+     IF = 270,
+     ELSE = 271,
+     PRINT = 272,
+     INPUT = 273,
+     FINPUT = 274,
+     SINPUT = 275,
+     FOR = 276,
+     DO = 277,
+     WHILE = 278,
+     TO = 279,
+     FUNCTION = 280,
+     RETURN = 281,
+     VOID = 282,
+     ADDITION = 283,
+     SUBSTRACTION = 284,
+     MULTI = 285,
+     DIV = 286,
+     MOD = 287,
+     LESS_THAN = 288,
+     MORE_THAN = 289,
+     NOT_EQUAL = 290,
+     GREATEREQ = 291,
+     LESSEQ = 292,
+     EQUAL = 293,
+     EQUAL_TO = 294,
+     AND = 295,
+     OR = 296,
+     NOT = 297,
+     LEFT_PAR = 298,
+     RIGHT_PAR = 299,
+     LEFT_CURLY = 300,
+     RIGHT_CURLY = 301,
+     LEFT_BRACK = 302,
+     RIGHT_BRACK = 303,
+     COLON = 304,
+     SEMICOLON = 305,
+     COMMA = 306,
+     ARROW = 307,
+     OPEN = 308,
+     GRAYSCALE = 309,
+     SAVE = 310,
+     BANDW = 311,
+     CHANGE_COLOR = 312,
+     HFLIP = 313,
+     VFLIP = 314,
+     CROP = 315
    };
 #endif
 /* Tokens.  */
@@ -109,53 +110,54 @@
 #define INT 265
 #define FLOAT 266
 #define BOOL 267
-#define IMAGE 268
-#define IF 269
-#define ELSE 270
-#define PRINT 271
-#define INPUT 272
-#define FINPUT 273
-#define SINPUT 274
-#define FOR 275
-#define DO 276
-#define WHILE 277
-#define TO 278
-#define FUNCTION 279
-#define RETURN 280
-#define VOID 281
-#define ADDITION 282
-#define SUBSTRACTION 283
-#define MULTI 284
-#define DIV 285
-#define MOD 286
-#define LESS_THAN 287
-#define MORE_THAN 288
-#define NOT_EQUAL 289
-#define GREATEREQ 290
-#define LESSEQ 291
-#define EQUAL 292
-#define EQUAL_TO 293
-#define AND 294
-#define OR 295
-#define NOT 296
-#define LEFT_PAR 297
-#define RIGHT_PAR 298
-#define LEFT_CURLY 299
-#define RIGHT_CURLY 300
-#define LEFT_BRACK 301
-#define RIGHT_BRACK 302
-#define COLON 303
-#define SEMICOLON 304
-#define COMMA 305
-#define ARROW 306
-#define OPEN 307
-#define GRAYSCALE 308
-#define SAVE 309
-#define BANDW 310
-#define CHANGE_COLOR 311
-#define HFLIP 312
-#define VFLIP 313
-#define CROP 314
+#define STRING 268
+#define IMAGE 269
+#define IF 270
+#define ELSE 271
+#define PRINT 272
+#define INPUT 273
+#define FINPUT 274
+#define SINPUT 275
+#define FOR 276
+#define DO 277
+#define WHILE 278
+#define TO 279
+#define FUNCTION 280
+#define RETURN 281
+#define VOID 282
+#define ADDITION 283
+#define SUBSTRACTION 284
+#define MULTI 285
+#define DIV 286
+#define MOD 287
+#define LESS_THAN 288
+#define MORE_THAN 289
+#define NOT_EQUAL 290
+#define GREATEREQ 291
+#define LESSEQ 292
+#define EQUAL 293
+#define EQUAL_TO 294
+#define AND 295
+#define OR 296
+#define NOT 297
+#define LEFT_PAR 298
+#define RIGHT_PAR 299
+#define LEFT_CURLY 300
+#define RIGHT_CURLY 301
+#define LEFT_BRACK 302
+#define RIGHT_BRACK 303
+#define COLON 304
+#define SEMICOLON 305
+#define COMMA 306
+#define ARROW 307
+#define OPEN 308
+#define GRAYSCALE 309
+#define SAVE 310
+#define BANDW 311
+#define CHANGE_COLOR 312
+#define HFLIP 313
+#define VFLIP 314
+#define CROP 315
 
 
 
@@ -179,7 +181,7 @@ typedef union YYSTYPE
     int imgFunc;
 }
 /* Line 1529 of yacc.c.  */
-#line 183 "./bin/parser.tab.h"
+#line 185 "./bin/parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

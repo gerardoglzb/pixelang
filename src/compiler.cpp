@@ -760,3 +760,11 @@ void generateInput(int type) {
     generateQuad(INPUT_, -1, -1, address);
     pushOperandOfType(address, type);
 }
+
+bool getCurrentFactorWasNegated() {
+    return currentFactorWasNegated;
+}
+
+void setCurrentFactorWasNegated(bool wasNegated) {
+    currentFactorWasNegated = wasNegated;
+}

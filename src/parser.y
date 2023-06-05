@@ -43,6 +43,7 @@
 %token INT
 %token FLOAT
 %token BOOL
+%token STRING
 %token IMAGE
 %token IF
 %token ELSE
@@ -207,6 +208,7 @@ type :
     INT
     | FLOAT
     | BOOL
+    | STRING
     | IMAGE ;
 
 params :
@@ -286,18 +288,20 @@ exp2 :
 
 term :
     negation factor {
-        checkIfShouldDoOperation(vector<int>({MULTI_}));
+        if (getCurrentFactorWasNegated()) {
+            checkIfShouldDoOperation(vector<int>({MULTI_}));
+        }
         checkIfShouldDoOperation(vector<int>({MULTI_, DIV_, MOD_}));
     } term2 ;
 
 negation :
     SUBSTRACTION {
+        setCurrentFactorWasNegated(true);
         pushOperator(MULTI_);
         pushOperandOfType(declareCte(INT_, -1), INT_);
     }
     | {
-        pushOperator(MULTI_);
-        pushOperandOfType(declareCte(INT_, 1), INT_);
+        setCurrentFactorWasNegated(false);
     } ;
 
 term2 :
@@ -333,6 +337,9 @@ var_cte :
     }
     | CTE_BOOL {
         pushOperandOfType(declareCte(BOOL_, $1), BOOL_);
+    }
+    | CTE_STRING {
+        pushOperandOfType(declareCte(STRING_, $1), STRING_);
     } ;
 
 array_or_func :

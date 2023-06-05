@@ -8,8 +8,8 @@ Booleans: 0
 
 Global temp variables:
 Integers: 0
-Floats: 3
-Strings: 0
+Floats: 0
+Strings: 1
 Booleans: 0
 
 Global const variables:

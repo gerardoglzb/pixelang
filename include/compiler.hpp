@@ -31,6 +31,7 @@ static int lastAssignmentType; // Stores type of the last value that was assigne
 static int lastAssignment; // Stores address of the last value that was assigned a value
 
 static int currentFuncType; // Stores the current function's type
+static bool currentFactorWasNegated; // Stores whether the current factor that is being used was negated
 
 static vector<Quadruple> quads; // Stores all the quads
 
@@ -726,3 +727,22 @@ Used by:
     Parser.
 */
 void generateInput(int type);
+
+
+/*
+Gets currentFactorWasNegated.
+Returns:
+    currentFactorWasNegated.
+Used by:
+    Parser.
+*/
+bool getCurrentFactorWasNegated();
+
+/*
+Sets currentFactorWasNegated.
+Parameters.
+    wasNegated: whether the current factor was negated.
+Used by:
+    Parser.
+*/
+void setCurrentFactorWasNegated(bool wasNegated);
